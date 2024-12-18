@@ -1,0 +1,29 @@
+---
+title: "Applied Bayesian Modelling"
+subtitle: "MASH M2"
+author: "Dr Joshua J Bon"
+bibliography: refs.bib
+format:
+  revealjs:
+    html-math-method: mathjax 
+    theme: default
+    df-print: paged
+    incremental: false 
+    css: style.css
+    chalkboard: true
+    logo: dauphine-logo-white.png
+editor: source
+---
+
+## Getting started
+
+
+# Section 1
+
+# Section 2
+
+# Section 3
+
+# Section 4
+
+# Section 5
