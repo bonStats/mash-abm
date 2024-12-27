@@ -29,9 +29,109 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="mash-abm_files/libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="style.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="mash-abm_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="mash-abm_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="mash-abm_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -323,6 +423,8 @@
       margin-right: 0; 
     }
   </style>
+  <link href="mash-abm_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+  <script src="mash-abm_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -343,19 +445,240 @@ Dr Joshua J Bon
 </section>
 <section id="getting-started" class="slide level2">
 <h2>Getting started</h2>
+<p>Applied Bayesian modelling - Statistical inference, prediction - Bayesian models - Computation - Workflows</p>
 </section>
-<section id="section-1" class="title-slide slide level1 center">
-<h1>Section 1</h1>
-
-</section>
-
-<section id="section-2" class="title-slide slide level1 center">
-<h1>Section 2</h1>
+<section>
+<section id="section-1-bayesian-statistics" class="title-slide slide level1 center">
+<h1>Section 1: Bayesian statistics</h1>
 
 </section>
+<section id="example-1-députés-debut-age" class="slide level2">
+<h2>Example 1: Députés debut age</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>) </span>
+<span id="cb1-5"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb1-8"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">356.25</span>)) <span class="sc">+</span></span>
+<span id="cb1-9"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Debut age"</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Number of politicians"</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
+</div>
+<img data-src="mash-abm_files/figure-revealjs/dep-debut-1.png" width="960" class="r-stretch"></section>
+<section id="statistical-inference-and-prediction" class="slide level2">
+<h2>Statistical inference and prediction</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Lay question</strong></p>
+</div>
+<div class="callout-content">
+<p>What age do politicians make their debut in parliament?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Statistical questions</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>What is the <em>average</em> age at debut?</li>
+<li>What is the <em>variance</em> in age at debut?</li>
+<li>What <em>statistical model</em> best explains the distribution of question numbers?</li>
+</ol>
+</div>
+</div>
+</div>
+<ul>
+<li>In France, according to the 2019 data!</li>
+</ul>
+</section>
+<section id="bayes-rule" class="slide level2">
+<h2>Bayes rule</h2>
+<p>Two events <span class="math inline">A</span> and <span class="math inline">B</span></p>
+<p><span class="math display">\Pr(A\mid B) = \frac{\Pr(B \mid A) \Pr(A)}{\Pr(B)}</span></p>
+</section>
+<section id="bayes-theorem-for-inference" class="slide level2">
+<h2>Bayes theorem for inference</h2>
+<ul>
+<li>Assume observed data: <span class="math inline">X \sim P_\theta</span> for some unknown <span class="math inline">\theta</span>.</li>
+<li>Assume we have a prior belief for <span class="math inline">\theta \sim \Pi</span></li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Posterior distribution</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\Pi(\mathrm{d}\theta \mid X=x) = \frac{p(x \mid \theta)\Pi(\mathrm{d}\theta)}{p(x)}</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="bayes-theorem-for-inference-1" class="slide level2">
+<h2>Bayes theorem for inference</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Posterior density</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\pi(\theta \mid x) = \frac{p(x \mid \theta)\pi(\theta)}{Z}</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">p(x \mid \theta)</span> is density<sup>1</sup> of <span class="math inline">P_\theta</span> at <span class="math inline">x</span> for a given <span class="math inline">\theta</span>.</li>
+<li><span class="math inline">\pi(\theta)</span> is prior density of <span class="math inline">\theta</span>.</li>
+<li><span class="math inline">Z</span> is normalising constant (or model evidence)</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Probability density (mass) function (PDF/PMF).</p></li></ol></aside></section>
+<section id="bayes-theorem-for-inference-2" class="slide level2">
+<h2>Bayes theorem for inference</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Posterior density</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\pi(\theta \mid x) = \frac{p(x \mid \theta)\pi(\theta)}{Z}</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li>Marginal likelihood
+<ul>
+<li><span class="math inline">Z = p(x) = \int_\Theta p(x \mid \theta) \Pi(\mathrm{d}\theta)</span></li>
+</ul></li>
+<li>Likelihood
+<ul>
+<li><span class="math inline">L(\theta) = p(x \mid \theta)</span> for fixed <span class="math inline">x</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="demonstration-posterior-ex-1" class="slide level2">
+<h2>Demonstration: Posterior (Ex 1)</h2>
+<ul>
+<li>Age first elected <span class="math inline">X_i</span> for <span class="math inline">i\in\{1,2,\ldots,565\}</span></li>
+</ul>
+<p>Assume model and prior</p>
+<ul>
+<li><span class="math inline">X_i \overset{\text{iid}}{\sim} \text{Gamma}(\alpha,\beta)</span></li>
+<li><span class="math inline">\alpha = 200</span> fixed</li>
+<li><span class="math inline">\beta \sim \text{Gamma}(\alpha_0,\beta_0)</span></li>
+</ul>
+</section>
+<section id="conjugate-priors" class="slide level2">
+<h2>Conjugate priors</h2>
+</section>
+<section id="posterior-computation" class="slide level2">
+<h2>Posterior Computation</h2>
+<p>What if I don’t use a conjugate prior? Use computational methods:</p>
+<ul>
+<li></li>
+</ul>
+</section>
+<section id="choice-of-prior" class="slide level2">
+<h2>Choice of prior</h2>
+</section>
+<section id="choice-of-model" class="slide level2">
+<h2>Choice of model</h2>
+</section>
+<section id="recap-ingredients-of-bayesian-models" class="slide level2">
+<h2>Recap: Ingredients of Bayesian models</h2>
+</section>
+<section id="example-2-députés-questions" class="slide level2">
+<h2>Example 2: Députés Questions</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href=""></a></span>
+<span id="cb2-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>) </span>
+<span id="cb2-5"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
+<span id="cb2-6"><a href=""></a></span>
+<span id="cb2-7"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb2-8"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
+<span id="cb2-9"><a href=""></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
+<span id="cb2-10"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="mash-abm_files/figure-revealjs/dep-questions-1.png" width="960" class="r-stretch"></section>
+<section id="example-2-statistical-inference" class="slide level2">
+<h2>Example 2: Statistical inference</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Lay question</strong></p>
+</div>
+<div class="callout-content">
+<p>Do the number of questions politicians ask differ by gender?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Statistical questions</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Does the <em>average</em> number of questions differ by gender?</li>
+<li>Does the <em>variance</em> in the number of questions differ by gender?</li>
+<li>What <em>statistical model</em> best explains the distribution of question numbers?</li>
+</ol>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="section-2-bayes-computation" class="title-slide slide level1 center">
+<h1>Section 2: Bayes computation</h1>
+
+</section>
+<section id="monte-carlo" class="slide level2">
+<h2>Monte Carlo</h2>
+</section>
+<section id="importance-sampling" class="slide level2">
+<h2>Importance sampling</h2>
+</section>
+<section id="markov-chain-monte-carlo" class="slide level2">
+<h2>Markov chain Monte Carlo</h2>
+</section></section>
 <section id="section-3" class="title-slide slide level1 center">
-<h1>Section 3</h1>
+<h1>Section 3:</h1>
 
 </section>
 
@@ -364,8 +687,19 @@ Dr Joshua J Bon
 
 </section>
 
+<section>
 <section id="section-5" class="title-slide slide level1 center">
 <h1>Section 5</h1>
+
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+<div id="refs" role="list">
+
+</div>
+</section></section>
+<section id="appendices" class="title-slide slide level1 center">
+<h1>Appendices</h1>
 <div class="quarto-auto-generated-content">
 <p><img src="dauphine-logo-white.png" class="slide-logo"></p>
 <div class="footer footer-default">
@@ -373,6 +707,8 @@ Dr Joshua J Bon
 </div>
 </div>
 </section>
+
+
     </div>
   </div>
 
@@ -390,7 +726,6 @@ Dr Joshua J Bon
   <script src="mash-abm_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="mash-abm_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="mash-abm_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="mash-abm_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -558,33 +893,53 @@ Dr Joshua J Bon
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
