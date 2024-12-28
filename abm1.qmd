@@ -1,6 +1,6 @@
 ---
 title: "Applied Bayesian Modelling"
-subtitle: "MASH M2"
+subtitle: "Section 1"
 author: "Dr Joshua J Bon"
 bibliography: refs.bib
 format:
@@ -122,6 +122,18 @@ Assume model and prior
 - $\beta \sim \text{Gamma}(\alpha_0,\beta_0)$
 
 
+## Choice of prior
+
+$$\Pi(\mathrm{d}\theta)$$
+
+- Incorporate prior knowledge
+  - Support of parameter
+  - Moments
+  - Quantiles
+  - Prior predictive distribution
+- Hyper priors
+- Computationally tractable
+
 ## Conjugate priors
 
 A prior is a _conjugate prior_ if given a likelihood, the prior and posterior are in the same family of distributions.
@@ -132,15 +144,37 @@ For known distributions, conjugate priors are _tractable_.
 - Normal prior on mean is conjugate prior for Normal likelihood (fixed variance)
 - Inverse Gamma prior on variance is conjugate prior for Normal likelihood (fixed mean)
 
-## Jefferys prior
 
-Recall Fisher information matrix
+## Flat/uniform priors
 
-$$\mathcal{I}(\theta) = \mathbb{E}\left[ \left(\frac{\partial \log L}{\partial \theta}\right)^2 \right]$$
+$$\pi(\theta) \propto 1$$
 
-or for regular models $\mathcal{I}(\theta) = -\mathbb{E}\left[ \frac{\partial^2 \log L}{\partial \theta^2} \right]$
+$\Pi$ may be an **improper prior**, $\int_{\Theta}\pi(\theta) = \infty$.
 
-$$\pi(\theta) \propto \$$
+Flat priors may still contain information^[See "The prior can often only be understood in the context of the likelihood", [@gelman2017prior] ]
+
+## Non-informative and weakly-informative priors
+
+- Diffuse priors, e.g. $\theta \sim \text{N}(0, \sigma^2)$ with large $\sigma^2$
+  - Note: $\sigma^2 \rightarrow \infty$ is a flat improper prior
+- Priors with invariance, symmetry, uncertainty principles
+  - Jefferys priors^[[@robert2009harold]]
+  - Reference priors^[[@berger2009formal]]
+  - Objective priors^[[@ghosh2011objective]]
+
+
+## Jefferys priors
+
+Recall Fisher information matrix for regular models
+
+$$\mathcal{I}(\theta) = -\mathbb{E}\left[ \frac{\partial^2 \log L}{\partial \theta^2} \right]$$
+
+
+$$\pi(\theta) \propto |\mathcal{I}(\theta)|^{1/2}$$
+
+Property: for continuous parameters, invariance under reparameterisation
+
+May be improper
 
 ## Posterior Computation
 
@@ -154,18 +188,6 @@ Use computational methods:
 - IS: Importance sampling
 - SMC: Sequential Monte Carlo
 
-## Choice of prior
-
-$$\Pi(\mathrm{d}\theta)$$
-
-- Incorporate prior knowledge
-  - Support of parameter
-  - Moments
-  - Quantiles
-  - Prior predictive distribution
-- Hyper priors
-- Computationally tractable
-
 ## Choice of model
 
 $$P_\theta$$
@@ -178,16 +200,21 @@ How are the data distributed? Is this a good approximation?
     - Dynamics
   - Prior predictive distribution
   
-## Model checking I: Model evidence
+## Model checking I: Bayes Factors
 
+$$Z_i = \int_\Theta p_i(x \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ p_i(x\mid\theta)\right]$$
 
+Model evidence = Expected likelihood of the observed data w.r.t. the prior for $M_i$
 
+Bayes factor $\text{BF}(M_1,M_2) = \frac{Z_1}{Z_2}$
 
-## Recap: Ingredients of Bayesian models
+## Model checking I: Bayes Factors
 
-1. Prior
-2. Model
-3. Computation
+Interpretation of Bayes factors
+
+$$
+\text{BF}(M_1,M_2) = \frac{\Pr(M_1\mid x)}{\Pr(M_2\mid x)} = \frac{Z_1}{Z_2}
+$$
 
 ## Example 2: Députés Questions
 
@@ -224,19 +251,23 @@ Do the number of questions politicians ask differ by gender?
 :::
 
 
-# Section 2: Bayes computation
+## Monte Carlo integration
 
-## Monte Carlo
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P$$
+
+In the sense that $\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right] $ as $n\rightarrow \infty$ if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$.
 
 ## Importance sampling
 
-## Markov chain Monte Carlo
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q$$
 
-# Section 3: 
+In the sense that $\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right] $ as $n\rightarrow \infty$ if $\mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right]  < \infty$.
 
-# Section 4
+## Recap: Ingredients of Bayesian models
 
-# Section 5
+1. Prior
+2. Model
+3. Computation
 
 ## References
 
