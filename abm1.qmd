@@ -1,6 +1,6 @@
 ---
 title: "Applied Bayesian Modelling"
-subtitle: "Section 1"
+subtitle: "Section 1: Bayesian statistical inference"
 author: "Dr Joshua J Bon"
 bibliography: refs.bib
 format:
@@ -13,19 +13,18 @@ format:
     chalkboard: true
     logo: dauphine-logo-white.png
 editor: source
+from: markdown+emoji
 ---
 
+## Applied Bayesian modelling
 
-## Getting started
+-   Statistical inference :white_check_mark:
+-   Statistical prediction
+-   Bayesian models :white_check_mark:
+-   Computation :white_check_mark:
+-   Workflows
 
-Applied Bayesian modelling
- - Statistical inference, prediction
- - Bayesian models
- - Computation
- - Workflows
-
-
-# Section 1: Bayesian statistics
+# Statistical inference
 
 ## Example 1: Députés debut age
 
@@ -47,22 +46,25 @@ ggplot(deputes) +
 
 ```
 
-## Statistical inference and prediction
+## Statistical inference
 
-:::{.callout-note}
-## Lay question 
+::: callout-note
+## Lay question
+
 What age do politicians make their debut in parliament?
 :::
 
-:::{.callout-tip}
+::: callout-tip
 ## Statistical questions
 
-1. What is the _average_ age at debut?
-2. What is the _variance_ in age at debut?
-3. What _statistical model_ best explains the distribution of question numbers? 
+1.  What is the *average* age at debut?
+2.  What is the *variance* in age at debut?
+3.  What *statistical model* best explains the distribution of question numbers?
 :::
 
-- In France, according to the 2019 data!
+-   In France, according to the 2019 data!
+
+# Introduction to Bayes
 
 ## Bayes rule
 
@@ -72,96 +74,103 @@ $$\Pr(A\mid B) = \frac{\Pr(B \mid A) \Pr(A)}{\Pr(B)}$$
 
 ## Bayes theorem for inference
 
-- Assume observed data: $X \sim P_\theta$ for some unknown $\theta$.
-- Assume we have a prior belief for $\theta \sim \Pi$ 
+-   Assume observed data: $Y \sim P(\cdot\mid\theta)$ for some unknown $\theta$
+-   Assume we have a prior belief for $\theta \sim \Pi$
 
-:::{.callout-tip}
+::: callout-tip
 ## Posterior distribution
 
-$$\Pi(\mathrm{d}\theta \mid X=x) = \frac{p(x \mid \theta)\Pi(\mathrm{d}\theta)}{p(x)}$$
-
+$$\Pi(\mathrm{d}\theta \mid Y=y) = \frac{p(y \mid \theta)\Pi(\mathrm{d}\theta)}{m(y)}$$
 :::
 
 ## Bayes theorem for inference
 
-:::{.callout-tip}
+::: callout-tip
 ## Posterior density
-$$\pi(\theta \mid x) = \frac{p(x \mid \theta)\pi(\theta)}{Z}$$
+
+$$\pi(\theta \mid y) = \frac{p(y \mid \theta)\pi(\theta)}{m(y)}$$
 :::
--  $p(x \mid \theta)$ is density^[Probability density (mass) function (PDF/PMF).] of $P_\theta$ at $x$ for a given $\theta$.
-- $\pi(\theta)$ is prior density of $\theta$.
-- $Z$ is normalising constant (or model evidence)
+
+-   $p(y \mid \theta)$ is density^[Probability density (e.g. PDF/PMF)] of $P(\cdot\mid\theta)$ at $y$ for a given $\theta$
+-   $\pi(\theta)$ is prior density of $\theta$
+-   $m(y)$ is the model evidence^[Also known as the posterior normalising constant, or marginal likelihood]
 
 ## Bayes theorem for inference
 
-:::{.callout-tip}
+::: callout-tip
 ## Posterior density
-$$\pi(\theta \mid x) = \frac{p(x \mid \theta)\pi(\theta)}{Z}$$
+
+$$\pi(\theta \mid y) = \frac{p(y \mid \theta)\pi(\theta)}{m(y)}$$
 :::
 
-- Marginal likelihood
-  - $Z = p(x) = \int_\Theta p(x \mid \theta) \Pi(\mathrm{d}\theta)$
-- Likelihood
-  - $L(\theta) = p(x \mid \theta)$ for fixed $x$.
-  
+-   Marginal likelihood
+    -   $Z = m(y) = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta) = \mathbb{E}_{\theta \sim \Pi}\left[p(y \mid \theta)\right]$
+-   Likelihood
+    -   $L(\cdot\mid y) = p(y \mid \cdot)$ for fixed $y$.
+
 ## Posterior quantities
 
-- Moments
-- Median, mode
-- Credible intervals (quantiles)
-- Posterior predictive distribution
+-   Moments
+-   Median, mode
+-   Credible intervals (quantiles)
+-   Posterior predictive distribution
 
-## Demonstration: Posterior (Ex 1) 
+## Demonstration: Posterior (Ex 1)
 
-- Age first elected $X_i$ for $i\in\{1,2,\ldots,565\}$
+-   Age first elected $Y_i$ for $i\in\{1,2,\ldots,565\}$
 
 Assume model and prior
 
-- $X_i \mid \beta \overset{\text{iid}}{\sim} \text{Gamma}(\alpha,\beta)$
-- $\alpha = 200$ fixed
-- $\beta \sim \text{Gamma}(\alpha_0,\beta_0)$
+-   $Y_i \mid \beta \overset{\text{iid}}{\sim} \text{Gamma}(\alpha,\beta)$
+-   $\alpha = 200$ fixed
+-   $\beta \sim \text{Gamma}(\alpha_0,\beta_0)$
 
+# Choosing a prior
 
-## Choice of prior
+## Choice of prior: $\Pi$
 
-$$\Pi(\mathrm{d}\theta)$$
-
-- Incorporate prior knowledge
-  - Support of parameter
-  - Moments
-  - Quantiles
-  - Prior predictive distribution
-- Hyper priors
-- Computationally tractable
+-   Incorporate prior knowledge
+    -   Support of parameter
+    -   Moments
+    -   Quantiles
+    -   Prior predictive distribution
+-   Hyper priors
+-   Computationally tractable
 
 ## Conjugate priors
 
-A prior is a _conjugate prior_ if given a likelihood, the prior and posterior are in the same family of distributions.
+::: callout-tip
+## Conjugate prior
 
-For known distributions, conjugate priors are _tractable_.
+A prior is a *conjugate prior* if given a likelihood, the prior and posterior are in the same family of distributions.
+:::
 
-- Gamma prior on rate is conjugate prior for Gamma likelihood (fixed scale)
-- Normal prior on mean is conjugate prior for Normal likelihood (fixed variance)
-- Inverse Gamma prior on variance is conjugate prior for Normal likelihood (fixed mean)
+For known distributions, conjugate priors are *tractable*.
 
+## Conjugate prior examples
+
+-   Gamma prior on rate $\beta$ is conjugate prior for Gamma likelihood (fixed shape $\alpha$)
+-   Normal prior on mean $\mu$ is conjugate prior for Normal likelihood (fixed variance $\sigma^2$)
+-   Inverse Gamma prior on variance $\sigma^2$ is conjugate prior for Normal likelihood (fixed mean $\mu$)
 
 ## Flat/uniform priors
 
 $$\pi(\theta) \propto 1$$
 
-$\Pi$ may be an **improper prior**, $\int_{\Theta}\pi(\theta) = \infty$.
+- $\Pi$ may be an **improper prior**, $\int_{\Theta}\pi(\theta) = \infty$.
 
-Flat priors may still contain information^[See "The prior can often only be understood in the context of the likelihood", [@gelman2017prior] ]
+- Flat priors may still contain information[^2]
+
+[^2]: See "The prior can often only be understood in the context of the likelihood", [@gelman2017prior]
 
 ## Non-informative and weakly-informative priors
 
-- Diffuse priors, e.g. $\theta \sim \text{N}(0, \sigma^2)$ with large $\sigma^2$
-  - Note: $\sigma^2 \rightarrow \infty$ is a flat improper prior
-- Priors with invariance, symmetry, uncertainty principles
-  - Jefferys priors^[[@robert2009harold]]
-  - Reference priors^[[@berger2009formal]]
-  - Objective priors^[[@ghosh2011objective]]
-
+-   Diffuse priors, e.g. $\theta \sim \text{N}(0, \sigma^2)$ with large $\sigma^2$
+    -   Note: $\sigma^2 \rightarrow \infty$ is a flat improper prior
+-   Priors with invariance, symmetry, uncertainty principles
+    -   Jefferys priors [@robert2009harold]
+    -   Reference priors [@berger2009formal]
+    -   Objective priors [@ghosh2011objective]
 
 ## Jefferys priors
 
@@ -169,52 +178,55 @@ Recall Fisher information matrix for regular models
 
 $$\mathcal{I}(\theta) = -\mathbb{E}\left[ \frac{\partial^2 \log L}{\partial \theta^2} \right]$$
 
-
 $$\pi(\theta) \propto |\mathcal{I}(\theta)|^{1/2}$$
 
-Property: for continuous parameters, invariance under reparameterisation
+- Invariance under reparameterisation
+  - Property for continuous parameters
 
-May be improper
+- May lead to improper prior
 
-## Posterior Computation
-
-What if I don't use a conjugate prior? Intractable normalising constant. Why?
-
-$$Z = \int_\Theta p(x \mid \theta) \Pi(\mathrm{d}\theta)$$
-
-Use computational methods:
-
-- MCMC: Markov chain Monte Carlo
-- IS: Importance sampling
-- SMC: Sequential Monte Carlo
+# Model choice and checking
 
 ## Choice of model
 
-$$P_\theta$$
-How are the data distributed? Is this a good approximation?
+$$P(\cdot\mid\theta)$$ How are the data distributed? Is this a good approximation?
 
-- Incorporate data knowledge
-  - Support of data
-  - Properties of the data
-    - Groups
-    - Dynamics
-  - Prior predictive distribution
-  
+-   Incorporate data knowledge
+    -   Support of data
+    -   Properties of the data
+        -   Groups
+        -   Dynamics
+    -   Prior predictive distribution
+
 ## Model checking I: Bayes Factors
 
-$$Z_i = \int_\Theta p_i(x \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ p_i(x\mid\theta)\right]$$
+$$m_i(y) = \int_\Theta p_i(y \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right]$$
 
-Model evidence = Expected likelihood of the observed data w.r.t. the prior for $M_i$
+- $m_i(y)$ is evidence for model $M_i$ for fixed $y$, depends on
+  - prior $\Pi_i$
+  - likelihood $L_i(\cdot\mid y) = p_i(y \mid \cdot)$
 
-Bayes factor $\text{BF}(M_1,M_2) = \frac{Z_1}{Z_2}$
+- Bayes factor $\text{BF}_{1,0} = \frac{m_1(y)}{m_0(y)}$ compares evidence
 
 ## Model checking I: Bayes Factors
 
 Interpretation of Bayes factors
 
 $$
-\text{BF}(M_1,M_2) = \frac{\Pr(M_1\mid x)}{\Pr(M_2\mid x)} = \frac{Z_1}{Z_2}
+\text{BF}_{1,0} = \frac{\Pr(M_1\mid y)}{\Pr(M_0\mid y)} = \frac{m_1(y)}{m_0(y)}
 $$
+
+## Model checking I: Bayes Factors
+
+Interpretation of Bayes factors
+
+| $\text{BF}_{1,0}$ | Strength of Evidence^[@good1979studies] ($M_1$ vs null $M_0$) |
+|--------------|-----------------------------------------------|
+| 1 to 3.2     | Not worth more than a bare mention            |
+| 3.2 to 10    | Substantial                                   |
+| 10 to 100    | Strong                                        |
+| > 100        | Decisive                                      |
+
 
 ## Example 2: Députés Questions
 
@@ -235,39 +247,67 @@ ggplot(deputes) +
 
 ```
 
-## Example 2: Statistical inference
+## Example 2: Députés Questions
 
-:::{.callout-note}
-## Lay question 
+::: callout-note
+## Lay question
+
 Do the number of questions politicians ask differ by gender?
 :::
 
-:::{.callout-tip}
+::: callout-tip
 ## Statistical questions
 
-1. Does the _average_ number of questions differ by gender?
-2. Does the _variance_ in the number of questions differ by gender?
-3. What _statistical model_ best explains the distribution of question numbers? 
+1.  Does the *average* number of questions differ by gender?
+2.  Does the *variance* in the number of questions differ by gender?
+3.  What *statistical model* best explains the distribution of question numbers?
 :::
 
+# Posterior Approximation
+
+## Posterior Computation
+
+What if I don't use a conjugate prior? Intractable normalising constant. Why?
+
+$$Z = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta)$$
+
+Use computational methods:
+
+-   MCMC: Markov chain Monte Carlo
+-   IS: Importance sampling
+-   SMC: Sequential Monte Carlo
 
 ## Monte Carlo integration
 
-$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P$$
 
-In the sense that $\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right] $ as $n\rightarrow \infty$ if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$.
+::: callout-note
+## Monte Carlo Approximation
+
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P$$
+:::
+
+In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
+
+$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
+
 
 ## Importance sampling
 
-$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q$$
+::: callout-note
+## Importance sampling approximation
 
-In the sense that $\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right] $ as $n\rightarrow \infty$ if $\mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right]  < \infty$.
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q$$
+:::
+
+In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
+
+$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
 
 ## Recap: Ingredients of Bayesian models
 
-1. Prior
-2. Model
-3. Computation
+1.  Prior
+2.  Model
+3.  Computation
 
 ## References
 

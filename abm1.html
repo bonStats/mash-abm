@@ -433,7 +433,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Applied Bayesian Modelling</h1>
-  <p class="subtitle">Section 1</p>
+  <p class="subtitle">Section 1: Bayesian statistical inference</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -444,13 +444,19 @@ Dr Joshua J Bon
 </div>
 
 </section>
-<section id="getting-started" class="slide level2">
-<h2>Getting started</h2>
-<p>Applied Bayesian modelling - Statistical inference, prediction - Bayesian models - Computation - Workflows</p>
+<section id="applied-bayesian-modelling" class="slide level2">
+<h2>Applied Bayesian modelling</h2>
+<ul>
+<li>Statistical inference <span class="emoji" data-emoji="white_check_mark">✅</span></li>
+<li>Statistical prediction</li>
+<li>Bayesian models <span class="emoji" data-emoji="white_check_mark">✅</span></li>
+<li>Computation <span class="emoji" data-emoji="white_check_mark">✅</span></li>
+<li>Workflows</li>
+</ul>
 </section>
 <section>
-<section id="section-1-bayesian-statistics" class="title-slide slide level1 center">
-<h1>Section 1: Bayesian statistics</h1>
+<section id="statistical-inference" class="title-slide slide level1 center">
+<h1>Statistical inference</h1>
 
 </section>
 <section id="example-1-députés-debut-age" class="slide level2">
@@ -473,8 +479,8 @@ Dr Joshua J Bon
 
 </div>
 <img data-src="abm1_files/figure-revealjs/dep-debut-1.png" width="960" class="r-stretch"></section>
-<section id="statistical-inference-and-prediction" class="slide level2">
-<h2>Statistical inference and prediction</h2>
+<section id="statistical-inference-1" class="slide level2">
+<h2>Statistical inference</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -508,6 +514,11 @@ Dr Joshua J Bon
 <ul>
 <li>In France, according to the 2019 data!</li>
 </ul>
+</section></section>
+<section>
+<section id="introduction-to-bayes" class="title-slide slide level1 center">
+<h1>Introduction to Bayes</h1>
+
 </section>
 <section id="bayes-rule" class="slide level2">
 <h2>Bayes rule</h2>
@@ -517,7 +528,7 @@ Dr Joshua J Bon
 <section id="bayes-theorem-for-inference" class="slide level2">
 <h2>Bayes theorem for inference</h2>
 <ul>
-<li>Assume observed data: <span class="math inline">X \sim P_\theta</span> for some unknown <span class="math inline">\theta</span>.</li>
+<li>Assume observed data: <span class="math inline">Y \sim P(\cdot\mid\theta)</span> for some unknown <span class="math inline">\theta</span></li>
 <li>Assume we have a prior belief for <span class="math inline">\theta \sim \Pi</span></li>
 </ul>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -529,7 +540,7 @@ Dr Joshua J Bon
 <p><strong>Posterior distribution</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math display">\Pi(\mathrm{d}\theta \mid X=x) = \frac{p(x \mid \theta)\Pi(\mathrm{d}\theta)}{p(x)}</span></p>
+<p><span class="math display">\Pi(\mathrm{d}\theta \mid Y=y) = \frac{p(y \mid \theta)\Pi(\mathrm{d}\theta)}{m(y)}</span></p>
 </div>
 </div>
 </div>
@@ -545,16 +556,16 @@ Dr Joshua J Bon
 <p><strong>Posterior density</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math display">\pi(\theta \mid x) = \frac{p(x \mid \theta)\pi(\theta)}{Z}</span></p>
+<p><span class="math display">\pi(\theta \mid y) = \frac{p(y \mid \theta)\pi(\theta)}{m(y)}</span></p>
 </div>
 </div>
 </div>
 <ul>
-<li><span class="math inline">p(x \mid \theta)</span> is density<sup>1</sup> of <span class="math inline">P_\theta</span> at <span class="math inline">x</span> for a given <span class="math inline">\theta</span>.</li>
-<li><span class="math inline">\pi(\theta)</span> is prior density of <span class="math inline">\theta</span>.</li>
-<li><span class="math inline">Z</span> is normalising constant (or model evidence)</li>
+<li><span class="math inline">p(y \mid \theta)</span> is density<sup>1</sup> of <span class="math inline">P(\cdot\mid\theta)</span> at <span class="math inline">y</span> for a given <span class="math inline">\theta</span></li>
+<li><span class="math inline">\pi(\theta)</span> is prior density of <span class="math inline">\theta</span></li>
+<li><span class="math inline">m(y)</span> is the model evidence<sup>2</sup></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Probability density (mass) function (PDF/PMF).</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Probability density (e.g.&nbsp;PDF/PMF)</p></li><li id="fn2"><p>Also known as the posterior normalising constant, or marginal likelihood</p></li></ol></aside></section>
 <section id="bayes-theorem-for-inference-2" class="slide level2">
 <h2>Bayes theorem for inference</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -566,18 +577,18 @@ Dr Joshua J Bon
 <p><strong>Posterior density</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math display">\pi(\theta \mid x) = \frac{p(x \mid \theta)\pi(\theta)}{Z}</span></p>
+<p><span class="math display">\pi(\theta \mid y) = \frac{p(y \mid \theta)\pi(\theta)}{m(y)}</span></p>
 </div>
 </div>
 </div>
 <ul>
 <li>Marginal likelihood
 <ul>
-<li><span class="math inline">Z = p(x) = \int_\Theta p(x \mid \theta) \Pi(\mathrm{d}\theta)</span></li>
+<li><span class="math inline">Z = m(y) = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta) = \mathbb{E}_{\theta \sim \Pi}\left[p(y \mid \theta)\right]</span></li>
 </ul></li>
 <li>Likelihood
 <ul>
-<li><span class="math inline">L(\theta) = p(x \mid \theta)</span> for fixed <span class="math inline">x</span>.</li>
+<li><span class="math inline">L(\cdot\mid y) = p(y \mid \cdot)</span> for fixed <span class="math inline">y</span>.</li>
 </ul></li>
 </ul>
 </section>
@@ -593,18 +604,22 @@ Dr Joshua J Bon
 <section id="demonstration-posterior-ex-1" class="slide level2">
 <h2>Demonstration: Posterior (Ex 1)</h2>
 <ul>
-<li>Age first elected <span class="math inline">X_i</span> for <span class="math inline">i\in\{1,2,\ldots,565\}</span></li>
+<li>Age first elected <span class="math inline">Y_i</span> for <span class="math inline">i\in\{1,2,\ldots,565\}</span></li>
 </ul>
 <p>Assume model and prior</p>
 <ul>
-<li><span class="math inline">X_i \mid \beta \overset{\text{iid}}{\sim} \text{Gamma}(\alpha,\beta)</span></li>
+<li><span class="math inline">Y_i \mid \beta \overset{\text{iid}}{\sim} \text{Gamma}(\alpha,\beta)</span></li>
 <li><span class="math inline">\alpha = 200</span> fixed</li>
 <li><span class="math inline">\beta \sim \text{Gamma}(\alpha_0,\beta_0)</span></li>
 </ul>
+</section></section>
+<section>
+<section id="choosing-a-prior" class="title-slide slide level1 center">
+<h1>Choosing a prior</h1>
+
 </section>
-<section id="choice-of-prior" class="slide level2">
-<h2>Choice of prior</h2>
-<p><span class="math display">\Pi(\mathrm{d}\theta)</span></p>
+<section id="choice-of-prior-pi" class="slide level2">
+<h2>Choice of prior: <span class="math inline">\Pi</span></h2>
 <ul>
 <li>Incorporate prior knowledge
 <ul>
@@ -619,20 +634,37 @@ Dr Joshua J Bon
 </section>
 <section id="conjugate-priors" class="slide level2">
 <h2>Conjugate priors</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conjugate prior</strong></p>
+</div>
+<div class="callout-content">
 <p>A prior is a <em>conjugate prior</em> if given a likelihood, the prior and posterior are in the same family of distributions.</p>
+</div>
+</div>
+</div>
 <p>For known distributions, conjugate priors are <em>tractable</em>.</p>
+</section>
+<section id="conjugate-prior-examples" class="slide level2">
+<h2>Conjugate prior examples</h2>
 <ul>
-<li>Gamma prior on rate is conjugate prior for Gamma likelihood (fixed scale)</li>
-<li>Normal prior on mean is conjugate prior for Normal likelihood (fixed variance)</li>
-<li>Inverse Gamma prior on variance is conjugate prior for Normal likelihood (fixed mean)</li>
+<li>Gamma prior on rate <span class="math inline">\beta</span> is conjugate prior for Gamma likelihood (fixed shape <span class="math inline">\alpha</span>)</li>
+<li>Normal prior on mean <span class="math inline">\mu</span> is conjugate prior for Normal likelihood (fixed variance <span class="math inline">\sigma^2</span>)</li>
+<li>Inverse Gamma prior on variance <span class="math inline">\sigma^2</span> is conjugate prior for Normal likelihood (fixed mean <span class="math inline">\mu</span>)</li>
 </ul>
 </section>
 <section id="flatuniform-priors" class="slide level2">
 <h2>Flat/uniform priors</h2>
 <p><span class="math display">\pi(\theta) \propto 1</span></p>
-<p><span class="math inline">\Pi</span> may be an <strong>improper prior</strong>, <span class="math inline">\int_{\Theta}\pi(\theta) = \infty</span>.</p>
-<p>Flat priors may still contain information<sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>See “The prior can often only be understood in the context of the likelihood”, <span class="citation" data-cites="gelman2017prior">(<a href="#/references" role="doc-biblioref" onclick="">Gelman, Simpson, and Betancourt 2017</a>)</span> </p></li></ol></aside></section>
+<ul>
+<li><p><span class="math inline">\Pi</span> may be an <strong>improper prior</strong>, <span class="math inline">\int_{\Theta}\pi(\theta) = \infty</span>.</p></li>
+<li><p>Flat priors may still contain information<sup>1</sup></p></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>See “The prior can often only be understood in the context of the likelihood”, <span class="citation" data-cites="gelman2017prior">(<a href="#/references" role="doc-biblioref" onclick="">Gelman, Simpson, and Betancourt 2017</a>)</span></p></li></ol></aside></section>
 <section id="non-informative-and-weakly-informative-priors" class="slide level2">
 <h2>Non-informative and weakly-informative priors</h2>
 <ul>
@@ -642,34 +674,33 @@ Dr Joshua J Bon
 </ul></li>
 <li>Priors with invariance, symmetry, uncertainty principles
 <ul>
-<li>Jefferys priors<sup>1</sup></li>
-<li>Reference priors<sup>2</sup></li>
-<li>Objective priors<sup>3</sup></li>
+<li>Jefferys priors <span class="citation" data-cites="robert2009harold">(<a href="#/references" role="doc-biblioref" onclick="">Robert, Chopin, and Rousseau 2009</a>)</span></li>
+<li>Reference priors <span class="citation" data-cites="berger2009formal">(<a href="#/references" role="doc-biblioref" onclick="">Berger, Bernardo, and Sun 2009</a>)</span></li>
+<li>Objective priors <span class="citation" data-cites="ghosh2011objective">(<a href="#/references" role="doc-biblioref" onclick="">Ghosh 2011</a>)</span></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="citation" data-cites="robert2009harold">(<a href="#/references" role="doc-biblioref" onclick="">Robert, Chopin, and Rousseau 2009</a>)</span></p></li><li id="fn4"><p><span class="citation" data-cites="berger2009formal">(<a href="#/references" role="doc-biblioref" onclick="">Berger, Bernardo, and Sun 2009</a>)</span></p></li><li id="fn5"><p><span class="citation" data-cites="ghosh2011objective">(<a href="#/references" role="doc-biblioref" onclick="">Ghosh 2011</a>)</span></p></li></ol></aside></section>
+</section>
 <section id="jefferys-priors" class="slide level2">
 <h2>Jefferys priors</h2>
 <p>Recall Fisher information matrix for regular models</p>
 <p><span class="math display">\mathcal{I}(\theta) = -\mathbb{E}\left[ \frac{\partial^2 \log L}{\partial \theta^2} \right]</span></p>
 <p><span class="math display">\pi(\theta) \propto |\mathcal{I}(\theta)|^{1/2}</span></p>
-<p>Property: for continuous parameters, invariance under reparameterisation</p>
-<p>May be improper</p>
-</section>
-<section id="posterior-computation" class="slide level2">
-<h2>Posterior Computation</h2>
-<p>What if I don’t use a conjugate prior? Intractable normalising constant. Why?</p>
-<p><span class="math display">Z = \int_\Theta p(x \mid \theta) \Pi(\mathrm{d}\theta)</span></p>
-<p>Use computational methods:</p>
 <ul>
-<li>MCMC: Markov chain Monte Carlo</li>
-<li>IS: Importance sampling</li>
-<li>SMC: Sequential Monte Carlo</li>
+<li>Invariance under reparameterisation
+<ul>
+<li>Property for continuous parameters</li>
+</ul></li>
+<li>May lead to improper prior</li>
 </ul>
+</section></section>
+<section>
+<section id="model-choice-and-checking" class="title-slide slide level1 center">
+<h1>Model choice and checking</h1>
+
 </section>
 <section id="choice-of-model" class="slide level2">
 <h2>Choice of model</h2>
-<p><span class="math display">P_\theta</span> How are the data distributed? Is this a good approximation?</p>
+<p><span class="math display">P(\cdot\mid\theta)</span> How are the data distributed? Is this a good approximation?</p>
 <ul>
 <li>Incorporate data knowledge
 <ul>
@@ -685,17 +716,57 @@ Dr Joshua J Bon
 </section>
 <section id="model-checking-i-bayes-factors" class="slide level2">
 <h2>Model checking I: Bayes Factors</h2>
-<p><span class="math display">Z_i = \int_\Theta p_i(x \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ p_i(x\mid\theta)\right]</span></p>
-<p>Model evidence = Expected likelihood of the observed data w.r.t. the prior for <span class="math inline">M_i</span></p>
-<p>Bayes factor <span class="math inline">\text{BF}(M_1,M_2) = \frac{Z_1}{Z_2}</span></p>
+<p><span class="math display">m_i(y) = \int_\Theta p_i(y \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right]</span></p>
+<ul>
+<li><span class="math inline">m_i(y)</span> is evidence for model <span class="math inline">M_i</span> for fixed <span class="math inline">y</span>, depends on
+<ul>
+<li>prior <span class="math inline">\Pi_i</span></li>
+<li>likelihood <span class="math inline">L_i(\cdot\mid y) = p_i(y \mid \cdot)</span></li>
+</ul></li>
+<li>Bayes factor <span class="math inline">\text{BF}_{1,0} = \frac{m_1(y)}{m_0(y)}</span> compares evidence</li>
+</ul>
 </section>
 <section id="model-checking-i-bayes-factors-1" class="slide level2">
 <h2>Model checking I: Bayes Factors</h2>
 <p>Interpretation of Bayes factors</p>
 <p><span class="math display">
-\text{BF}(M_1,M_2) = \frac{\Pr(M_1\mid x)}{\Pr(M_2\mid x)} = \frac{Z_1}{Z_2}
+\text{BF}_{1,0} = \frac{\Pr(M_1\mid y)}{\Pr(M_0\mid y)} = \frac{m_1(y)}{m_0(y)}
 </span></p>
 </section>
+<section id="model-checking-i-bayes-factors-2" class="slide level2">
+<h2>Model checking I: Bayes Factors</h2>
+<p>Interpretation of Bayes factors</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\text{BF}_{1,0}</span></th>
+<th>Strength of Evidence<sup>1</sup> (<span class="math inline">M_1</span> vs null <span class="math inline">M_0</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 to 3.2</td>
+<td>Not worth more than a bare mention</td>
+</tr>
+<tr class="even">
+<td>3.2 to 10</td>
+<td>Substantial</td>
+</tr>
+<tr class="odd">
+<td>10 to 100</td>
+<td>Strong</td>
+</tr>
+<tr class="even">
+<td>&gt; 100</td>
+<td>Decisive</td>
+</tr>
+</tbody>
+</table>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="good1979studies">Good (<a href="#/references" role="doc-biblioref" onclick="">1979</a>)</span></p></li></ol></aside></section>
 <section id="example-2-députés-questions" class="slide level2">
 <h2>Example 2: Députés Questions</h2>
 <div class="cell">
@@ -715,8 +786,8 @@ Dr Joshua J Bon
 
 </div>
 <img data-src="abm1_files/figure-revealjs/dep-questions-1.png" width="960" class="r-stretch"></section>
-<section id="example-2-statistical-inference" class="slide level2">
-<h2>Example 2: Statistical inference</h2>
+<section id="example-2-députés-questions-1" class="slide level2">
+<h2>Example 2: Députés Questions</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -747,6 +818,58 @@ Dr Joshua J Bon
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="posterior-approximation" class="title-slide slide level1 center">
+<h1>Posterior Approximation</h1>
+
+</section>
+<section id="posterior-computation" class="slide level2">
+<h2>Posterior Computation</h2>
+<p>What if I don’t use a conjugate prior? Intractable normalising constant. Why?</p>
+<p><span class="math display">Z = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta)</span></p>
+<p>Use computational methods:</p>
+<ul>
+<li>MCMC: Markov chain Monte Carlo</li>
+<li>IS: Importance sampling</li>
+<li>SMC: Sequential Monte Carlo</li>
+</ul>
+</section>
+<section id="monte-carlo-integration" class="slide level2">
+<h2>Monte Carlo integration</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Monte Carlo Approximation</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P</span></p>
+</div>
+</div>
+</div>
+<p>In the sense that if <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  &lt; \infty</span> then</p>
+<p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
+</section>
+<section id="importance-sampling" class="slide level2">
+<h2>Importance sampling</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importance sampling approximation</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q</span></p>
+</div>
+</div>
+</div>
+<p>In the sense that if <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  &lt; \infty</span> then</p>
+<p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
 </section>
 <section id="recap-ingredients-of-bayesian-models" class="slide level2">
 <h2>Recap: Ingredients of Bayesian models</h2>
@@ -755,21 +878,6 @@ Dr Joshua J Bon
 <li>Model</li>
 <li>Computation</li>
 </ol>
-</section></section>
-<section>
-<section id="section-2-bayes-computation" class="title-slide slide level1 center">
-<h1>Section 2: Bayes computation</h1>
-
-</section>
-<section id="monte-carlo-integration" class="slide level2">
-<h2>Monte Carlo integration</h2>
-<p><span class="math display">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P</span></p>
-<p>In the sense that $_{i=1}^{N}f(<em>i) </em>{P}$ as <span class="math inline">n\rightarrow \infty</span> if <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  &lt; \infty</span>.</p>
-</section>
-<section id="importance-sampling" class="slide level2">
-<h2>Importance sampling</h2>
-<p><span class="math display">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q</span></p>
-<p>In the sense that $_{i=1}^{N}f(<em>i) </em>{P}$ as <span class="math inline">n\rightarrow \infty</span> if <span class="math inline">\mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right]  &lt; \infty</span>.</p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
@@ -782,6 +890,9 @@ Gelman, Andrew, Daniel Simpson, and Michael Betancourt. 2017. <span>“The Prior
 </div>
 <div id="ref-ghosh2011objective" class="csl-entry" role="listitem">
 Ghosh, Malay. 2011. <span>“Objective Priors: An Introduction for Frequentists.”</span> <em>Statistical Science</em>, 187–202.
+</div>
+<div id="ref-good1979studies" class="csl-entry" role="listitem">
+Good, Irving J. 1979. <span>“Studies in the History of Probability and Statistics. XXXVII AM Turing’s Statistical Work in World War II.”</span> <em>Biometrika</em>, 393–96.
 </div>
 <div id="ref-robert2009harold" class="csl-entry" role="listitem">
 Robert, Christian P, Nicolas Chopin, and Judith Rousseau. 2009. <span>“Harold Jeffreys’s Theory of Probability Revisited.”</span> <em>Statistical Science</em>, 141–72.
