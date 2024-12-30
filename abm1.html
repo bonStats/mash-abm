@@ -433,7 +433,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Applied Bayesian Modelling</h1>
-  <p class="subtitle">Section 1: Bayesian statistical inference</p>
+  <p class="subtitle">Lecture 1: Bayesian statistical inference</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -453,6 +453,7 @@ Dr Joshua J Bon
 <li>Computation <span class="emoji" data-emoji="white_check_mark">✅</span></li>
 <li>Workflows</li>
 </ul>
+<p>Data: <a href="https://github.com/bonstats/mash-abm/data/deputes2019.csv">Députés 2019</a></p>
 </section>
 <section>
 <section id="statistical-inference" class="title-slide slide level1 center">
@@ -467,14 +468,15 @@ Dr Joshua J Bon
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>) </span>
-<span id="cb1-5"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
-<span id="cb1-6"><a href=""></a></span>
-<span id="cb1-7"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
-<span id="cb1-8"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">356.25</span>)) <span class="sc">+</span></span>
-<span id="cb1-9"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Debut age"</span>) <span class="sc">+</span></span>
-<span id="cb1-10"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Number of politicians"</span>) <span class="sc">+</span></span>
-<span id="cb1-11"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>)</span>
+<span id="cb1-5"><a href=""></a><span class="co"># Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv</span></span>
+<span id="cb1-6"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb1-9"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">356.25</span>)) <span class="sc">+</span></span>
+<span id="cb1-10"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Debut age"</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Number of politicians"</span>) <span class="sc">+</span></span>
+<span id="cb1-12"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -738,8 +740,8 @@ Dr Joshua J Bon
 <p>Interpretation of Bayes factors</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 77%">
+<col style="width: 28%">
+<col style="width: 71%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -761,64 +763,12 @@ Dr Joshua J Bon
 <td>Strong</td>
 </tr>
 <tr class="even">
-<td>&gt; 100</td>
+<td><span class="math inline">&gt;</span> 100</td>
 <td>Decisive</td>
 </tr>
 </tbody>
 </table>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="good1979studies">Good (<a href="#/references" role="doc-biblioref" onclick="">1979</a>)</span></p></li></ol></aside></section>
-<section id="example-2-députés-questions" class="slide level2">
-<h2>Example 2: Députés Questions</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(readr)</span>
-<span id="cb2-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>) </span>
-<span id="cb2-5"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
-<span id="cb2-6"><a href=""></a></span>
-<span id="cb2-7"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
-<span id="cb2-8"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
-<span id="cb2-9"><a href=""></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
-<span id="cb2-10"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-
-</div>
-<img data-src="abm1_files/figure-revealjs/dep-questions-1.png" width="960" class="r-stretch"></section>
-<section id="example-2-députés-questions-1" class="slide level2">
-<h2>Example 2: Députés Questions</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Lay question</strong></p>
-</div>
-<div class="callout-content">
-<p>Do the number of questions politicians ask differ by gender?</p>
-</div>
-</div>
-</div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Statistical questions</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li>Does the <em>average</em> number of questions differ by gender?</li>
-<li>Does the <em>variance</em> in the number of questions differ by gender?</li>
-<li>What <em>statistical model</em> best explains the distribution of question numbers?</li>
-</ol>
-</div>
-</div>
-</div>
-</section></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="good1979studies">Good (<a href="#/references" role="doc-biblioref" onclick="">1979</a>)</span></p></li></ol></aside></section></section>
 <section>
 <section id="posterior-approximation" class="title-slide slide level1 center">
 <h1>Posterior Approximation</h1>
@@ -826,7 +776,7 @@ Dr Joshua J Bon
 </section>
 <section id="posterior-computation" class="slide level2">
 <h2>Posterior Computation</h2>
-<p>What if I don’t use a conjugate prior? Intractable normalising constant. Why?</p>
+<p>What if I don’t use a conjugate prior? Intractable normalising constant, unknown distribution. Why?</p>
 <p><span class="math display">Z = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta)</span></p>
 <p>Use computational methods:</p>
 <ul>
@@ -834,6 +784,15 @@ Dr Joshua J Bon
 <li>IS: Importance sampling</li>
 <li>SMC: Sequential Monte Carlo</li>
 </ul>
+</section>
+<section id="monte-carlo-methods" class="slide level2">
+<h2>Monte Carlo methods</h2>
+<p>When <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]</span> is intractable…</p>
+<ol type="1">
+<li><span class="math inline">P</span> is known but expectation of <span class="math inline">f(\theta)</span> is intractable (e.g.&nbsp;unknown integral)</li>
+<li><span class="math inline">P</span> is unknown due to intractable normalising constant</li>
+</ol>
+<p>Could use numerical methods (quadrature), but in “high” dimension (<span class="math inline">d \gtrsim 4</span>), we typically use Monte Carlo methods.</p>
 </section>
 <section id="monte-carlo-integration" class="slide level2">
 <h2>Monte Carlo integration</h2>
@@ -871,13 +830,74 @@ Dr Joshua J Bon
 <p>In the sense that if <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  &lt; \infty</span> then</p>
 <p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
 </section>
+<section id="approximating-model-evidence" class="slide level2">
+<h2>Approximating model evidence</h2>
+<p>Vanilla Monte Carlo estimator</p>
+<p><span class="math display">m(y) = \mathbb{E}_{\theta \sim \Pi}\left[ L(\theta \mid y) \right]</span> Importance sample estimator</p>
+<p><span class="math display">m(y) = \mathbb{E}_{\theta \sim Q}\left[ L(\theta \mid y) \frac{p(\theta)}{q(\theta)}\right]</span></p>
+<p>Choose <span class="math inline">q(\theta) \approx C \cdot L(\theta \mid y) p(\theta)</span></p>
+</section>
 <section id="recap-ingredients-of-bayesian-models" class="slide level2">
 <h2>Recap: Ingredients of Bayesian models</h2>
 <ol type="1">
-<li>Prior</li>
-<li>Model</li>
-<li>Computation</li>
+<li>Posterior = prior <span class="math inline">\times</span> likelihood</li>
+<li>Bayesian model = <span class="math inline">\{</span> prior, data model <span class="math inline">\}</span></li>
+<li>Model evidence</li>
+<li>Intractable posteriors <span class="math inline">\rightarrow</span> Monte Carlo approximation</li>
 </ol>
+</section>
+<section id="example-2-députés-questions" class="slide level2">
+<h2>Example 2: Députés Questions</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href=""></a></span>
+<span id="cb2-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>)</span>
+<span id="cb2-5"><a href=""></a><span class="co"># Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv</span></span>
+<span id="cb2-6"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
+<span id="cb2-7"><a href=""></a></span>
+<span id="cb2-8"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb2-9"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href=""></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
+<span id="cb2-11"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm1_files/figure-revealjs/dep-questions-1.png" width="960" class="r-stretch"></section>
+<section id="example-2-députés-questions-1" class="slide level2">
+<h2>Example 2: Députés Questions</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Lay question</strong></p>
+</div>
+<div class="callout-content">
+<p>Do the number of questions politicians ask differ by gender?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Statistical questions</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Does the <em>average</em> number of questions differ by gender?</li>
+<li>Does the <em>variance</em> in the number of questions differ by gender?</li>
+<li>What <em>statistical model</em> best explains the distribution of question numbers?</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

@@ -1,6 +1,6 @@
 ---
 title: "Applied Bayesian Modelling"
-subtitle: "Section 1: Bayesian statistical inference"
+subtitle: "Lecture 1: Bayesian statistical inference"
 author: "Dr Joshua J Bon"
 bibliography: refs.bib
 format:
@@ -24,6 +24,8 @@ from: markdown+emoji
 -   Computation :white_check_mark:
 -   Workflows
 
+Data: [Députés 2019](https://github.com/bonstats/mash-abm/data/deputes2019.csv)
+
 # Statistical inference
 
 ## Example 1: Députés debut age
@@ -35,7 +37,8 @@ from: markdown+emoji
 library(readr)
 library(ggplot2)
 
-deputes <- read_csv(file = "data/deputes2019.csv") 
+deputes <- read_csv(file = "data/deputes2019.csv")
+# Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv
 # change location to match folder of 'deputes2019.csv' on your computer
 
 ggplot(deputes) + 
@@ -180,10 +183,9 @@ $$\mathcal{I}(\theta) = -\mathbb{E}\left[ \frac{\partial^2 \log L}{\partial \the
 
 $$\pi(\theta) \propto |\mathcal{I}(\theta)|^{1/2}$$
 
-- Invariance under reparameterisation
-  - Property for continuous parameters
-
-- May lead to improper prior
+-   Invariance under reparameterisation
+    -   Property for continuous parameters
+-   May lead to improper prior
 
 # Model choice and checking
 
@@ -202,11 +204,10 @@ $$P(\cdot\mid\theta)$$ How are the data distributed? Is this a good approximatio
 
 $$m_i(y) = \int_\Theta p_i(y \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right]$$
 
-- $m_i(y)$ is evidence for model $M_i$ for fixed $y$, depends on
-  - prior $\Pi_i$
-  - likelihood $L_i(\cdot\mid y) = p_i(y \mid \cdot)$
-
-- Bayes factor $\text{BF}_{1,0} = \frac{m_1(y)}{m_0(y)}$ compares evidence
+-   $m_i(y)$ is evidence for model $M_i$ for fixed $y$, depends on
+    -   prior $\Pi_i$
+    -   likelihood $L_i(\cdot\mid y) = p_i(y \mid \cdot)$
+-   Bayes factor $\text{BF}_{1,0} = \frac{m_1(y)}{m_0(y)}$ compares evidence
 
 ## Model checking I: Bayes Factors
 
@@ -221,12 +222,76 @@ $$
 Interpretation of Bayes factors
 
 | $\text{BF}_{1,0}$ | Strength of Evidence^[@good1979studies] ($M_1$ vs null $M_0$) |
-|--------------|-----------------------------------------------|
-| 1 to 3.2     | Not worth more than a bare mention            |
-| 3.2 to 10    | Substantial                                   |
-| 10 to 100    | Strong                                        |
-| > 100        | Decisive                                      |
+|-------------------|------------------------------------------------|
+| 1 to 3.2          | Not worth more than a bare mention             |
+| 3.2 to 10         | Substantial                                    |
+| 10 to 100         | Strong                                         |
+| $>$ 100            | Decisive                                       |
 
+# Posterior Approximation
+
+## Posterior Computation
+
+What if I don't use a conjugate prior? Intractable normalising constant, unknown distribution. Why?
+
+$$Z = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta)$$
+
+Use computational methods:
+
+-   MCMC: Markov chain Monte Carlo
+-   IS: Importance sampling
+-   SMC: Sequential Monte Carlo
+
+## Monte Carlo methods
+
+When $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]$ is intractable...
+
+1.  $P$ is known but expectation of $f(\theta)$ is intractable (e.g. unknown integral)
+2.  $P$ is unknown due to intractable normalising constant
+
+Could use numerical methods (quadrature), but in "high" dimension ($d \gtrsim 4$), we typically use Monte Carlo methods.
+
+## Monte Carlo integration
+
+::: callout-note
+## Monte Carlo Approximation
+
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P$$
+:::
+
+In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
+
+$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
+
+## Importance sampling
+
+::: callout-note
+## Importance sampling approximation
+
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q$$
+:::
+
+In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
+
+$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
+
+## Approximating model evidence
+
+Vanilla Monte Carlo estimator
+
+$$m(y) = \mathbb{E}_{\theta \sim \Pi}\left[ L(\theta \mid y) \right]$$
+Importance sample estimator
+
+$$m(y) = \mathbb{E}_{\theta \sim Q}\left[ L(\theta \mid y) \frac{p(\theta)}{q(\theta)}\right]$$
+
+Choose $q(\theta) \approx C \cdot L(\theta \mid y) p(\theta)$
+
+## Recap: Ingredients of Bayesian models
+
+1.  Posterior = prior $\times$ likelihood
+2.  Bayesian model = $\{$ prior, data model $\}$
+3.  Model evidence
+4.  Intractable posteriors $\rightarrow$ Monte Carlo approximation
 
 ## Example 2: Députés Questions
 
@@ -237,7 +302,8 @@ Interpretation of Bayes factors
 library(readr)
 library(ggplot2)
 
-deputes <- read_csv(file = "data/deputes2019.csv") 
+deputes <- read_csv(file = "data/deputes2019.csv")
+# Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv
 # change location to match folder of 'deputes2019.csv' on your computer
 
 ggplot(deputes) + 
@@ -262,52 +328,6 @@ Do the number of questions politicians ask differ by gender?
 2.  Does the *variance* in the number of questions differ by gender?
 3.  What *statistical model* best explains the distribution of question numbers?
 :::
-
-# Posterior Approximation
-
-## Posterior Computation
-
-What if I don't use a conjugate prior? Intractable normalising constant. Why?
-
-$$Z = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta)$$
-
-Use computational methods:
-
--   MCMC: Markov chain Monte Carlo
--   IS: Importance sampling
--   SMC: Sequential Monte Carlo
-
-## Monte Carlo integration
-
-
-::: callout-note
-## Monte Carlo Approximation
-
-$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P$$
-:::
-
-In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
-
-$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
-
-
-## Importance sampling
-
-::: callout-note
-## Importance sampling approximation
-
-$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\left[f(\theta)\frac{p(\theta)}{q(\theta)}\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)}, \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} Q$$
-:::
-
-In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
-
-$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
-
-## Recap: Ingredients of Bayesian models
-
-1.  Prior
-2.  Model
-3.  Computation
 
 ## References
 
