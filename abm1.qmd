@@ -43,7 +43,7 @@ library(readr)
 library(ggplot2)
 
 deputes <- read_csv(file = "data/deputes2019.csv")
-# Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv
+# Download: https://github.com/bonStats/mash-abm/tree/main/data
 # change location to match folder of 'deputes2019.csv' on your computer
 
 ggplot(deputes) + 
@@ -308,7 +308,7 @@ library(readr)
 library(ggplot2)
 
 deputes <- read_csv(file = "data/deputes2019.csv")
-# Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv
+# Download: https://github.com/bonStats/mash-abm/tree/main/data
 # change location to match folder of 'deputes2019.csv' on your computer
 
 ggplot(deputes) + 

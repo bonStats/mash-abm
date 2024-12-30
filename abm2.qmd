@@ -1,0 +1,139 @@
+---
+title: "Applied Bayesian Modelling"
+subtitle: "Lecture 2: Markov chain Monte Carlo"
+author: "Dr Joshua J Bon"
+bibliography: refs.bib
+format:
+  revealjs:
+    html-math-method: katex
+    theme: default
+    df-print: paged
+    incremental: false 
+    css: style.css
+    chalkboard: true
+    logo: dauphine-logo-white.png
+editor: source
+from: markdown+emoji
+---
+
+## Applied Bayesian modelling
+
+-   Statistical inference :white_check_mark:
+-   Statistical prediction
+-   Bayesian models
+-   Computation :white_check_mark:
+-   Workflows
+
+::: callout-note
+## Links 
+
+- [Golf](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
+- [Index slides](index.html)
+:::
+
+# Statistical inference
+
+## Example 1: Golf data 
+
+```{r golf-plot}
+#| echo: true
+#| code-fold: true
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+golf <- read_csv(file = "data/golf2.txt")
+# Download: https://github.com/bonStats/mash-abm/tree/main/data
+# change location to match folder of 'golf.txt' on your computer
+
+golf %>% group_by(distance) %>% summarise(prop_success = mean(success)) %>%
+ggplot() + 
+  geom_col(aes(x = distance, y = prop_success)) +
+  scale_x_continuous("Distance to hole") +
+  scale_y_continuous("Proportion successful") +
+  theme_bw()
+
+```
+
+## Statistical inference
+
+::: callout-note
+## Lay question
+
+What determines accuracy in golf putting?
+:::
+
+::: callout-tip
+## Statistical questions
+
+1.  How likely is the player to successfully sink the putt at distance $x$ metres?
+2.  How variable is the players angle of putting compared to the correct angle?
+
+:::
+
+-   According to this putting data from one player
+
+## Logistic regression
+
+Overview of LR here
+
+# Beyond MC and IS
+
+## Recap: Monte Carlo approximation
+
+$$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i), \quad \text{where}~\theta_i \overset{\text{iid}}{\sim} P$$
+
+What if we can't sample from $P$?
+
+## Self-normalised importance sampling
+
+Extending importance sampling... $\pi(\cdot\mid y)$ can't be evaluated due to $Z$.
+
+$$\mathbb{E}_{\theta\sim \Pi(\cdot\mid y)}\left[f(\theta)\right] = \frac{\mathbb{E}_{\theta\sim Q}\left[f(\theta)w(\theta)\right]}{\mathbb{E}_{\theta\sim Q}\left[w(\theta)\right]}$$
+
+where $w(\theta) = \frac{L(\theta\mid y)\pi(\theta)}{q(\theta)}$.
+
+## Self-normalised importance sampling
+
+$$\mathbb{E}_{\theta\sim \Pi(\cdot\mid y)}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\bar{w}_i$$
+
+
+- $\theta_i \overset{\text{iid}}{\sim} Q$
+- $\bar{w}_i = \frac{w(\theta_i)}{\sum_{j=1}^N w(\theta_j)}$
+- $w(\theta) = \frac{L(\theta\mid y)\pi(\theta)}{q(\theta)} \propto \frac{\Pi(\theta\mid y)}{q(\theta)}$
+
+## Markov chain Monte Carlo
+
+Extending vanilla Monte Carlo... $\theta \sim \Pi(\cdot\mid y)$ can't be sampled.
+
+Construct Markov chain with invariant/limiting distribution $\Pi(\cdot\mid y)$
+
+$$\theta_t \sim K(\cdot\mid \theta_{t-1}),\quad t\in\{1,2,\ldots,\}$$
+
+for some $\theta_0$. 
+
+$$\theta_n \sim K^n(\cdot\mid\theta_0)$$
+
+for $\theta_n \overset{\text{d}}{\rightarrow} \Pi(\cdot\mid y )$ as $n\rightarrow \infty$
+
+## Markov chain Monte Carlo
+
+We can estimate quantities with the MCMC samples
+
+$$\mathbb{E}_{\theta\sim \Pi(\cdot\mid y)}\left[f(\theta)\right] \approx \sum_{t=1}^{N}f(\theta_t),\quad \theta_t \sim K(\cdot\mid \theta_{t-1})$$
+
+What to use for $K$?
+
+# Metropolis-Hastings
+
+## The Metropolis-Hastings algorithm
+
+
+
+## References
+
+::: {#refs}
+:::
+
+# Appendices
