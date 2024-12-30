@@ -15,15 +15,15 @@ format:
 editor: source
 ---
 
-## Slides
+## Slide deck links
 
-- Section 1
+- [Lecture 1](abm1.html)
 - Section 2
 - Section 3
 - Section 4
 - Section 5
 
-## Worksheets
+## Worksheet links
 
 - Worksheet 1
 - Worksheet 2
@@ -31,8 +31,9 @@ editor: source
 - Worksheet 4
 - Worksheet 5
 
+
 ## Resources
 
-- 
+- [Course data](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"} 
 
 
