@@ -548,7 +548,7 @@ Dr Joshua J Bon
 </section>
 <section id="self-normalised-importance-sampling" class="slide level2">
 <h2>Self-normalised importance sampling</h2>
-<p>Extending importance sampling… <span class="math inline">\pi(\cdot\mid y)</span> can’t be evaluated due to <span class="math inline">Z</span>.</p>
+<p>Extending IS when <span class="math inline">\pi(\cdot\mid y)</span> can’t be evaluated due to <span class="math inline">Z</span>.</p>
 <p><span class="math display">\mathbb{E}_{\theta\sim \Pi(\cdot\mid y)}\left[f(\theta)\right] = \frac{\mathbb{E}_{\theta\sim Q}\left[f(\theta)w(\theta)\right]}{\mathbb{E}_{\theta\sim Q}\left[w(\theta)\right]}</span></p>
 <p>where <span class="math inline">w(\theta) = \frac{L(\theta\mid y)\pi(\theta)}{q(\theta)}</span>.</p>
 </section>
@@ -563,8 +563,8 @@ Dr Joshua J Bon
 </section>
 <section id="markov-chain-monte-carlo" class="slide level2">
 <h2>Markov chain Monte Carlo</h2>
-<p>Extending vanilla Monte Carlo… <span class="math inline">\theta \sim \Pi(\cdot\mid y)</span> can’t be sampled.</p>
-<p>Construct Markov chain with invariant/limiting distribution <span class="math inline">\Pi(\cdot\mid y)</span></p>
+<p>Extending vanilla MC when <span class="math inline">\theta \sim \Pi(\cdot\mid y)</span> can’t be sampled.</p>
+<p>Construct Markov chain with limiting distribution <span class="math inline">\Pi(\cdot\mid y)</span></p>
 <p><span class="math display">\theta_t \sim K(\cdot\mid \theta_{t-1}),\quad t\in\{1,2,\ldots,\}</span></p>
 <p>for some <span class="math inline">\theta_0</span>.</p>
 <p><span class="math display">\theta_n \sim K^n(\cdot\mid\theta_0)</span></p>
@@ -583,6 +583,92 @@ Dr Joshua J Bon
 </section>
 <section id="the-metropolis-hastings-algorithm" class="slide level2">
 <h2>The Metropolis-Hastings algorithm</h2>
+<p>Initialise <span class="math inline">\theta_0</span>, at time <span class="math inline">t</span>:</p>
+<ol type="1">
+<li>Sample proposal <span class="math inline">\theta^\prime \sim Q(\cdot\mid\theta_{t-1})</span></li>
+<li>Calculate acceptance <span class="math inline">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}</span></li>
+<li>Draw <span class="math inline">U \sim \text{Unif}(0,1)</span></li>
+</ol>
+<ul>
+<li>If <span class="math inline">\alpha \geq U</span> accept proposal, set <span class="math inline">\theta_t = \theta^\prime</span></li>
+<li>Else <span class="math inline">\alpha&lt;U</span> reject proposal, set <span class="math inline">\theta_t = \theta_{t-1}</span></li>
+</ul>
+<p>Run until convergence (heuristic checks)</p>
+</section>
+<section id="mh-acceptance-rate" class="slide level2">
+<h2>MH: Acceptance rate</h2>
+<p><span class="math display">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\} = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}</span> No normalising constant required!</p>
+<p>Special case: Symmetric proposal</p>
+</section>
+<section id="mh-chain-trace-plot" class="slide level2">
+<h2>MH: Chain trace plot</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>logprob_target <span class="ot">&lt;-</span> <span class="cf">function</span>(theta){ <span class="co"># unnormalised if neccessary</span></span>
+<span id="cb2-2"><a href=""></a>  </span>
+<span id="cb2-3"><a href=""></a>  <span class="fu">dnorm</span>(theta, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-4"><a href=""></a>  </span>
+<span id="cb2-5"><a href=""></a>}</span>
+<span id="cb2-6"><a href=""></a></span>
+<span id="cb2-7"><a href=""></a>rproposal <span class="ot">&lt;-</span> <span class="cf">function</span>(given_theta, tune_sd) {</span>
+<span id="cb2-8"><a href=""></a>  </span>
+<span id="cb2-9"><a href=""></a>  <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> given_theta, <span class="at">sd =</span> tune_sd)</span>
+<span id="cb2-10"><a href=""></a>  </span>
+<span id="cb2-11"><a href=""></a>}</span>
+<span id="cb2-12"><a href=""></a></span>
+<span id="cb2-13"><a href=""></a>logprob_proposal <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, given_theta, tune_sd){</span>
+<span id="cb2-14"><a href=""></a>  </span>
+<span id="cb2-15"><a href=""></a>  <span class="fu">dnorm</span>(theta, <span class="at">mean =</span> given_theta, <span class="at">sd =</span> tune_sd, <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-16"><a href=""></a>  </span>
+<span id="cb2-17"><a href=""></a>}</span>
+<span id="cb2-18"><a href=""></a></span>
+<span id="cb2-19"><a href=""></a>mh_iteration <span class="ot">&lt;-</span> <span class="cf">function</span>(given_theta, tune_sd){</span>
+<span id="cb2-20"><a href=""></a>  </span>
+<span id="cb2-21"><a href=""></a>  proposal <span class="ot">&lt;-</span> <span class="fu">rproposal</span>(given_theta, tune_sd)</span>
+<span id="cb2-22"><a href=""></a>  log_uniform <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">runif</span>(<span class="dv">1</span>))</span>
+<span id="cb2-23"><a href=""></a>  </span>
+<span id="cb2-24"><a href=""></a>  log_alpha <span class="ot">&lt;-</span> ( <span class="fu">logprob_proposal</span>(given_theta, proposal, tune_sd) <span class="sc">+</span> <span class="fu">logprob_target</span>(proposal) ) <span class="sc">-</span> </span>
+<span id="cb2-25"><a href=""></a>                ( <span class="fu">logprob_proposal</span>(proposal, given_theta, tune_sd) <span class="sc">+</span> <span class="fu">logprob_target</span>(given_theta) )</span>
+<span id="cb2-26"><a href=""></a>  </span>
+<span id="cb2-27"><a href=""></a>  <span class="cf">if</span> (log_alpha <span class="sc">&gt;=</span> log_uniform){</span>
+<span id="cb2-28"><a href=""></a>    next_theta <span class="ot">&lt;-</span> proposal</span>
+<span id="cb2-29"><a href=""></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-30"><a href=""></a>    next_theta <span class="ot">&lt;-</span> given_theta</span>
+<span id="cb2-31"><a href=""></a>  }</span>
+<span id="cb2-32"><a href=""></a>  </span>
+<span id="cb2-33"><a href=""></a>  <span class="fu">return</span>(next_theta)</span>
+<span id="cb2-34"><a href=""></a>}</span>
+<span id="cb2-35"><a href=""></a></span>
+<span id="cb2-36"><a href=""></a>mh <span class="ot">&lt;-</span> <span class="cf">function</span>(n, theta0, tune_sd){</span>
+<span id="cb2-37"><a href=""></a>  </span>
+<span id="cb2-38"><a href=""></a>  thetas <span class="ot">&lt;-</span> <span class="fu">rep</span>(theta0, n)</span>
+<span id="cb2-39"><a href=""></a>  </span>
+<span id="cb2-40"><a href=""></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n){</span>
+<span id="cb2-41"><a href=""></a>    thetas[t] <span class="ot">&lt;-</span> <span class="fu">mh_iteration</span>(thetas[t<span class="dv">-1</span>], tune_sd)</span>
+<span id="cb2-42"><a href=""></a>  }</span>
+<span id="cb2-43"><a href=""></a>  </span>
+<span id="cb2-44"><a href=""></a>  <span class="fu">return</span>(thetas)</span>
+<span id="cb2-45"><a href=""></a>}</span>
+<span id="cb2-46"><a href=""></a></span>
+<span id="cb2-47"><a href=""></a><span class="co"># e.g. use: mh(100, 0, 1) 100 iterations, start at 0, sd of proposal = 1</span></span>
+<span id="cb2-48"><a href=""></a></span>
+<span id="cb2-49"><a href=""></a><span class="co"># iterate over multiple settings</span></span>
+<span id="cb2-50"><a href=""></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb2-51"><a href=""></a><span class="fu">library</span>(purrr)</span>
+<span id="cb2-52"><a href=""></a></span>
+<span id="cb2-53"><a href=""></a>tune_sds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.01</span>,<span class="fl">0.1</span>,<span class="fl">1.0</span>)</span>
+<span id="cb2-54"><a href=""></a>ns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">1000</span>,<span class="dv">10000</span>)</span>
+<span id="cb2-55"><a href=""></a>burnins <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>)</span>
+<span id="cb2-56"><a href=""></a></span>
+<span id="cb2-57"><a href=""></a><span class="co">#expand_grid(n = ns, tune_sd = tune_sds, burnin = burnins)</span></span>
+<span id="cb2-58"><a href=""></a></span>
+<span id="cb2-59"><a href=""></a><span class="co">#apply(, 1, FUN = function(x) mh(x[1], 0, x[2])[(x[3]+1):x[1]] )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="mh-convergence-checks" class="slide level2">
+<h2>MH: Convergence checks</h2>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

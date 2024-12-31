@@ -88,7 +88,7 @@ What if we can't sample from $P$?
 
 ## Self-normalised importance sampling
 
-Extending importance sampling... $\pi(\cdot\mid y)$ can't be evaluated due to $Z$.
+Extending IS when $\pi(\cdot\mid y)$ can't be evaluated due to $Z$.
 
 $$\mathbb{E}_{\theta\sim \Pi(\cdot\mid y)}\left[f(\theta)\right] = \frac{\mathbb{E}_{\theta\sim Q}\left[f(\theta)w(\theta)\right]}{\mathbb{E}_{\theta\sim Q}\left[w(\theta)\right]}$$
 
@@ -105,9 +105,9 @@ $$\mathbb{E}_{\theta\sim \Pi(\cdot\mid y)}\left[f(\theta)\right] \approx \frac{1
 
 ## Markov chain Monte Carlo
 
-Extending vanilla Monte Carlo... $\theta \sim \Pi(\cdot\mid y)$ can't be sampled.
+Extending vanilla MC when $\theta \sim \Pi(\cdot\mid y)$ can't be sampled.
 
-Construct Markov chain with invariant/limiting distribution $\Pi(\cdot\mid y)$
+Construct Markov chain with limiting distribution $\Pi(\cdot\mid y)$
 
 $$\theta_t \sim K(\cdot\mid \theta_{t-1}),\quad t\in\{1,2,\ldots,\}$$
 
@@ -128,6 +128,94 @@ What to use for $K$?
 # Metropolis-Hastings
 
 ## The Metropolis-Hastings algorithm
+
+Initialise $\theta_0$, at time $t$:
+
+1. Sample proposal $\theta^\prime \sim Q(\cdot\mid\theta_{t-1})$
+2. Calculate acceptance $\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}$
+3. Draw $U \sim \text{Unif}(0,1)$
+  - If $\alpha \geq U$ accept proposal, set $\theta_t = \theta^\prime$
+  - Else $\alpha<U$ reject proposal, set $\theta_t = \theta_{t-1}$
+  
+Run until convergence (heuristic checks)
+
+## MH: Acceptance rate
+
+$$\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\} = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}$$
+No normalising constant required!
+
+Special case: Symmetric proposal
+
+## MH: Chain trace plot
+
+```{r mh-ex}
+#| echo: true
+#| code-fold: true
+
+logprob_target <- function(theta){ # unnormalised if neccessary
+  
+  dnorm(theta, mean = 1, sd = 1, log = TRUE)
+  
+}
+
+rproposal <- function(given_theta, tune_sd) {
+  
+  rnorm(1, mean = given_theta, sd = tune_sd)
+  
+}
+
+logprob_proposal <- function(theta, given_theta, tune_sd){
+  
+  dnorm(theta, mean = given_theta, sd = tune_sd, log = TRUE)
+  
+}
+
+mh_iteration <- function(given_theta, tune_sd){
+  
+  proposal <- rproposal(given_theta, tune_sd)
+  log_uniform <- log(runif(1))
+  
+  log_alpha <- ( logprob_proposal(given_theta, proposal, tune_sd) + logprob_target(proposal) ) - 
+                ( logprob_proposal(proposal, given_theta, tune_sd) + logprob_target(given_theta) )
+  
+  if (log_alpha >= log_uniform){
+    next_theta <- proposal
+  } else {
+    next_theta <- given_theta
+  }
+  
+  return(next_theta)
+}
+
+mh <- function(n, theta0, tune_sd){
+  
+  thetas <- rep(theta0, n)
+  
+  for (t in 2:n){
+    thetas[t] <- mh_iteration(thetas[t-1], tune_sd)
+  }
+  
+  return(thetas)
+}
+
+# e.g. use: mh(100, 0, 1) 100 iterations, start at 0, sd of proposal = 1
+
+# iterate over multiple settings
+library(tidyr)
+library(purrr)
+
+tune_sds <- c(0.01,0.1,1.0)
+ns <- c(100,1000,10000)
+burnins <- c(1,100)
+
+#expand_grid(n = ns, tune_sd = tune_sds, burnin = burnins)
+
+#apply(, 1, FUN = function(x) mh(x[1], 0, x[2])[(x[3]+1):x[1]] )
+
+```
+
+
+## MH: Convergence checks
 
 
 
