@@ -597,7 +597,7 @@ Dr Joshua J Bon
 </section>
 <section id="mh-acceptance-rate" class="slide level2">
 <h2>MH: Acceptance rate</h2>
-<p><span class="math display">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\} = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}</span> No normalising constant required!</p>
+<p><span class="math display">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}</span> <span class="math display"> = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}</span> No normalising constant required!</p>
 <p>Special case: Symmetric proposal</p>
 </section>
 <section id="mh-chain-trace-plot" class="slide level2">
@@ -640,7 +640,7 @@ Dr Joshua J Bon
 <span id="cb2-33"><a href=""></a>  <span class="fu">return</span>(next_theta)</span>
 <span id="cb2-34"><a href=""></a>}</span>
 <span id="cb2-35"><a href=""></a></span>
-<span id="cb2-36"><a href=""></a>mh <span class="ot">&lt;-</span> <span class="cf">function</span>(n, theta0, tune_sd){</span>
+<span id="cb2-36"><a href=""></a>mh <span class="ot">&lt;-</span> <span class="cf">function</span>(n, theta0, tune_sd, <span class="at">burnin =</span> <span class="dv">0</span>){</span>
 <span id="cb2-37"><a href=""></a>  </span>
 <span id="cb2-38"><a href=""></a>  thetas <span class="ot">&lt;-</span> <span class="fu">rep</span>(theta0, n)</span>
 <span id="cb2-39"><a href=""></a>  </span>
@@ -648,7 +648,7 @@ Dr Joshua J Bon
 <span id="cb2-41"><a href=""></a>    thetas[t] <span class="ot">&lt;-</span> <span class="fu">mh_iteration</span>(thetas[t<span class="dv">-1</span>], tune_sd)</span>
 <span id="cb2-42"><a href=""></a>  }</span>
 <span id="cb2-43"><a href=""></a>  </span>
-<span id="cb2-44"><a href=""></a>  <span class="fu">return</span>(thetas)</span>
+<span id="cb2-44"><a href=""></a>  <span class="fu">return</span>(thetas[(burnin<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n])</span>
 <span id="cb2-45"><a href=""></a>}</span>
 <span id="cb2-46"><a href=""></a></span>
 <span id="cb2-47"><a href=""></a><span class="co"># e.g. use: mh(100, 0, 1) 100 iterations, start at 0, sd of proposal = 1</span></span>
@@ -657,18 +657,65 @@ Dr Joshua J Bon
 <span id="cb2-50"><a href=""></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb2-51"><a href=""></a><span class="fu">library</span>(purrr)</span>
 <span id="cb2-52"><a href=""></a></span>
-<span id="cb2-53"><a href=""></a>tune_sds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.01</span>,<span class="fl">0.1</span>,<span class="fl">1.0</span>)</span>
-<span id="cb2-54"><a href=""></a>ns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">1000</span>,<span class="dv">10000</span>)</span>
-<span id="cb2-55"><a href=""></a>burnins <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>)</span>
+<span id="cb2-53"><a href=""></a>tune_sds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.01</span>,<span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">1.0</span>)</span>
+<span id="cb2-54"><a href=""></a>ns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">200</span>,<span class="dv">1000</span>,<span class="dv">10000</span>)</span>
+<span id="cb2-55"><a href=""></a>burnins <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)</span>
 <span id="cb2-56"><a href=""></a></span>
-<span id="cb2-57"><a href=""></a><span class="co">#expand_grid(n = ns, tune_sd = tune_sds, burnin = burnins)</span></span>
+<span id="cb2-57"><a href=""></a>mh_vec <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(mh, <span class="at">SIMPLIFY =</span> F)</span>
 <span id="cb2-58"><a href=""></a></span>
-<span id="cb2-59"><a href=""></a><span class="co">#apply(, 1, FUN = function(x) mh(x[1], 0, x[2])[(x[3]+1):x[1]] )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-59"><a href=""></a>mhtest <span class="ot">&lt;-</span> </span>
+<span id="cb2-60"><a href=""></a>  <span class="fu">expand_grid</span>(<span class="at">n =</span> ns, <span class="at">tune_sd =</span> tune_sds, <span class="at">burnin =</span> burnins) <span class="sc">%&gt;%</span></span>
+<span id="cb2-61"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="fu">mh_vec</span>(<span class="at">n =</span> n, <span class="at">theta0 =</span> <span class="dv">0</span>, <span class="at">tune_sd =</span> tune_sd, <span class="at">burnin =</span> burnin)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-62"><a href=""></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">iter =</span> <span class="fu">list</span>((burnin<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n )) <span class="sc">%&gt;%</span></span>
+<span id="cb2-63"><a href=""></a>  <span class="fu">unnest</span>(<span class="fu">c</span>(theta, iter))</span>
+<span id="cb2-64"><a href=""></a></span>
+<span id="cb2-65"><a href=""></a>mhtest <span class="sc">%&gt;%</span> <span class="fu">filter</span>(burnin <span class="sc">==</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">sd =</span> tune_sd) <span class="sc">%&gt;%</span></span>
+<span id="cb2-66"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb2-67"><a href=""></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>iter, <span class="at">y =</span> theta)) <span class="sc">+</span> </span>
+<span id="cb2-68"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb2-69"><a href=""></a>  <span class="fu">facet_grid</span>(sd <span class="sc">~</span> n, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb2-70"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Burnin = 100"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+
 </div>
-</section>
+<img data-src="abm2_files/figure-revealjs/mh-ex-trace-1.png" width="960" class="r-stretch"></section>
+<section id="mh-running-mean-trace-plot" class="slide level2">
+<h2>MH: Running mean trace plot</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>mhtest <span class="sc">%&gt;%</span> <span class="fu">filter</span>(burnin <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">sd =</span> tune_sd) <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">group_by</span>(n, sd, burnin) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="fu">cummean</span>(theta)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-4"><a href=""></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>iter, <span class="at">y =</span> theta)) <span class="sc">+</span> </span>
+<span id="cb3-5"><a href=""></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">1.0</span>, <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb3-6"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb3-7"><a href=""></a>  <span class="fu">facet_grid</span>(sd <span class="sc">~</span> n, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb3-8"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Burnin = 0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm2_files/figure-revealjs/mh-ex-mean-1.png" width="960" class="r-stretch"></section>
+<section id="mh-running-mean-trace-plot-1" class="slide level2">
+<h2>MH: Running mean trace plot</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>mhtest <span class="sc">%&gt;%</span> <span class="fu">filter</span>(burnin <span class="sc">==</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">sd =</span> tune_sd) <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">group_by</span>(n, sd, burnin) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">theta =</span> <span class="fu">cummean</span>(theta)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb4-4"><a href=""></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>iter, <span class="at">y =</span> theta)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href=""></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">1.0</span>, <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb4-7"><a href=""></a>  <span class="fu">facet_grid</span>(sd <span class="sc">~</span> n, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb4-8"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Burnin = 100"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm2_files/figure-revealjs/mh-ex-mean-2-1.png" width="960" class="r-stretch"></section>
 <section id="mh-convergence-checks" class="slide level2">
 <h2>MH: Convergence checks</h2>
+<p>Other checks</p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

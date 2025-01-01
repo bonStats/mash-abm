@@ -141,14 +141,15 @@ Run until convergence (heuristic checks)
 
 ## MH: Acceptance rate
 
-$$\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\} = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}$$
+$$\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}$$
+$$ = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}$$
 No normalising constant required!
 
 Special case: Symmetric proposal
 
 ## MH: Chain trace plot
 
-```{r mh-ex}
+```{r mh-ex-trace}
 #| echo: true
 #| code-fold: true
 
@@ -187,7 +188,7 @@ mh_iteration <- function(given_theta, tune_sd){
   return(next_theta)
 }
 
-mh <- function(n, theta0, tune_sd){
+mh <- function(n, theta0, tune_sd, burnin = 0){
   
   thetas <- rep(theta0, n)
   
@@ -195,7 +196,7 @@ mh <- function(n, theta0, tune_sd){
     thetas[t] <- mh_iteration(thetas[t-1], tune_sd)
   }
   
-  return(thetas)
+  return(thetas[(burnin+1):n])
 }
 
 # e.g. use: mh(100, 0, 1) 100 iterations, start at 0, sd of proposal = 1
@@ -204,20 +205,70 @@ mh <- function(n, theta0, tune_sd){
 library(tidyr)
 library(purrr)
 
-tune_sds <- c(0.01,0.1,1.0)
-ns <- c(100,1000,10000)
-burnins <- c(1,100)
+tune_sds <- c(0.01,0.1,0.5,1.0)
+ns <- c(200,1000,10000)
+burnins <- c(0,100)
 
-#expand_grid(n = ns, tune_sd = tune_sds, burnin = burnins)
+mh_vec <- Vectorize(mh, SIMPLIFY = F)
 
-#apply(, 1, FUN = function(x) mh(x[1], 0, x[2])[(x[3]+1):x[1]] )
+mhtest <- 
+  expand_grid(n = ns, tune_sd = tune_sds, burnin = burnins) %>%
+  mutate(theta = mh_vec(n = n, theta0 = 0, tune_sd = tune_sd, burnin = burnin)) %>%
+  rowwise() %>% mutate(iter = list((burnin+1):n )) %>%
+  unnest(c(theta, iter))
+
+mhtest %>% filter(burnin == 100) %>% rename(sd = tune_sd) %>%
+ggplot() + 
+  geom_line(aes(x=iter, y = theta)) + 
+  theme_bw() + 
+  facet_grid(sd ~ n, scales = "free_x", labeller = label_both) +
+  ggtitle("Burnin = 100")
+
+```
+
+
+## MH: Running mean trace plot
+
+```{r mh-ex-mean}
+#| echo: true
+#| code-fold: true
+
+mhtest %>% filter(burnin == 0) %>% rename(sd = tune_sd) %>%
+  group_by(n, sd, burnin) %>% mutate(theta = cummean(theta)) %>%
+ggplot() + 
+  geom_line(aes(x=iter, y = theta)) + 
+  geom_hline(yintercept = 1.0, linetype = 3) +
+  theme_bw() + 
+  facet_grid(sd ~ n, scales = "free_x", labeller = label_both) +
+  ggtitle("Burnin = 0")
+
+
+```
+
+## MH: Running mean trace plot
+
+```{r mh-ex-mean-2}
+#| echo: true
+#| code-fold: true
+
+mhtest %>% filter(burnin == 100) %>% rename(sd = tune_sd) %>%
+  group_by(n, sd, burnin) %>% mutate(theta = cummean(theta)) %>%
+ggplot() + 
+  geom_line(aes(x=iter, y = theta)) +
+  geom_hline(yintercept = 1.0, linetype = 3) +
+  theme_bw() + 
+  facet_grid(sd ~ n, scales = "free_x", labeller = label_both) +
+  ggtitle("Burnin = 100")
+
 
 ```
 
 
 ## MH: Convergence checks
 
+Other checks
 
+## MH: Extensions
 
 ## References
 
