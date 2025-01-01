@@ -484,7 +484,7 @@ Dr Joshua J Bon
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href=""></a></span>
 <span id="cb1-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>)</span>
-<span id="cb1-5"><a href=""></a><span class="co"># Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv</span></span>
+<span id="cb1-5"><a href=""></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
 <span id="cb1-6"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
 <span id="cb1-7"><a href=""></a></span>
 <span id="cb1-8"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
@@ -825,7 +825,14 @@ Dr Joshua J Bon
 </div>
 </div>
 <p>In the sense that if <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  &lt; \infty</span> then</p>
-<p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
+<p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\longrightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
+</section>
+<section id="monte-carlo-clt" class="slide level2">
+<h2>Monte Carlo CLT</h2>
+<p><span class="math display">\sqrt{N} \left[ \frac{1}{N}\sum_{i=1}^{N}f(\theta_i) - \mathbb{E}_{\theta\sim P}\left[f(\theta)\right]\right] \overset{\text{d}}{\longrightarrow} N(0, \sigma^2_f)</span> if <span class="math inline">\sigma^2_f = \text{Var}[f(\theta_i)] &lt; \infty</span>.</p>
+<ul>
+<li>Monte Carlo error has rate <span class="math inline">\frac{\sigma_f}{\sqrt{N}} = \mathcal{O}(N^{-1/2})</span></li>
+</ul>
 </section>
 <section id="importance-sampling" class="slide level2">
 <h2>Importance sampling</h2>
@@ -843,7 +850,7 @@ Dr Joshua J Bon
 </div>
 </div>
 <p>In the sense that if <span class="math inline">\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  &lt; \infty</span> then</p>
-<p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
+<p><span class="math display">\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\longrightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty</span></p>
 </section>
 <section id="approximating-model-evidence" class="slide level2">
 <h2>Approximating model evidence</h2>
@@ -870,7 +877,7 @@ Dr Joshua J Bon
 <span id="cb2-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-3"><a href=""></a></span>
 <span id="cb2-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>)</span>
-<span id="cb2-5"><a href=""></a><span class="co"># Download: https://github.com/bonstats/mash-abm/data/deputes2019.csv</span></span>
+<span id="cb2-5"><a href=""></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
 <span id="cb2-6"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
 <span id="cb2-7"><a href=""></a></span>
 <span id="cb2-8"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>

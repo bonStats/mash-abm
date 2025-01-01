@@ -76,7 +76,41 @@ What determines accuracy in golf putting?
 
 ## Logistic regression
 
-Overview of LR here
+Model for $Y_i \in \{0,1\}$, for $i \in \{1,\ldots,n\}$:
+
+$$\Pr(Y_i = 1) = \frac{\exp\{\beta_0 + \beta_1x_i\}}{1 + \exp\{\beta_0 + \beta_1x_i\}}$$
+
+- Covariate $x_i$ (can be many) 
+- Unknown coefficients $\beta_0,\beta_1$
+
+## Logistic regression
+
+```{r logistic-regression}
+#| echo: true
+#| code-fold: true
+
+n <- 20
+
+b0 <- 0.5
+b1 <- 2
+link <- function(x){
+  exp(b0 + b1 * x) / ( 1 + exp(b0 + b1 * x) )
+}
+
+simdata <- tibble(x = rnorm(n))
+
+pr_y_1 <- link(simdata$x)
+
+simdata <- simdata %>% mutate(y = rbinom(n, size = 1, prob = pr_y_1))
+
+ggplot(simdata) + 
+  geom_point(aes(x=x,y=y, colour = "Observed data")) + 
+  stat_function(aes(colour = "Pr(Y=1)"), fun = link) + 
+  scale_color_discrete("") + 
+  theme_bw()
+
+```
+
 
 # Beyond MC and IS
 
@@ -115,7 +149,7 @@ for some $\theta_0$.
 
 $$\theta_n \sim K^n(\cdot\mid\theta_0)$$
 
-for $\theta_n \overset{\text{d}}{\rightarrow} \Pi(\cdot\mid y )$ as $n\rightarrow \infty$
+for $\theta_n \overset{\text{d}}{\longrightarrow} \Pi(\cdot\mid y )$ as $n\rightarrow \infty$
 
 ## Markov chain Monte Carlo
 
@@ -147,11 +181,13 @@ No normalising constant required!
 
 Special case: Symmetric proposal
 
-## MH: Chain trace plot
+## Running a MH Algorithm
 
 ```{r mh-ex-trace}
 #| echo: true
 #| code-fold: true
+
+library(dygraphs)
 
 logprob_target <- function(theta){ # unnormalised if neccessary
   
@@ -199,7 +235,30 @@ mh <- function(n, theta0, tune_sd, burnin = 0){
   return(thetas[(burnin+1):n])
 }
 
-# e.g. use: mh(100, 0, 1) 100 iterations, start at 0, sd of proposal = 1
+N <- 5000
+simdata <- tibble(theta = mh(N, 0, 1), iter = 1:N)
+
+# ggplot(simdata) + 
+#   geom_line(aes(x=iter, y = theta)) + 
+#   theme_bw()
+
+dygraph(ts(simdata$theta,start = 1)) %>% dyRangeSelector()
+
+```
+
+# Diagnostics
+
+## Diagnostics
+
+Convergence is guaranteed in **theory** as $n\rightarrow \infty$,
+
+**in practice** we need to monitor and check MCMC samples to get _close enough_!
+
+## MCMC: Chain trace plot
+
+```{r mh-ex-trace-comp}
+#| echo: true
+#| code-fold: true
 
 # iterate over multiple settings
 library(tidyr)
@@ -227,7 +286,7 @@ ggplot() +
 ```
 
 
-## MH: Running mean trace plot
+## MCMC: Running mean trace plot
 
 ```{r mh-ex-mean}
 #| echo: true
@@ -245,7 +304,7 @@ ggplot() +
 
 ```
 
-## MH: Running mean trace plot
+## MCMC: Running mean trace plot
 
 ```{r mh-ex-mean-2}
 #| echo: true
@@ -264,11 +323,86 @@ ggplot() +
 ```
 
 
-## MH: Convergence checks
+## MH: Optimal acceptance rate
 
-Other checks
+$$\alpha = 0.234$$
+
+- Justified as dim. $d \rightarrow \infty$ [@roberts2001optimal]
+- Still often used in practice
+- Specific to Metropolis-Hastings algorithm
+
+## MH: Optimal acceptance rate
+
+```{r mh-ex-trace-accept}
+#| echo: true
+#| code-fold: true
+
+mhtest %>% filter(burnin == 100, n == 10000) %>% rename(sd = tune_sd) %>%
+  mutate(accept = c(NA, abs(diff(theta, )) > 1e-08)) %>%
+  filter(!is.na(accept)) %>% 
+  group_by(sd) %>% 
+  summarise(`Acceptance rate` = mean(accept)) %>%
+ggplot() + 
+  geom_point(aes(x=sd, y = `Acceptance rate`)) + 
+  geom_hline(yintercept = 0.234, linetype = 3) +
+  theme_bw()
+
+```
+
+# General MCMC convergence diagnostics
+
+## Recap: Monte Carlo CLT
+
+$$\sqrt{N} \left[ \frac{1}{N}\sum_{i=1}^{N}f(\theta_i) - \mathbb{E}_{\theta\sim P}\left[f(\theta)\right]\right] \overset{\text{d}}{\longrightarrow} N(0, \sigma^2_f)$$
+if $\theta_i \overset{\text{iid}}{\sim} P$, and $\sigma^2_f = \text{Var}[f(\theta_i)] < \infty$.
+
+- Vanilla Monte Carlo error has rate $\frac{\sigma_f}{\sqrt{N}} = \mathcal{O}(N^{-1/2})$
+
+## MCMC CLT
+
+$$\sqrt{N} \left[ \frac{1}{N}\sum_{t=1}^{N}f(\theta_t) - \mathbb{E}_{\theta\sim P}\left[f(\theta)\right]\right] \overset{\text{d}}{\longrightarrow} N\left(0, \sigma^2_f\sum_{t=-\infty}^\infty \rho_t\right)$$
+
+- if $\theta_1 \sim P$, $\theta_t \sim K(\cdot\mid \theta_{t-1})$ for $t\in \{2,\ldots,N\}$
+- $PK=P$
+- $\sigma^2_f = \text{Var}[f(\theta_i)] < \infty$, $\rho_t = \frac{\text{cov}[f(\theta_1),f(\theta_{1+t})]}{\sigma^2_f}$
+
+
+- MCMC error rate $\mathcal{O}(N^{-1/2})$ at stationarity
+
+
+## MCMC CLT intuitions
+
+Good MCMC schemes:
+
+- Get to stationary distribution quickly (converge fast)
+- Have small autocorrelation $\rho_t$
+
+What quantitative measures exist to measure this?
+
+## MCMC: Convergence $\hat{R}$ and friends
+
+$\hat{R}$, potential scale reduction statistic [@gelman1992inference]
+
+- Run multiple chains from different (random) starting points
+
+- $\hat{R}$ measures the average variance of samples within each chain with respect to the variance of the pooled samples
+
+- $\hat{R} \approx 1$ provides evidence of convergence
+
+- $\hat{R} > 1$ indicates chains have not converged to a common distribution
+
+## MCMC: Effective sample size
+
+Vanilla Monte Carlo sample size  $=N$
+
+MCMC effective sample size $N_\text{eff}=\frac{N}{\sum_{t=-\infty}^\infty\rho_t} = \frac{N}{1+2\sum_{t=1}^\infty\rho_t}$
+
+- Estimate from MCMC samples (valid at stationarity)
 
 ## MH: Extensions
+
+- Metropolis Adjusted Langevin Algorithm
+- Adaptive Metropolis-Hastings
 
 ## References
 

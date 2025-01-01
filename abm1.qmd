@@ -266,7 +266,14 @@ $$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] \approx \frac{1}{N}\sum_{i=1}^
 
 In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
 
-$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
+$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i) \overset{\text{P}}{\longrightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
+
+## Monte Carlo CLT
+
+$$\sqrt{N} \left[ \frac{1}{N}\sum_{i=1}^{N}f(\theta_i) - \mathbb{E}_{\theta\sim P}\left[f(\theta)\right]\right] \overset{\text{d}}{\longrightarrow} N(0, \sigma^2_f)$$
+if $\theta_i \overset{\text{iid}}{\sim} P$, and $\sigma^2_f = \text{Var}[f(\theta_i)] < \infty$.
+
+- Vanilla Monte Carlo error has rate $\frac{\sigma_f}{\sqrt{N}} = \mathcal{O}(N^{-1/2})$
 
 ## Importance sampling
 
@@ -278,7 +285,7 @@ $$\mathbb{E}_{\theta\sim P}\left[f(\theta)\right] = \mathbb{E}_{\theta\sim Q}\le
 
 In the sense that if $\mathbb{E}_{\theta\sim P}\left[f(\theta)\right]  < \infty$ then
 
-$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\rightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
+$$\frac{1}{N}\sum_{i=1}^{N}f(\theta_i)\frac{p(\theta_i)}{q(\theta_i)} \overset{\text{P}}{\longrightarrow} \mathbb{E}_{\theta\sim P}\left[f(\theta)\right],\quad n\rightarrow \infty$$
 
 ## Approximating model evidence
 
