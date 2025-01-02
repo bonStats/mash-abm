@@ -4,7 +4,7 @@
     "href": "lectures/abm1.html#applied-bayesian-modelling",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Applied Bayesian modelling",
-    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models 🔍\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDéputés 2019 data\nIndex slides"
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models 🔍\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDéputés 2019 data"
   },
   {
     "objectID": "lectures/abm1.html#example-1-députés-debut-age",
@@ -207,7 +207,21 @@
     "href": "lectures/abm3.html#applied-bayesian-modelling",
     "title": "Gibbs samplers and variable selection",
     "section": "Applied Bayesian modelling",
-    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDeath rate in urban areas\nIndex slides"
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction 🔍\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDeath rate in urban areas"
+  },
+  {
+    "objectID": "lectures/abm3.html#example-3-explaining-death-rates",
+    "href": "lectures/abm3.html#example-3-explaining-death-rates",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Example 3: Explaining death rates",
+    "text": "Example 3: Explaining death rates\n\n\nCode\nlibrary(readr)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(GGally)\n\ndeathrate &lt;- read_csv(file = josh_data_dir(\"deathrate2.csv\"), col_types = cols(col_skip(), col_guess()))\n# skip the first column\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deathrate2.csvs' on your computer\n# e.g. \"~/Downloads/deathrate2.csv\" or \"C:/Users/[User Name]/Downloads/deathrate2.csv\"\n\n#deathrate \n\ndeathrate %&gt;% \n  select(1:8) %&gt;%\n  ggpairs(progress = F)"
+  },
+  {
+    "objectID": "lectures/abm3.html#example-3-explaining-death-rates-1",
+    "href": "lectures/abm3.html#example-3-explaining-death-rates-1",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Example 3: Explaining death rates",
+    "text": "Example 3: Explaining death rates\n\n\nCode\ndeathrate %&gt;% \n  select(c(1,9:16)) %&gt;%\n  ggpairs(progress = F)"
   },
   {
     "objectID": "lectures/abm3.html#linear-regression-and-variable-selection",
@@ -221,7 +235,7 @@
     "href": "index.html",
     "title": "Applied Bayesian Modelling",
     "section": "",
-    "text": "Course website for for M2 Mash course"
+    "text": "Course website for for M2 MASH course on Applied Bayesian Modelling."
   },
   {
     "objectID": "index.html#slides",
@@ -242,7 +256,7 @@
     "href": "index.html#datasets",
     "title": "Applied Bayesian Modelling",
     "section": "Datasets",
-    "text": "Datasets"
+    "text": "Datasets\n Download data Example 1: Députés 2019\n Download data Example 2: Golf\n Download data Example 3: Death rates"
   },
   {
     "objectID": "index.html#resources",
@@ -259,11 +273,11 @@
     "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nGolf\nIndex slides"
   },
   {
-    "objectID": "lectures/abm2.html#example-1-golf-data",
-    "href": "lectures/abm2.html#example-1-golf-data",
+    "objectID": "lectures/abm2.html#example-2-golf-data",
+    "href": "lectures/abm2.html#example-2-golf-data",
     "title": "MCMC & Metropolis-Hastings",
-    "section": "Example 1: Golf data",
-    "text": "Example 1: Golf data\n\n\nCode\nlibrary(readr)\nlibrary(dplyr)\nlibrary(ggplot2)\n\ngolf &lt;- read_csv(file = josh_data_dir(\"golf2.txt\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'golf2.txt' on your computer\n# e.g. \"~/Downloads/golf2.txt\" or \"C:/Users/[User Name]/Downloads/golf2.txt\"\n\ngolf %&gt;% group_by(distance) %&gt;% summarise(prop_success = mean(success)) %&gt;%\nggplot() + \n  geom_col(aes(x = distance, y = prop_success)) +\n  scale_x_continuous(\"Distance to hole\") +\n  scale_y_continuous(\"Proportion successful\") +\n  theme_bw()"
+    "section": "Example 2: Golf data",
+    "text": "Example 2: Golf data\n\n\nCode\nlibrary(readr)\nlibrary(dplyr)\nlibrary(ggplot2)\n\ngolf &lt;- read_csv(file = josh_data_dir(\"golf2.txt\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'golf2.txt' on your computer\n# e.g. \"~/Downloads/golf2.txt\" or \"C:/Users/[User Name]/Downloads/golf2.txt\"\n\ngolf %&gt;% group_by(distance) %&gt;% summarise(prop_success = mean(success)) %&gt;%\nggplot() + \n  geom_col(aes(x = distance, y = prop_success)) +\n  scale_x_continuous(\"Distance to hole\") +\n  scale_y_continuous(\"Proportion successful\") +\n  theme_bw()"
   },
   {
     "objectID": "lectures/abm2.html#statistical-inference-1",
@@ -432,5 +446,26 @@
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
     "text": "References\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67."
+  },
+  {
+    "objectID": "lectures/abm3.html#example-3-explaining-death-rates-2",
+    "href": "lectures/abm3.html#example-3-explaining-death-rates-2",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Example 3: Explaining death rates",
+    "text": "Example 3: Explaining death rates\n\n\nCode\ndeathrate %&gt;% \n  select(c(1,starts_with(\"noise\"))) %&gt;%\n  ggpairs(progress = F)"
+  },
+  {
+    "objectID": "lectures/abm3.html#linear-regression",
+    "href": "lectures/abm3.html#linear-regression",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Linear regression",
+    "text": "Linear regression\ny = X \\beta + \\epsilon y \\in \\mathbb{R}^n, \\quad \\beta \\in \\mathbb{R}^{p+1}, \\quad \\epsilon_i \\overset{\\text{iid}}{\\sim} \\mathcal{N}(0, \\sigma^2)\nX = \\begin{bmatrix}\n  \\mid  & \\mid & \\mid & &\\mid \\\\\n  1  & x_1 & x_2 & \\cdots & x_p \\\\\n  \\mid  & \\mid & \\mid & &\\mid\n  \\end{bmatrix}\nTypically n \\gg p, and no spurious variables y…\nwhat to do if this is not the case?"
+  },
+  {
+    "objectID": "lectures/abm3.html#variable-selection",
+    "href": "lectures/abm3.html#variable-selection",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Variable selection",
+    "text": "Variable selection\n\nHypothesis testing (Frequentist)\nBayes factors\nBayes model averaging"
   }
 ]

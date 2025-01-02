@@ -12,7 +12,7 @@ format:
     css: style.css
     chalkboard: true
     logo: ../assets/dauphine-logo-white.png
-    footer: "[ABM Home](../index.qmd)"
+    footer: "[:arrow_up: ABM](../index.qmd)"
     cache: true
 editor: source
 from: markdown+emoji
@@ -39,7 +39,7 @@ josh_data_dir <- function(fl){
 ## Links 
 
 - [Députés 2019 data](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
-- [Index slides](../index.html)
+
 :::
 
 # Statistical inference

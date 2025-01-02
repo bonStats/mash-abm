@@ -12,7 +12,7 @@ format:
     css: style.css
     chalkboard: true
     logo: ../assets/dauphine-logo-white.png
-    footer: "[ABM Home](../index.qmd)"
+    footer: "[:arrow_up: ABM](../index.qmd)"
     cache: true
 editor: source
 from: markdown+emoji
@@ -29,7 +29,7 @@ josh_data_dir <- function(fl){
 ## Applied Bayesian modelling
 
 -   Statistical inference :mag:
--   Statistical prediction
+-   Statistical prediction :mag:
 -   Bayesian models
 -   Computation :mag:
 -   Workflows
@@ -38,13 +38,85 @@ josh_data_dir <- function(fl){
 ## Links 
 
 - [Death rate in urban areas](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
-- [Index slides](../index.html)
+
 :::
 
 # Statistical inference
 
-## Linear regression and variable selection
+## Example 3: Explaining death rates
 
+
+```{r death-plot}
+#| echo: true
+#| code-fold: true
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(GGally)
+
+deathrate <- read_csv(file = josh_data_dir("deathrate2.csv"), col_types = cols(col_skip(), col_guess()))
+# skip the first column
+# Download: https://github.com/bonStats/mash-abm/tree/main/data
+# change location to match folder of 'deathrate2.csvs' on your computer
+# e.g. "~/Downloads/deathrate2.csv" or "C:/Users/[User Name]/Downloads/deathrate2.csv"
+
+#deathrate 
+
+deathrate %>% 
+  select(1:8) %>%
+  ggpairs(progress = F)
+
+```
+
+## Example 3: Explaining death rates
+
+
+```{r death-plot-2}
+#| echo: true
+#| code-fold: true
+
+deathrate %>% 
+  select(c(1,9:16)) %>%
+  ggpairs(progress = F)
+
+```
+
+## Example 3: Explaining death rates
+
+
+```{r death-plot-3}
+#| echo: true
+#| code-fold: true
+
+deathrate %>% 
+  select(c(1,starts_with("noise"))) %>%
+  ggpairs(progress = F)
+
+```
+
+## Linear regression
+
+$$y = X \beta + \epsilon$$
+$$y \in \mathbb{R}^n, \quad \beta \in \mathbb{R}^{p+1}, \quad \epsilon_i \overset{\text{iid}}{\sim} \mathcal{N}(0, \sigma^2)$$
+
+$$X = \begin{bmatrix}
+  \mid  & \mid & \mid & &\mid \\
+  1  & x_1 & x_2 & \cdots & x_p \\
+  \mid  & \mid & \mid & &\mid
+  \end{bmatrix}$$
+
+Typically $n \gg p$, and no spurious variables $y$... 
+
+what to do if this is not the case?
+
+## Variable selection
+
+- Hypothesis testing (Frequentist)
+- Bayes factors
+- Bayes model averaging
+
+## 
 
 
 # Gibbs samplers
