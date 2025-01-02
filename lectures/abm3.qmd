@@ -1,0 +1,42 @@
+---
+title: "Applied Bayesian Modelling"
+subtitle: "Lecture 3: Markov chain Monte Carlo"
+author: "Dr Joshua J Bon"
+bibliography: ../refs.bib
+format:
+  revealjs:
+    html-math-method: katex
+    theme: default
+    df-print: paged
+    incremental: false 
+    css: style.css
+    chalkboard: true
+    logo: dauphine-logo-white.png
+editor: source
+from: markdown+emoji
+---
+
+```{r setup}
+
+josh_data_dir <- function(fl){
+  paste0("/Users/jbon/github/mash-abm/data/", fl)
+}
+
+```
+
+## Applied Bayesian modelling
+
+-   Statistical inference :white_check_mark:
+-   Statistical prediction
+-   Bayesian models
+-   Computation :white_check_mark:
+-   Workflows
+
+::: callout-note
+## Links 
+
+- [Golf](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
+- [Index slides](../index.html)
+:::
+
+# Statistical inference

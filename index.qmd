@@ -17,9 +17,9 @@ editor: source
 
 ## Slide deck links
 
-- [Lecture 1: ABM](abm1.html)
-- [Lecture 2: MCMC](abm2.html)
-- Section 3
+- [Lecture 1: ABM](lectures/abm1.html)
+- [Lecture 2: MCMC](lectures/abm2.html)
+- [Lecture 3: MCMC](lectures/abm3.html)
 - Section 4
 - Section 5
 

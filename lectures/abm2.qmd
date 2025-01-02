@@ -2,7 +2,7 @@
 title: "Applied Bayesian Modelling"
 subtitle: "Lecture 2: Markov chain Monte Carlo"
 author: "Dr Joshua J Bon"
-bibliography: refs.bib
+bibliography: ../refs.bib
 format:
   revealjs:
     html-math-method: katex
@@ -16,6 +16,14 @@ editor: source
 from: markdown+emoji
 ---
 
+```{r setup}
+
+josh_data_dir <- function(fl){
+  paste0("/Users/jbon/github/mash-abm/data/", fl)
+}
+
+```
+
 ## Applied Bayesian modelling
 
 -   Statistical inference :white_check_mark:
@@ -28,7 +36,7 @@ from: markdown+emoji
 ## Links 
 
 - [Golf](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
-- [Index slides](index.html)
+- [Index slides](../index.html)
 :::
 
 # Statistical inference
@@ -43,9 +51,10 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 
-golf <- read_csv(file = "data/golf2.txt")
+golf <- read_csv(file = josh_data_dir("golf2.txt"))
 # Download: https://github.com/bonStats/mash-abm/tree/main/data
-# change location to match folder of 'golf.txt' on your computer
+# change location to match folder of 'golf2.txt' on your computer
+# e.g. "~/Downloads/golf2.txt" or "C:/Users/[User Name]/Downloads/golf2.txt"
 
 golf %>% group_by(distance) %>% summarise(prop_success = mean(success)) %>%
 ggplot() + 

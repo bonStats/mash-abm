@@ -464,7 +464,7 @@ Dr Joshua J Bon
 <div class="callout-content">
 <ul>
 <li><a href="https://github.com/bonStats/mash-abm/tree/main/data" target="_blank">Députés 2019 data</a></li>
-<li><a href="index.html">Index slides</a></li>
+<li><a href="../index.html">Index slides</a></li>
 </ul>
 </div>
 </div>
@@ -483,15 +483,16 @@ Dr Joshua J Bon
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>)</span>
+<span id="cb1-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">josh_data_dir</span>(<span class="st">"deputes2019.csv"</span>))</span>
 <span id="cb1-5"><a href=""></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
 <span id="cb1-6"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
-<span id="cb1-9"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">356.25</span>)) <span class="sc">+</span></span>
-<span id="cb1-10"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Debut age"</span>) <span class="sc">+</span></span>
-<span id="cb1-11"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Number of politicians"</span>) <span class="sc">+</span></span>
-<span id="cb1-12"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href=""></a><span class="co"># e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"</span></span>
+<span id="cb1-8"><a href=""></a></span>
+<span id="cb1-9"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb1-10"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">356.25</span>)) <span class="sc">+</span></span>
+<span id="cb1-11"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Debut age"</span>) <span class="sc">+</span></span>
+<span id="cb1-12"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Number of politicians"</span>) <span class="sc">+</span></span>
+<span id="cb1-13"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -829,9 +830,9 @@ Dr Joshua J Bon
 </section>
 <section id="monte-carlo-clt" class="slide level2">
 <h2>Monte Carlo CLT</h2>
-<p><span class="math display">\sqrt{N} \left[ \frac{1}{N}\sum_{i=1}^{N}f(\theta_i) - \mathbb{E}_{\theta\sim P}\left[f(\theta)\right]\right] \overset{\text{d}}{\longrightarrow} N(0, \sigma^2_f)</span> if <span class="math inline">\sigma^2_f = \text{Var}[f(\theta_i)] &lt; \infty</span>.</p>
+<p><span class="math display">\sqrt{N} \left[ \frac{1}{N}\sum_{i=1}^{N}f(\theta_i) - \mathbb{E}_{\theta\sim P}\left[f(\theta)\right]\right] \overset{\text{d}}{\longrightarrow} N(0, \sigma^2_f)</span> if <span class="math inline">\theta_i \overset{\text{iid}}{\sim} P</span>, and <span class="math inline">\sigma^2_f = \text{Var}[f(\theta_i)] &lt; \infty</span>.</p>
 <ul>
-<li>Monte Carlo error has rate <span class="math inline">\frac{\sigma_f}{\sqrt{N}} = \mathcal{O}(N^{-1/2})</span></li>
+<li>Vanilla Monte Carlo error has rate <span class="math inline">\frac{\sigma_f}{\sqrt{N}} = \mathcal{O}(N^{-1/2})</span></li>
 </ul>
 </section>
 <section id="importance-sampling" class="slide level2">
@@ -876,14 +877,15 @@ Dr Joshua J Bon
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(readr)</span>
 <span id="cb2-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/deputes2019.csv"</span>)</span>
+<span id="cb2-4"><a href=""></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">josh_data_dir</span>(<span class="st">"deputes2019.csv"</span>))</span>
 <span id="cb2-5"><a href=""></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
 <span id="cb2-6"><a href=""></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
-<span id="cb2-7"><a href=""></a></span>
-<span id="cb2-8"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
-<span id="cb2-9"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
-<span id="cb2-10"><a href=""></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
-<span id="cb2-11"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href=""></a><span class="co"># e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"</span></span>
+<span id="cb2-8"><a href=""></a></span>
+<span id="cb2-9"><a href=""></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb2-10"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
+<span id="cb2-11"><a href=""></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
+<span id="cb2-12"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
