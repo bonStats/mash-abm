@@ -27,10 +27,10 @@ josh_data_dir <- function(fl){
 
 ## Applied Bayesian modelling
 
--   Statistical inference :white_check_mark:
+-   Statistical inference :mag:
 -   Statistical prediction
--   Bayesian models :white_check_mark:
--   Computation :white_check_mark:
+-   Bayesian models :mag:
+-   Computation :mag:
 -   Workflows
 
 ::: callout-note

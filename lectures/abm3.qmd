@@ -1,6 +1,6 @@
 ---
 title: "Applied Bayesian Modelling"
-subtitle: "Lecture 3: Markov chain Monte Carlo"
+subtitle: "Lecture 3: Gibbs samplers and variable selection"
 author: "Dr Joshua J Bon"
 bibliography: ../refs.bib
 format:
@@ -26,17 +26,23 @@ josh_data_dir <- function(fl){
 
 ## Applied Bayesian modelling
 
--   Statistical inference :white_check_mark:
+-   Statistical inference :mag:
 -   Statistical prediction
 -   Bayesian models
--   Computation :white_check_mark:
+-   Computation :mag:
 -   Workflows
 
 ::: callout-note
 ## Links 
 
-- [Golf](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
+- [Death rate in urban areas](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
 - [Index slides](../index.html)
 :::
 
 # Statistical inference
+
+## Linear regression and variable selection
+
+
+
+# Gibbs samplers
