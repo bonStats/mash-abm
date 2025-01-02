@@ -26,7 +26,9 @@ download_data_buttom <- function(fl,nm){
 ```
 
 
-Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) course on Applied Bayesian Modelling. 
+Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) course on Applied Bayesian Modelling.
+
+Prepared by Dr Joshua J Bon.
 
 ## Slides
 
