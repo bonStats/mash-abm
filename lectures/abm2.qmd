@@ -174,7 +174,7 @@ What to use for $K$?
 
 ## The Metropolis-Hastings algorithm
 
-Initialise $\theta_0$, at time $t$:
+Initialise $\theta_0$. At time $t$:
 
 1. Sample proposal $\theta^\prime \sim Q(\cdot\mid\theta_{t-1})$
 2. Calculate acceptance $\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}$
@@ -182,7 +182,7 @@ Initialise $\theta_0$, at time $t$:
   - If $\alpha \geq U$ accept proposal, set $\theta_t = \theta^\prime$
   - Else $\alpha<U$ reject proposal, set $\theta_t = \theta_{t-1}$
   
-Run until convergence (heuristic checks)
+Run until convergence (check diagnostics)
 
 ## MH: Acceptance rate
 

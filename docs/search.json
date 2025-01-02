@@ -224,11 +224,81 @@
     "text": "Example 3: Explaining death rates\n\n\nCode\ndeathrate %&gt;% \n  select(c(1,9:16)) %&gt;%\n  ggpairs(progress = F)"
   },
   {
-    "objectID": "lectures/abm3.html#linear-regression-and-variable-selection",
-    "href": "lectures/abm3.html#linear-regression-and-variable-selection",
+    "objectID": "lectures/abm3.html#example-3-explaining-death-rates-2",
+    "href": "lectures/abm3.html#example-3-explaining-death-rates-2",
     "title": "Gibbs samplers and variable selection",
-    "section": "Linear regression and variable selection",
-    "text": "Linear regression and variable selection"
+    "section": "Example 3: Explaining death rates",
+    "text": "Example 3: Explaining death rates\n\n\nCode\ndeathrate %&gt;% \n  select(c(1,starts_with(\"noise\"))) %&gt;%\n  ggpairs(progress = F)"
+  },
+  {
+    "objectID": "lectures/abm3.html#linear-regression",
+    "href": "lectures/abm3.html#linear-regression",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Linear regression",
+    "text": "Linear regression\ny = X \\beta + \\epsilon y \\in \\mathbb{R}^n, \\quad \\beta \\in \\mathbb{R}^{p+1}, \\quad \\epsilon_i \\overset{\\text{iid}}{\\sim} \\mathcal{N}(0, \\sigma^2)\nX = \\begin{bmatrix}\n  \\mid  & \\mid & \\mid & &\\mid \\\\\n  1  & x_1 & x_2 & \\cdots & x_p \\\\\n  \\mid  & \\mid & \\mid & &\\mid\n  \\end{bmatrix}\nTypically n \\gg p, and no spurious variables y…\nwhat to do if this is not the case?"
+  },
+  {
+    "objectID": "lectures/abm3.html#variable-selection",
+    "href": "lectures/abm3.html#variable-selection",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Variable selection",
+    "text": "Variable selection\n\nForward/backward selection\n\nHypothesis testing (Frequentist)\nBayes factors\n\nBayes model averaging\nMarginal posterior inclusion probabilities"
+  },
+  {
+    "objectID": "lectures/abm3.html#posterior-predictive-1",
+    "href": "lectures/abm3.html#posterior-predictive-1",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Posterior predictive",
+    "text": "Posterior predictive\nIf we have prior data model P(\\cdot\\mid\\theta) and posterior \\Pi(\\cdot\\mid y)\nThe posterior predictive distribution is y^\\ast \\sim P^\\ast(\\cdot\\mid y) where\nP^\\ast (\\mathrm{d}y^\\ast \\mid y) = \\int_{\\Theta}P(\\mathrm{d}y^\\ast\\mid\\theta) \\Pi( \\mathrm{d}\\theta \\mid y)"
+  },
+  {
+    "objectID": "lectures/abm3.html#posterior-predictive-samples",
+    "href": "lectures/abm3.html#posterior-predictive-samples",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Posterior predictive samples",
+    "text": "Posterior predictive samples\nIf we have samples \\theta_i \\sim \\Pi( \\cdot \\mid y) then\ny^\\ast_i \\sim P^\\ast(\\cdot\\mid \\theta_i) will have posterior predictive (marginal) distribution\nNote: Marginal distribution of samples"
+  },
+  {
+    "objectID": "lectures/abm3.html#gibb-samplers",
+    "href": "lectures/abm3.html#gibb-samplers",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Gibb samplers",
+    "text": "Gibb samplers\nA Markov chain Monte Carlo technique, uses conditional distributions to build an invariant transition kernel\nWhy?\nConditional distributions may have known analytical forms… exact sampling (from conditionals)"
+  },
+  {
+    "objectID": "lectures/abm3.html#posterior-conditionals",
+    "href": "lectures/abm3.html#posterior-conditionals",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Posterior conditionals",
+    "text": "Posterior conditionals\nLet \\dim (\\theta) = d with posterior density \\pi(\\theta \\mid y)\nSeparate elements of \\theta using indices partition S_1 \\cup S_2 \\cup \\cdots \\cup S_k = \\{1,2,\\ldots,d\\}, 2 \\leq k \\leq d\nConditional distributions are\n\\begin{matrix}\\pi(\\theta^{S_1}\\mid y, \\theta^{\\bar{S_1}}) \\\\ \\pi(\\theta^{S_2}\\mid y, \\theta^{\\bar{S_2}}) \\\\ \\vdots \\\\ \\pi(\\theta^{S_k}\\mid y, \\theta^{\\bar{S_k}})   \\end{matrix}"
+  },
+  {
+    "objectID": "lectures/abm3.html#posterior-full-conditionals",
+    "href": "lectures/abm3.html#posterior-full-conditionals",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Posterior full conditionals",
+    "text": "Posterior full conditionals\nIf S_i=\\{i\\} the conditional distributions are \\pi(\\theta^{\\{i\\}}\\mid y, \\theta^{\\overline{\\{i\\}}}) = \\pi(\\theta^{i}\\mid y, \\theta^{-i}) (one possible ordering)\nFor example with k=3,\n\\begin{matrix}\\pi(\\theta^{\\{1\\}}\\mid y, \\theta^{\\{2,3\\}}) \\\\ \\pi(\\theta^{\\{2\\}}\\mid y, \\theta^{\\{1,3\\}}) \\\\ \\vdots \\\\ \\pi(\\theta^{\\{3\\}}\\mid y, \\theta^{\\{1,2\\}})   \\end{matrix}"
+  },
+  {
+    "objectID": "lectures/abm3.html#gibb-sampling-algorithm",
+    "href": "lectures/abm3.html#gibb-sampling-algorithm",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Gibb sampling algorithm",
+    "text": "Gibb sampling algorithm\nInitialise \\theta_0. At time t:\n\nSet \\vartheta = \\theta_{t-1}\nFor i \\in \\{1,2\\ldots,k\\}\n\n\nSample conditional posterior \\theta_t^{S_i} \\sim \\Pi(\\cdot\\mid y, \\vartheta^{\\bar{S}_i})\nUpdate \\vartheta^{S_i} = \\theta_t^{S_i}\n\nRun until convergence (check diagnostics)"
+  },
+  {
+    "objectID": "lectures/abm3.html#gibb-sampling-algorithm-1",
+    "href": "lectures/abm3.html#gibb-sampling-algorithm-1",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Gibb sampling algorithm",
+    "text": "Gibb sampling algorithm\nCode example"
+  },
+  {
+    "objectID": "lectures/abm3.html#references",
+    "href": "lectures/abm3.html#references",
+    "title": "Gibbs samplers and variable selection",
+    "section": "References",
+    "text": "References"
   },
   {
     "objectID": "index.html",
@@ -340,7 +410,7 @@
     "href": "lectures/abm2.html#the-metropolis-hastings-algorithm",
     "title": "MCMC & Metropolis-Hastings",
     "section": "The Metropolis-Hastings algorithm",
-    "text": "The Metropolis-Hastings algorithm\nInitialise \\theta_0, at time t:\n\nSample proposal \\theta^\\prime \\sim Q(\\cdot\\mid\\theta_{t-1})\nCalculate acceptance \\alpha = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)\\pi(\\theta^\\prime\\mid y)}{q(\\theta^\\prime \\mid \\theta_{t-1})\\pi(\\theta_{t-1}\\mid y)},1 \\right\\}\nDraw U \\sim \\text{Unif}(0,1)\n\n\nIf \\alpha \\geq U accept proposal, set \\theta_t = \\theta^\\prime\nElse \\alpha&lt;U reject proposal, set \\theta_t = \\theta_{t-1}\n\nRun until convergence (heuristic checks)"
+    "text": "The Metropolis-Hastings algorithm\nInitialise \\theta_0. At time t:\n\nSample proposal \\theta^\\prime \\sim Q(\\cdot\\mid\\theta_{t-1})\nCalculate acceptance \\alpha = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)\\pi(\\theta^\\prime\\mid y)}{q(\\theta^\\prime \\mid \\theta_{t-1})\\pi(\\theta_{t-1}\\mid y)},1 \\right\\}\nDraw U \\sim \\text{Unif}(0,1)\n\n\nIf \\alpha \\geq U accept proposal, set \\theta_t = \\theta^\\prime\nElse \\alpha&lt;U reject proposal, set \\theta_t = \\theta_{t-1}\n\nRun until convergence (check diagnostics)"
   },
   {
     "objectID": "lectures/abm2.html#mh-acceptance-rate",
@@ -446,26 +516,5 @@
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
     "text": "References\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67."
-  },
-  {
-    "objectID": "lectures/abm3.html#example-3-explaining-death-rates-2",
-    "href": "lectures/abm3.html#example-3-explaining-death-rates-2",
-    "title": "Gibbs samplers and variable selection",
-    "section": "Example 3: Explaining death rates",
-    "text": "Example 3: Explaining death rates\n\n\nCode\ndeathrate %&gt;% \n  select(c(1,starts_with(\"noise\"))) %&gt;%\n  ggpairs(progress = F)"
-  },
-  {
-    "objectID": "lectures/abm3.html#linear-regression",
-    "href": "lectures/abm3.html#linear-regression",
-    "title": "Gibbs samplers and variable selection",
-    "section": "Linear regression",
-    "text": "Linear regression\ny = X \\beta + \\epsilon y \\in \\mathbb{R}^n, \\quad \\beta \\in \\mathbb{R}^{p+1}, \\quad \\epsilon_i \\overset{\\text{iid}}{\\sim} \\mathcal{N}(0, \\sigma^2)\nX = \\begin{bmatrix}\n  \\mid  & \\mid & \\mid & &\\mid \\\\\n  1  & x_1 & x_2 & \\cdots & x_p \\\\\n  \\mid  & \\mid & \\mid & &\\mid\n  \\end{bmatrix}\nTypically n \\gg p, and no spurious variables y…\nwhat to do if this is not the case?"
-  },
-  {
-    "objectID": "lectures/abm3.html#variable-selection",
-    "href": "lectures/abm3.html#variable-selection",
-    "title": "Gibbs samplers and variable selection",
-    "section": "Variable selection",
-    "text": "Variable selection\n\nHypothesis testing (Frequentist)\nBayes factors\nBayes model averaging"
   }
 ]

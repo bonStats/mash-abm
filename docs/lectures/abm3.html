@@ -94,7 +94,26 @@
     code span.va { color: #111111; } /* Variable */
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="style.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -517,16 +536,81 @@ Dr Joshua J Bon
 <section id="variable-selection" class="slide level2">
 <h2>Variable selection</h2>
 <ul>
+<li>Forward/backward selection
+<ul>
 <li>Hypothesis testing (Frequentist)</li>
 <li>Bayes factors</li>
+</ul></li>
 <li>Bayes model averaging</li>
+<li>Marginal posterior inclusion probabilities</li>
 </ul>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
 </section></section>
+<section>
+<section id="posterior-predictive" class="title-slide slide level1 center">
+<h1>Posterior predictive</h1>
+
+</section>
+<section id="posterior-predictive-1" class="slide level2">
+<h2>Posterior predictive</h2>
+<p>If we have prior data model <span class="math inline">P(\cdot\mid\theta)</span> and posterior <span class="math inline">\Pi(\cdot\mid y)</span></p>
+<p>The posterior predictive distribution is <span class="math inline">y^\ast \sim P^\ast(\cdot\mid y)</span> where</p>
+<p><span class="math display">P^\ast (\mathrm{d}y^\ast \mid y) = \int_{\Theta}P(\mathrm{d}y^\ast\mid\theta) \Pi( \mathrm{d}\theta \mid y)</span></p>
+</section>
+<section id="posterior-predictive-samples" class="slide level2">
+<h2>Posterior predictive samples</h2>
+<p>If we have samples <span class="math inline">\theta_i \sim \Pi( \cdot \mid y)</span> then</p>
+<p><span class="math inline">y^\ast_i \sim P^\ast(\cdot\mid \theta_i)</span> will have posterior predictive (marginal) distribution</p>
+<p>Note: Marginal distribution of samples</p>
+</section></section>
+<section>
 <section id="gibbs-samplers" class="title-slide slide level1 center">
 <h1>Gibbs samplers</h1>
+
+</section>
+<section id="gibb-samplers" class="slide level2">
+<h2>Gibb samplers</h2>
+<p>A Markov chain Monte Carlo technique, uses conditional distributions to build an invariant transition kernel</p>
+<p>Why?</p>
+<p>Conditional distributions may have known analytical forms… exact sampling (from conditionals)</p>
+</section>
+<section id="posterior-conditionals" class="slide level2">
+<h2>Posterior conditionals</h2>
+<p>Let <span class="math inline">\dim (\theta) = d</span> with posterior density <span class="math inline">\pi(\theta \mid y)</span></p>
+<p>Separate elements of <span class="math inline">\theta</span> using indices partition <span class="math inline">S_1 \cup S_2 \cup \cdots \cup S_k = \{1,2,\ldots,d\}</span>, <span class="math inline">2 \leq k \leq d</span></p>
+<p>Conditional distributions are</p>
+<p><span class="math display">\begin{matrix}\pi(\theta^{S_1}\mid y, \theta^{\bar{S_1}}) \\ \pi(\theta^{S_2}\mid y, \theta^{\bar{S_2}}) \\ \vdots \\ \pi(\theta^{S_k}\mid y, \theta^{\bar{S_k}})   \end{matrix}</span></p>
+</section>
+<section id="posterior-full-conditionals" class="slide level2">
+<h2>Posterior full conditionals</h2>
+<p>If <span class="math inline">S_i=\{i\}</span> the conditional distributions are <span class="math inline">\pi(\theta^{\{i\}}\mid y, \theta^{\overline{\{i\}}}) = \pi(\theta^{i}\mid y, \theta^{-i})</span> (one possible ordering)</p>
+<p>For example with <span class="math inline">k=3</span>,</p>
+<p><span class="math display">\begin{matrix}\pi(\theta^{\{1\}}\mid y, \theta^{\{2,3\}}) \\ \pi(\theta^{\{2\}}\mid y, \theta^{\{1,3\}}) \\ \vdots \\ \pi(\theta^{\{3\}}\mid y, \theta^{\{1,2\}})   \end{matrix}</span></p>
+</section>
+<section id="gibb-sampling-algorithm" class="slide level2">
+<h2>Gibb sampling algorithm</h2>
+<p>Initialise <span class="math inline">\theta_0</span>. At time <span class="math inline">t</span>:</p>
+<ol type="1">
+<li>Set <span class="math inline">\vartheta = \theta_{t-1}</span></li>
+<li>For <span class="math inline">i \in \{1,2\ldots,k\}</span></li>
+</ol>
+<ul>
+<li>Sample conditional posterior <span class="math inline">\theta_t^{S_i} \sim \Pi(\cdot\mid y, \vartheta^{\bar{S}_i})</span></li>
+<li>Update <span class="math inline">\vartheta^{S_i} = \theta_t^{S_i}</span></li>
+</ul>
+<p>Run until convergence (check diagnostics)</p>
+</section>
+<section id="gibb-sampling-algorithm-1" class="slide level2">
+<h2>Gibb sampling algorithm</h2>
+<p>Code example</p>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+<div id="refs" role="list">
+
+</div>
+</section></section>
+<section id="appendices" class="title-slide slide level1 center">
+<h1>Appendices</h1>
 
 <div class="quarto-auto-generated-content">
 <p><img src="../assets/dauphine-logo-white.png" class="slide-logo"></p>

@@ -628,7 +628,7 @@ Dr Joshua J Bon
 </section>
 <section id="the-metropolis-hastings-algorithm" class="slide level2">
 <h2>The Metropolis-Hastings algorithm</h2>
-<p>Initialise <span class="math inline">\theta_0</span>, at time <span class="math inline">t</span>:</p>
+<p>Initialise <span class="math inline">\theta_0</span>. At time <span class="math inline">t</span>:</p>
 <ol type="1">
 <li>Sample proposal <span class="math inline">\theta^\prime \sim Q(\cdot\mid\theta_{t-1})</span></li>
 <li>Calculate acceptance <span class="math inline">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}</span></li>
@@ -638,7 +638,7 @@ Dr Joshua J Bon
 <li>If <span class="math inline">\alpha \geq U</span> accept proposal, set <span class="math inline">\theta_t = \theta^\prime</span></li>
 <li>Else <span class="math inline">\alpha&lt;U</span> reject proposal, set <span class="math inline">\theta_t = \theta_{t-1}</span></li>
 </ul>
-<p>Run until convergence (heuristic checks)</p>
+<p>Run until convergence (check diagnostics)</p>
 </section>
 <section id="mh-acceptance-rate" class="slide level2">
 <h2>MH: Acceptance rate</h2>
