@@ -1,0 +1,14 @@
+.center h2 {
+  text-align: center;
+}
+
+#vcenter {
+  vertical-align: middle;
+}
+
+.v-center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}

@@ -1,0 +1,436 @@
+[
+  {
+    "objectID": "lectures/abm1.html#applied-bayesian-modelling",
+    "href": "lectures/abm1.html#applied-bayesian-modelling",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Applied Bayesian modelling",
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models 🔍\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDéputés 2019 data\nIndex slides"
+  },
+  {
+    "objectID": "lectures/abm1.html#example-1-députés-debut-age",
+    "href": "lectures/abm1.html#example-1-députés-debut-age",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Example 1: Députés debut age",
+    "text": "Example 1: Députés debut age\n\n\nCode\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = josh_data_dir(\"deputes2019.csv\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deputes2019.csv' on your computer\n# e.g. \"~/Downloads/deputes2019.csv\" or \"C:/Users/[User Name]/Downloads/deputes2019.csv\"\n\nggplot(deputes) + \n  geom_histogram(aes(x = (premier_elu - date_naissance)/356.25)) +\n  scale_x_continuous(\"Debut age\") +\n  scale_y_continuous(\"Number of politicians\") +\n  theme_bw()"
+  },
+  {
+    "objectID": "lectures/abm1.html#statistical-inference-1",
+    "href": "lectures/abm1.html#statistical-inference-1",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Statistical inference",
+    "text": "Statistical inference\n\n\n\n\n\n\nLay question\n\n\nWhat age do politicians make their debut in parliament?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nWhat is the average age at debut?\nWhat is the variance in age at debut?\nWhat statistical model best explains the distribution of question numbers?\n\n\n\n\n\nIn France, according to the 2019 data!"
+  },
+  {
+    "objectID": "lectures/abm1.html#bayes-rule",
+    "href": "lectures/abm1.html#bayes-rule",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Bayes rule",
+    "text": "Bayes rule\nTwo events A and B\n\\Pr(A\\mid B) = \\frac{\\Pr(B \\mid A) \\Pr(A)}{\\Pr(B)}"
+  },
+  {
+    "objectID": "lectures/abm1.html#bayes-theorem-for-inference",
+    "href": "lectures/abm1.html#bayes-theorem-for-inference",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Bayes theorem for inference",
+    "text": "Bayes theorem for inference\n\nAssume observed data: Y \\sim P(\\cdot\\mid\\theta) for some unknown \\theta\nAssume we have a prior belief for \\theta \\sim \\Pi\n\n\n\n\n\n\n\nPosterior distribution\n\n\n\\Pi(\\mathrm{d}\\theta \\mid Y=y) = \\frac{p(y \\mid \\theta)\\Pi(\\mathrm{d}\\theta)}{m(y)}"
+  },
+  {
+    "objectID": "lectures/abm1.html#bayes-theorem-for-inference-1",
+    "href": "lectures/abm1.html#bayes-theorem-for-inference-1",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Bayes theorem for inference",
+    "text": "Bayes theorem for inference\n\n\n\n\n\n\nPosterior density\n\n\n\\pi(\\theta \\mid y) = \\frac{p(y \\mid \\theta)\\pi(\\theta)}{m(y)}\n\n\n\n\np(y \\mid \\theta) is density1 of P(\\cdot\\mid\\theta) at y for a given \\theta\n\\pi(\\theta) is prior density of \\theta\nm(y) is the model evidence2\n\nProbability density (e.g. PDF/PMF)Also known as the posterior normalising constant, or marginal likelihood"
+  },
+  {
+    "objectID": "lectures/abm1.html#bayes-theorem-for-inference-2",
+    "href": "lectures/abm1.html#bayes-theorem-for-inference-2",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Bayes theorem for inference",
+    "text": "Bayes theorem for inference\n\n\n\n\n\n\nPosterior density\n\n\n\\pi(\\theta \\mid y) = \\frac{p(y \\mid \\theta)\\pi(\\theta)}{m(y)}\n\n\n\n\nMarginal likelihood\n\nZ = m(y) = \\int_\\Theta p(y \\mid \\theta) \\Pi(\\mathrm{d}\\theta) = \\mathbb{E}_{\\theta \\sim \\Pi}\\left[p(y \\mid \\theta)\\right]\n\nLikelihood\n\nL(\\cdot\\mid y) = p(y \\mid \\cdot) for fixed y."
+  },
+  {
+    "objectID": "lectures/abm1.html#posterior-quantities",
+    "href": "lectures/abm1.html#posterior-quantities",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Posterior quantities",
+    "text": "Posterior quantities\n\nMoments\nMedian, mode\nCredible intervals (quantiles)\nPosterior predictive distribution"
+  },
+  {
+    "objectID": "lectures/abm1.html#demonstration-posterior-ex-1",
+    "href": "lectures/abm1.html#demonstration-posterior-ex-1",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Demonstration: Posterior (Ex 1)",
+    "text": "Demonstration: Posterior (Ex 1)\n\nAge first elected Y_i for i\\in\\{1,2,\\ldots,565\\}\n\nAssume model and prior\n\nY_i \\mid \\beta \\overset{\\text{iid}}{\\sim} \\text{Gamma}(\\alpha,\\beta)\n\\alpha = 200 fixed\n\\beta \\sim \\text{Gamma}(\\alpha_0,\\beta_0)"
+  },
+  {
+    "objectID": "lectures/abm1.html#choice-of-prior-pi",
+    "href": "lectures/abm1.html#choice-of-prior-pi",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Choice of prior: \\Pi",
+    "text": "Choice of prior: \\Pi\n\nIncorporate prior knowledge\n\nSupport of parameter\nMoments\nQuantiles\nPrior predictive distribution\n\nHyper priors\nComputationally tractable"
+  },
+  {
+    "objectID": "lectures/abm1.html#conjugate-priors",
+    "href": "lectures/abm1.html#conjugate-priors",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Conjugate priors",
+    "text": "Conjugate priors\n\n\n\n\n\n\nConjugate prior\n\n\nA prior is a conjugate prior if given a likelihood, the prior and posterior are in the same family of distributions.\n\n\n\nFor known distributions, conjugate priors are tractable."
+  },
+  {
+    "objectID": "lectures/abm1.html#conjugate-prior-examples",
+    "href": "lectures/abm1.html#conjugate-prior-examples",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Conjugate prior examples",
+    "text": "Conjugate prior examples\n\nGamma prior on rate \\beta is conjugate prior for Gamma likelihood (fixed shape \\alpha)\nNormal prior on mean \\mu is conjugate prior for Normal likelihood (fixed variance \\sigma^2)\nInverse Gamma prior on variance \\sigma^2 is conjugate prior for Normal likelihood (fixed mean \\mu)"
+  },
+  {
+    "objectID": "lectures/abm1.html#flatuniform-priors",
+    "href": "lectures/abm1.html#flatuniform-priors",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Flat/uniform priors",
+    "text": "Flat/uniform priors\n\\pi(\\theta) \\propto 1\n\n\\Pi may be an improper prior, \\int_{\\Theta}\\pi(\\theta) = \\infty.\nFlat priors may still contain information1\n\nSee “The prior can often only be understood in the context of the likelihood”, (Gelman, Simpson, and Betancourt 2017)"
+  },
+  {
+    "objectID": "lectures/abm1.html#non-informative-and-weakly-informative-priors",
+    "href": "lectures/abm1.html#non-informative-and-weakly-informative-priors",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Non-informative and weakly-informative priors",
+    "text": "Non-informative and weakly-informative priors\n\nDiffuse priors, e.g. \\theta \\sim \\text{N}(0, \\sigma^2) with large \\sigma^2\n\nNote: \\sigma^2 \\rightarrow \\infty is a flat improper prior\n\nPriors with invariance, symmetry, uncertainty principles\n\nJefferys priors (Robert, Chopin, and Rousseau 2009)\nReference priors (Berger, Bernardo, and Sun 2009)\nObjective priors (Ghosh 2011)"
+  },
+  {
+    "objectID": "lectures/abm1.html#jefferys-priors",
+    "href": "lectures/abm1.html#jefferys-priors",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Jefferys priors",
+    "text": "Jefferys priors\nRecall Fisher information matrix for regular models\n\\mathcal{I}(\\theta) = -\\mathbb{E}\\left[ \\frac{\\partial^2 \\log L}{\\partial \\theta^2} \\right]\n\\pi(\\theta) \\propto |\\mathcal{I}(\\theta)|^{1/2}\n\nInvariance under reparameterisation\n\nProperty for continuous parameters\n\nMay lead to improper prior"
+  },
+  {
+    "objectID": "lectures/abm1.html#choice-of-model",
+    "href": "lectures/abm1.html#choice-of-model",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Choice of model",
+    "text": "Choice of model\nP(\\cdot\\mid\\theta) How are the data distributed? Is this a good approximation?\n\nIncorporate data knowledge\n\nSupport of data\nProperties of the data\n\nGroups\nDynamics\n\nPrior predictive distribution"
+  },
+  {
+    "objectID": "lectures/abm1.html#model-checking-i-bayes-factors",
+    "href": "lectures/abm1.html#model-checking-i-bayes-factors",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Model checking I: Bayes Factors",
+    "text": "Model checking I: Bayes Factors\nm_i(y) = \\int_\\Theta p_i(y \\mid \\theta) \\Pi_i(\\mathrm{d}\\theta) = \\mathbb{E}_{\\theta\\sim\\Pi_i}\\left[ L_i(\\theta\\mid y)\\right]\n\nm_i(y) is evidence for model M_i for fixed y, depends on\n\nprior \\Pi_i\nlikelihood L_i(\\cdot\\mid y) = p_i(y \\mid \\cdot)\n\nBayes factor \\text{BF}_{1,0} = \\frac{m_1(y)}{m_0(y)} compares evidence"
+  },
+  {
+    "objectID": "lectures/abm1.html#model-checking-i-bayes-factors-1",
+    "href": "lectures/abm1.html#model-checking-i-bayes-factors-1",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Model checking I: Bayes Factors",
+    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors\n\n\\text{BF}_{1,0} = \\frac{\\Pr(M_1\\mid y)}{\\Pr(M_0\\mid y)} = \\frac{m_1(y)}{m_0(y)}"
+  },
+  {
+    "objectID": "lectures/abm1.html#model-checking-i-bayes-factors-2",
+    "href": "lectures/abm1.html#model-checking-i-bayes-factors-2",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Model checking I: Bayes Factors",
+    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors\n\n\n\n\n\n\n\n\\text{BF}_{1,0}\nStrength of Evidence1 (M_1 vs null M_0)\n\n\n\n\n1 to 3.2\nNot worth more than a bare mention\n\n\n3.2 to 10\nSubstantial\n\n\n10 to 100\nStrong\n\n\n&gt; 100\nDecisive\n\n\n\nGood (1979)"
+  },
+  {
+    "objectID": "lectures/abm1.html#posterior-computation",
+    "href": "lectures/abm1.html#posterior-computation",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Posterior Computation",
+    "text": "Posterior Computation\nWhat if I don’t use a conjugate prior? Intractable normalising constant, unknown distribution. Why?\nZ = \\int_\\Theta p(y \\mid \\theta) \\Pi(\\mathrm{d}\\theta)\nUse computational methods:\n\nMCMC: Markov chain Monte Carlo\nIS: Importance sampling\nSMC: Sequential Monte Carlo"
+  },
+  {
+    "objectID": "lectures/abm1.html#monte-carlo-methods",
+    "href": "lectures/abm1.html#monte-carlo-methods",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Monte Carlo methods",
+    "text": "Monte Carlo methods\nWhen \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right] is intractable…\n\nP is known but expectation of f(\\theta) is intractable (e.g. unknown integral)\nP is unknown due to intractable normalising constant\n\nCould use numerical methods (quadrature), but in “high” dimension (d \\gtrsim 4), we typically use Monte Carlo methods."
+  },
+  {
+    "objectID": "lectures/abm1.html#monte-carlo-integration",
+    "href": "lectures/abm1.html#monte-carlo-integration",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Monte Carlo integration",
+    "text": "Monte Carlo integration\n\n\n\n\n\n\nMonte Carlo Approximation\n\n\n\\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right] \\approx \\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i), \\quad \\text{where}~\\theta_i \\overset{\\text{iid}}{\\sim} P\n\n\n\nIn the sense that if \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right]  &lt; \\infty then\n\\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i) \\overset{\\text{P}}{\\longrightarrow} \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right],\\quad n\\rightarrow \\infty"
+  },
+  {
+    "objectID": "lectures/abm1.html#monte-carlo-clt",
+    "href": "lectures/abm1.html#monte-carlo-clt",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Monte Carlo CLT",
+    "text": "Monte Carlo CLT\n\\sqrt{N} \\left[ \\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i) - \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right]\\right] \\overset{\\text{d}}{\\longrightarrow} N(0, \\sigma^2_f) if \\theta_i \\overset{\\text{iid}}{\\sim} P, and \\sigma^2_f = \\text{Var}[f(\\theta_i)] &lt; \\infty.\n\nVanilla Monte Carlo error has rate \\frac{\\sigma_f}{\\sqrt{N}} = \\mathcal{O}(N^{-1/2})"
+  },
+  {
+    "objectID": "lectures/abm1.html#importance-sampling",
+    "href": "lectures/abm1.html#importance-sampling",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Importance sampling",
+    "text": "Importance sampling\n\n\n\n\n\n\nImportance sampling approximation\n\n\n\\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right] = \\mathbb{E}_{\\theta\\sim Q}\\left[f(\\theta)\\frac{p(\\theta)}{q(\\theta)}\\right] \\approx \\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i)\\frac{p(\\theta_i)}{q(\\theta_i)}, \\quad \\text{where}~\\theta_i \\overset{\\text{iid}}{\\sim} Q\n\n\n\nIn the sense that if \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right]  &lt; \\infty then\n\\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i)\\frac{p(\\theta_i)}{q(\\theta_i)} \\overset{\\text{P}}{\\longrightarrow} \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right],\\quad n\\rightarrow \\infty"
+  },
+  {
+    "objectID": "lectures/abm1.html#approximating-model-evidence",
+    "href": "lectures/abm1.html#approximating-model-evidence",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Approximating model evidence",
+    "text": "Approximating model evidence\nVanilla Monte Carlo estimator\nm(y) = \\mathbb{E}_{\\theta \\sim \\Pi}\\left[ L(\\theta \\mid y) \\right] Importance sample estimator\nm(y) = \\mathbb{E}_{\\theta \\sim Q}\\left[ L(\\theta \\mid y) \\frac{p(\\theta)}{q(\\theta)}\\right]\nChoose q(\\theta) \\approx C \\cdot L(\\theta \\mid y) p(\\theta)"
+  },
+  {
+    "objectID": "lectures/abm1.html#recap-ingredients-of-bayesian-models",
+    "href": "lectures/abm1.html#recap-ingredients-of-bayesian-models",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Recap: Ingredients of Bayesian models",
+    "text": "Recap: Ingredients of Bayesian models\n\nPosterior = prior \\times likelihood\nBayesian model = \\{ prior, data model \\}\nModel evidence\nIntractable posteriors \\rightarrow Monte Carlo approximation"
+  },
+  {
+    "objectID": "lectures/abm1.html#example-2-députés-questions",
+    "href": "lectures/abm1.html#example-2-députés-questions",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Example 2: Députés Questions",
+    "text": "Example 2: Députés Questions\n\n\nCode\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = josh_data_dir(\"deputes2019.csv\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deputes2019.csv' on your computer\n# e.g. \"~/Downloads/deputes2019.csv\" or \"C:/Users/[User Name]/Downloads/deputes2019.csv\"\n\nggplot(deputes) + \n  geom_histogram(aes(x = questions_orales)) +\n  facet_grid(rows = \"sexe\") + \n  theme_bw()"
+  },
+  {
+    "objectID": "lectures/abm1.html#example-2-députés-questions-1",
+    "href": "lectures/abm1.html#example-2-députés-questions-1",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Example 2: Députés Questions",
+    "text": "Example 2: Députés Questions\n\n\n\n\n\n\nLay question\n\n\nDo the number of questions politicians ask differ by gender?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nDoes the average number of questions differ by gender?\nDoes the variance in the number of questions differ by gender?\nWhat statistical model best explains the distribution of question numbers?"
+  },
+  {
+    "objectID": "lectures/abm1.html#references",
+    "href": "lectures/abm1.html#references",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "References",
+    "text": "References\n\n\nBerger, James O, José M Bernardo, and Dongchu Sun. 2009. “The Formal Definition of Reference Priors.” The Annals of Statistics 37 (2): 905–38.\n\n\nGelman, Andrew, Daniel Simpson, and Michael Betancourt. 2017. “The Prior Can Often Only Be Understood in the Context of the Likelihood.” Entropy 19 (10): 555.\n\n\nGhosh, Malay. 2011. “Objective Priors: An Introduction for Frequentists.” Statistical Science, 187–202.\n\n\nGood, Irving J. 1979. “Studies in the History of Probability and Statistics. XXXVII AM Turing’s Statistical Work in World War II.” Biometrika, 393–96.\n\n\nRobert, Christian P, Nicolas Chopin, and Judith Rousseau. 2009. “Harold Jeffreys’s Theory of Probability Revisited.” Statistical Science, 141–72."
+  },
+  {
+    "objectID": "lectures/abm3.html#applied-bayesian-modelling",
+    "href": "lectures/abm3.html#applied-bayesian-modelling",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Applied Bayesian modelling",
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDeath rate in urban areas\nIndex slides"
+  },
+  {
+    "objectID": "lectures/abm3.html#linear-regression-and-variable-selection",
+    "href": "lectures/abm3.html#linear-regression-and-variable-selection",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Linear regression and variable selection",
+    "text": "Linear regression and variable selection"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Applied Bayesian Modelling",
+    "section": "",
+    "text": "Course website for for M2 Mash course"
+  },
+  {
+    "objectID": "index.html#slides",
+    "href": "index.html#slides",
+    "title": "Applied Bayesian Modelling",
+    "section": "Slides",
+    "text": "Slides\n\nLecture 1: Bayes & Monte Carlo\nLecture 2: MCMC & Metropolis-Hastings\nLecture 3: Gibbs & Variable Selection\nSection 4\nSection 5"
+  },
+  {
+    "objectID": "index.html#worksheets",
+    "href": "index.html#worksheets",
+    "title": "Applied Bayesian Modelling",
+    "section": "Worksheets",
+    "text": "Worksheets\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4\nWorksheet 5"
+  },
+  {
+    "objectID": "index.html#datasets",
+    "href": "index.html#datasets",
+    "title": "Applied Bayesian Modelling",
+    "section": "Datasets",
+    "text": "Datasets"
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "Applied Bayesian Modelling",
+    "section": "Resources",
+    "text": "Resources"
+  },
+  {
+    "objectID": "lectures/abm2.html#applied-bayesian-modelling",
+    "href": "lectures/abm2.html#applied-bayesian-modelling",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Applied Bayesian modelling",
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nGolf\nIndex slides"
+  },
+  {
+    "objectID": "lectures/abm2.html#example-1-golf-data",
+    "href": "lectures/abm2.html#example-1-golf-data",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Example 1: Golf data",
+    "text": "Example 1: Golf data\n\n\nCode\nlibrary(readr)\nlibrary(dplyr)\nlibrary(ggplot2)\n\ngolf &lt;- read_csv(file = josh_data_dir(\"golf2.txt\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'golf2.txt' on your computer\n# e.g. \"~/Downloads/golf2.txt\" or \"C:/Users/[User Name]/Downloads/golf2.txt\"\n\ngolf %&gt;% group_by(distance) %&gt;% summarise(prop_success = mean(success)) %&gt;%\nggplot() + \n  geom_col(aes(x = distance, y = prop_success)) +\n  scale_x_continuous(\"Distance to hole\") +\n  scale_y_continuous(\"Proportion successful\") +\n  theme_bw()"
+  },
+  {
+    "objectID": "lectures/abm2.html#statistical-inference-1",
+    "href": "lectures/abm2.html#statistical-inference-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Statistical inference",
+    "text": "Statistical inference\n\n\n\n\n\n\nLay question\n\n\nWhat determines accuracy in golf putting?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nHow likely is the player to successfully sink the putt at distance x metres?\nHow variable is the players angle of putting compared to the correct angle?\n\n\n\n\n\nAccording to this putting data from one player"
+  },
+  {
+    "objectID": "lectures/abm2.html#logistic-regression",
+    "href": "lectures/abm2.html#logistic-regression",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Logistic regression",
+    "text": "Logistic regression\nModel for Y_i \\in \\{0,1\\}, for i \\in \\{1,\\ldots,n\\}:\n\\Pr(Y_i = 1) = \\frac{\\exp\\{\\beta_0 + \\beta_1x_i\\}}{1 + \\exp\\{\\beta_0 + \\beta_1x_i\\}}\n\nCovariate x_i (can be many)\nUnknown coefficients \\beta_0,\\beta_1"
+  },
+  {
+    "objectID": "lectures/abm2.html#logistic-regression-1",
+    "href": "lectures/abm2.html#logistic-regression-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Logistic regression",
+    "text": "Logistic regression\n\n\nCode\nn &lt;- 20\n\nb0 &lt;- 0.5\nb1 &lt;- 2\nlink &lt;- function(x){\n  exp(b0 + b1 * x) / ( 1 + exp(b0 + b1 * x) )\n}\n\nsimdata &lt;- tibble(x = rnorm(n))\n\npr_y_1 &lt;- link(simdata$x)\n\nsimdata &lt;- simdata %&gt;% mutate(y = rbinom(n, size = 1, prob = pr_y_1))\n\nggplot(simdata) + \n  geom_point(aes(x=x,y=y, colour = \"Observed data\")) + \n  stat_function(aes(colour = \"Pr(Y=1)\"), fun = link) + \n  scale_color_discrete(\"\") + \n  theme_bw()"
+  },
+  {
+    "objectID": "lectures/abm2.html#recap-monte-carlo-approximation",
+    "href": "lectures/abm2.html#recap-monte-carlo-approximation",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Recap: Monte Carlo approximation",
+    "text": "Recap: Monte Carlo approximation\n\\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right] \\approx \\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i), \\quad \\text{where}~\\theta_i \\overset{\\text{iid}}{\\sim} P\nWhat if we can’t sample from P?"
+  },
+  {
+    "objectID": "lectures/abm2.html#self-normalised-importance-sampling",
+    "href": "lectures/abm2.html#self-normalised-importance-sampling",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Self-normalised importance sampling",
+    "text": "Self-normalised importance sampling\nExtending IS when \\pi(\\cdot\\mid y) can’t be evaluated due to Z.\n\\mathbb{E}_{\\theta\\sim \\Pi(\\cdot\\mid y)}\\left[f(\\theta)\\right] = \\frac{\\mathbb{E}_{\\theta\\sim Q}\\left[f(\\theta)w(\\theta)\\right]}{\\mathbb{E}_{\\theta\\sim Q}\\left[w(\\theta)\\right]}\nwhere w(\\theta) = \\frac{L(\\theta\\mid y)\\pi(\\theta)}{q(\\theta)}."
+  },
+  {
+    "objectID": "lectures/abm2.html#self-normalised-importance-sampling-1",
+    "href": "lectures/abm2.html#self-normalised-importance-sampling-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Self-normalised importance sampling",
+    "text": "Self-normalised importance sampling\n\\mathbb{E}_{\\theta\\sim \\Pi(\\cdot\\mid y)}\\left[f(\\theta)\\right] \\approx \\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i)\\bar{w}_i\n\n\\theta_i \\overset{\\text{iid}}{\\sim} Q\n\\bar{w}_i = \\frac{w(\\theta_i)}{\\sum_{j=1}^N w(\\theta_j)}\nw(\\theta) = \\frac{L(\\theta\\mid y)\\pi(\\theta)}{q(\\theta)} \\propto \\frac{\\Pi(\\theta\\mid y)}{q(\\theta)}"
+  },
+  {
+    "objectID": "lectures/abm2.html#markov-chain-monte-carlo",
+    "href": "lectures/abm2.html#markov-chain-monte-carlo",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Markov chain Monte Carlo",
+    "text": "Markov chain Monte Carlo\nExtending vanilla MC when \\theta \\sim \\Pi(\\cdot\\mid y) can’t be sampled.\nConstruct Markov chain with limiting distribution \\Pi(\\cdot\\mid y)\n\\theta_t \\sim K(\\cdot\\mid \\theta_{t-1}),\\quad t\\in\\{1,2,\\ldots,\\}\nfor some \\theta_0.\n\\theta_n \\sim K^n(\\cdot\\mid\\theta_0)\nfor \\theta_n \\overset{\\text{d}}{\\longrightarrow} \\Pi(\\cdot\\mid y ) as n\\rightarrow \\infty"
+  },
+  {
+    "objectID": "lectures/abm2.html#markov-chain-monte-carlo-1",
+    "href": "lectures/abm2.html#markov-chain-monte-carlo-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Markov chain Monte Carlo",
+    "text": "Markov chain Monte Carlo\nWe can estimate quantities with the MCMC samples\n\\mathbb{E}_{\\theta\\sim \\Pi(\\cdot\\mid y)}\\left[f(\\theta)\\right] \\approx \\sum_{t=1}^{N}f(\\theta_t),\\quad \\theta_t \\sim K(\\cdot\\mid \\theta_{t-1})\nWhat to use for K?"
+  },
+  {
+    "objectID": "lectures/abm2.html#the-metropolis-hastings-algorithm",
+    "href": "lectures/abm2.html#the-metropolis-hastings-algorithm",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "The Metropolis-Hastings algorithm",
+    "text": "The Metropolis-Hastings algorithm\nInitialise \\theta_0, at time t:\n\nSample proposal \\theta^\\prime \\sim Q(\\cdot\\mid\\theta_{t-1})\nCalculate acceptance \\alpha = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)\\pi(\\theta^\\prime\\mid y)}{q(\\theta^\\prime \\mid \\theta_{t-1})\\pi(\\theta_{t-1}\\mid y)},1 \\right\\}\nDraw U \\sim \\text{Unif}(0,1)\n\n\nIf \\alpha \\geq U accept proposal, set \\theta_t = \\theta^\\prime\nElse \\alpha&lt;U reject proposal, set \\theta_t = \\theta_{t-1}\n\nRun until convergence (heuristic checks)"
+  },
+  {
+    "objectID": "lectures/abm2.html#mh-acceptance-rate",
+    "href": "lectures/abm2.html#mh-acceptance-rate",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MH: Acceptance rate",
+    "text": "MH: Acceptance rate\n\\alpha = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)\\pi(\\theta^\\prime\\mid y)}{q(\\theta^\\prime \\mid \\theta_{t-1})\\pi(\\theta_{t-1}\\mid y)},1 \\right\\}  = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)L(\\theta^\\prime\\mid y)\\pi(\\theta^\\prime)}{q(\\theta^\\prime \\mid \\theta_{t-1})L(\\theta_{t-1}\\mid y)\\pi(\\theta_{t-1})},1 \\right\\} No normalising constant required!\nSpecial case: Symmetric proposal"
+  },
+  {
+    "objectID": "lectures/abm2.html#running-a-mh-algorithm",
+    "href": "lectures/abm2.html#running-a-mh-algorithm",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Running a MH Algorithm",
+    "text": "Running a MH Algorithm\n\n\nCode\nlibrary(dygraphs)\n\nlogprob_target &lt;- function(theta){ # unnormalised if neccessary\n  \n  dnorm(theta, mean = 1, sd = 1, log = TRUE)\n  \n}\n\nrproposal &lt;- function(given_theta, tune_sd) {\n  \n  rnorm(1, mean = given_theta, sd = tune_sd)\n  \n}\n\nlogprob_proposal &lt;- function(theta, given_theta, tune_sd){\n  \n  dnorm(theta, mean = given_theta, sd = tune_sd, log = TRUE)\n  \n}\n\nmh_iteration &lt;- function(given_theta, tune_sd){\n  \n  proposal &lt;- rproposal(given_theta, tune_sd)\n  log_uniform &lt;- log(runif(1))\n  \n  log_alpha &lt;- ( logprob_proposal(given_theta, proposal, tune_sd) + logprob_target(proposal) ) - \n                ( logprob_proposal(proposal, given_theta, tune_sd) + logprob_target(given_theta) )\n  \n  if (log_alpha &gt;= log_uniform){\n    next_theta &lt;- proposal\n  } else {\n    next_theta &lt;- given_theta\n  }\n  \n  return(next_theta)\n}\n\nmh &lt;- function(n, theta0, tune_sd, burnin = 0){\n  \n  thetas &lt;- rep(theta0, n)\n  \n  for (t in 2:n){\n    thetas[t] &lt;- mh_iteration(thetas[t-1], tune_sd)\n  }\n  \n  return(thetas[(burnin+1):n])\n}\n\nN &lt;- 5000\nsimdata &lt;- tibble(theta = mh(N, 0, 1), iter = 1:N)\n\n# ggplot(simdata) + \n#   geom_line(aes(x=iter, y = theta)) + \n#   theme_bw()\n\ndygraph(ts(simdata$theta,start = 1)) %&gt;% dyRangeSelector()"
+  },
+  {
+    "objectID": "lectures/abm2.html#diagnostics-1",
+    "href": "lectures/abm2.html#diagnostics-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Diagnostics",
+    "text": "Diagnostics\nConvergence is guaranteed in theory as n\\rightarrow \\infty,\nin practice we need to monitor and check MCMC samples to get close enough!"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-chain-trace-plot",
+    "href": "lectures/abm2.html#mcmc-chain-trace-plot",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC: Chain trace plot",
+    "text": "MCMC: Chain trace plot\n\n\nCode\n# iterate over multiple settings\nlibrary(tidyr)\nlibrary(purrr)\n\ntune_sds &lt;- c(0.01,0.1,0.5,1.0)\nns &lt;- c(200,1000,10000)\nburnins &lt;- c(0,100)\n\nmh_vec &lt;- Vectorize(mh, SIMPLIFY = F)\n\nmhtest &lt;- \n  expand_grid(n = ns, tune_sd = tune_sds, burnin = burnins) %&gt;%\n  mutate(theta = mh_vec(n = n, theta0 = 0, tune_sd = tune_sd, burnin = burnin)) %&gt;%\n  rowwise() %&gt;% mutate(iter = list((burnin+1):n )) %&gt;%\n  unnest(c(theta, iter))\n\nmhtest %&gt;% filter(burnin == 100) %&gt;% rename(sd = tune_sd) %&gt;%\nggplot() + \n  geom_line(aes(x=iter, y = theta)) + \n  theme_bw() + \n  facet_grid(sd ~ n, scales = \"free_x\", labeller = label_both) +\n  ggtitle(\"Burnin = 100\")"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-running-mean-trace-plot",
+    "href": "lectures/abm2.html#mcmc-running-mean-trace-plot",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC: Running mean trace plot",
+    "text": "MCMC: Running mean trace plot\n\n\nCode\nmhtest %&gt;% filter(burnin == 0) %&gt;% rename(sd = tune_sd) %&gt;%\n  group_by(n, sd, burnin) %&gt;% mutate(theta = cummean(theta)) %&gt;%\nggplot() + \n  geom_line(aes(x=iter, y = theta)) + \n  geom_hline(yintercept = 1.0, linetype = 3) +\n  theme_bw() + \n  facet_grid(sd ~ n, scales = \"free_x\", labeller = label_both) +\n  ggtitle(\"Burnin = 0\")"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-running-mean-trace-plot-1",
+    "href": "lectures/abm2.html#mcmc-running-mean-trace-plot-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC: Running mean trace plot",
+    "text": "MCMC: Running mean trace plot\n\n\nCode\nmhtest %&gt;% filter(burnin == 100) %&gt;% rename(sd = tune_sd) %&gt;%\n  group_by(n, sd, burnin) %&gt;% mutate(theta = cummean(theta)) %&gt;%\nggplot() + \n  geom_line(aes(x=iter, y = theta)) +\n  geom_hline(yintercept = 1.0, linetype = 3) +\n  theme_bw() + \n  facet_grid(sd ~ n, scales = \"free_x\", labeller = label_both) +\n  ggtitle(\"Burnin = 100\")"
+  },
+  {
+    "objectID": "lectures/abm2.html#mh-optimal-acceptance-rate",
+    "href": "lectures/abm2.html#mh-optimal-acceptance-rate",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MH: Optimal acceptance rate",
+    "text": "MH: Optimal acceptance rate\n\\alpha = 0.234\n\nJustified as dim. d \\rightarrow \\infty (Roberts and Rosenthal 2001)\nStill often used in practice\nSpecific to Metropolis-Hastings algorithm"
+  },
+  {
+    "objectID": "lectures/abm2.html#mh-optimal-acceptance-rate-1",
+    "href": "lectures/abm2.html#mh-optimal-acceptance-rate-1",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MH: Optimal acceptance rate",
+    "text": "MH: Optimal acceptance rate\n\n\nCode\nmhtest %&gt;% filter(burnin == 100, n == 10000) %&gt;% rename(sd = tune_sd) %&gt;%\n  mutate(accept = c(NA, abs(diff(theta, )) &gt; 1e-08)) %&gt;%\n  filter(!is.na(accept)) %&gt;% \n  group_by(sd) %&gt;% \n  summarise(`Acceptance rate` = mean(accept)) %&gt;%\nggplot() + \n  geom_point(aes(x=sd, y = `Acceptance rate`)) + \n  geom_hline(yintercept = 0.234, linetype = 3) +\n  theme_bw()"
+  },
+  {
+    "objectID": "lectures/abm2.html#recap-monte-carlo-clt",
+    "href": "lectures/abm2.html#recap-monte-carlo-clt",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Recap: Monte Carlo CLT",
+    "text": "Recap: Monte Carlo CLT\n\\sqrt{N} \\left[ \\frac{1}{N}\\sum_{i=1}^{N}f(\\theta_i) - \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right]\\right] \\overset{\\text{d}}{\\longrightarrow} N(0, \\sigma^2_f) if \\theta_i \\overset{\\text{iid}}{\\sim} P, and \\sigma^2_f = \\text{Var}[f(\\theta_i)] &lt; \\infty.\n\nVanilla Monte Carlo error has rate \\frac{\\sigma_f}{\\sqrt{N}} = \\mathcal{O}(N^{-1/2})"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-clt",
+    "href": "lectures/abm2.html#mcmc-clt",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC CLT",
+    "text": "MCMC CLT\n\\sqrt{N} \\left[ \\frac{1}{N}\\sum_{t=1}^{N}f(\\theta_t) - \\mathbb{E}_{\\theta\\sim P}\\left[f(\\theta)\\right]\\right] \\overset{\\text{d}}{\\longrightarrow} N\\left(0, \\sigma^2_f\\sum_{t=-\\infty}^\\infty \\rho_t\\right)\n\nif \\theta_1 \\sim P, \\theta_t \\sim K(\\cdot\\mid \\theta_{t-1}) for t\\in \\{2,\\ldots,N\\}\nPK=P\n\\sigma^2_f = \\text{Var}[f(\\theta_i)] &lt; \\infty, \\rho_t = \\frac{\\text{cov}[f(\\theta_1),f(\\theta_{1+t})]}{\\sigma^2_f}\nMCMC error rate \\mathcal{O}(N^{-1/2}) at stationarity"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-clt-intuitions",
+    "href": "lectures/abm2.html#mcmc-clt-intuitions",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC CLT intuitions",
+    "text": "MCMC CLT intuitions\nGood MCMC schemes:\n\nGet to stationary distribution quickly (converge fast)\nHave small autocorrelation \\rho_t\n\nWhat quantitative measures exist to measure this?"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-convergence-hatr-and-friends",
+    "href": "lectures/abm2.html#mcmc-convergence-hatr-and-friends",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC: Convergence \\hat{R} and friends",
+    "text": "MCMC: Convergence \\hat{R} and friends\n\\hat{R}, potential scale reduction statistic (Gelman and Rubin 1992)\n\nRun multiple chains from different (random) starting points\n\\hat{R} measures the average variance of samples within each chain with respect to the variance of the pooled samples\n\\hat{R} \\approx 1 provides evidence of convergence\n\\hat{R} &gt; 1 indicates chains have not converged to a common distribution"
+  },
+  {
+    "objectID": "lectures/abm2.html#mcmc-effective-sample-size",
+    "href": "lectures/abm2.html#mcmc-effective-sample-size",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MCMC: Effective sample size",
+    "text": "MCMC: Effective sample size\nVanilla Monte Carlo sample size =N\nMCMC effective sample size N_\\text{eff}=\\frac{N}{\\sum_{t=-\\infty}^\\infty\\rho_t} = \\frac{N}{1+2\\sum_{t=1}^\\infty\\rho_t}\n\nEstimate from MCMC samples (valid at stationarity)"
+  },
+  {
+    "objectID": "lectures/abm2.html#mh-extensions",
+    "href": "lectures/abm2.html#mh-extensions",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "MH: Extensions",
+    "text": "MH: Extensions\n\nMetropolis Adjusted Langevin Algorithm\nAdaptive Metropolis-Hastings"
+  },
+  {
+    "objectID": "lectures/abm2.html#references",
+    "href": "lectures/abm2.html#references",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "References",
+    "text": "References\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67."
+  }
+]

@@ -1,8 +1,8 @@
 ---
-title: "Applied Bayesian Modelling"
-subtitle: "Lecture 1: Bayesian statistical inference"
+title: "Bayesian modelling & Monte Carlo"
+subtitle: "Applied Bayesian Modelling: Lecture 1"
 author: "Dr Joshua J Bon"
-bibliography: ../refs.bib
+bibliography: ../assets/refs.bib
 format:
   revealjs:
     html-math-method: katex
@@ -11,7 +11,9 @@ format:
     incremental: false 
     css: style.css
     chalkboard: true
-    logo: dauphine-logo-white.png
+    logo: ../assets/dauphine-logo-white.png
+    footer: "[ABM Home](../index.qmd)"
+    cache: true
 editor: source
 from: markdown+emoji
 ---

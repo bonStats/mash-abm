@@ -1,29 +1,18 @@
 ---
 title: "Applied Bayesian Modelling"
-subtitle: "MASH M2"
-author: "Dr Joshua J Bon"
-bibliography: refs.bib
-format:
-  revealjs:
-    html-math-method: katex
-    theme: default
-    df-print: paged
-    incremental: false 
-    css: style.css
-    chalkboard: true
-    logo: dauphine-logo-white.png
-editor: source
 ---
 
-## Slide deck links
+Course website for for M2 [Mash course](https://sites.google.com/view/m2mash/home)
 
-- [Lecture 1: ABM](lectures/abm1.html)
-- [Lecture 2: MCMC](lectures/abm2.html)
-- [Lecture 3: MCMC](lectures/abm3.html)
+## Slides
+
+- [Lecture 1: Bayes & Monte Carlo](lectures/abm1.html)
+- [Lecture 2: MCMC & Metropolis-Hastings](lectures/abm2.html)
+- [Lecture 3: Gibbs & Variable Selection](lectures/abm3.html)
 - Section 4
 - Section 5
 
-## Worksheet links
+## Worksheets
 
 - Worksheet 1
 - Worksheet 2
@@ -31,9 +20,10 @@ editor: source
 - Worksheet 4
 - Worksheet 5
 
+## Datasets
 
 ## Resources
 
-- [Course data](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"} 
 
+![](assets/dauphine-logo-white.png)
 
