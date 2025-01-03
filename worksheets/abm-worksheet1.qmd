@@ -1,0 +1,9 @@
+---
+title: "Worksheet 1"
+subtitle: "Bayesian modelling & Monte Carlo"
+format: html
+---
+
+## Question 1
+
+$$a=1$$

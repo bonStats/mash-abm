@@ -40,9 +40,9 @@ Prepared by Dr Joshua J Bon.
 
 ## Worksheets
 
-- Worksheet 1
-- Worksheet 2
-- Worksheet 3
+- [Worksheet 1](worksheets/abm-worksheet1.qmd)
+- [Worksheet 2](worksheets/abm-worksheet2.qmd)
+- [Worksheet 3](worksheets/abm-worksheet3.qmd)
 - Worksheet 4
 - Worksheet 5
 

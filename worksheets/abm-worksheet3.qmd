@@ -1,0 +1,9 @@
+---
+title: "Worksheet 3"
+subtitle: "Gibbs samplers and variable selection"
+format: html
+---
+
+## Question 1
+
+$$a=1$$

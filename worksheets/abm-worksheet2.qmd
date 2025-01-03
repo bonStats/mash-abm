@@ -1,0 +1,9 @@
+---
+title: "Worksheet 2"
+subtitle: "MCMC & Metropolis-Hastings"
+format: html
+---
+
+## Question 1
+
+$$a=1$$
