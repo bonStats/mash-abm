@@ -34,13 +34,6 @@ josh_data_dir <- function(fl){
 -   Computation :mag:
 -   Workflows
 
-::: callout-note
-## Links 
-
-- [Death rate in urban areas](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
-
-:::
-
 # Statistical inference
 
 ## Example 3: Explaining death rates

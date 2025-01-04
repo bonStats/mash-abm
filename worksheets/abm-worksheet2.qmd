@@ -1,9 +1,85 @@
 ---
 title: "Worksheet 2"
 subtitle: "MCMC & Metropolis-Hastings"
-format: html
+author: "Robin Ryder & Joshua J Bon"
+bibliography: ../assets/refs.bib
+format: 
+  html:
+    html-math-method: katex
 ---
 
-## Question 1
+{{< include ../assets/_data-download.qmd >}}
 
-$$a=1$$
+::: callout-tip
+## Aims
+
+Metropolis-Hastings. Logistic regression. Modelling from first principles.
+:::
+
+::: callout-note
+## Resources
+
+Chapter 4, @marin2014bayesian
+
+Chapter 3.7 & 11.2, @gelman2013bayesian
+:::
+
+::: callout-important
+## Data
+
+We consider the data \texttt{golf2.txt}. We wish to explain the success at golf putting, explained by the distance to the hole.
+
+`r download_data_buttom("golf2.txt","golf2")`
+:::
+
+## Activity 1
+
+Explore the data and represent graphically the success frequency as a function of distance.
+
+```{r data}
+#| code-summary: "Starting code"
+#| echo: true
+#| code-fold: true
+#| eval: false
+
+library(readr)
+library(ggplot2)
+
+deputes <- read_csv(file = "/path/to/golf2.txt")
+
+```
+
+## Activity 2
+
+We consider a logistic regression model with probability $\theta_i\in (0,1)$:
+
+$$\begin{aligned}
+Y_i\mid\theta_i &\sim \text{Bern}(\theta_i)\\
+\text{logit}(\theta_i) &= \beta_0+\beta_1 x_i
+\end{aligned}$$
+
+or alternatively represented by $P[Y_i=1] = \text{logit}^{-1}(\beta_0+\beta_1 x_i) = \frac{e^{\beta_0+\beta_1 x_i}}{1+e^{\beta_0+\beta_1 x_i}}$.
+
+1.  What are reasonable priors for $\beta_0$ and $\beta_1$?
+
+2.  Write the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?
+
+3.  Simumlate a pseudo-sample from this posterior via MCMC thanks to the `MCMClogit` function in package [{MCMCpack}](https://cran.r-project.org/package=MCMCpack). Check convergence and adapt the algorithmic parameters as necessary.
+
+4.  Repeat with another prior and compare the results.
+
+## Activity 3
+
+Now we will model the data from first principles.
+
+1.  The ball radius is $r=0.07$ and the hole radius is $R=0.177$ (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle $\alpha$.
+
+2.  Write the likelihood of your model, and choose a prior for any parameters.
+
+3.  Get a pseudo-sample of the posterior thanks to the function `MCMCpack::MCMCmetrop1R`. Assess convergence.
+
+4.  Modify the algorithmic parameters (`tune`, `burnin`, ...) until the output is acceptable. What is the impact of the starting point `theta.init`?
+
+5.  Compare the data fit of both models.
+
+6.  Propose an extension of the second model, and check whether the fit is improved.

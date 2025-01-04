@@ -35,7 +35,7 @@ Initially, we shall focus on the column `questions_orales`, which represents the
 
 Download and import the députés data into `R`.
 
-```{r dep-debut}
+```{r data}
 #| code-summary: "Starting code"
 #| echo: true
 #| code-fold: true

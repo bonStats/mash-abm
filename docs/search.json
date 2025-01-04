@@ -4,7 +4,7 @@
     "href": "lectures/abm1.html#applied-bayesian-modelling",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Applied Bayesian modelling",
-    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models 🔍\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDéputés 2019 data"
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models 🔍\nComputation 🔍\nWorkflows"
   },
   {
     "objectID": "lectures/abm1.html#example-1-députés-debut-age",
@@ -214,7 +214,7 @@
     "href": "lectures/abm3.html#applied-bayesian-modelling",
     "title": "Gibbs samplers and variable selection",
     "section": "Applied Bayesian modelling",
-    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction 🔍\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nDeath rate in urban areas"
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction 🔍\nBayesian models\nComputation 🔍\nWorkflows"
   },
   {
     "objectID": "lectures/abm3.html#example-3-explaining-death-rates",
@@ -354,14 +354,28 @@
     "href": "worksheets/abm-worksheet2.html",
     "title": "Worksheet 2",
     "section": "",
-    "text": "\\[a=1\\]"
+    "text": "Aims\n\n\n\nMetropolis-Hastings. Logistic regression. Modelling from first principles."
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#question-1",
-    "href": "worksheets/abm-worksheet2.html#question-1",
+    "objectID": "worksheets/abm-worksheet2.html#activity-1",
+    "href": "worksheets/abm-worksheet2.html#activity-1",
     "title": "Worksheet 2",
-    "section": "",
-    "text": "\\[a=1\\]"
+    "section": "Activity 1",
+    "text": "Activity 1\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = \"/path/to/golf2.txt\")"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet2.html#activity-2",
+    "href": "worksheets/abm-worksheet2.html#activity-2",
+    "title": "Worksheet 2",
+    "section": "Activity 2",
+    "text": "Activity 2\nWe consider a logistic regression model with probability \\theta_i\\in (0,1):\n\\begin{aligned}\nY_i\\mid\\theta_i &\\sim \\text{Bern}(\\theta_i)\\\\\n\\text{logit}(\\theta_i) &= \\beta_0+\\beta_1 x_i\n\\end{aligned}\nor alternatively represented by P[Y_i=1] = \\text{logit}^{-1}(\\beta_0+\\beta_1 x_i) = \\frac{e^{\\beta_0+\\beta_1 x_i}}{1+e^{\\beta_0+\\beta_1 x_i}}.\n\nWhat are reasonable priors for \\beta_0 and \\beta_1?\nWrite the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?\nSimumlate a pseudo-sample from this posterior via MCMC thanks to the MCMClogit function in package {MCMCpack}. Check convergence and adapt the algorithmic parameters as necessary.\nRepeat with another prior and compare the results."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet2.html#activity-3",
+    "href": "worksheets/abm-worksheet2.html#activity-3",
+    "title": "Worksheet 2",
+    "section": "Activity 3",
+    "text": "Activity 3\nNow we will model the data from first principles.\n\nThe ball radius is r=0.07 and the hole radius is R=0.177 (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle \\alpha.\nWrite the likelihood of your model, and choose a prior for any parameters.\nGet a pseudo-sample of the posterior thanks to the function MCMCpack::MCMCmetrop1R. Assess convergence.\nModify the algorithmic parameters (tune, burnin, …) until the output is acceptable. What is the impact of the starting point theta.init?\nCompare the data fit of both models.\nPropose an extension of the second model, and check whether the fit is improved."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html",
@@ -417,7 +431,7 @@
     "href": "lectures/abm2.html#applied-bayesian-modelling",
     "title": "MCMC & Metropolis-Hastings",
     "section": "Applied Bayesian modelling",
-    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows\n\n\n\n\n\n\n\nLinks\n\n\n\nGolf\nIndex slides"
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows"
   },
   {
     "objectID": "lectures/abm2.html#example-2-golf-data",
@@ -593,19 +607,5 @@
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
     "text": "References\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67."
-  },
-  {
-    "objectID": "lectures/abm1.html",
-    "href": "lectures/abm1.html",
-    "title": "Bayesian modelling & Monte Carlo",
-    "section": "",
-    "text": "josh_data_dir &lt;- function(fl){\n  paste0(\"/Users/jbon/github/mash-abm/data/\", fl)\n}"
-  },
-  {
-    "objectID": "lectures/abm1.html#footnotes",
-    "href": "lectures/abm1.html#footnotes",
-    "title": "Bayesian modelling & Monte Carlo",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nProbability density (e.g. PDF/PMF)↩︎\nAlso known as the posterior normalising constant, or marginal likelihood↩︎\nSee “The prior can often only be understood in the context of the likelihood”, (Gelman, Simpson, and Betancourt 2017)↩︎"
   }
 ]

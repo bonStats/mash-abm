@@ -35,13 +35,6 @@ josh_data_dir <- function(fl){
 -   Computation :mag:
 -   Workflows
 
-::: callout-note
-## Links 
-
-- [Députés 2019 data](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
-
-:::
-
 # Statistical inference
 
 ## Example 1: Députés debut age

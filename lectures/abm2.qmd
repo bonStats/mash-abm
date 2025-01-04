@@ -34,13 +34,6 @@ josh_data_dir <- function(fl){
 -   Computation :mag:
 -   Workflows
 
-::: callout-note
-## Links 
-
-- [Golf](https://github.com/bonStats/mash-abm/tree/main/data){target="_blank"}
-- [Index slides](../index.html)
-:::
-
 # Statistical inference
 
 ## Example 2: Golf data 
