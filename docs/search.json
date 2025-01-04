@@ -312,7 +312,7 @@
     "href": "worksheets/abm-worksheet1.html",
     "title": "Worksheet 1",
     "section": "",
-    "text": "Aims\n\n\n\nPosterior computation. Monte Carlo methods. Model choice via Bayes factors and model averaging."
+    "text": "Aims\n\n\n\nPosterior computation with conjugate priors and Monte Carlo methods.\nModel choice via Bayes factors and model averaging."
   },
   {
     "objectID": "worksheets/abm-worksheet1.html#activity-1",
@@ -354,14 +354,14 @@
     "href": "worksheets/abm-worksheet2.html",
     "title": "Worksheet 2",
     "section": "",
-    "text": "Aims\n\n\n\nMetropolis-Hastings. Logistic regression. Modelling from first principles."
+    "text": "Aims\n\n\n\nBayesian logistic regression with Metropolis-Hastings algorithm.\nBuilding a model from first principles."
   },
   {
     "objectID": "worksheets/abm-worksheet2.html#activity-1",
     "href": "worksheets/abm-worksheet2.html#activity-1",
     "title": "Worksheet 2",
     "section": "Activity 1",
-    "text": "Activity 1\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = \"/path/to/golf2.txt\")"
+    "text": "Activity 1\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ngolf2 &lt;- read_csv(file = \"/path/to/golf2.txt\")"
   },
   {
     "objectID": "worksheets/abm-worksheet2.html#activity-2",
@@ -382,14 +382,21 @@
     "href": "worksheets/abm-worksheet3.html",
     "title": "Worksheet 3",
     "section": "",
-    "text": "\\[a=1\\]"
+    "text": "Aims\n\n\n\nSelection of explanatory variables in a linear regression setting, through exact computation and Gibbs’ sampling."
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#question-1",
-    "href": "worksheets/abm-worksheet3.html#question-1",
+    "objectID": "worksheets/abm-worksheet3.html#activity-1",
+    "href": "worksheets/abm-worksheet3.html#activity-1",
     "title": "Worksheet 3",
-    "section": "",
-    "text": "\\[a=1\\]"
+    "section": "Activity 1",
+    "text": "Activity 1\nDownload and import the death rate data into R.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeathrate &lt;- read_csv(file = \"/path/to/deathrate2.csv\", col_types = cols(col_skip(), col_guess())))\n# Discards the first row."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#footnotes",
+    "href": "worksheets/abm-worksheet3.html#footnotes",
+    "title": "Worksheet 3",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nData from McDonald and Schwing (1973), Gunst and Mason (1980), Späth (1992)↩︎"
   },
   {
     "objectID": "index.html",
@@ -403,7 +410,7 @@
     "href": "index.html#slides",
     "title": "Applied Bayesian Modelling",
     "section": "Slides",
-    "text": "Slides\n\nLecture 1: Bayes & Monte Carlo\nLecture 2: MCMC & Metropolis-Hastings\nLecture 3: Gibbs & Variable Selection\nSection 4\nSection 5"
+    "text": "Slides\n\nSection 1: Bayes & Monte Carlo\nSection 2: MCMC & Metropolis-Hastings\nSection 3: Gibbs & Variable Selection\nSection 4\nSection 5"
   },
   {
     "objectID": "index.html#worksheets",

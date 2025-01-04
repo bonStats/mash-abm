@@ -13,10 +13,12 @@ format:
 ::: callout-tip
 ## Aims
 
-Metropolis-Hastings. Logistic regression. Modelling from first principles.
+Bayesian logistic regression with Metropolis-Hastings algorithm.
+
+Building a model from first principles.
 :::
 
-::: callout-note
+::: {.callout-note collapse=true}
 ## Resources
 
 Chapter 4, @marin2014bayesian
@@ -24,7 +26,7 @@ Chapter 4, @marin2014bayesian
 Chapter 3.7 & 11.2, @gelman2013bayesian
 :::
 
-::: callout-important
+::: {.callout-important collapse=true}
 ## Data
 
 We consider the data \texttt{golf2.txt}. We wish to explain the success at golf putting, explained by the distance to the hole.
@@ -45,7 +47,7 @@ Explore the data and represent graphically the success frequency as a function o
 library(readr)
 library(ggplot2)
 
-deputes <- read_csv(file = "/path/to/golf2.txt")
+golf2 <- read_csv(file = "/path/to/golf2.txt")
 
 ```
 

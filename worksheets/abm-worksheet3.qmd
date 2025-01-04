@@ -1,9 +1,72 @@
 ---
 title: "Worksheet 3"
 subtitle: "Gibbs samplers and variable selection"
-format: html
+author: "Robin Ryder & Joshua J Bon"
+bibliography: ../assets/refs.bib
+format: 
+  html:
+    html-math-method: katex
 ---
 
-## Question 1
+{{< include ../snippets/_data-download.qmd >}}
 
-$$a=1$$
+:::{.callout-tip}
+## Aims
+Selection of explanatory variables in a linear regression setting, through exact computation and Gibbs' sampling.
+:::
+
+:::{.callout-note collapse=true}
+## Resources
+Chapter 3, @marin2014bayesian
+
+Chapter 11.1, @gelman2013bayesian
+:::
+
+:::{.callout-important collapse=true}
+## Data
+Covariates explaining the death rate in various American urban areas in the 1960s^[Data from @mcdonald1973instabilities, @gunst1980regression, @spath1992mathematical].
+
+`r download_data_buttom("deathrate2.csv","deathrate")`
+
+**Variable description**
+
+1. `deathrate`: the death rate (variable to explain)
+2. `rain`: the average annual precipitation
+3. `tempjan`: the average January temperature
+4. `tempjuly`: the average July temperature
+5. `over65`:  the size of the population older than 65
+6. `homesize`: the number of members per household
+7. `studies`: the number of years of schooling for persons over 22
+8. `kitchen`: the number of households with fully equipped kitchens
+9. `density`: the population per square mile
+10. `nonwhite`: the size of the nonwhite population
+11. `employed`: the number of office workers
+12. `poor`: the number of families with an income less than $3000
+13. `hydrocarbon`: the hydrocarbon pollution index
+14. `nitrogen`: the nitric oxide pollution index
+15. `sulphur`: the sulfur dioxide pollution index
+16. `humidity`: the degree of atmospheric moisture
+17. `noise1`-`noise5`: 5 columns of Gaussian noise
+
+Note that the first column in `deathrate2.csv` numbers the rows.
+
+:::
+
+## Activity 1
+
+Download and import the death rate data into `R`.
+
+
+```{r data}
+#| code-summary: "Starting code"
+#| echo: true
+#| code-fold: true
+#| eval: false
+
+library(readr)
+library(ggplot2)
+
+deathrate <- read_csv(file = "/path/to/deathrate2.csv", col_types = cols(col_skip(), col_guess())))
+# Discards the first row.
+
+```

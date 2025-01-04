@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Robin Ryder &amp; Joshua J Bon">
 
 <title>Worksheet 3 – MASH ABM</title>
 <style>
@@ -20,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -66,36 +121,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link href="../site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -137,7 +165,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#activity-1" id="toc-activity-1" class="nav-link active" data-scroll-target="#activity-1">Activity 1</a></li>
   </ul>
 </nav>
     </div>
@@ -154,6 +182,12 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Robin Ryder &amp; Joshua J Bon </p>
+          </div>
+  </div>
     
   
     
@@ -164,14 +198,140 @@ window.Quarto = {
 </header>
 
 
-<section id="question-1" class="level2">
-<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
-<p><span class="math display">\[a=1\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Aims
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Selection of explanatory variables in a linear regression setting, through exact computation and Gibbs’ sampling.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Chapter 3, <span class="citation" data-cites="marin2014bayesian">Marin and Robert (<a href="#ref-marin2014bayesian" role="doc-biblioref">2014</a>)</span></p>
+<p>Chapter 11.1, <span class="citation" data-cites="gelman2013bayesian">Gelman et al. (<a href="#ref-gelman2013bayesian" role="doc-biblioref">2013</a>)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Covariates explaining the death rate in various American urban areas in the 1960s<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p><button class="btn btn-default" onclick="
+    async function downloadFile(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('data:text/csv;base64,IiIsImRlYXRocmF0ZSIsInJhaW4iLCJ0ZW1wamFuIiwidGVtcGp1bHkiLCJvdmVyNjUiLCJob21lc2l6ZSIsInN0dWRpZXMiLCJraXRjaGVuIiwiZGVuc2l0eSIsIm5vbndoaXRlIiwiZW1wbG95ZWQiLCJwb29yIiwiaHlkcm9jYXJib24iLCJuaXRyb2dlbiIsInN1bHBodXIiLCJodW1pZGl0eSIsIm5vaXNlMSIsIm5vaXNlMiIsIm5vaXNlMyIsIm5vaXNlNCIsIm5vaXNlNSINCiIxIiw5MjEuODcsMzYsMjcsNzEsOC4xLDMuMzQsMTEuNCw4MS41LDMyNDMsOC44LDQyLjYsMTEuNywyMSwxNSw1OSw1OSwtMC45OTYxNjE1NjM1MzU0ODksMC41ODczNDUzOTExNjgwNjUsLTEuMzAzNjE3NzMwMzE0OSwtMC4zNTQwOTc3MDAwODUwODcsLTAuNzU1MjI4MDA4MDE4OTQ3DQoiMiIsOTk3Ljg3NSwzNSwyMyw3MiwxMS4xLDMuMTQsMTEsNzguOCw0MjgxLDMuNiw1MC43LDE0LjQsOCwxMCwzOSw1NywtMC4xNjg5MTI0NTc1OTM3NTYsLTAuOTAxODIxMTgyNDIxMTkyLC0xLjQ0MTQxNDY3MDM0MywxLjAxNjMxMTc1OTUxMzkyLC0wLjE0NTU0NjE1NzQ2OTc3Nw0KIjMiLDk2Mi4zNTQsNDQsMjksNzQsMTAuNCwzLjIxLDkuOCw4MS42LDQyNjAsMC44LDM5LjQsMTIuNCw2LDYsMzMsNTQsMS4zNDY3MDM3NjQyMDkxNywtMS43NDA5OTI4MjQwODQ1MSwxLjI0NzY0NTk4NDg3OTcsLTEuOTQwOTc4MjMzNzE5MzYsMC4xOTIxMjk2Mzc1MDg1Mg0KIjQiLDk4Mi4yOTEsNDcsNDUsNzksNi41LDMuNDEsMTEuMSw3Ny41LDMxMjUsMjcuMSw1MC4yLDIwLjYsMTgsOCwyNCw1NiwwLjg1ODU0NjA3OTM5ODQ0NywtMC4yMjQxMTc1MjIyNTM3MTgsMC4yOTg1MzM1NTMxNjc2MywtMS4wNzI2NjAwNTk3ODE2NiwtMC4zMzA1NzkzMjA5NzIzODYNCiI1IiwxMDcxLjI4OSw0MywzNSw3Nyw3LjYsMy40NCw5LjYsODQuNiw2NDQxLDI0LjQsNDMuNywxNC4zLDQzLDM4LDIwNiw1NSwtMS43OTgzNTE1MjM0MTMyMSwtMS4xNjEzMDQ3MjA4ODIsMC45NDgwODYxMjM1MzI3MjksLTAuOTE5ODE5MDEyOTkwMTI0LDAuOTM5NTAyODA5MzY2NjIxDQoiNiIsMTAzMC4zOCw1Myw0NSw4MCw3LjcsMy40NSwxMC4yLDY2LjgsMzMyNSwzOC41LDQzLjEsMjUuNSwzMCwzMiw3Miw1NCwtMC4wMDE5MzczOTUxNzczODgxNSwwLjIxMjM0ODIyNzAxODg2MSwtMC4wNDA0MTYxNjI2NTQ5NDE4LDAuNzc2MjE4MDgxMzA2Nzg3LDAuMTIxMDk1NjAzMzkzMDgyDQoiNyIsOTM0LjcsNDMsMzAsNzQsMTAuOSwzLjIzLDEyLjEsODMuOSw0Njc5LDMuNSw0OS4yLDExLjMsMjEsMzIsNjIsNTYsMC41ODY4OTU4MjUxODg3NzgsLTAuMTAzMDI4NDcyNTI0MjYzLDAuMzE5Nzc2MTQ4MDQ5MjY2LC0wLjE4MTQwMzYxMDAyOTY3MiwwLjg0MDU4NDkzNTU4OTY3Mg0KIjgiLDg5OS41MjksNDUsMzAsNzMsOS4zLDMuMjksMTAuNiw4NiwyMTQwLDUuMyw0MC40LDEwLjUsNiw0LDQsNTYsMC4xNDEzNTU4NTY5ODc0MTYsMC4yMzUzMTc2Mjc5NjMwMDQsMC4yOTAyNDc5MzI1OTI3LDAuMDI3MTkyMDQ5NzQ2MDk4LDAuNzI2Mjc4MDE4MTU5NzExDQoiOSIsMTAwMS45MDIsMzYsMjQsNzAsOSwzLjMxLDEwLjUsODMuMiw2NTgyLDguMSw0Mi41LDEyLjYsMTgsMTIsMzcsNjEsMC4wNjQ0ODc5MzI1MTI5NTk2LDAuOTIxNDkxOTI5MjEwNzg2LDAuNTM4MTc5NzU3MDA2NDA2LC0xLjQ5ODE3NjkyOTQxMzExLC0wLjEyMTc5MzA2ODIwNzc0Ng0KIjEwIiw5MTIuMzQ3LDM2LDI3LDcyLDkuNSwzLjM2LDEwLjcsNzkuMyw0MjEzLDYuNyw0MSwxMy4yLDEyLDcsMjAsNTksLTAuMTMwMTk4ODk4Mzk4MDA5LC0xLjAwMzQ5NDQ4ODMyOTI3LDEuNTkxNjc0MzI2NzMzODEsMC42ODczNzU5NjU5MTc5MjEsLTAuNDQ3NTMwNDU5MDY4OTEyDQoiMTEiLDEwMTcuNjEzLDUyLDQyLDc5LDcuNywzLjM5LDkuNiw2OS4yLDIzMDIsMjIuMiw0MS4zLDI0LjIsMTgsOCwyNyw1NiwwLjE1NTI3MDAyMzAwNzc0OCwtMC40ODQ4MTI4NTU2Mzc3ODQsMC4wODc4NDQ3NDAzNzMxMTY5LDAuMTAwMTg5Mjg5MDEyMjk0LDAuNDU3MDI5NTE5ODY2Njk3DQoiMTIiLDEwMjQuODg1LDMzLDI2LDc2LDguNiwzLjIsMTAuOSw4My40LDYxMjIsMTYuMyw0NC45LDEwLjcsODgsNjMsMjc4LDU4LC0wLjMyODMzODkwNTIwMDAxNCwxLjEwMDM3MjExNDQ1MDU4LC0wLjMwNTMxMzg0ODk4NzMzNiwtMC43Nzg2NzQ0NTEzOTg2MjQsMS43NTQ2MTA3NTc5Mzg2Ng0KIjEzIiw5NzAuNDY3LDQwLDM0LDc3LDkuMiwzLjIxLDEwLjIsNzcsNDEwMSwxMyw0NS43LDE1LjEsMjYsMjYsMTQ2LDU3LDAuMTI5OTI2NTAzMDMwMDA0LC0wLjI0NTA0NTY0MDE3MjY0NCwwLjgzOTk4MTA2NDYwMDA5NiwtMC41NDk1MDMxMjA0NzMxOTcsMS4yNzk3ODkwNDU5MzYwNg0KIjE0Iiw5ODUuOTUsMzUsMjgsNzEsOC44LDMuMjksMTEuMSw4Ni4zLDMwNDIsMTQuNyw0NC42LDExLjQsMzEsMjEsNjQsNjAsLTAuMTU4MDk0MDk0NDcxMTcxLC0wLjE5MzY3OTg4NTgzMTYwOCwtMC40MjM4NDUyMDk4OTMyMjMsLTAuMDYyODcyMTI4MDg1NTgwMSwtMS40MTU0NzQxMDI1OTQ0Mw0KIjE1Iiw5NTguODM5LDM3LDMxLDc1LDgsMy4yNiwxMS45LDc4LjQsNDI1OSwxMy4xLDQ5LjYsMTMuOSwyMyw5LDE1LDU4LC0wLjEyNzQzMTE2MzcwNjA1MSwwLjc0NzU3MDAwMTM0NDY3OSwxLjM4MDUxNjg0Mzg5NDg1LC0xLjE4MjA0NzQwNDQyNzI2LC0xLjAzNTYzNzE0NTczNDE5DQoiMTYiLDg2MC4xMDEsMzUsNDYsODUsNy4xLDMuMjIsMTEuOCw3OS45LDE0NDEsMTQuOCw1MS4yLDE2LjEsMSwxLDEsNTQsMS40MjEzODQ2MzA2NzgxOCwtMS4wNTU0NTcwNjY4MDUyMiwwLjUxNTI0Njc5NjI1MTI0OSwtMC4yMTg3MDk4NTkxODM1NTEsMC4wNjY4MzExMzg2MzE2MTEyDQoiMTciLDkzNi4yMzQsMzYsMzAsNzUsNy41LDMuMzUsMTEuNCw4MS45LDQwMjksMTIuNCw0NCwxMiw2LDQsMTYsNTgsLTAuNjU0ODg2NzUzOTYwNzMxLDEuOTQyNTI1Nzc4OTgyOCwxLjM1MDM5MzA3Mjc4NDAzLDAuMzExMTU0MjcxNTUwMDAzLDAuMzQ1MjA3NjI5OTA3NDY1DQoiMTgiLDg3MS43NjYsMTUsMzAsNzMsOC4yLDMuMTUsMTIuMiw4NC4yLDQ4MjQsNC43LDUzLjEsMTIuNywxNyw4LDI4LDM4LC0wLjg1NTg5NzM5MjUyNDU2NSwtMC4xNjQ2ODM1MjA3NzUzNjYsMC42NDkzMjE1NjIzMzA2NDksMC42ODYyMTI4Mzk0NjU5MzEsMS40MDI5MDU0OTM3OTIzNA0KIjE5Iiw5NTkuMjIxLDMxLDI3LDc0LDcuMiwzLjQ0LDEwLjgsODcsNDgzNCwxNS44LDQzLjUsMTMuNiw1MiwzNSwxMjQsNTksMS41NzgzODQzMTU4NjQzNiwwLjE4ODc3MDkwNjk5MDc1NCwtMC4wMjk0MzgxNTU1OTIwNDQ3LC0wLjg1NDU4MDE1OTQ0ODg3OSwxLjMyMTUxNjA0MDE2ODc2DQoiMjAiLDk0MS4xODEsMzAsMjQsNzIsNi41LDMuNTMsMTAuOCw3OS41LDM2OTQsMTMuMSwzMy44LDEyLjQsMTEsNCwxMSw2MSwwLjgyOTUwNDU4MjIyODI4NSwtMS4yMDUyOTQ3MTgzOTkzLDEuMjAxMDQ2MDk1OTEyNDUsLTEuMjA4NDc5ODM1MjY4ODIsMC4wMTcxODM3NjU3NDQxOTYxDQoiMjEiLDg5MS43MDgsMzEsNDUsODUsNy4zLDMuMjIsMTEuNCw4MC43LDE4NDQsMTEuNSw0OC4xLDE4LjUsMSwxLDEsNTMsMC4zMDUxNzUxNTU1NzEwMzIsLTAuNTYyMjUxNzMwOTI5MjQ5LDAuMTAxODY2ODYzODU4MzQyLC0wLjM1MjY4Mzg2MTM1NTA1OSwwLjYwNzI5MjEyMjc1NzM2NQ0KIjIyIiw4NzEuMzM4LDMxLDI0LDcyLDksMy4zNywxMC45LDgyLjgsMzIyNiw1LjEsNDUuMiwxMi4zLDUsMywxMCw2MSwtMC4zODk1NDc5MTc4MjQ1MDEsLTEuMzUzNzk1MzI4NzIwOTksMC41NTQzOTE0NjcxODQ1MDMsLTAuNTQ3NzY3MzQ4MzQwMjU0LC0xLjkwNzY1OTM1NTEyMDMxDQoiMjMiLDk3MS4xMjIsNDIsNDAsNzcsNi4xLDMuNDUsMTAuNCw3MS44LDIyNjksMjIuNyw0MS40LDE5LjUsOCwzLDUsNTMsLTIuMTQ5MjEzNDI2NTkwMTYsLTEuMDUzMjQwNjIyNTk3ODUsMC4zNTk0NTA5OTg2OTc5MzQsMS4wNTkzMDQyOTY1ODIxMywwLjMzNzA1MjcyMTQ2MjI5Mw0KIjI0Iiw4ODcuNDY2LDQzLDI3LDcyLDksMy4yNSwxMS41LDg3LjEsMjkwOSw3LjIsNTEuNiw5LjUsNywzLDEwLDU2LC0xLjYwMjc3NDYyMDIwOTA2LDEuMjQxNzE3OTQ3OTA1MDMsLTAuNTg0OTU2MDc5OTAzOTM5LC0wLjM3NTEyNDA3MzQ5MjcwNiwtMC41NTI2MDc5Njk2MDY3MQ0KIjI1Iiw5NTIuNTI5LDQ2LDU1LDg0LDUuNiwzLjM1LDExLjQsNzkuNywyNjQ3LDIxLDQ2LjksMTcuOSw2LDUsMSw1OSwtMC40NjM4NzY5ODAxNTI3NTIsMC40NTExNzEzMjAxMjgzNzcsMC4wMDM3NzMwMzU1MTQwOTAwMiwtMS4yNTY2NDI2MzE0OTc4MSwtMC42NTM4NzM1Mjg2ODU1ODkNCiIyNiIsOTY4LjY2NSwzOSwyOSw3Niw4LjcsMy4yMywxMS40LDc4LjYsNDQxMiwxNS42LDQ2LjYsMTMuMiwxMyw3LDMzLDYwLC0xLjk0OTc2ODQ5MDMyNDQ0LDAuNTE4NTQxMDU5MjY0MTA5LC0xLjUwMDg0MDk5MDI5NDI1LC0yLjE2NjcxODM4ODcyNDY4LDAuMjIwMzQ0MzQ2NDY5OTUxDQoiMjciLDkxOS43MjksMzUsMzEsODEsOS4yLDMuMSwxMiw3OC4zLDMyNjIsMTIuNiw0OC42LDEzLjksNyw0LDQsNTUsMC4zMDE2NjUyNDgzMTc5OTIsLTAuMDU5MDYyNDM5NDA3ODkyMywtMS4xOTQ1MTU2NDg1MDcsMC42MTgxNzQxNjc2ODAwOTEsMS4wNTAxODY5MjYzNTMwMQ0KIjI4Iiw4NDQuMDUzLDQzLDMyLDc0LDEwLjEsMy4zOCw5LjUsNzkuMiwzMjE0LDIuOSw0My43LDEyLDExLDcsMzIsNTQsMC44NDk2MjUwMzY2MjYzNjMsLTAuNDI5NzgxOTM1NzIyNjczLDEuNjIxMjAzNTEyMzYyNDQsLTAuNTEzMjU1MTIzMTExODczLC0wLjYxNDA2ODM4OTUzMjkzDQoiMjkiLDg2MS44MzMsMTEsNTMsNjgsOS4yLDIuOTksMTIuMSw5MC42LDQ3MDAsNy44LDQ4LjksMTIuMyw2NDgsMzE5LDEzMCw0NywtMS4xNDMwNzA0OTkxNzc4LC0wLjA1OTE4ODkzOTcxNTYwMzgsLTEuMDY0NTMwMjkyOTEwMjEsMC4yNDk0ODgwMzk0NDkxNTQsLTAuMTEwNDcwODExMDg5NjY3DQoiMzAiLDk4OS4yNjUsMzAsMzUsNzEsOC4zLDMuMzcsOS45LDc3LjQsNDQ3NCwxMy4xLDQyLjYsMTcuNywzOCwzNywxOTMsNTcsLTEuMDAwMzQ3MjQ1NzAxNTQsLTAuMjA1ODg3ODU0MjAwNjIyLC0xLjEwNjAwOTg0ODE5NTI2LC0xLjkyMzc3MjM1Mjc1NTc2LC0wLjI5MDc5MjA2NjM0OTEwMg0KIjMxIiwxMDA2LjQ5LDUwLDQyLDgyLDcuMywzLjQ5LDEwLjQsNzIuNSwzNDk3LDM2LjcsNDMuMywyNi40LDE1LDEwLDM0LDU5LDAuMzMwNDE1MTI4NjA1MzU5LC0wLjQwNjYxMzAyNzQ2NjkxNCwtMC4zMDc1NTQzNjM3MjMwMzEsLTAuNzkzMDA1OTg2Nzc5NzA5LC0wLjQwNjY0NTg2NjM4NTI0Mw0KIjMyIiw4NjEuNDM5LDYwLDY3LDgyLDEwLDIuOTgsMTEuNSw4OC42LDQ2NTcsMTMuNiw0Ny4zLDIyLjQsMywxLDEsNjAsMC42NzA5MDg1Mzg1MDQwNTQsLTEuNTU2MjY5MzkxMzI5ODQsLTAuOTY0NzMyMDQwOTAxOTAxLC0xLjM0NDkyNzMzMDAzMjEzLDEuMjc5NDIyODE5NzcwNw0KIjMzIiw5MjkuMTUsMzAsMjAsNjksOC44LDMuMjYsMTEuMSw4NS40LDI5MzQsNS44LDQ0LDkuNCwzMywyMywxMjUsNjQsLTEuMjkwNzQ3ODEwNjcxMTQsLTAuODEzNDE2MjgzOTk3OTk1LDAuNTQwNDg5MjkwNDc1OTc1LC0xLjE2MzY1NDAzNjc1MDk2LDAuMTA1OTY2NzQwOTExMzg3DQoiMzQiLDg1Ny42MjIsMjUsMTIsNzMsOS4yLDMuMjgsMTIuMSw4My4xLDIwOTUsMiw1MS45LDkuOCwyMCwxMSwyNiw1MCwtMC40MjgzODA2Nzg3MjYxMTYsMS4yMjIxOTI2ODAyNjA2MywtMi4zMjc0MzczOTY0MTczNiwyLjA1Njg0NDk3NDE3MjMsLTAuMjE3NDEwMzg1ODg1ODYNCiIzNSIsOTYxLjAwOSw0NSw0MCw4MCw4LjMsMy4zMiwxMC4xLDcwLjMsMjY4MiwyMSw0Ni4xLDI0LjEsMTcsMTQsNzgsNTYsMC4zNDE1MjAxMTQyMjcxMzUsMC41Mjg2ODY2MDg2NDgxNjgsMC4xNTE1MTk4ODYzNTE0NTQsMS44OTg4OTE5MzE4NTI1LC0wLjAwMDk4MDUxNDk0ODc5MTYyNQ0KIjM2Iiw5MjMuMjM0LDQ2LDMwLDcyLDEwLjIsMy4xNiwxMS4zLDgzLjIsMzMyNyw4LjgsNDUuMywxMi4yLDQsMyw4LDU4LDEuMjI1MDIyNjIwNzg3ODYsLTAuMjk2MjcwNzAyNjc0NTI5LC0xLjQ0ODc3NDAyOTM4ODc5LC0xLjQxNjU5NDg3NTM5ODksMS41Mzk5MzAwOTIxMTg3OQ0KIjM3IiwxMTEzLjE1Niw1NCw1NCw4MSw3LjQsMy4zNiw5LjcsNzIuOCwzMTcyLDMxLjQsNDUuNSwyNC4yLDIwLDE3LDEsNjIsMC43OTYyMDQwMDY2NTkyMzcsMi4yNTIxMDc2Mjk0NzQyNCwwLjEwNjI1MTQ3ODk4MDEyMywwLjYxNjI1OTU3MjUwMDg4OSwtMS4yNjA0NTMxMTc1MTE4OQ0KIjM4Iiw5OTQuNjQ4LDQyLDMzLDc3LDkuNywzLjAzLDEwLjcsODMuNSw3NDYyLDExLjMsNDguNywxMi40LDQxLDI2LDEwOCw1OCwwLjg3NTIyMTAyMzcyNjA3MywtMS4zODI3MTkzOTQwMDg0MywtMC45NzQ3MDU2NDUwMjQ3MzYsMS4yMzQwMDY2NDg3NjQ3MSwtMS42MzQzNTkyMzIyMDU2OQ0KIjM5IiwxMDE1LjAyMyw0MiwzMiw3Niw5LjEsMy4zMiwxMC41LDg3LjUsNjA5MiwxNy41LDQ1LjMsMTMuMiwyOSwzMiwxNjEsNTQsMC42MDkyNzkxMTc5OTA3NjcsLTAuNjY2OTgzMTU1MTAwNDQxLDAuMjQ0Nzk4NzE0ODI2NTM0LDEuMzE1ODE1OTU3MjY0MTcsMC4zMjU2NjQ0MzAzNDUzMDENCiI0MCIsOTkxLjI5LDM2LDI5LDcyLDkuNSwzLjMyLDEwLjYsNzcuNiwzNDM3LDguMSw0NS41LDEzLjgsNDUsNTksMjYzLDU2LDAuMzMyOTk5NTA1MDk1Mzk1LDAuNTc3ODYxMjAxOTU3NTQ2LDAuNjQ4ODYyNDkxMzE4MzcsLTAuMjU2MDYyMTk2NzkxMTY5LDAuMDI1ODEyNTkxNjUzOTUwOQ0KIjQxIiw4OTMuOTkxLDM3LDM4LDY3LDExLjMsMi45OSwxMiw4MS41LDMzODcsMy42LDUwLjMsMTMuNSw1NiwyMSw0NCw3MywtMC44NTQ0MDkzNjk2NDU0MDcsMC45OTQxNTkyOTE2MTEyMzksMS41MzcyNjA0MTcyNTkxNSwtMC4yNjQyNTYyNDQ4NjEyNjUsLTEuOTEzOTQ5NzkyNzMxMjMNCiI0MiIsOTM4LjUsNDIsMjksNzIsMTAuNywzLjE5LDEwLjEsNzkuNSwzNTA4LDIuMiwzOC4zLDE1LjcsNiw0LDE4LDU2LDAuNTA2NjgzODU5MDcyNzYxLC0wLjQyMDgxMjk4ODcxODk1OSwwLjU2MDc4NzkzNTgxMTUxMSwxLjExOTc0ODQyNzU1MDE3LC0wLjk4Nzk2OTk0MDI3NzU2Mw0KIjQzIiw5NDYuMTg1LDQxLDMzLDc3LDExLjIsMy4wOCw5LjYsNzkuOSw0ODQzLDIuNywzOC42LDE0LjEsMTEsMTEsODksNTQsMC43MTQ0ODQwMzQ4MzU4ODksMC41OTEyMzE1MzQ2MDkyMSwwLjMwOTg0MjM0OTAyNjQ1MywtMC4wMjE4MDkwODExMDQ4MjU2LDEuMDE5MDQ3MTk3OTMzMw0KIjQ0IiwxMDI1LjUwMiw0NCwzOSw3OCw4LjIsMy4zMiwxMSw3OS45LDM3NjgsMjguNiw0OS41LDE3LjUsMTIsOSw0OCw1MywtMC4xOTYwNTU5OTc4NzgxNTQsLTAuOTg1OTc0MTE1NTgxMzE0LC0xLjI0MzM0MjQ2ODM0MTMsMC44NDYxNjA2NTc4MzY3OTEsLTAuMTU5NTgwODYxMDQwMjA0DQoiNDUiLDg3NC4yODEsMzIsMjUsNzIsMTAuOSwzLjIxLDExLjEsODIuNSw0MzU1LDUsNDYuNCwxMC44LDcsNCwxOCw2MCwtMS40MDAxMjc1MTM1ODczNCwxLjE5MDAyOTkxNTg2MzYxLDEuMDg1NTE1MzQyNDc4MjUsLTEuNDEzNjk1Nzg5NzYwNDcsLTAuNDA5NTM5ODIwOTk4ODcyDQoiNDYiLDk1My41NiwzNCwzMiw3OSw5LjMsMy4yMyw5LjcsNzYuOCw1MTYwLDE3LjIsNDUuMSwxNS4zLDMxLDE1LDY4LDU3LDIuMDQyNDYyNzY0MDc3MzgsMC4wNjAxMjkwOTE3NTg5ODM4LC0wLjU4MDk0OTQyMTQ4ODg1LDAuODAzNTgwMDY4NjExNjc5LDAuODU2ODk0NTY4Njc1MzQ0DQoiNDciLDgzOS43MDksMTAsNTUsNzAsNy4zLDMuMTEsMTIuMSw4OC45LDMwMzMsNS45LDUxLDE0LDE0NCw2NiwyMCw2MSwtMS4wNjgxMzc3OTkyNTA2NywwLjQwMDAzNjA2OTk2MzgzOSwtMC42NjM2NzkzMTAyMjQzMzYsMS4yMzg3OTM1NjMxNzExOCwtMC45NDkxMzkzMjkzOTgyMDYNCiI0OCIsOTExLjcwMSwxOCw0OCw2Myw5LjIsMi45MiwxMi4yLDg3LjcsNDI1MywxMy43LDUxLjIsMTIsMzExLDE3MSw4Niw3MSwxLjI4OTE2MjI2Mjc0MzM1LC0wLjY3Mzc3MjM0MTI5NjYyNCwtMC41MjMyODY0Mjc5OTIxMTEsMC4zMzA2ODEwMjkyMDE1MTIsMS42NDE3NDQ3NjAzNzE5OA0KIjQ5Iiw3OTAuNzMzLDEzLDQ5LDY4LDcsMy4zNiwxMi4yLDkwLjcsMjcwMiwzLDUxLjksOS43LDEwNSwzMiwzLDcxLDAuNDE4NDc5NzIyNTc0OTk0LDAuMzE5MDczNjIxMDA3MDIxLC0yLjA3OTk5NTg0NjE5MzM5LDAuMTkzMDcyODg5NTc5NTcxLC0wLjEwMDgyNTA1NjMxNjI0Ng0KIjUwIiw4OTkuMjY0LDM1LDQwLDY0LDkuNiwzLjAyLDEyLjIsODIuNSwzNjI2LDUuNyw1NC4zLDEwLjEsMjAsNywyMCw3MiwyLjEwMjUxNzYyODk0Mzc4LC0wLjUxNDQxMDc0NjQ3OTY4NCwtMC43MDk2MzY0ODY1NDkxMDYsMC4wMDk0MzQ5MjQ4MjA1MDc2NywwLjYxOTE3NDE5MzkyMTk3NQ0KIjUxIiw5MDQuMTU1LDQ1LDI4LDc0LDEwLjYsMy4yMSwxMS4xLDgyLjYsMTg4MywzLjQsNDEuOSwxMi4zLDUsNCwyMCw1NiwtMC43ODA1NDgxNDU5MDU1MzMsLTEuNTQwMDE5MTg4ODQ4NzEsLTEuMzAyMDYwNTgwMzMxMjcsLTAuNzM4ODkwMDc0NzA4NjksLTAuMjg3MTcwNjc5MDU0MDY1DQoiNTIiLDk1MC42NzIsMzgsMjQsNzIsOS44LDMuMzQsMTEuNCw3OCw0OTIzLDMuOCw1MC41LDExLjEsOCw1LDI1LDYxLC0wLjYzMDQxODY3MjIyMjgxLDEuMDc3ODkxOTg0NDI5OTUsMC45NDE0ODk2ODQwNzM5MTIsLTAuNzA5OTYzODk5MjM3MzY5LDEuMjg4NzU2OTMzMDY0MjkNCiI1MyIsOTcyLjQ2NCwzMSwyNiw3Myw5LjMsMy4yMiwxMC43LDgxLjMsMzI0OSw5LjUsNDMuOSwxMy42LDExLDcsMjUsNTksLTEuNTg4MzIxOTc5OTAyMjcsLTEuMDcxOTMzMTQzNDQwOTMsLTAuNjE2NDIxMTE0MjgxMTIxLDAuMzI2MDM4Mzg4NzUwOTc0LC0wLjk3MDgwMTM5OTQzODcNCiI1NCIsOTEyLjIwMiw0MCwyMyw3MSwxMS4zLDMuMjgsMTAuMyw3My44LDE2NzEsMi41LDQ3LjQsMTMuNSw1LDIsMTEsNjAsMS4xNjUyODUxODA0OTU2NCwtMC4xNjIzMzA2NjcwODk0OTEsLTAuOTA2MDkwMDk5MjAyOTk4LC0wLjY2ODA2NDM5MTI3Nzc3MywwLjk2NjE5NTI5NzczMjAxMw0KIjU1Iiw5NjcuODAzLDQxLDM3LDc4LDYuMiwzLjI1LDEyLjMsODkuNSw1MzA4LDI1LjksNTkuNywxMC4zLDY1LDI4LDEwMiw1MiwwLjU5MTU5MjY2NzYwNTQ5MiwtMS4xNjAyNzU5MDA4NjE3NCwtMC4zODUwMjE5Mzc4NTk2NTMsMC42ODE2OTQwNjAwNzU1MzgsMC4wODk2Mzg3MTA4MjM2NjEyDQoiNTYiLDgyMy43NjQsMjgsMzIsODEsNywzLjI3LDEyLjEsODEsMzY2NSw3LjUsNTEuNiwxMy4yLDQsMiwxLDU0LDEuMjk5NzAyMTM3NDQxMzQsLTAuMjAyNDIxNzk5NTc4MDQ5LDEuMzE0ODUyOTQzOTY1NiwyLjAwNTMzMDQxMDEwNzIxLC0wLjAxMjMyMDMyMzYyNzkxNTYNCiI1NyIsMTAwMy41MDIsNDUsMzMsNzYsNy43LDMuMzksMTEuMyw4Mi4yLDMxNTIsMTIuMSw0Ny4zLDEwLjksMTQsMTEsNDIsNTYsMC4wNjM1NTc3NTk1MDkwMjMsMS4xMDkxMTg2MDAzMTYwNywwLjg4MjY0ODQ3MjE4MjEsMC4xNDM0Mjc0MTczMTQ3NzksLTAuMTIwMDg0MTQ2NTc2MDc2DQoiNTgiLDg5NS42OTYsNDUsMjQsNzAsMTEuOCwzLjI1LDExLjEsNzkuOCwzNjc4LDEsNDQuOCwxNCw3LDMsOCw1NiwtMC43MTY5NzI5ODM2MDgyNTQsMS43NzE5Mjc4MjQzNzMyOCwtMC45NjIwMzgxNDQ2MDIxMjYsLTAuMDA4MDg2MzU2MTEwMTIxNywtMC4xNDU5NTQxMDM1Mzg4MDYNCiI1OSIsOTExLjgxNyw0Miw4Myw3Niw5LjcsMy4yMiw5LDc2LjIsOTY5OSw0LjgsNDIuMiwxNC41LDgsOCw0OSw1NCwtMC4wNTcwNDY3MzU5OTc0MzQ1LDAuODEyOTMxMzA0NjUyMzQ1LDAuMTA1MDg2MzQ1MzYyOTc1LDEuMDAwMzQwNTIxMTQ4NDcsMC41OTUyNTIxOTE4MjA2NTcNCiI2MCIsOTU0LjQ0MiwzOCwyOCw3Miw4LjksMy40OCwxMC43LDc5LjgsMzQ1MSwxMS43LDM3LjUsMTMsMTQsMTMsMzksNTgsMS4yNzExMDE1ODE1OTczNCwtMS4zOTcwNDM3MjM4OTQ4NiwtMC4wODE5Njg1NjIyODI2MzUyLC0wLjI0MjM0NzA5MTc4ODc0MSwtMC4zOTE1MzkzMjc3NDI1MzINCg==');
+        if (!response.ok) throw new Error('Network response failed');
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = 'deathrate.csv';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.dispatchEvent(new MouseEvent('click'));
+        document.body.removeChild(a);
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+        }, 100);
+        return false;
+      } catch (error) {
+        console.error('Download failed:', error);
+        alert('Download failed. Please try again.');
+      }
+    }
+    downloadFile(event);
+  "><i class="fa fa-save"></i> Download data</button></p>
+<p><strong>Variable description</strong></p>
+<ol type="1">
+<li><code>deathrate</code>: the death rate (variable to explain)</li>
+<li><code>rain</code>: the average annual precipitation</li>
+<li><code>tempjan</code>: the average January temperature</li>
+<li><code>tempjuly</code>: the average July temperature</li>
+<li><code>over65</code>: the size of the population older than 65</li>
+<li><code>homesize</code>: the number of members per household</li>
+<li><code>studies</code>: the number of years of schooling for persons over 22</li>
+<li><code>kitchen</code>: the number of households with fully equipped kitchens</li>
+<li><code>density</code>: the population per square mile</li>
+<li><code>nonwhite</code>: the size of the nonwhite population</li>
+<li><code>employed</code>: the number of office workers</li>
+<li><code>poor</code>: the number of families with an income less than $3000</li>
+<li><code>hydrocarbon</code>: the hydrocarbon pollution index</li>
+<li><code>nitrogen</code>: the nitric oxide pollution index</li>
+<li><code>sulphur</code>: the sulfur dioxide pollution index</li>
+<li><code>humidity</code>: the degree of atmospheric moisture</li>
+<li><code>noise1</code>-<code>noise5</code>: 5 columns of Gaussian noise</li>
+</ol>
+<p>Note that the first column in <code>deathrate2.csv</code> numbers the rows.</p>
+</div>
+</div>
+</div>
+<section id="activity-1" class="level2">
+<h2 class="anchored" data-anchor-id="activity-1">Activity 1</h2>
+<p>Download and import the death rate data into <code>R</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Starting code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>deathrate <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"/path/to/deathrate2.csv"</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="fu">col_skip</span>(), <span class="fu">col_guess</span>()))<span class="er">)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Discards the first row.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-gelman2013bayesian" class="csl-entry" role="listitem">
+Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. <em>Bayesian Data Analysis</em>. Chapman &amp; Hall/CRC Press. <a href="http://www.stat.columbia.edu/~gelman/book/BDA3.pdf">http://www.stat.columbia.edu/~gelman/book/BDA3.pdf</a>.
+</div>
+<div id="ref-gunst1980regression" class="csl-entry" role="listitem">
+Gunst, Richard F, and Robert L Mason. 1980. <em>Regression Analysis and Its Application: A Data-Oriented Approach</em>. Vol. 34. Dekker.
+</div>
+<div id="ref-marin2014bayesian" class="csl-entry" role="listitem">
+Marin, Jean-Michel, and Christian P Robert. 2014. <em>Bayesian Essentials with <span>R</span></em>. Vol. 48. Springer. <a href="https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&amp;rtype=book&amp;online=true&amp;action=view_record">https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&amp;rtype=book&amp;online=true&amp;action=view_record</a>.
+</div>
+<div id="ref-mcdonald1973instabilities" class="csl-entry" role="listitem">
+McDonald, Gary C, and Richard C Schwing. 1973. <span>“Instabilities of Regression Estimates Relating Air Pollution to Mortality.”</span> <em>Technometrics</em> 15 (3): 463–81.
+</div>
+<div id="ref-spath1992mathematical" class="csl-entry" role="listitem">
+Späth, Helmuth. 1992. <em>Mathematical Algorithms for Linear Regression</em>. Academic Press.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Data from <span class="citation" data-cites="mcdonald1973instabilities">McDonald and Schwing (<a href="#ref-mcdonald1973instabilities" role="doc-biblioref">1973</a>)</span>, <span class="citation" data-cites="gunst1980regression">Gunst and Mason (<a href="#ref-gunst1980regression" role="doc-biblioref">1980</a>)</span>, <span class="citation" data-cites="spath1992mathematical">Späth (<a href="#ref-spath1992mathematical" role="doc-biblioref">1992</a>)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

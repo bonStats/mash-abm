@@ -1,6 +1,6 @@
 ---
 title: "MCMC & Metropolis-Hastings"
-subtitle: "Applied Bayesian Modelling: Lecture 2"
+subtitle: "Applied Bayesian Modelling: Section 2"
 author: "Dr Joshua J Bon"
 bibliography: ../assets/refs.bib
 format:

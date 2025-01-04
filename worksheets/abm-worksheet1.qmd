@@ -12,17 +12,19 @@ format:
 
 :::{.callout-tip}
 ## Aims
-Posterior computation. Monte Carlo methods. Model choice via Bayes factors and model averaging.
+Posterior computation with conjugate priors and Monte Carlo methods. 
+
+Model choice via Bayes factors and model averaging.
 :::
 
-:::{.callout-note}
+:::{.callout-note collapse=true}
 ## Resources
 Chapter 2, @marin2014bayesian
 
 Chapter 7.4 & 10, @gelman2013bayesian
 :::
 
-:::{.callout-important}
+:::{.callout-important collapse=true}
 ## Data
 In this practical, we shall analyse data on activity of French members of Parliament députés. The data come from www.nosdeputes.fr and represent activity between January 2018 and January 2019.
 

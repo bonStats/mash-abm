@@ -1,6 +1,6 @@
 ---
 title: "Gibbs samplers and variable selection"
-subtitle: "Applied Bayesian Modelling: Lecture 3"
+subtitle: "Applied Bayesian Modelling: Section 3"
 author: "Dr Joshua J Bon"
 bibliography: ../assets/refs.bib
 format:

@@ -256,32 +256,38 @@ Aims
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Posterior computation. Monte Carlo methods. Model choice via Bayes factors and model averaging.</p>
+<p>Posterior computation with conjugate priors and Monte Carlo methods.</p>
+<p>Model choice via Bayes factors and model averaging.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Resources
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Chapter 2, <span class="citation" data-cites="marin2014bayesian">Marin and Robert (<a href="#ref-marin2014bayesian" role="doc-biblioref">2014</a>)</span></p>
 <p>Chapter 7.4 &amp; 10, <span class="citation" data-cites="gelman2013bayesian">Gelman et al. (<a href="#ref-gelman2013bayesian" role="doc-biblioref">2013</a>)</span></p>
 </div>
 </div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Data
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In this practical, we shall analyse data on activity of French members of Parliament députés. The data come from www.nosdeputes.fr and represent activity between January 2018 and January 2019.</p>
 <p>Initially, we shall focus on the column <code>questions_orales</code>, which represents the number of oral questions <span class="math inline">Y_i</span> asked by each MP. We would like to test whether it depends on a binary variable <span class="math inline">Z_i</span>. For <span class="math inline">Z_i</span>, you can use the gender of the MP (column <code>sexe</code>).</p>
@@ -311,6 +317,7 @@ Data
     }
     downloadFile(event);
   "><i class="fa fa-save"></i> Download data</button></p>
+</div>
 </div>
 </div>
 <section id="activity-1" class="level2">

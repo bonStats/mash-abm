@@ -1,6 +1,6 @@
 ---
 title: "Bayesian modelling & Monte Carlo"
-subtitle: "Applied Bayesian Modelling: Lecture 1"
+subtitle: "Applied Bayesian Modelling: Section 1"
 author: "Dr Joshua J Bon"
 bibliography: ../assets/refs.bib
 format:

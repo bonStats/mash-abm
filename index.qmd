@@ -14,9 +14,9 @@ Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) cour
 
 ## Slides
 
-- [Lecture 1: Bayes & Monte Carlo](lectures/abm1.html)
-- [Lecture 2: MCMC & Metropolis-Hastings](lectures/abm2.html)
-- [Lecture 3: Gibbs & Variable Selection](lectures/abm3.html)
+- [Section 1: Bayes & Monte Carlo](lectures/abm1.html)
+- [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html)
+- [Section 3: Gibbs & Variable Selection](lectures/abm3.html)
 - Section 4
 - Section 5
 
