@@ -1,0 +1,23 @@
+
+```{r download-data}
+#| echo: false
+#| output: false
+
+library(downloadthis)
+
+josh_data_dir <- function(fl){
+  paste0("/Users/jbon/github/mash-abm/data/", fl)
+}
+
+download_data_buttom <- function(fl,nm){
+  download_file(
+  path = josh_data_dir(fl),
+  output_name = nm,
+  button_label = "Download data",
+  button_type = "default",
+  has_icon = FALSE,
+  icon = "fa fa-save",
+  self_contained = TRUE)
+}
+
+```

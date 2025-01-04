@@ -219,12 +219,12 @@ $$P(\cdot\mid\theta)$$ How are the data distributed? Is this a good approximatio
 
 ## Model checking I: Bayes Factors
 
-$$m_i(y) = \int_\Theta p_i(y \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right]$$
+$$m_i(y) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right] = \int_{\Theta_i} p_i(y \mid \theta_i) \Pi_i(\mathrm{d}\theta_i)$$
 
--   $m_i(y)$ is evidence for model $M_i$ for fixed $y$, depends on
+-   $m_i(y)$ is evidence for model $\mathcal{M}_i$ for fixed $y$, depends on
     -   prior $\Pi_i$
     -   likelihood $L_i(\cdot\mid y) = p_i(y \mid \cdot)$
--   Bayes factor $\text{BF}_{1,0} = \frac{m_1(y)}{m_0(y)}$ compares evidence
+-   Bayes factor $\text{BF}_{10} = \frac{m_1(y)}{m_0(y)}$ compares evidence
 
 ## Model checking I: Bayes Factors
 
@@ -236,14 +236,27 @@ $$
 
 ## Model checking I: Bayes Factors
 
-Interpretation of Bayes factors
+Interpretation of Bayes factors [@jeffreys1998theory]
 
-| $\text{BF}_{1,0}$ | Strength of Evidence^[@good1979studies] ($M_1$ vs null $M_0$) |
+| $\text{BF}_{10}$       | Strength of Evidence                           |
+|------------------------|------------------------------------------------|
+| $<1$                   | Negative (supports $M_0$)                      |
+| $1$ to $10^{1/2}$      | Barely worth mentioning                        |
+| $10^{1/2}$ to $10$     | Substantial                                    |
+| $10$ to $10^{3/2}$       | Strong                                         |
+| $10^{3/2}$ to $100$    | Very strong                                    |
+| $> 100$                | Decisive                                       |
+
+## Model checking I: Bayes Factors
+
+Interpretation of Bayes factors [@kass1995bayes]
+
+| $\text{BF}_{10}$  | Strength of Evidence ($M_1$ vs null $M_0$)     |
 |-------------------|------------------------------------------------|
-| 1 to 3.2          | Not worth more than a bare mention             |
-| 3.2 to 10         | Substantial                                    |
-| 10 to 100         | Strong                                         |
-| $>$ 100            | Decisive                                       |
+| $1$ to $3.2$      | Not worth more than a bare mention             |
+| $3.2$ to $10$     | Substantial                                    |
+| $10$ to $100$     | Strong                                         |
+| $> 100$           | Decisive                                       |
 
 # Posterior Approximation
 

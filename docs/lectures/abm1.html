@@ -733,14 +733,14 @@ Dr Joshua J Bon
 </section>
 <section id="model-checking-i-bayes-factors" class="slide level2">
 <h2>Model checking I: Bayes Factors</h2>
-<p><span class="math display">m_i(y) = \int_\Theta p_i(y \mid \theta) \Pi_i(\mathrm{d}\theta) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right]</span></p>
+<p><span class="math display">m_i(y) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right] = \int_{\Theta_i} p_i(y \mid \theta_i) \Pi_i(\mathrm{d}\theta_i)</span></p>
 <ul>
-<li><span class="math inline">m_i(y)</span> is evidence for model <span class="math inline">M_i</span> for fixed <span class="math inline">y</span>, depends on
+<li><span class="math inline">m_i(y)</span> is evidence for model <span class="math inline">\mathcal{M}_i</span> for fixed <span class="math inline">y</span>, depends on
 <ul>
 <li>prior <span class="math inline">\Pi_i</span></li>
 <li>likelihood <span class="math inline">L_i(\cdot\mid y) = p_i(y \mid \cdot)</span></li>
 </ul></li>
-<li>Bayes factor <span class="math inline">\text{BF}_{1,0} = \frac{m_1(y)}{m_0(y)}</span> compares evidence</li>
+<li>Bayes factor <span class="math inline">\text{BF}_{10} = \frac{m_1(y)}{m_0(y)}</span> compares evidence</li>
 </ul>
 </section>
 <section id="model-checking-i-bayes-factors-1" class="slide level2">
@@ -752,38 +752,76 @@ Dr Joshua J Bon
 </section>
 <section id="model-checking-i-bayes-factors-2" class="slide level2">
 <h2>Model checking I: Bayes Factors</h2>
-<p>Interpretation of Bayes factors</p>
+<p>Interpretation of Bayes factors <span class="citation" data-cites="jeffreys1998theory">(<a href="#/references" role="doc-biblioref" onclick="">Jeffreys 1998</a>)</span></p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 28%">
-<col style="width: 71%">
+<col style="width: 33%">
+<col style="width: 66%">
 </colgroup>
 <thead>
 <tr class="header">
-<th><span class="math inline">\text{BF}_{1,0}</span></th>
-<th>Strength of Evidence<sup>1</sup> (<span class="math inline">M_1</span> vs null <span class="math inline">M_0</span>)</th>
+<th><span class="math inline">\text{BF}_{10}</span></th>
+<th>Strength of Evidence</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1 to 3.2</td>
-<td>Not worth more than a bare mention</td>
+<td><span class="math inline">&lt;1</span></td>
+<td>Negative (supports <span class="math inline">M_0</span>)</td>
 </tr>
 <tr class="even">
-<td>3.2 to 10</td>
-<td>Substantial</td>
+<td><span class="math inline">1</span> to <span class="math inline">10^{1/2}</span></td>
+<td>Barely worth mentioning</td>
 </tr>
 <tr class="odd">
-<td>10 to 100</td>
-<td>Strong</td>
+<td><span class="math inline">10^{1/2}</span> to <span class="math inline">10</span></td>
+<td>Substantial</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">&gt;</span> 100</td>
+<td><span class="math inline">10</span> to <span class="math inline">10^{3/2}</span></td>
+<td>Strong</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">10^{3/2}</span> to <span class="math inline">100</span></td>
+<td>Very strong</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">&gt; 100</span></td>
 <td>Decisive</td>
 </tr>
 </tbody>
 </table>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="good1979studies">Good (<a href="#/references" role="doc-biblioref" onclick="">1979</a>)</span></p></li></ol></aside></section></section>
+</section>
+<section id="model-checking-i-bayes-factors-3" class="slide level2">
+<h2>Model checking I: Bayes Factors</h2>
+<p>Interpretation of Bayes factors <span class="citation" data-cites="kass1995bayes">(<a href="#/references" role="doc-biblioref" onclick="">Kass and Raftery 1995</a>)</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">\text{BF}_{10}</span></th>
+<th>Strength of Evidence (<span class="math inline">M_1</span> vs null <span class="math inline">M_0</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">1</span> to <span class="math inline">3.2</span></td>
+<td>Not worth more than a bare mention</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">3.2</span> to <span class="math inline">10</span></td>
+<td>Substantial</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">10</span> to <span class="math inline">100</span></td>
+<td>Strong</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">&gt; 100</span></td>
+<td>Decisive</td>
+</tr>
+</tbody>
+</table>
+</section></section>
 <section>
 <section id="posterior-approximation" class="title-slide slide level1 center">
 <h1>Posterior Approximation</h1>
@@ -934,8 +972,11 @@ Gelman, Andrew, Daniel Simpson, and Michael Betancourt. 2017. <span>“The Prior
 <div id="ref-ghosh2011objective" class="csl-entry" role="listitem">
 Ghosh, Malay. 2011. <span>“Objective Priors: An Introduction for Frequentists.”</span> <em>Statistical Science</em>, 187–202.
 </div>
-<div id="ref-good1979studies" class="csl-entry" role="listitem">
-Good, Irving J. 1979. <span>“Studies in the History of Probability and Statistics. XXXVII AM Turing’s Statistical Work in World War II.”</span> <em>Biometrika</em>, 393–96.
+<div id="ref-jeffreys1998theory" class="csl-entry" role="listitem">
+Jeffreys, H. 1998. <em>The Theory of Probability</em>. Oxford Classic Texts in the Physical Sciences. OUP Oxford. <a href="https://books.google.fr/books?id=vh9Act9rtzQC">https://books.google.fr/books?id=vh9Act9rtzQC</a>.
+</div>
+<div id="ref-kass1995bayes" class="csl-entry" role="listitem">
+Kass, Robert E, and Adrian E Raftery. 1995. <span>“Bayes Factors.”</span> <em>Journal of the American Statistical Association</em> 90 (430): 773–95.
 </div>
 <div id="ref-robert2009harold" class="csl-entry" role="listitem">
 Robert, Christian P, Nicolas Chopin, and Judith Rousseau. 2009. <span>“Harold Jeffreys’s Theory of Probability Revisited.”</span> <em>Statistical Science</em>, 141–72.

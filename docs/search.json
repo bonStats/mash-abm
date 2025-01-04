@@ -116,7 +116,7 @@
     "href": "lectures/abm1.html#model-checking-i-bayes-factors",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Model checking I: Bayes Factors",
-    "text": "Model checking I: Bayes Factors\nm_i(y) = \\int_\\Theta p_i(y \\mid \\theta) \\Pi_i(\\mathrm{d}\\theta) = \\mathbb{E}_{\\theta\\sim\\Pi_i}\\left[ L_i(\\theta\\mid y)\\right]\n\nm_i(y) is evidence for model M_i for fixed y, depends on\n\nprior \\Pi_i\nlikelihood L_i(\\cdot\\mid y) = p_i(y \\mid \\cdot)\n\nBayes factor \\text{BF}_{1,0} = \\frac{m_1(y)}{m_0(y)} compares evidence"
+    "text": "Model checking I: Bayes Factors\nm_i(y) = \\mathbb{E}_{\\theta\\sim\\Pi_i}\\left[ L_i(\\theta\\mid y)\\right] = \\int_{\\Theta_i} p_i(y \\mid \\theta_i) \\Pi_i(\\mathrm{d}\\theta_i)\n\nm_i(y) is evidence for model \\mathcal{M}_i for fixed y, depends on\n\nprior \\Pi_i\nlikelihood L_i(\\cdot\\mid y) = p_i(y \\mid \\cdot)\n\nBayes factor \\text{BF}_{10} = \\frac{m_1(y)}{m_0(y)} compares evidence"
   },
   {
     "objectID": "lectures/abm1.html#model-checking-i-bayes-factors-1",
@@ -130,7 +130,14 @@
     "href": "lectures/abm1.html#model-checking-i-bayes-factors-2",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Model checking I: Bayes Factors",
-    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors\n\n\n\n\n\n\n\n\\text{BF}_{1,0}\nStrength of Evidence1 (M_1 vs null M_0)\n\n\n\n\n1 to 3.2\nNot worth more than a bare mention\n\n\n3.2 to 10\nSubstantial\n\n\n10 to 100\nStrong\n\n\n&gt; 100\nDecisive\n\n\n\nGood (1979)"
+    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors (Jeffreys 1998)\n\n\n\n\n\n\n\n\\text{BF}_{10}\nStrength of Evidence\n\n\n\n\n&lt;1\nNegative (supports M_0)\n\n\n1 to 10^{1/2}\nBarely worth mentioning\n\n\n10^{1/2} to 10\nSubstantial\n\n\n10 to 10^{3/2}\nStrong\n\n\n10^{3/2} to 100\nVery strong\n\n\n&gt; 100\nDecisive"
+  },
+  {
+    "objectID": "lectures/abm1.html#model-checking-i-bayes-factors-3",
+    "href": "lectures/abm1.html#model-checking-i-bayes-factors-3",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Model checking I: Bayes Factors",
+    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors (Kass and Raftery 1995)\n\n\n\n\\text{BF}_{10}\nStrength of Evidence (M_1 vs null M_0)\n\n\n\n\n1 to 3.2\nNot worth more than a bare mention\n\n\n3.2 to 10\nSubstantial\n\n\n10 to 100\nStrong\n\n\n&gt; 100\nDecisive"
   },
   {
     "objectID": "lectures/abm1.html#posterior-computation",
@@ -200,7 +207,7 @@
     "href": "lectures/abm1.html#references",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "References",
-    "text": "References\n\n\nBerger, James O, José M Bernardo, and Dongchu Sun. 2009. “The Formal Definition of Reference Priors.” The Annals of Statistics 37 (2): 905–38.\n\n\nGelman, Andrew, Daniel Simpson, and Michael Betancourt. 2017. “The Prior Can Often Only Be Understood in the Context of the Likelihood.” Entropy 19 (10): 555.\n\n\nGhosh, Malay. 2011. “Objective Priors: An Introduction for Frequentists.” Statistical Science, 187–202.\n\n\nGood, Irving J. 1979. “Studies in the History of Probability and Statistics. XXXVII AM Turing’s Statistical Work in World War II.” Biometrika, 393–96.\n\n\nRobert, Christian P, Nicolas Chopin, and Judith Rousseau. 2009. “Harold Jeffreys’s Theory of Probability Revisited.” Statistical Science, 141–72."
+    "text": "References\n\n\nBerger, James O, José M Bernardo, and Dongchu Sun. 2009. “The Formal Definition of Reference Priors.” The Annals of Statistics 37 (2): 905–38.\n\n\nGelman, Andrew, Daniel Simpson, and Michael Betancourt. 2017. “The Prior Can Often Only Be Understood in the Context of the Likelihood.” Entropy 19 (10): 555.\n\n\nGhosh, Malay. 2011. “Objective Priors: An Introduction for Frequentists.” Statistical Science, 187–202.\n\n\nJeffreys, H. 1998. The Theory of Probability. Oxford Classic Texts in the Physical Sciences. OUP Oxford. https://books.google.fr/books?id=vh9Act9rtzQC.\n\n\nKass, Robert E, and Adrian E Raftery. 1995. “Bayes Factors.” Journal of the American Statistical Association 90 (430): 773–95.\n\n\nRobert, Christian P, Nicolas Chopin, and Judith Rousseau. 2009. “Harold Jeffreys’s Theory of Probability Revisited.” Statistical Science, 141–72."
   },
   {
     "objectID": "lectures/abm3.html#applied-bayesian-modelling",
@@ -305,14 +312,42 @@
     "href": "worksheets/abm-worksheet1.html",
     "title": "Worksheet 1",
     "section": "",
-    "text": "\\[a=1\\]"
+    "text": "Aims\n\n\n\nPosterior computation. Monte Carlo methods. Model choice via Bayes factors and model averaging."
   },
   {
-    "objectID": "worksheets/abm-worksheet1.html#question-1",
-    "href": "worksheets/abm-worksheet1.html#question-1",
+    "objectID": "worksheets/abm-worksheet1.html#activity-1",
+    "href": "worksheets/abm-worksheet1.html#activity-1",
     "title": "Worksheet 1",
-    "section": "",
-    "text": "\\[a=1\\]"
+    "section": "Activity 1",
+    "text": "Activity 1\nDownload and import the députés data into R.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = \"/path/to/deputes2019.csv\")\n\n\n\nExplore briefly the data (number of individuals, size of groups 1 and 2, histograms…).\nChoose a parametric family, P_\\lambda=P(\\cdot\\mid\\lambda), which seems suitable for these data."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet1.html#activity-2",
+    "href": "worksheets/abm-worksheet1.html#activity-2",
+    "title": "Worksheet 1",
+    "section": "Activity 2",
+    "text": "Activity 2\nWe shall study the two following models, where \\pi is a prior distribution:\n\\begin{array}{c|c}\n\\mathcal{M}_1 & \\mathcal{M}_2\\\\\n\\begin{array}{clc}\nY_i & \\overset{\\text{iid}}{\\sim} & P_\\lambda  \\\\\n\\lambda & \\sim& \\pi\n\\end{array}\n&\n\\begin{array}{clc}\nY_i | Z_i = j & \\overset{\\text{iid}}{\\sim} & P_{\\lambda_j} \\\\\n\\lambda_1 & \\sim& \\pi\\\\\n\\lambda_2 & \\sim& \\pi\\\\\n\\end{array}\n\\end{array}\n\n\nFind a conjugate prior for the chosen family of distributions. Is this family of priors flexible enough? If not, which prior would you choose?\nFind Jeffrey’s prior for this model. What is the associated posterior?\nDecide what your prior distribution will be.\nPlot the prior of the parameters, and the posterior for the parameters of each model. Repeat with different values of the prior hyperparameters.\nGive a 95% credibility interval for the parameters in each model.\nIn model 2, let r_\\lambda=\\frac{\\lambda_1}{\\lambda_2}. Give a Monte Carlo estimate of the prior and posterior expectation and variance of r_\\lambda."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet1.html#activity-3",
+    "href": "worksheets/abm-worksheet1.html#activity-3",
+    "title": "Worksheet 1",
+    "section": "Activity 3",
+    "text": "Activity 3\nWe would now like to compute the Bayes factor\n\\text{BF}_{21}= \\frac{m_2(y)}{m_1(y)} \\quad \\text{ where }  \\quad\nm_k(y)= \\int _{\\Theta_k} L_k(\\theta_k\\mid y) \\pi_k(\\theta_k) \\mathrm{d} \\theta_k\nWe propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.\n\nVanilla Monte Carlo: Give an approximation of B_{21} based on an N-sample of parameters simulated from the prior distribution.\nImportance sampling: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution g to perform importance sampling. Give an approximation of B_{21} in this case.\n\nTry again, using a different instrumental distribution. What do you observe?\n\nExplicit computation: Give the explicit expression of B_{21}, and write an R script to evaluate it."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet1.html#activity-4",
+    "href": "worksheets/abm-worksheet1.html#activity-4",
+    "title": "Worksheet 1",
+    "section": "Activity 4",
+    "text": "Activity 4\nCompare the 3 methods from Activity 3 and select the best one.\n\nNow that you have chosen your method, compute the Bayes factor and conclude on which model is the best.\nSuppose that our prior probability for each model is 0.5. What is the posterior probability of each model?\nWe wish to predict the number of questions that will be asked by a new female individual. Draw a posterior sample from the corresponding \\lambda parameter in each of the following cases:\n\nWe choose model \\mathcal M_1.\nWe choose model \\mathcal M_2.\nWe take a mixture of the two models, with weights equal to the posterior probabilities.\n\nGive the posterior mean and variance. Comment."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet1.html#activity-5",
+    "href": "worksheets/abm-worksheet1.html#activity-5",
+    "title": "Worksheet 1",
+    "section": "Activity 5",
+    "text": "Activity 5\nPerform model choice for other columns: for Y_i, you might look at any of the quantitative variables. For Z_i, you could also use groupe_sigle, which gives political affiliation, or nb_mandats, which gives the number of other elective offices held. In those cases, Z_i can take more than 2 values."
   },
   {
     "objectID": "worksheets/abm-worksheet2.html",
@@ -347,7 +382,7 @@
     "href": "index.html",
     "title": "Applied Bayesian Modelling",
     "section": "",
-    "text": "Course website for for M2 MASH course on Applied Bayesian Modelling.\nPrepared by Dr Joshua J Bon."
+    "text": "Course website for for M2 MASH course on Applied Bayesian Modelling."
   },
   {
     "objectID": "index.html#slides",
@@ -375,7 +410,7 @@
     "href": "index.html#resources",
     "title": "Applied Bayesian Modelling",
     "section": "Resources",
-    "text": "Resources"
+    "text": "Resources\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
   },
   {
     "objectID": "lectures/abm2.html#applied-bayesian-modelling",
@@ -558,5 +593,19 @@
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
     "text": "References\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67."
+  },
+  {
+    "objectID": "lectures/abm1.html",
+    "href": "lectures/abm1.html",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "",
+    "text": "josh_data_dir &lt;- function(fl){\n  paste0(\"/Users/jbon/github/mash-abm/data/\", fl)\n}"
+  },
+  {
+    "objectID": "lectures/abm1.html#footnotes",
+    "href": "lectures/abm1.html#footnotes",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nProbability density (e.g. PDF/PMF)↩︎\nAlso known as the posterior normalising constant, or marginal likelihood↩︎\nSee “The prior can often only be understood in the context of the likelihood”, (Gelman, Simpson, and Betancourt 2017)↩︎"
   }
 ]

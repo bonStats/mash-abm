@@ -1,34 +1,16 @@
 ---
 title: "Applied Bayesian Modelling"
+author: "Joshua J Bon"
+bibliography: assets/refs.bib
+nocite: |
+  @marin2014bayesian, @gelman2013bayesian
 ---
 
-```{r download-data}
-#| echo: false
-#| output: false
-
-library(downloadthis)
-
-josh_data_dir <- function(fl){
-  paste0("/Users/jbon/github/mash-abm/data/", fl)
-}
-
-download_data_buttom <- function(fl,nm){
-  download_file(
-  path = josh_data_dir(fl),
-  output_name = nm,
-  button_label = "Download data",
-  button_type = "default",
-  has_icon = FALSE,
-  icon = "fa fa-save",
-  self_contained = TRUE)
-}
-
-```
+{{< include assets/_data-download.qmd >}}
 
 
 Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) course on Applied Bayesian Modelling.
 
-Prepared by Dr Joshua J Bon.
 
 ## Slides
 
@@ -56,6 +38,10 @@ Prepared by Dr Joshua J Bon.
 
 ## Resources
 
+::: {#refs}
+:::
+
+##
 
 ![](assets/dauphine-logo-white.png)
 

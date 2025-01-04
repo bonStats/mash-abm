@@ -1,9 +1,122 @@
 ---
 title: "Worksheet 1"
 subtitle: "Bayesian modelling & Monte Carlo"
-format: html
+author: "Robin Ryder & Joshua J Bon"
+bibliography: ../assets/refs.bib
+format: 
+  html:
+    html-math-method: katex
 ---
 
-## Question 1
+{{< include ../assets/_data-download.qmd >}}
 
-$$a=1$$
+:::{.callout-tip}
+## Aims
+Posterior computation. Monte Carlo methods. Model choice via Bayes factors and model averaging.
+:::
+
+:::{.callout-note}
+## Resources
+Chapter 2, @marin2014bayesian
+
+Chapter 7.4 & 10, @gelman2013bayesian
+:::
+
+:::{.callout-important}
+## Data
+In this practical, we shall analyse data on activity of French members of Parliament députés. The data come from www.nosdeputes.fr and represent activity between January 2018 and January 2019.
+
+Initially, we shall focus on the column `questions_orales`, which represents the number of oral questions $Y_i$ asked by each MP. We would like to test whether it depends on a binary variable $Z_i$. For $Z_i$, you can use the gender of the MP (column `sexe`).
+
+`r download_data_buttom("deputes2019.csv","deputes2019")`
+:::
+
+## Activity 1
+
+Download and import the députés data into `R`.
+
+```{r dep-debut}
+#| code-summary: "Starting code"
+#| echo: true
+#| code-fold: true
+#| eval: false
+
+library(readr)
+library(ggplot2)
+
+deputes <- read_csv(file = "/path/to/deputes2019.csv")
+
+```
+
+1. Explore briefly the data (number of individuals, size of groups 1 and 2, histograms...). 
+
+2. Choose a parametric family, $P_\lambda=P(\cdot\mid\lambda)$, which seems suitable for these data.
+
+
+## Activity 2
+
+We shall study the two following models, where $\pi$ is a prior distribution:
+
+$$\begin{array}{c|c}
+\mathcal{M}_1 & \mathcal{M}_2\\ 
+\begin{array}{clc}
+Y_i & \overset{\text{iid}}{\sim} & P_\lambda  \\
+\lambda & \sim& \pi
+\end{array}
+&
+\begin{array}{clc}
+Y_i | Z_i = j & \overset{\text{iid}}{\sim} & P_{\lambda_j} \\
+\lambda_1 & \sim& \pi\\
+\lambda_2 & \sim& \pi\\
+\end{array}
+\end{array}
+$$
+
+1. Find a conjugate prior for the chosen family of distributions. Is this family of priors flexible enough? If not, which prior would you choose?
+
+2. Find Jeffrey's prior for this model. What is the associated posterior?
+
+3. Decide what your prior distribution will be.
+
+4. Plot the prior of the parameters, and the posterior for the parameters of each model. Repeat with different values of the prior hyperparameters.
+5. Give a 95\% credibility interval for the parameters in each model.
+6. In model 2, let $r_\lambda=\frac{\lambda_1}{\lambda_2}$. Give a Monte Carlo estimate of the prior and posterior expectation and variance of $r_\lambda$.
+
+## Activity 3
+
+We would now like to compute the Bayes factor
+
+$$\text{BF}_{21}= \frac{m_2(y)}{m_1(y)} \quad \text{ where }  \quad 
+m_k(y)= \int _{\Theta_k} L_k(\theta_k\mid y) \pi_k(\theta_k) \mathrm{d} \theta_k$$
+
+We propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.
+
+1. **Vanilla Monte Carlo**: Give an approximation of $B_{21}$ based on an $N$-sample of parameters simulated from the prior distribution.
+
+2. **Importance sampling**: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution $g$ to perform importance sampling. Give an approximation of $B_{21}$ in this case.
+    - Try again, using a different instrumental distribution. What do you observe?
+    
+3. **Explicit computation:** Give the explicit expression of $B_{21}$, and write an R script to evaluate it.
+
+
+## Activity 4
+
+Compare the 3 methods from Activity 3 and select the best one.
+
+1. Now that you have chosen your method, compute the Bayes factor and conclude on which model is the best.
+
+2. Suppose that our prior probability for each model is $0.5$. What is the posterior probability of each model?
+
+3. We wish to predict the number of questions that will be asked by a new female individual. Draw a posterior sample from the corresponding $\lambda$ parameter in each of the following cases:
+    a. We choose model $\mathcal M_1$.
+    b. We choose model $\mathcal M_2$.
+    c. We take a mixture of the two models, with weights equal to the posterior probabilities.
+
+4. Give the posterior mean and variance. Comment.
+
+
+## Activity 5 
+
+Perform model choice for other columns: for $Y_i$, you might look at any of the quantitative variables. For $Z_i$, you could also use `groupe_sigle`, which gives political affiliation, or `nb_mandats`, which gives the number of other elective offices held. In those cases, $Z_i$ can take more than 2 values.
+
+## References
