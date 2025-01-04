@@ -208,11 +208,11 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#activity-1" id="toc-activity-1" class="nav-link active" data-scroll-target="#activity-1">Activity 1</a></li>
-  <li><a href="#activity-2" id="toc-activity-2" class="nav-link" data-scroll-target="#activity-2">Activity 2</a></li>
-  <li><a href="#activity-3" id="toc-activity-3" class="nav-link" data-scroll-target="#activity-3">Activity 3</a></li>
-  <li><a href="#activity-4" id="toc-activity-4" class="nav-link" data-scroll-target="#activity-4">Activity 4</a></li>
-  <li><a href="#activity-5" id="toc-activity-5" class="nav-link" data-scroll-target="#activity-5">Activity 5</a></li>
+  <li><a href="#activity-1-getting-started" id="toc-activity-1-getting-started" class="nav-link active" data-scroll-target="#activity-1-getting-started">Activity 1: Getting started</a></li>
+  <li><a href="#activity-2-choosing-priors" id="toc-activity-2-choosing-priors" class="nav-link" data-scroll-target="#activity-2-choosing-priors">Activity 2: Choosing priors</a></li>
+  <li><a href="#activity-3-bayes-factors" id="toc-activity-3-bayes-factors" class="nav-link" data-scroll-target="#activity-3-bayes-factors">Activity 3: Bayes factors</a></li>
+  <li><a href="#activity-4-model-choice" id="toc-activity-4-model-choice" class="nav-link" data-scroll-target="#activity-4-model-choice">Activity 4: Model choice</a></li>
+  <li><a href="#activity-5-more-models" id="toc-activity-5-more-models" class="nav-link" data-scroll-target="#activity-5-more-models">Activity 5: More models</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -283,7 +283,7 @@ Resources
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Data
+Data: <code>deputes2019.csv</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -317,11 +317,55 @@ Data
     }
     downloadFile(event);
   "><i class="fa fa-save"></i> Download data</button></p>
+<p><strong>Variable description</strong></p>
+<ol type="1">
+<li><code>id</code>:</li>
+<li><code>nom</code>:</li>
+<li><code>nom_de_famille</code>:</li>
+<li><code>prenom</code>:</li>
+<li><code>sexe</code>:</li>
+<li><code>date_naissance</code>:</li>
+<li><code>lieu_naissance</code>:</li>
+<li><code>num_deptmt</code>:</li>
+<li><code>nom_circo</code>:</li>
+<li><code>num_circo</code>:</li>
+<li><code>mandat_debut</code>:</li>
+<li><code>mandat_fin</code>:</li>
+<li><code>ancien_depute</code>:</li>
+<li><code>groupe_sigle</code>: Political affiliation</li>
+<li><code>parti_ratt_financier</code>:</li>
+<li><code>sites_web</code>:</li>
+<li><code>emails</code>:</li>
+<li><code>anciens_mandats</code>:</li>
+<li><code>profession</code>:</li>
+<li><code>place_en_hemicycle</code>:</li>
+<li><code>url_an</code>:</li>
+<li><code>id_an</code>:</li>
+<li><code>slug</code>:</li>
+<li><code>url_nosdeputes</code>:</li>
+<li><code>url_nosdeputes_api</code>:</li>
+<li><code>nb_mandats</code>: Number of other elective offices held</li>
+<li><code>twitter</code>:</li>
+<li><code>semaines_presence</code>:</li>
+<li><code>commission_presences</code>:</li>
+<li><code>commission_interventions</code>:</li>
+<li><code>hemicycle_interventions</code>:</li>
+<li><code>hemicycle_interventions_courtes</code>:</li>
+<li><code>amendements_proposes</code>:</li>
+<li><code>amendements_signes</code>:</li>
+<li><code>amendements_adoptes</code>:</li>
+<li><code>rapports</code>:</li>
+<li><code>propositions_ecrites</code>:</li>
+<li><code>propositions_signees</code>:</li>
+<li><code>questions_ecrites</code>: Number of written questions asked by member</li>
+<li><code>questions_orales</code>: Number of oral questions asked by member</li>
+<li><code>premier_elu</code>: First elected to National Parliament</li>
+</ol>
 </div>
 </div>
 </div>
-<section id="activity-1" class="level2">
-<h2 class="anchored" data-anchor-id="activity-1">Activity 1</h2>
+<section id="activity-1-getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="activity-1-getting-started">Activity 1: Getting started</h2>
 <p>Download and import the députés data into <code>R</code>.</p>
 <div class="cell">
 <details class="code-fold">
@@ -337,8 +381,8 @@ Data
 <li><p>Choose a parametric family, <span class="math inline">P_\lambda=P(\cdot\mid\lambda)</span>, which seems suitable for these data.</p></li>
 </ol>
 </section>
-<section id="activity-2" class="level2">
-<h2 class="anchored" data-anchor-id="activity-2">Activity 2</h2>
+<section id="activity-2-choosing-priors" class="level2">
+<h2 class="anchored" data-anchor-id="activity-2-choosing-priors">Activity 2: Choosing priors</h2>
 <p>We shall study the two following models, where <span class="math inline">\pi</span> is a prior distribution:</p>
 <p><span class="math display">\begin{array}{c|c}
 \mathcal{M}_1 &amp; \mathcal{M}_2\\
@@ -363,8 +407,8 @@ Y_i | Z_i = j &amp; \overset{\text{iid}}{\sim} &amp; P_{\lambda_j} \\
 <li><p>In model 2, let <span class="math inline">r_\lambda=\frac{\lambda_1}{\lambda_2}</span>. Give a Monte Carlo estimate of the prior and posterior expectation and variance of <span class="math inline">r_\lambda</span>.</p></li>
 </ol>
 </section>
-<section id="activity-3" class="level2">
-<h2 class="anchored" data-anchor-id="activity-3">Activity 3</h2>
+<section id="activity-3-bayes-factors" class="level2">
+<h2 class="anchored" data-anchor-id="activity-3-bayes-factors">Activity 3: Bayes factors</h2>
 <p>We would now like to compute the Bayes factor</p>
 <p><span class="math display">\text{BF}_{21}= \frac{m_2(y)}{m_1(y)} \quad \text{ where }  \quad
 m_k(y)= \int _{\Theta_k} L_k(\theta_k\mid y) \pi_k(\theta_k) \mathrm{d} \theta_k</span></p>
@@ -378,8 +422,8 @@ m_k(y)= \int _{\Theta_k} L_k(\theta_k\mid y) \pi_k(\theta_k) \mathrm{d} \theta_k
 <li><p><strong>Explicit computation:</strong> Give the explicit expression of <span class="math inline">B_{21}</span>, and write an R script to evaluate it.</p></li>
 </ol>
 </section>
-<section id="activity-4" class="level2">
-<h2 class="anchored" data-anchor-id="activity-4">Activity 4</h2>
+<section id="activity-4-model-choice" class="level2">
+<h2 class="anchored" data-anchor-id="activity-4-model-choice">Activity 4: Model choice</h2>
 <p>Compare the 3 methods from Activity 3 and select the best one.</p>
 <ol type="1">
 <li><p>Now that you have chosen your method, compute the Bayes factor and conclude on which model is the best.</p></li>
@@ -393,8 +437,8 @@ m_k(y)= \int _{\Theta_k} L_k(\theta_k\mid y) \pi_k(\theta_k) \mathrm{d} \theta_k
 <li><p>Give the posterior mean and variance. Comment.</p></li>
 </ol>
 </section>
-<section id="activity-5" class="level2">
-<h2 class="anchored" data-anchor-id="activity-5">Activity 5</h2>
+<section id="activity-5-more-models" class="level2">
+<h2 class="anchored" data-anchor-id="activity-5-more-models">Activity 5: More models</h2>
 <p>Perform model choice for other columns: for <span class="math inline">Y_i</span>, you might look at any of the quantitative variables. For <span class="math inline">Z_i</span>, you could also use <code>groupe_sigle</code>, which gives political affiliation, or <code>nb_mandats</code>, which gives the number of other elective offices held. In those cases, <span class="math inline">Z_i</span> can take more than 2 values.</p>
 </section>
 <section id="references" class="level2">

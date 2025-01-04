@@ -25,15 +25,60 @@ Chapter 7.4 & 10, @gelman2013bayesian
 :::
 
 :::{.callout-important collapse=true}
-## Data
+## Data: `deputes2019.csv`
 In this practical, we shall analyse data on activity of French members of Parliament députés. The data come from www.nosdeputes.fr and represent activity between January 2018 and January 2019.
 
 Initially, we shall focus on the column `questions_orales`, which represents the number of oral questions $Y_i$ asked by each MP. We would like to test whether it depends on a binary variable $Z_i$. For $Z_i$, you can use the gender of the MP (column `sexe`).
 
 `r download_data_buttom("deputes2019.csv","deputes2019")`
+
+**Variable description**
+
+1. `id`: 
+2. `nom`: 
+3. `nom_de_famille`: 
+4. `prenom`: 
+5. `sexe`: 
+6. `date_naissance`: 
+7. `lieu_naissance`: 
+8. `num_deptmt`: 
+9. `nom_circo`: 
+10. `num_circo`: 
+11. `mandat_debut`: 
+12. `mandat_fin`: 
+13. `ancien_depute`: 
+14. `groupe_sigle`: Political affiliation
+15. `parti_ratt_financier`: 
+16. `sites_web`: 
+17. `emails`: 
+18. `anciens_mandats`: 
+19. `profession`: 
+20. `place_en_hemicycle`: 
+21. `url_an`: 
+22. `id_an`: 
+23. `slug`: 
+24. `url_nosdeputes`: 
+25. `url_nosdeputes_api`: 
+26. `nb_mandats`: Number of other elective offices held
+27. `twitter`: 
+28. `semaines_presence`: 
+29. `commission_presences`: 
+30. `commission_interventions`: 
+31. `hemicycle_interventions`: 
+32. `hemicycle_interventions_courtes`: 
+33. `amendements_proposes`: 
+34. `amendements_signes`: 
+35. `amendements_adoptes`: 
+36. `rapports`: 
+37. `propositions_ecrites`: 
+38. `propositions_signees`: 
+39. `questions_ecrites`: Number of written questions asked by member
+40. `questions_orales`: Number of oral questions asked by member
+41. `premier_elu`: First elected to National Parliament
+
 :::
 
-## Activity 1
+## Activity 1: Getting started
 
 Download and import the députés data into `R`.
 
@@ -55,7 +100,7 @@ deputes <- read_csv(file = "/path/to/deputes2019.csv")
 2. Choose a parametric family, $P_\lambda=P(\cdot\mid\lambda)$, which seems suitable for these data.
 
 
-## Activity 2
+## Activity 2: Choosing priors
 
 We shall study the two following models, where $\pi$ is a prior distribution:
 
@@ -84,7 +129,7 @@ $$
 5. Give a 95\% credibility interval for the parameters in each model.
 6. In model 2, let $r_\lambda=\frac{\lambda_1}{\lambda_2}$. Give a Monte Carlo estimate of the prior and posterior expectation and variance of $r_\lambda$.
 
-## Activity 3
+## Activity 3: Bayes factors
 
 We would now like to compute the Bayes factor
 
@@ -101,7 +146,7 @@ We propose several Monte Carlo methods to calculate the Bayes factor; we would l
 3. **Explicit computation:** Give the explicit expression of $B_{21}$, and write an R script to evaluate it.
 
 
-## Activity 4
+## Activity 4: Model choice
 
 Compare the 3 methods from Activity 3 and select the best one.
 
@@ -117,7 +162,7 @@ Compare the 3 methods from Activity 3 and select the best one.
 4. Give the posterior mean and variance. Comment.
 
 
-## Activity 5 
+## Activity 5: More models
 
 Perform model choice for other columns: for $Y_i$, you might look at any of the quantitative variables. For $Z_i$, you could also use `groupe_sigle`, which gives political affiliation, or `nb_mandats`, which gives the number of other elective offices held. In those cases, $Z_i$ can take more than 2 values.
 

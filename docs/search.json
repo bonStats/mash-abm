@@ -315,39 +315,39 @@
     "text": "Aims\n\n\n\nPosterior computation with conjugate priors and Monte Carlo methods.\nModel choice via Bayes factors and model averaging."
   },
   {
-    "objectID": "worksheets/abm-worksheet1.html#activity-1",
-    "href": "worksheets/abm-worksheet1.html#activity-1",
+    "objectID": "worksheets/abm-worksheet1.html#activity-1-getting-started",
+    "href": "worksheets/abm-worksheet1.html#activity-1-getting-started",
     "title": "Worksheet 1",
-    "section": "Activity 1",
-    "text": "Activity 1\nDownload and import the députés data into R.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = \"/path/to/deputes2019.csv\")\n\n\n\nExplore briefly the data (number of individuals, size of groups 1 and 2, histograms…).\nChoose a parametric family, P_\\lambda=P(\\cdot\\mid\\lambda), which seems suitable for these data."
+    "section": "Activity 1: Getting started",
+    "text": "Activity 1: Getting started\nDownload and import the députés data into R.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = \"/path/to/deputes2019.csv\")\n\n\n\nExplore briefly the data (number of individuals, size of groups 1 and 2, histograms…).\nChoose a parametric family, P_\\lambda=P(\\cdot\\mid\\lambda), which seems suitable for these data."
   },
   {
-    "objectID": "worksheets/abm-worksheet1.html#activity-2",
-    "href": "worksheets/abm-worksheet1.html#activity-2",
+    "objectID": "worksheets/abm-worksheet1.html#activity-2-choosing-priors",
+    "href": "worksheets/abm-worksheet1.html#activity-2-choosing-priors",
     "title": "Worksheet 1",
-    "section": "Activity 2",
-    "text": "Activity 2\nWe shall study the two following models, where \\pi is a prior distribution:\n\\begin{array}{c|c}\n\\mathcal{M}_1 & \\mathcal{M}_2\\\\\n\\begin{array}{clc}\nY_i & \\overset{\\text{iid}}{\\sim} & P_\\lambda  \\\\\n\\lambda & \\sim& \\pi\n\\end{array}\n&\n\\begin{array}{clc}\nY_i | Z_i = j & \\overset{\\text{iid}}{\\sim} & P_{\\lambda_j} \\\\\n\\lambda_1 & \\sim& \\pi\\\\\n\\lambda_2 & \\sim& \\pi\\\\\n\\end{array}\n\\end{array}\n\n\nFind a conjugate prior for the chosen family of distributions. Is this family of priors flexible enough? If not, which prior would you choose?\nFind Jeffrey’s prior for this model. What is the associated posterior?\nDecide what your prior distribution will be.\nPlot the prior of the parameters, and the posterior for the parameters of each model. Repeat with different values of the prior hyperparameters.\nGive a 95% credibility interval for the parameters in each model.\nIn model 2, let r_\\lambda=\\frac{\\lambda_1}{\\lambda_2}. Give a Monte Carlo estimate of the prior and posterior expectation and variance of r_\\lambda."
+    "section": "Activity 2: Choosing priors",
+    "text": "Activity 2: Choosing priors\nWe shall study the two following models, where \\pi is a prior distribution:\n\\begin{array}{c|c}\n\\mathcal{M}_1 & \\mathcal{M}_2\\\\\n\\begin{array}{clc}\nY_i & \\overset{\\text{iid}}{\\sim} & P_\\lambda  \\\\\n\\lambda & \\sim& \\pi\n\\end{array}\n&\n\\begin{array}{clc}\nY_i | Z_i = j & \\overset{\\text{iid}}{\\sim} & P_{\\lambda_j} \\\\\n\\lambda_1 & \\sim& \\pi\\\\\n\\lambda_2 & \\sim& \\pi\\\\\n\\end{array}\n\\end{array}\n\n\nFind a conjugate prior for the chosen family of distributions. Is this family of priors flexible enough? If not, which prior would you choose?\nFind Jeffrey’s prior for this model. What is the associated posterior?\nDecide what your prior distribution will be.\nPlot the prior of the parameters, and the posterior for the parameters of each model. Repeat with different values of the prior hyperparameters.\nGive a 95% credibility interval for the parameters in each model.\nIn model 2, let r_\\lambda=\\frac{\\lambda_1}{\\lambda_2}. Give a Monte Carlo estimate of the prior and posterior expectation and variance of r_\\lambda."
   },
   {
-    "objectID": "worksheets/abm-worksheet1.html#activity-3",
-    "href": "worksheets/abm-worksheet1.html#activity-3",
+    "objectID": "worksheets/abm-worksheet1.html#activity-3-bayes-factors",
+    "href": "worksheets/abm-worksheet1.html#activity-3-bayes-factors",
     "title": "Worksheet 1",
-    "section": "Activity 3",
-    "text": "Activity 3\nWe would now like to compute the Bayes factor\n\\text{BF}_{21}= \\frac{m_2(y)}{m_1(y)} \\quad \\text{ where }  \\quad\nm_k(y)= \\int _{\\Theta_k} L_k(\\theta_k\\mid y) \\pi_k(\\theta_k) \\mathrm{d} \\theta_k\nWe propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.\n\nVanilla Monte Carlo: Give an approximation of B_{21} based on an N-sample of parameters simulated from the prior distribution.\nImportance sampling: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution g to perform importance sampling. Give an approximation of B_{21} in this case.\n\nTry again, using a different instrumental distribution. What do you observe?\n\nExplicit computation: Give the explicit expression of B_{21}, and write an R script to evaluate it."
+    "section": "Activity 3: Bayes factors",
+    "text": "Activity 3: Bayes factors\nWe would now like to compute the Bayes factor\n\\text{BF}_{21}= \\frac{m_2(y)}{m_1(y)} \\quad \\text{ where }  \\quad\nm_k(y)= \\int _{\\Theta_k} L_k(\\theta_k\\mid y) \\pi_k(\\theta_k) \\mathrm{d} \\theta_k\nWe propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.\n\nVanilla Monte Carlo: Give an approximation of B_{21} based on an N-sample of parameters simulated from the prior distribution.\nImportance sampling: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution g to perform importance sampling. Give an approximation of B_{21} in this case.\n\nTry again, using a different instrumental distribution. What do you observe?\n\nExplicit computation: Give the explicit expression of B_{21}, and write an R script to evaluate it."
   },
   {
-    "objectID": "worksheets/abm-worksheet1.html#activity-4",
-    "href": "worksheets/abm-worksheet1.html#activity-4",
+    "objectID": "worksheets/abm-worksheet1.html#activity-4-model-choice",
+    "href": "worksheets/abm-worksheet1.html#activity-4-model-choice",
     "title": "Worksheet 1",
-    "section": "Activity 4",
-    "text": "Activity 4\nCompare the 3 methods from Activity 3 and select the best one.\n\nNow that you have chosen your method, compute the Bayes factor and conclude on which model is the best.\nSuppose that our prior probability for each model is 0.5. What is the posterior probability of each model?\nWe wish to predict the number of questions that will be asked by a new female individual. Draw a posterior sample from the corresponding \\lambda parameter in each of the following cases:\n\nWe choose model \\mathcal M_1.\nWe choose model \\mathcal M_2.\nWe take a mixture of the two models, with weights equal to the posterior probabilities.\n\nGive the posterior mean and variance. Comment."
+    "section": "Activity 4: Model choice",
+    "text": "Activity 4: Model choice\nCompare the 3 methods from Activity 3 and select the best one.\n\nNow that you have chosen your method, compute the Bayes factor and conclude on which model is the best.\nSuppose that our prior probability for each model is 0.5. What is the posterior probability of each model?\nWe wish to predict the number of questions that will be asked by a new female individual. Draw a posterior sample from the corresponding \\lambda parameter in each of the following cases:\n\nWe choose model \\mathcal M_1.\nWe choose model \\mathcal M_2.\nWe take a mixture of the two models, with weights equal to the posterior probabilities.\n\nGive the posterior mean and variance. Comment."
   },
   {
-    "objectID": "worksheets/abm-worksheet1.html#activity-5",
-    "href": "worksheets/abm-worksheet1.html#activity-5",
+    "objectID": "worksheets/abm-worksheet1.html#activity-5-more-models",
+    "href": "worksheets/abm-worksheet1.html#activity-5-more-models",
     "title": "Worksheet 1",
-    "section": "Activity 5",
-    "text": "Activity 5\nPerform model choice for other columns: for Y_i, you might look at any of the quantitative variables. For Z_i, you could also use groupe_sigle, which gives political affiliation, or nb_mandats, which gives the number of other elective offices held. In those cases, Z_i can take more than 2 values."
+    "section": "Activity 5: More models",
+    "text": "Activity 5: More models\nPerform model choice for other columns: for Y_i, you might look at any of the quantitative variables. For Z_i, you could also use groupe_sigle, which gives political affiliation, or nb_mandats, which gives the number of other elective offices held. In those cases, Z_i can take more than 2 values."
   },
   {
     "objectID": "worksheets/abm-worksheet2.html",
@@ -357,25 +357,25 @@
     "text": "Aims\n\n\n\nBayesian logistic regression with Metropolis-Hastings algorithm.\nBuilding a model from first principles."
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#activity-1",
-    "href": "worksheets/abm-worksheet2.html#activity-1",
+    "objectID": "worksheets/abm-worksheet2.html#activity-1-getting-started",
+    "href": "worksheets/abm-worksheet2.html#activity-1-getting-started",
     "title": "Worksheet 2",
-    "section": "Activity 1",
-    "text": "Activity 1\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ngolf2 &lt;- read_csv(file = \"/path/to/golf2.txt\")"
+    "section": "Activity 1: Getting started",
+    "text": "Activity 1: Getting started\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ngolf2 &lt;- read_csv(file = \"/path/to/golf2.txt\")"
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#activity-2",
-    "href": "worksheets/abm-worksheet2.html#activity-2",
+    "objectID": "worksheets/abm-worksheet2.html#activity-2-bayesian-logistic-regression",
+    "href": "worksheets/abm-worksheet2.html#activity-2-bayesian-logistic-regression",
     "title": "Worksheet 2",
-    "section": "Activity 2",
-    "text": "Activity 2\nWe consider a logistic regression model with probability \\theta_i\\in (0,1):\n\\begin{aligned}\nY_i\\mid\\theta_i &\\sim \\text{Bern}(\\theta_i)\\\\\n\\text{logit}(\\theta_i) &= \\beta_0+\\beta_1 x_i\n\\end{aligned}\nor alternatively represented by P[Y_i=1] = \\text{logit}^{-1}(\\beta_0+\\beta_1 x_i) = \\frac{e^{\\beta_0+\\beta_1 x_i}}{1+e^{\\beta_0+\\beta_1 x_i}}.\n\nWhat are reasonable priors for \\beta_0 and \\beta_1?\nWrite the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?\nSimumlate a pseudo-sample from this posterior via MCMC thanks to the MCMClogit function in package {MCMCpack}. Check convergence and adapt the algorithmic parameters as necessary.\nRepeat with another prior and compare the results."
+    "section": "Activity 2: Bayesian logistic regression",
+    "text": "Activity 2: Bayesian logistic regression\nWe consider a logistic regression model with probability \\theta_i\\in (0,1):\n\\begin{aligned}\nY_i\\mid\\theta_i &\\sim \\text{Bern}(\\theta_i)\\\\\n\\text{logit}(\\theta_i) &= \\beta_0+\\beta_1 x_i\n\\end{aligned}\nor alternatively represented by P[Y_i=1] = \\text{logit}^{-1}(\\beta_0+\\beta_1 x_i) = \\frac{e^{\\beta_0+\\beta_1 x_i}}{1+e^{\\beta_0+\\beta_1 x_i}}.\n\nWhat are reasonable priors for \\beta_0 and \\beta_1?\nWrite the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?\nSimumlate a pseudo-sample from this posterior via MCMC thanks to the MCMClogit function in package {MCMCpack}. Check convergence and adapt the algorithmic parameters as necessary.\nRepeat with another prior and compare the results."
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#activity-3",
-    "href": "worksheets/abm-worksheet2.html#activity-3",
+    "objectID": "worksheets/abm-worksheet2.html#activity-3-modelling-building",
+    "href": "worksheets/abm-worksheet2.html#activity-3-modelling-building",
     "title": "Worksheet 2",
-    "section": "Activity 3",
-    "text": "Activity 3\nNow we will model the data from first principles.\n\nThe ball radius is r=0.07 and the hole radius is R=0.177 (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle \\alpha.\nWrite the likelihood of your model, and choose a prior for any parameters.\nGet a pseudo-sample of the posterior thanks to the function MCMCpack::MCMCmetrop1R. Assess convergence.\nModify the algorithmic parameters (tune, burnin, …) until the output is acceptable. What is the impact of the starting point theta.init?\nCompare the data fit of both models.\nPropose an extension of the second model, and check whether the fit is improved."
+    "section": "Activity 3: Modelling building",
+    "text": "Activity 3: Modelling building\nNow we will build a model for the data from first principles.\n\nThe ball radius is r=0.07 and the hole radius is R=0.177 (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle \\alpha.\nWrite the likelihood of your model, and choose a prior for any parameters.\nGet a pseudo-sample of the posterior thanks to the function MCMCpack::MCMCmetrop1R. Assess convergence.\nModify the algorithmic parameters (tune, burnin, …) until the output is acceptable. What is the impact of the starting point theta.init?\nCompare the data fit of both models.\nPropose an extension of the second model, and check whether the fit is improved."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html",
@@ -385,11 +385,39 @@
     "text": "Aims\n\n\n\nSelection of explanatory variables in a linear regression setting, through exact computation and Gibbs’ sampling."
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#activity-1",
-    "href": "worksheets/abm-worksheet3.html#activity-1",
+    "objectID": "worksheets/abm-worksheet3.html#activity-1-getting-started",
+    "href": "worksheets/abm-worksheet3.html#activity-1-getting-started",
     "title": "Worksheet 3",
-    "section": "Activity 1",
-    "text": "Activity 1\nDownload and import the death rate data into R.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeathrate &lt;- read_csv(file = \"/path/to/deathrate2.csv\", col_types = cols(col_skip(), col_guess())))\n# Discards the first row."
+    "section": "Activity 1: Getting started",
+    "text": "Activity 1: Getting started\nDownload and import the death rate data into R. Explore the data visually and determine the correlations between covariates and with the dependent variable deathrate.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeathrate &lt;- read_csv(file = \"/path/to/deathrate2.csv\", col_types = cols(col_skip(), col_guess()))\n# Discards the first row."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-2-frequentist-inference",
+    "href": "worksheets/abm-worksheet3.html#activity-2-frequentist-inference",
+    "title": "Worksheet 3",
+    "section": "Activity 2: Frequentist inference",
+    "text": "Activity 2: Frequentist inference\nOur linear model is (with p=20, n=60) \\begin{aligned}\ny_i&=\\beta_0 + \\beta_1x_i^1 + \\beta_2 x_i^2 + \\ldots + \\beta_{p}x_i^{p} + \\epsilon_i\\\\\n\\epsilon_i & \\sim  \\mathcal N(0,\\sigma^2)\\end{aligned}\nCalculate the Frequentist estimates of \\beta and \\sigma^2, which we denote \\hat\\beta and s^2. Comment on the statistically significant variables.\n\n\nStarting code\ndr_lm &lt;- lm(deathrate ~ ., data = deathrate)\nsummary(dr_lm)\n\n# calculate model matrix for Activity 3\nX &lt;- model.matrix(deathrate ~ ., data = deathrate)"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
+    "href": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
+    "title": "Worksheet 3",
+    "section": "Activity 3: Bayesian inference using Zellner’s G-prior",
+    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior: \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate; the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}_{p+1}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nhence\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}_{p+1}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right).  \\end{aligned}\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X where we only keep the columns i such that \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X_\\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2) \\times\\left[y^\\top y-\\frac{g_0}{g_0+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give E[\\sigma^2|y, X] and E[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
+    "href": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
+    "title": "Worksheet 3",
+    "section": "Activity 4: Model choice with exact computation",
+    "text": "Activity 4: Model choice with exact computation\nIn this activity, we restrict ourselves to the first 3 explanatory variables.\n\n\nStarting code\nX1 &lt;- X[ , 1:4]\n\n\nWe would like to know which variables to include in our model, and assume that the intercept is necessarily included. We have 2^3=8 possible models. To each model we associate the variable \\gamma=[\\gamma_1, \\gamma_2, \\gamma_3] where \\gamma_i=1 if x^i is included in the model, and \\gamma_i=0 otherwise.\nUsing the marginal probability formula of Activity 3, compute the marginal likelihood m(y|X_\\gamma). Deduce the most likely model a posteriori."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
+    "href": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
+    "title": "Worksheet 3",
+    "section": "Activity 5: Model choice using Gibbs’ sampling",
+    "text": "Activity 5: Model choice using Gibbs’ sampling\nWe now consider all p explanatory variables. We thus need to choose between 2^p models.\n\nUse the function from package {BMS} to sample from the posterior distribution of \\gamma, and conclude on the most likely model.\nFor a new value of your choice of the covariates, e.g. x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \\ldots,x_{n+1}^p], perform prediction using\n\nthe most probable model a posteriori\nthe best model as selected by AIC\na mixture of models weighted by their posterior probabilities."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html#footnotes",

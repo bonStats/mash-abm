@@ -124,6 +124,49 @@ div.csl-indent {
 <link href="../site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -165,7 +208,11 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#activity-1" id="toc-activity-1" class="nav-link active" data-scroll-target="#activity-1">Activity 1</a></li>
+  <li><a href="#activity-1-getting-started" id="toc-activity-1-getting-started" class="nav-link active" data-scroll-target="#activity-1-getting-started">Activity 1: Getting started</a></li>
+  <li><a href="#activity-2-frequentist-inference" id="toc-activity-2-frequentist-inference" class="nav-link" data-scroll-target="#activity-2-frequentist-inference">Activity 2: Frequentist inference</a></li>
+  <li><a href="#activity-3-bayesian-inference-using-zellners-g-prior" id="toc-activity-3-bayesian-inference-using-zellners-g-prior" class="nav-link" data-scroll-target="#activity-3-bayesian-inference-using-zellners-g-prior">Activity 3: Bayesian inference using Zellner’s G-prior</a></li>
+  <li><a href="#activity-4-model-choice-with-exact-computation" id="toc-activity-4-model-choice-with-exact-computation" class="nav-link" data-scroll-target="#activity-4-model-choice-with-exact-computation">Activity 4: Model choice with exact computation</a></li>
+  <li><a href="#activity-5-model-choice-using-gibbs-sampling" id="toc-activity-5-model-choice-using-gibbs-sampling" class="nav-link" data-scroll-target="#activity-5-model-choice-using-gibbs-sampling">Activity 5: Model choice using Gibbs’ sampling</a></li>
   </ul>
 </nav>
     </div>
@@ -234,7 +281,7 @@ Resources
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Data
+Data: <code>deathrate2.csv</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -291,19 +338,83 @@ Data
 </div>
 </div>
 </div>
-<section id="activity-1" class="level2">
-<h2 class="anchored" data-anchor-id="activity-1">Activity 1</h2>
-<p>Download and import the death rate data into <code>R</code>.</p>
+<section id="activity-1-getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="activity-1-getting-started">Activity 1: Getting started</h2>
+<p>Download and import the death rate data into <code>R</code>. Explore the data visually and determine the correlations between covariates and with the dependent variable <code>deathrate</code>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Starting code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>deathrate <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"/path/to/deathrate2.csv"</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="fu">col_skip</span>(), <span class="fu">col_guess</span>()))<span class="er">)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>deathrate <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"/path/to/deathrate2.csv"</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="fu">col_skip</span>(), <span class="fu">col_guess</span>()))</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Discards the first row.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section>
+<section id="activity-2-frequentist-inference" class="level2">
+<h2 class="anchored" data-anchor-id="activity-2-frequentist-inference">Activity 2: Frequentist inference</h2>
+<p>Our linear model is (with <span class="math inline">p=20</span>, <span class="math inline">n=60</span>) <span class="math display">\begin{aligned}
+y_i&amp;=\beta_0 + \beta_1x_i^1 + \beta_2 x_i^2 + \ldots + \beta_{p}x_i^{p} + \epsilon_i\\
+\epsilon_i &amp; \sim  \mathcal N(0,\sigma^2)\end{aligned}</span></p>
+<p>Calculate the Frequentist estimates of <span class="math inline">\beta</span> and <span class="math inline">\sigma^2</span>, which we denote <span class="math inline">\hat\beta</span> and <span class="math inline">s^2</span>. Comment on the statistically significant variables.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Starting code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dr_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(deathrate <span class="sc">~</span> ., <span class="at">data =</span> deathrate)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dr_lm)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate model matrix for Activity 3</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(deathrate <span class="sc">~</span> ., <span class="at">data =</span> deathrate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="activity-3-bayesian-inference-using-zellners-g-prior" class="level2">
+<h2 class="anchored" data-anchor-id="activity-3-bayesian-inference-using-zellners-g-prior">Activity 3: Bayesian inference using Zellner’s G-prior</h2>
+<p>Consider the following prior: <span class="math display">\begin{aligned}
+\beta \mid \sigma^2, X &amp;\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
+\pi(\sigma^2)&amp;\propto \sigma^{-2} \end{aligned}</span></p>
+<p>This prior is conjugate; the associated posterior is</p>
+<p><span class="math display">\begin{aligned}
+\beta \mid \sigma^2,y,X&amp;\sim \mathcal{N}_{p+1}\left(\frac{g}{g+1}\hat\beta,
+\frac{\sigma^2g}{g+1}(X^\top X)^{-1}\right)\\
+\sigma^2\mid y,X &amp;\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2}{2}+\frac{1}{2(g+1)}
+\hat\beta^\top X^\top X\hat\beta\right)  \end{aligned}</span></p>
+<p>hence</p>
+<p><span class="math display">\begin{aligned}
+\beta|y,X &amp;\sim&amp; \mathcal{T}_{p+1}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top
+X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right).  \end{aligned}</span></p>
+<p>Let <span class="math inline">\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)</span> for <span class="math inline">\gamma_i \in \{0,1\}</span> and <span class="math inline">X_\gamma</span> be the submatrix of <span class="math inline">X</span> where we only keep the columns <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span> (always keeping the intercept). For a model considering covariate <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span>, the marginal likelihood is</p>
+<p><span class="math display">m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}</span> where <span class="math inline">p_\gamma = \sum_{i=1}^p\gamma_i</span>, the number of non-zero coefficients (excluding the intercept).</p>
+<ol type="1">
+<li><p>For <span class="math inline">g=0.1, 1, 10, 100, 1000</span>, give <span class="math inline">E[\sigma^2|y, X]</span> and <span class="math inline">E[\beta_0|y, X]</span>. What can you conclude about the impact of the prior on the posterior?</p></li>
+<li><p>We would like to test the hypothesis <span class="math inline">H_0: \beta_7=\beta_8=0</span>. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence.</p></li>
+</ol>
+</section>
+<section id="activity-4-model-choice-with-exact-computation" class="level2">
+<h2 class="anchored" data-anchor-id="activity-4-model-choice-with-exact-computation">Activity 4: Model choice with exact computation</h2>
+<p>In this activity, we restrict ourselves to the first 3 explanatory variables.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Starting code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> X[ , <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We would like to know which variables to include in our model, and assume that the intercept is necessarily included. We have <span class="math inline">2^3=8</span> possible models. To each model we associate the variable <span class="math inline">\gamma=[\gamma_1, \gamma_2, \gamma_3]</span> where <span class="math inline">\gamma_i=1</span> if <span class="math inline">x^i</span> is included in the model, and <span class="math inline">\gamma_i=0</span> otherwise.</p>
+<p>Using the marginal probability formula of Activity 3, compute the marginal likelihood <span class="math inline">m(y|X_\gamma)</span>. Deduce the most likely model a posteriori.</p>
+</section>
+<section id="activity-5-model-choice-using-gibbs-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="activity-5-model-choice-using-gibbs-sampling">Activity 5: Model choice using Gibbs’ sampling</h2>
+<p>We now consider all <span class="math inline">p</span> explanatory variables. We thus need to choose between <span class="math inline">2^p</span> models.</p>
+<ol type="1">
+<li><p>Use the function from package <a href="https://cran.r-project.org/package=BMS">{BMS}</a> to sample from the posterior distribution of <span class="math inline">\gamma</span>, and conclude on the most likely model.</p></li>
+<li><p>For a new value of your choice of the covariates, e.g.&nbsp;<span class="math inline">x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \ldots,x_{n+1}^p]</span>, perform prediction using</p>
+<ol type="a">
+<li>the most probable model a posteriori</li>
+<li>the best model as selected by AIC</li>
+<li>a mixture of models weighted by their posterior probabilities.</li>
+</ol></li>
+</ol>
 
 
 

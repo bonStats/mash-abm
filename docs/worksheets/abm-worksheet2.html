@@ -208,9 +208,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#activity-1" id="toc-activity-1" class="nav-link active" data-scroll-target="#activity-1">Activity 1</a></li>
-  <li><a href="#activity-2" id="toc-activity-2" class="nav-link" data-scroll-target="#activity-2">Activity 2</a></li>
-  <li><a href="#activity-3" id="toc-activity-3" class="nav-link" data-scroll-target="#activity-3">Activity 3</a></li>
+  <li><a href="#activity-1-getting-started" id="toc-activity-1-getting-started" class="nav-link active" data-scroll-target="#activity-1-getting-started">Activity 1: Getting started</a></li>
+  <li><a href="#activity-2-bayesian-logistic-regression" id="toc-activity-2-bayesian-logistic-regression" class="nav-link" data-scroll-target="#activity-2-bayesian-logistic-regression">Activity 2: Bayesian logistic regression</a></li>
+  <li><a href="#activity-3-modelling-building" id="toc-activity-3-modelling-building" class="nav-link" data-scroll-target="#activity-3-modelling-building">Activity 3: Modelling building</a></li>
   </ul>
 </nav>
     </div>
@@ -280,7 +280,7 @@ Resources
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Data
+Data: <code>golf2.txt</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -313,11 +313,16 @@ Data
     }
     downloadFile(event);
   "><i class="fa fa-save"></i> Download data</button></p>
+<p><strong>Variable description</strong></p>
+<ol type="1">
+<li><code>distance</code></li>
+<li><code>success</code></li>
+</ol>
 </div>
 </div>
 </div>
-<section id="activity-1" class="level2">
-<h2 class="anchored" data-anchor-id="activity-1">Activity 1</h2>
+<section id="activity-1-getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="activity-1-getting-started">Activity 1: Getting started</h2>
 <p>Explore the data and represent graphically the success frequency as a function of distance.</p>
 <div class="cell">
 <details class="code-fold">
@@ -329,8 +334,8 @@ Data
 </details>
 </div>
 </section>
-<section id="activity-2" class="level2">
-<h2 class="anchored" data-anchor-id="activity-2">Activity 2</h2>
+<section id="activity-2-bayesian-logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="activity-2-bayesian-logistic-regression">Activity 2: Bayesian logistic regression</h2>
 <p>We consider a logistic regression model with probability <span class="math inline">\theta_i\in (0,1)</span>:</p>
 <p><span class="math display">\begin{aligned}
 Y_i\mid\theta_i &amp;\sim \text{Bern}(\theta_i)\\
@@ -344,9 +349,9 @@ Y_i\mid\theta_i &amp;\sim \text{Bern}(\theta_i)\\
 <li><p>Repeat with another prior and compare the results.</p></li>
 </ol>
 </section>
-<section id="activity-3" class="level2">
-<h2 class="anchored" data-anchor-id="activity-3">Activity 3</h2>
-<p>Now we will model the data from first principles.</p>
+<section id="activity-3-modelling-building" class="level2">
+<h2 class="anchored" data-anchor-id="activity-3-modelling-building">Activity 3: Modelling building</h2>
+<p>Now we will build a model for the data from first principles.</p>
 <ol type="1">
 <li><p>The ball radius is <span class="math inline">r=0.07</span> and the hole radius is <span class="math inline">R=0.177</span> (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle <span class="math inline">\alpha</span>.</p></li>
 <li><p>Write the likelihood of your model, and choose a prior for any parameters.</p></li>

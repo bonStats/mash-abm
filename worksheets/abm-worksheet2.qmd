@@ -27,14 +27,21 @@ Chapter 3.7 & 11.2, @gelman2013bayesian
 :::
 
 ::: {.callout-important collapse=true}
-## Data
+## Data: `golf2.txt`
 
 We consider the data \texttt{golf2.txt}. We wish to explain the success at golf putting, explained by the distance to the hole.
 
 `r download_data_buttom("golf2.txt","golf2")`
+
+**Variable description**
+
+1. `distance`
+2. `success`
+
+
 :::
 
-## Activity 1
+## Activity 1: Getting started
 
 Explore the data and represent graphically the success frequency as a function of distance.
 
@@ -51,7 +58,7 @@ golf2 <- read_csv(file = "/path/to/golf2.txt")
 
 ```
 
-## Activity 2
+## Activity 2: Bayesian logistic regression
 
 We consider a logistic regression model with probability $\theta_i\in (0,1)$:
 
@@ -70,9 +77,9 @@ or alternatively represented by $P[Y_i=1] = \text{logit}^{-1}(\beta_0+\beta_1 x_
 
 4.  Repeat with another prior and compare the results.
 
-## Activity 3
+## Activity 3: Modelling building
 
-Now we will model the data from first principles.
+Now we will build a model for the data from first principles.
 
 1.  The ball radius is $r=0.07$ and the hole radius is $R=0.177$ (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle $\alpha$.
 
