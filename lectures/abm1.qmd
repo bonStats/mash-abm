@@ -18,13 +18,7 @@ editor: source
 from: markdown+emoji
 ---
 
-```{r setup}
-
-josh_data_dir <- function(fl){
-  paste0("/Users/jbon/github/mash-abm/data/", fl)
-}
-
-```
+{{< include ../snippets/_data-directory.qmd >}}
 
 
 ## Applied Bayesian modelling

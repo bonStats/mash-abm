@@ -8,7 +8,7 @@ format:
     html-math-method: katex
 ---
 
-{{< include ../assets/_data-download.qmd >}}
+{{< include ../snippets/_data-download.qmd >}}
 
 ::: callout-tip
 ## Aims

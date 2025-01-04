@@ -6,7 +6,7 @@ nocite: |
   @marin2014bayesian, @gelman2013bayesian
 ---
 
-{{< include assets/_data-download.qmd >}}
+{{< include snippets/_data-download.qmd >}}
 
 
 Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) course on Applied Bayesian Modelling.

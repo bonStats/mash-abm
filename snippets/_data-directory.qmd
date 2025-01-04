@@ -1,0 +1,9 @@
+```{r data-dir-setup}
+#| echo: false
+#| output: false
+
+josh_data_dir <- function(fl){
+  paste0("/Users/jbon/github/mash-abm/data/", fl)
+}
+
+```
