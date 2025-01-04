@@ -135,6 +135,7 @@ div.csl-indent {
   <li><a href="#worksheets" id="toc-worksheets" class="nav-link" data-scroll-target="#worksheets">Worksheets</a></li>
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
 </nav>
@@ -170,6 +171,7 @@ div.csl-indent {
 <p>Course website for for M2 <a href="https://sites.google.com/view/m2mash/home">MASH</a> course on Applied Bayesian Modelling.</p>
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p>Lecture slides with main content. Further demonstrations in class.</p>
 <ul>
 <li><a href="lectures/abm1.html">Section 1: Bayes &amp; Monte Carlo</a></li>
 <li><a href="lectures/abm2.html">Section 2: MCMC &amp; Metropolis-Hastings</a></li>
@@ -180,6 +182,7 @@ div.csl-indent {
 </section>
 <section id="worksheets" class="level2">
 <h2 class="anchored" data-anchor-id="worksheets">Worksheets</h2>
+<p>Worksheets with practical and computer activities based in <code>R</code>.</p>
 <ul>
 <li><a href="./worksheets/abm-worksheet1.html">Worksheet 1</a></li>
 <li><a href="./worksheets/abm-worksheet2.html">Worksheet 2</a></li>
@@ -190,6 +193,7 @@ div.csl-indent {
 </section>
 <section id="datasets" class="level2">
 <h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
+<p>Datasets for the worksheets. See worksheets for explanation.</p>
 <p><button class="btn btn-default" onclick="
     async function downloadFile(event) {
       event.preventDefault();
@@ -215,7 +219,7 @@ div.csl-indent {
       }
     }
     downloadFile(event);
-  "><i class="fa fa-save"></i> Download data</button> Example 1: Députés 2019</p>
+  "><i class="fa fa-save"></i> Download data</button> Députés 2019</p>
 <p><button class="btn btn-default" onclick="
     async function downloadFile(event) {
       event.preventDefault();
@@ -241,7 +245,7 @@ div.csl-indent {
       }
     }
     downloadFile(event);
-  "><i class="fa fa-save"></i> Download data</button> Example 2: Golf</p>
+  "><i class="fa fa-save"></i> Download data</button> Golf</p>
 <p><button class="btn btn-default" onclick="
     async function downloadFile(event) {
       event.preventDefault();
@@ -267,13 +271,43 @@ div.csl-indent {
       }
     }
     downloadFile(event);
-  "><i class="fa fa-save"></i> Download data</button> Example 3: Death rates</p>
+  "><i class="fa fa-save"></i> Download data</button> Death rates</p>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<section id="textbooks" class="level4">
+<h4 class="anchored" data-anchor-id="textbooks">Textbooks</h4>
+<ul>
+<li><em>Bayesian Essentials with R</em> <span class="citation" data-cites="marin2014bayesian">(<a href="#ref-marin2014bayesian" role="doc-biblioref">Marin and Robert 2014</a>)</span></li>
+<li><em>Bayesian Data Analysis</em> <span class="citation" data-cites="gelman2013bayesian">(<a href="#ref-gelman2013bayesian" role="doc-biblioref">Gelman et al. 2013</a>)</span></li>
+</ul>
+</section>
+<section id="papers" class="level4">
+<h4 class="anchored" data-anchor-id="papers">Papers</h4>
+<ul>
+<li>“Visualization in Bayesian Workflow” <span class="citation" data-cites="gabry2019visualization">(<a href="#ref-gabry2019visualization" role="doc-biblioref">Gabry et al. 2019</a>)</span></li>
+<li>“Bayesian Workflow” <span class="citation" data-cites="gelman2020bayesian">(<a href="#ref-gelman2020bayesian" role="doc-biblioref">Gelman et al. 2020</a>)</span></li>
+</ul>
+</section>
+<section id="tutorials" class="level4">
+<h4 class="anchored" data-anchor-id="tutorials">Tutorials</h4>
+<ul>
+<li>“Linear regression” <a href="https://mc-stan.org/docs/stan-users-guide/regression.html#linear-regression">Stan User’s Guide</a></li>
+<li>“Logistic and probit regression” <a href="https://mc-stan.org/docs/stan-users-guide/regression.html#logistic-probit-regression.section">Stan User’s Guide</a></li>
+</ul>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-gabry2019visualization" class="csl-entry" role="listitem">
+Gabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. <span>“Visualization in Bayesian Workflow.”</span> <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em> 182 (2): 389–402. <a href="https://doi.org/10.1111/rssa.12378">https://doi.org/10.1111/rssa.12378</a>.
+</div>
 <div id="ref-gelman2013bayesian" class="csl-entry" role="listitem">
 Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. <em>Bayesian Data Analysis</em>. Chapman &amp; Hall/CRC Press. <a href="http://www.stat.columbia.edu/~gelman/book/BDA3.pdf">http://www.stat.columbia.edu/~gelman/book/BDA3.pdf</a>.
+</div>
+<div id="ref-gelman2020bayesian" class="csl-entry" role="listitem">
+Gelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. <span>“Bayesian Workflow.”</span> <em>arXiv Preprint arXiv:2011.01808</em>. <a href="https://doi.org/10.48550/arXiv.2011.01808">https://doi.org/10.48550/arXiv.2011.01808</a>.
 </div>
 <div id="ref-marin2014bayesian" class="csl-entry" role="listitem">
 Marin, Jean-Michel, and Christian P Robert. 2014. <em>Bayesian Essentials with <span>R</span></em>. Vol. 48. Springer. <a href="https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&amp;rtype=book&amp;online=true&amp;action=view_record">https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&amp;rtype=book&amp;online=true&amp;action=view_record</a>.

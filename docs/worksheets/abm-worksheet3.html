@@ -387,7 +387,7 @@ X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right).  \end{aligned}</span></p>
 <p>Let <span class="math inline">\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)</span> for <span class="math inline">\gamma_i \in \{0,1\}</span> and <span class="math inline">X_\gamma</span> be the submatrix of <span class="math inline">X</span> where we only keep the columns <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span> (always keeping the intercept). For a model considering covariate <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span>, the marginal likelihood is</p>
 <p><span class="math display">m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}</span> where <span class="math inline">p_\gamma = \sum_{i=1}^p\gamma_i</span>, the number of non-zero coefficients (excluding the intercept).</p>
 <ol type="1">
-<li><p>For <span class="math inline">g=0.1, 1, 10, 100, 1000</span>, give <span class="math inline">E[\sigma^2|y, X]</span> and <span class="math inline">E[\beta_0|y, X]</span>. What can you conclude about the impact of the prior on the posterior?</p></li>
+<li><p>For <span class="math inline">g=0.1, 1, 10, 100, 1000</span>, give <span class="math inline">\mathbb{E}[\sigma^2|y, X]</span> and <span class="math inline">\mathbb{E}[\beta_0|y, X]</span>. What can you conclude about the impact of the prior on the posterior?</p></li>
 <li><p>We would like to test the hypothesis <span class="math inline">H_0: \beta_7=\beta_8=0</span>. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence.</p></li>
 </ol>
 </section>
@@ -407,7 +407,7 @@ X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right).  \end{aligned}</span></p>
 <h2 class="anchored" data-anchor-id="activity-5-model-choice-using-gibbs-sampling">Activity 5: Model choice using Gibbs’ sampling</h2>
 <p>We now consider all <span class="math inline">p</span> explanatory variables. We thus need to choose between <span class="math inline">2^p</span> models.</p>
 <ol type="1">
-<li><p>Use the function from package <a href="https://cran.r-project.org/package=BMS">{BMS}</a> to sample from the posterior distribution of <span class="math inline">\gamma</span>, and conclude on the most likely model.</p></li>
+<li><p>Use the <code>bms</code> function from package <a href="https://cran.r-project.org/package=BMS">{BMS}</a> to sample from the posterior distribution of <span class="math inline">\gamma</span>, and conclude on the most likely model.</p></li>
 <li><p>For a new value of your choice of the covariates, e.g.&nbsp;<span class="math inline">x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \ldots,x_{n+1}^p]</span>, perform prediction using</p>
 <ol type="a">
 <li>the most probable model a posteriori</li>

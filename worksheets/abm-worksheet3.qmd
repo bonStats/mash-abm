@@ -122,7 +122,7 @@ Let $\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)$ for $\gamma_i \in \{0,1\}$ a
 $$m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}$$
 where $p_\gamma = \sum_{i=1}^p\gamma_i$, the number of non-zero coefficients (excluding the intercept). 
 
-1. For $g=0.1, 1, 10, 100, 1000$, give $E[\sigma^2|y, X]$ and $E[\beta_0|y, X]$. What can you conclude about the impact of the prior on the posterior?
+1. For $g=0.1, 1, 10, 100, 1000$, give $\mathbb{E}[\sigma^2|y, X]$ and $\mathbb{E}[\beta_0|y, X]$. What can you conclude about the impact of the prior on the posterior?
 
 2. We would like to test the hypothesis $H_0: \beta_7=\beta_8=0$. Compute Bayes' factor given our data and conclude, using Jeffreys' scale of evidence.
 
@@ -149,7 +149,7 @@ Using the marginal probability formula of Activity 3, compute the marginal likel
 
 We now consider all $p$ explanatory variables. We thus need to choose between $2^p$ models.
 
-1. Use the \texttt{bms} function from package [{BMS}](https://cran.r-project.org/package=BMS) to sample from the posterior distribution of $\gamma$, and conclude on the most likely model.
+1. Use the `bms` function from package [{BMS}](https://cran.r-project.org/package=BMS) to sample from the posterior distribution of $\gamma$, and conclude on the most likely model.
 
 2. For a new value of your choice of the covariates, e.g. $x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \ldots,x_{n+1}^p]$, perform prediction using
     a. the most probable model a posteriori

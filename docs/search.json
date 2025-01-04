@@ -403,7 +403,7 @@
     "href": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
     "title": "Worksheet 3",
     "section": "Activity 3: Bayesian inference using Zellner’s G-prior",
-    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior: \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate; the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}_{p+1}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nhence\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}_{p+1}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right).  \\end{aligned}\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X where we only keep the columns i such that \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X_\\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2) \\times\\left[y^\\top y-\\frac{g_0}{g_0+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give E[\\sigma^2|y, X] and E[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
+    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior: \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate; the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}_{p+1}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nhence\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}_{p+1}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right).  \\end{aligned}\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X where we only keep the columns i such that \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X_\\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2) \\times\\left[y^\\top y-\\frac{g_0}{g_0+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give \\mathbb{E}[\\sigma^2|y, X] and \\mathbb{E}[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
@@ -417,7 +417,7 @@
     "href": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
     "title": "Worksheet 3",
     "section": "Activity 5: Model choice using Gibbs’ sampling",
-    "text": "Activity 5: Model choice using Gibbs’ sampling\nWe now consider all p explanatory variables. We thus need to choose between 2^p models.\n\nUse the function from package {BMS} to sample from the posterior distribution of \\gamma, and conclude on the most likely model.\nFor a new value of your choice of the covariates, e.g. x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \\ldots,x_{n+1}^p], perform prediction using\n\nthe most probable model a posteriori\nthe best model as selected by AIC\na mixture of models weighted by their posterior probabilities."
+    "text": "Activity 5: Model choice using Gibbs’ sampling\nWe now consider all p explanatory variables. We thus need to choose between 2^p models.\n\nUse the bms function from package {BMS} to sample from the posterior distribution of \\gamma, and conclude on the most likely model.\nFor a new value of your choice of the covariates, e.g. x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \\ldots,x_{n+1}^p], perform prediction using\n\nthe most probable model a posteriori\nthe best model as selected by AIC\na mixture of models weighted by their posterior probabilities."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html#footnotes",
@@ -438,28 +438,35 @@
     "href": "index.html#slides",
     "title": "Applied Bayesian Modelling",
     "section": "Slides",
-    "text": "Slides\n\nSection 1: Bayes & Monte Carlo\nSection 2: MCMC & Metropolis-Hastings\nSection 3: Gibbs & Variable Selection\nSection 4\nSection 5"
+    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo\nSection 2: MCMC & Metropolis-Hastings\nSection 3: Gibbs & Variable Selection\nSection 4\nSection 5"
   },
   {
     "objectID": "index.html#worksheets",
     "href": "index.html#worksheets",
     "title": "Applied Bayesian Modelling",
     "section": "Worksheets",
-    "text": "Worksheets\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4\nWorksheet 5"
+    "text": "Worksheets\nWorksheets with practical and computer activities based in R.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4\nWorksheet 5"
   },
   {
     "objectID": "index.html#datasets",
     "href": "index.html#datasets",
     "title": "Applied Bayesian Modelling",
     "section": "Datasets",
-    "text": "Datasets\n Download data Example 1: Députés 2019\n Download data Example 2: Golf\n Download data Example 3: Death rates"
+    "text": "Datasets\nDatasets for the worksheets. See worksheets for explanation.\n Download data Députés 2019\n Download data Golf\n Download data Death rates"
   },
   {
     "objectID": "index.html#resources",
     "href": "index.html#resources",
     "title": "Applied Bayesian Modelling",
     "section": "Resources",
-    "text": "Resources\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
+    "text": "Resources\n\nTextbooks\n\nBayesian Essentials with R (Marin and Robert 2014)\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Applied Bayesian Modelling",
+    "section": "References",
+    "text": "References\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
   },
   {
     "objectID": "lectures/abm2.html#applied-bayesian-modelling",

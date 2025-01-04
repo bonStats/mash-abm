@@ -2,8 +2,6 @@
 title: "Applied Bayesian Modelling"
 author: "Joshua J Bon"
 bibliography: assets/refs.bib
-nocite: |
-  @marin2014bayesian, @gelman2013bayesian
 ---
 
 {{< include snippets/_data-download.qmd >}}
@@ -14,6 +12,8 @@ Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) cour
 
 ## Slides
 
+Lecture slides with main content. Further demonstrations in class.
+
 - [Section 1: Bayes & Monte Carlo](lectures/abm1.html)
 - [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html)
 - [Section 3: Gibbs & Variable Selection](lectures/abm3.html)
@@ -22,21 +22,43 @@ Course website for for M2 [MASH](https://sites.google.com/view/m2mash/home) cour
 
 ## Worksheets
 
+Worksheets with practical and computer activities based in `R`.
+
 - [Worksheet 1](worksheets/abm-worksheet1.qmd)
 - [Worksheet 2](worksheets/abm-worksheet2.qmd)
 - [Worksheet 3](worksheets/abm-worksheet3.qmd)
 - Worksheet 4
 - Worksheet 5
 
+
 ## Datasets
 
-`r download_data_buttom("deputes2019.csv","deputes2019")` Example 1: Députés 2019 
+Datasets for the worksheets. See worksheets for explanation.
 
-`r download_data_buttom("golf2.txt","golf2")` Example 2: Golf
+`r download_data_buttom("deputes2019.csv","deputes2019")` Députés 2019 
 
-`r download_data_buttom("deathrate2.csv","deathrate")` Example 3: Death rates
+`r download_data_buttom("golf2.txt","golf2")` Golf
+
+`r download_data_buttom("deathrate2.csv","deathrate")` Death rates
 
 ## Resources
+
+#### Textbooks
+
+- *Bayesian Essentials with R* [@marin2014bayesian]
+- *Bayesian Data Analysis* [@gelman2013bayesian]
+
+#### Papers
+
+- "Visualization in Bayesian Workflow" [@gabry2019visualization]
+- "Bayesian Workflow" [@gelman2020bayesian]
+
+#### Tutorials
+
+- "Linear regression" [Stan User's Guide](https://mc-stan.org/docs/stan-users-guide/regression.html#linear-regression)
+- "Logistic and probit regression" [Stan User's Guide](https://mc-stan.org/docs/stan-users-guide/regression.html#logistic-probit-regression.section)
+
+## References
 
 ::: {#refs}
 :::
