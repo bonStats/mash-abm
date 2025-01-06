@@ -9,14 +9,20 @@ bibliography: assets/refs.bib
 
 Course website for M2 [MASH](https://sites.google.com/view/m2mash/home) course on Applied Bayesian Modelling.
 
+::: callout-note
+## Textbook
+
+- *Bayesian Essentials with R* [@marin2014bayesian] **[M&R]**
+
+:::
 
 ## Slides
 
 Lecture slides with main content. Further demonstrations in class.
 
-- [Section 1: Bayes & Monte Carlo](lectures/abm1.html)
-- [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html)
-- [Section 3: Gibbs & Variable Selection](lectures/abm3.html)
+- [Section 1: Bayes & Monte Carlo](lectures/abm1.html) [Reading: M&R Ch. 2]
+- [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html) [Reading: M&R Ch. 4]
+- [Section 3: Gibbs & Variable Selection](lectures/abm3.html) [Reading: M&R Ch. 3]
 - Section 4
 - Section 5
 
@@ -41,11 +47,10 @@ Datasets for the worksheets. See worksheets for explanation.
 
 `r download_data_buttom("deathrate2.csv","deathrate")` Death rates
 
-## Resources
+## Additional Resources
 
 #### Textbooks
 
-- *Bayesian Essentials with R* [@marin2014bayesian]
 - *Bayesian Data Analysis* [@gelman2013bayesian]
 
 #### Papers

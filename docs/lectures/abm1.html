@@ -473,7 +473,7 @@ Dr Joshua J Bon
 <span id="cb1-7"><a></a><span class="co"># e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"</span></span>
 <span id="cb1-8"><a></a></span>
 <span id="cb1-9"><a></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
-<span id="cb1-10"><a></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">356.25</span>)) <span class="sc">+</span></span>
+<span id="cb1-10"><a></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> (premier_elu <span class="sc">-</span> date_naissance)<span class="sc">/</span><span class="fl">365.25</span>)) <span class="sc">+</span></span>
 <span id="cb1-11"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Debut age"</span>) <span class="sc">+</span></span>
 <span id="cb1-12"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Number of politicians"</span>) <span class="sc">+</span></span>
 <span id="cb1-13"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -584,13 +584,13 @@ Dr Joshua J Bon
 </div>
 </div>
 <ul>
-<li>Marginal likelihood
-<ul>
-<li><span class="math inline">Z = m(y) = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta) = \mathbb{E}_{\theta \sim \Pi}\left[p(y \mid \theta)\right]</span></li>
-</ul></li>
 <li>Likelihood
 <ul>
 <li><span class="math inline">L(\cdot\mid y) = p(y \mid \cdot)</span> for fixed <span class="math inline">y</span>.</li>
+</ul></li>
+<li>Marginal likelihood
+<ul>
+<li><span class="math inline">m(y) = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta) = \mathbb{E}_{\theta \sim \Pi}\left[L(\theta\mid y)\right]</span></li>
 </ul></li>
 </ul>
 </section>
@@ -599,7 +599,8 @@ Dr Joshua J Bon
 <ul>
 <li>Moments</li>
 <li>Median, mode</li>
-<li>Credible intervals (quantiles)</li>
+<li>Posterior quantiles</li>
+<li>Credible intervals</li>
 <li>Posterior predictive distribution</li>
 </ul>
 </section>
@@ -732,7 +733,7 @@ Dr Joshua J Bon
 <h2>Model checking I: Bayes Factors</h2>
 <p>Interpretation of Bayes factors</p>
 <p><span class="math display">
-\text{BF}_{1,0} = \frac{\Pr(M_1\mid y)}{\Pr(M_0\mid y)} = \frac{m_1(y)}{m_0(y)}
+\text{BF}_{1,0}  = \frac{m_1(y)}{m_0(y)} = \frac{\Pr(M_1\mid y)}{\Pr(M_0\mid y)}
 </span></p>
 </section>
 <section id="model-checking-i-bayes-factors-2" class="slide level2">
@@ -806,6 +807,60 @@ Dr Joshua J Bon
 </tr>
 </tbody>
 </table>
+</section>
+<section id="example-2-députés-questions" class="slide level2">
+<h2>Example 2: Députés Questions</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">josh_data_dir</span>(<span class="st">"deputes2019.csv"</span>))</span>
+<span id="cb2-5"><a></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
+<span id="cb2-6"><a></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
+<span id="cb2-7"><a></a><span class="co"># e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"</span></span>
+<span id="cb2-8"><a></a></span>
+<span id="cb2-9"><a></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
+<span id="cb2-10"><a></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
+<span id="cb2-11"><a></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
+<span id="cb2-12"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm1_files/figure-revealjs/dep-questions-1.png" width="960" class="r-stretch"></section>
+<section id="example-2-députés-questions-1" class="slide level2">
+<h2>Example 2: Députés Questions</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Lay question</strong></p>
+</div>
+<div class="callout-content">
+<p>Do the number of questions politicians ask differ by gender?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Statistical questions</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Does the <em>average</em> number of questions differ by gender?</li>
+<li>Does the <em>variance</em> in the number of questions differ by gender?</li>
+<li>What <em>statistical model</em> best explains the distribution of question numbers?</li>
+</ol>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="posterior-approximation" class="title-slide slide level1 center">
@@ -890,60 +945,6 @@ Dr Joshua J Bon
 <li>Model evidence</li>
 <li>Intractable posteriors <span class="math inline">\rightarrow</span> Monte Carlo approximation</li>
 </ol>
-</section>
-<section id="example-2-députés-questions" class="slide level2">
-<h2>Example 2: Députés Questions</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(readr)</span>
-<span id="cb2-2"><a></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a>deputes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">josh_data_dir</span>(<span class="st">"deputes2019.csv"</span>))</span>
-<span id="cb2-5"><a></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
-<span id="cb2-6"><a></a><span class="co"># change location to match folder of 'deputes2019.csv' on your computer</span></span>
-<span id="cb2-7"><a></a><span class="co"># e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"</span></span>
-<span id="cb2-8"><a></a></span>
-<span id="cb2-9"><a></a><span class="fu">ggplot</span>(deputes) <span class="sc">+</span> </span>
-<span id="cb2-10"><a></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> questions_orales)) <span class="sc">+</span></span>
-<span id="cb2-11"><a></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="st">"sexe"</span>) <span class="sc">+</span> </span>
-<span id="cb2-12"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-
-</div>
-<img data-src="abm1_files/figure-revealjs/dep-questions-1.png" width="960" class="r-stretch"></section>
-<section id="example-2-députés-questions-1" class="slide level2">
-<h2>Example 2: Députés Questions</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Lay question</strong></p>
-</div>
-<div class="callout-content">
-<p>Do the number of questions politicians ask differ by gender?</p>
-</div>
-</div>
-</div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Statistical questions</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li>Does the <em>average</em> number of questions differ by gender?</li>
-<li>Does the <em>variance</em> in the number of questions differ by gender?</li>
-<li>What <em>statistical model</em> best explains the distribution of question numbers?</li>
-</ol>
-</div>
-</div>
-</div>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

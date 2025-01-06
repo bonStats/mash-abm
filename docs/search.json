@@ -11,7 +11,7 @@
     "href": "lectures/abm1.html#example-1-députés-debut-age",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Example 1: Députés debut age",
-    "text": "Example 1: Députés debut age\n\n\nCode\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = josh_data_dir(\"deputes2019.csv\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deputes2019.csv' on your computer\n# e.g. \"~/Downloads/deputes2019.csv\" or \"C:/Users/[User Name]/Downloads/deputes2019.csv\"\n\nggplot(deputes) + \n  geom_histogram(aes(x = (premier_elu - date_naissance)/356.25)) +\n  scale_x_continuous(\"Debut age\") +\n  scale_y_continuous(\"Number of politicians\") +\n  theme_bw()"
+    "text": "Example 1: Députés debut age\n\n\nCode\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = josh_data_dir(\"deputes2019.csv\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deputes2019.csv' on your computer\n# e.g. \"~/Downloads/deputes2019.csv\" or \"C:/Users/[User Name]/Downloads/deputes2019.csv\"\n\nggplot(deputes) + \n  geom_histogram(aes(x = (premier_elu - date_naissance)/365.25)) +\n  scale_x_continuous(\"Debut age\") +\n  scale_y_continuous(\"Number of politicians\") +\n  theme_bw()"
   },
   {
     "objectID": "lectures/abm1.html#statistical-inference-1",
@@ -46,14 +46,14 @@
     "href": "lectures/abm1.html#bayes-theorem-for-inference-2",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Bayes theorem for inference",
-    "text": "Bayes theorem for inference\n\n\n\n\n\n\nPosterior density\n\n\n\\pi(\\theta \\mid y) = \\frac{p(y \\mid \\theta)\\pi(\\theta)}{m(y)}\n\n\n\n\nMarginal likelihood\n\nZ = m(y) = \\int_\\Theta p(y \\mid \\theta) \\Pi(\\mathrm{d}\\theta) = \\mathbb{E}_{\\theta \\sim \\Pi}\\left[p(y \\mid \\theta)\\right]\n\nLikelihood\n\nL(\\cdot\\mid y) = p(y \\mid \\cdot) for fixed y."
+    "text": "Bayes theorem for inference\n\n\n\n\n\n\nPosterior density\n\n\n\\pi(\\theta \\mid y) = \\frac{p(y \\mid \\theta)\\pi(\\theta)}{m(y)}\n\n\n\n\nLikelihood\n\nL(\\cdot\\mid y) = p(y \\mid \\cdot) for fixed y.\n\nMarginal likelihood\n\nm(y) = \\int_\\Theta p(y \\mid \\theta) \\Pi(\\mathrm{d}\\theta) = \\mathbb{E}_{\\theta \\sim \\Pi}\\left[L(\\theta\\mid y)\\right]"
   },
   {
     "objectID": "lectures/abm1.html#posterior-quantities",
     "href": "lectures/abm1.html#posterior-quantities",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Posterior quantities",
-    "text": "Posterior quantities\n\nMoments\nMedian, mode\nCredible intervals (quantiles)\nPosterior predictive distribution"
+    "text": "Posterior quantities\n\nMoments\nMedian, mode\nPosterior quantiles\nCredible intervals\nPosterior predictive distribution"
   },
   {
     "objectID": "lectures/abm1.html#demonstration-posterior-ex-1",
@@ -123,7 +123,7 @@
     "href": "lectures/abm1.html#model-checking-i-bayes-factors-1",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Model checking I: Bayes Factors",
-    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors\n\n\\text{BF}_{1,0} = \\frac{\\Pr(M_1\\mid y)}{\\Pr(M_0\\mid y)} = \\frac{m_1(y)}{m_0(y)}"
+    "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors\n\n\\text{BF}_{1,0}  = \\frac{m_1(y)}{m_0(y)} = \\frac{\\Pr(M_1\\mid y)}{\\Pr(M_0\\mid y)}"
   },
   {
     "objectID": "lectures/abm1.html#model-checking-i-bayes-factors-2",
@@ -138,6 +138,20 @@
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Model checking I: Bayes Factors",
     "text": "Model checking I: Bayes Factors\nInterpretation of Bayes factors (Kass and Raftery 1995)\n\n\n\n\\text{BF}_{10}\nStrength of Evidence (M_1 vs null M_0)\n\n\n\n\n1 to 3.2\nNot worth more than a bare mention\n\n\n3.2 to 10\nSubstantial\n\n\n10 to 100\nStrong\n\n\n&gt; 100\nDecisive"
+  },
+  {
+    "objectID": "lectures/abm1.html#example-2-députés-questions",
+    "href": "lectures/abm1.html#example-2-députés-questions",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Example 2: Députés Questions",
+    "text": "Example 2: Députés Questions\n\n\nCode\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = josh_data_dir(\"deputes2019.csv\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deputes2019.csv' on your computer\n# e.g. \"~/Downloads/deputes2019.csv\" or \"C:/Users/[User Name]/Downloads/deputes2019.csv\"\n\nggplot(deputes) + \n  geom_histogram(aes(x = questions_orales)) +\n  facet_grid(rows = \"sexe\") + \n  theme_bw()"
+  },
+  {
+    "objectID": "lectures/abm1.html#example-2-députés-questions-1",
+    "href": "lectures/abm1.html#example-2-députés-questions-1",
+    "title": "Bayesian modelling & Monte Carlo",
+    "section": "Example 2: Députés Questions",
+    "text": "Example 2: Députés Questions\n\n\n\n\n\n\nLay question\n\n\nDo the number of questions politicians ask differ by gender?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nDoes the average number of questions differ by gender?\nDoes the variance in the number of questions differ by gender?\nWhat statistical model best explains the distribution of question numbers?"
   },
   {
     "objectID": "lectures/abm1.html#posterior-computation",
@@ -187,20 +201,6 @@
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Recap: Ingredients of Bayesian models",
     "text": "Recap: Ingredients of Bayesian models\n\nPosterior = prior \\times likelihood\nBayesian model = \\{ prior, data model \\}\nModel evidence\nIntractable posteriors \\rightarrow Monte Carlo approximation"
-  },
-  {
-    "objectID": "lectures/abm1.html#example-2-députés-questions",
-    "href": "lectures/abm1.html#example-2-députés-questions",
-    "title": "Bayesian modelling & Monte Carlo",
-    "section": "Example 2: Députés Questions",
-    "text": "Example 2: Députés Questions\n\n\nCode\nlibrary(readr)\nlibrary(ggplot2)\n\ndeputes &lt;- read_csv(file = josh_data_dir(\"deputes2019.csv\"))\n# Download: https://github.com/bonStats/mash-abm/tree/main/data\n# change location to match folder of 'deputes2019.csv' on your computer\n# e.g. \"~/Downloads/deputes2019.csv\" or \"C:/Users/[User Name]/Downloads/deputes2019.csv\"\n\nggplot(deputes) + \n  geom_histogram(aes(x = questions_orales)) +\n  facet_grid(rows = \"sexe\") + \n  theme_bw()"
-  },
-  {
-    "objectID": "lectures/abm1.html#example-2-députés-questions-1",
-    "href": "lectures/abm1.html#example-2-députés-questions-1",
-    "title": "Bayesian modelling & Monte Carlo",
-    "section": "Example 2: Députés Questions",
-    "text": "Example 2: Députés Questions\n\n\n\n\n\n\nLay question\n\n\nDo the number of questions politicians ask differ by gender?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nDoes the average number of questions differ by gender?\nDoes the variance in the number of questions differ by gender?\nWhat statistical model best explains the distribution of question numbers?"
   },
   {
     "objectID": "lectures/abm1.html#references",
@@ -438,7 +438,7 @@
     "href": "index.html#slides",
     "title": "Applied Bayesian Modelling",
     "section": "Slides",
-    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo\nSection 2: MCMC & Metropolis-Hastings\nSection 3: Gibbs & Variable Selection\nSection 4\nSection 5"
+    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4\nSection 5"
   },
   {
     "objectID": "index.html#worksheets",
@@ -455,11 +455,11 @@
     "text": "Datasets\nDatasets for the worksheets. See worksheets for explanation.\n Download data Députés 2019\n Download data Golf\n Download data Death rates"
   },
   {
-    "objectID": "index.html#resources",
-    "href": "index.html#resources",
+    "objectID": "index.html#additional-resources",
+    "href": "index.html#additional-resources",
     "title": "Applied Bayesian Modelling",
-    "section": "Resources",
-    "text": "Resources\n\nTextbooks\n\nBayesian Essentials with R (Marin and Robert 2014)\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nTextbooks\n\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
   },
   {
     "objectID": "index.html#references",

@@ -46,7 +46,7 @@ deputes <- read_csv(file = josh_data_dir("deputes2019.csv"))
 # e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"
 
 ggplot(deputes) + 
-  geom_histogram(aes(x = (premier_elu - date_naissance)/356.25)) +
+  geom_histogram(aes(x = (premier_elu - date_naissance)/365.25)) +
   scale_x_continuous("Debut age") +
   scale_y_continuous("Number of politicians") +
   theme_bw()
@@ -110,16 +110,18 @@ $$\pi(\theta \mid y) = \frac{p(y \mid \theta)\pi(\theta)}{m(y)}$$
 $$\pi(\theta \mid y) = \frac{p(y \mid \theta)\pi(\theta)}{m(y)}$$
 :::
 
--   Marginal likelihood
-    -   $Z = m(y) = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta) = \mathbb{E}_{\theta \sim \Pi}\left[p(y \mid \theta)\right]$
 -   Likelihood
     -   $L(\cdot\mid y) = p(y \mid \cdot)$ for fixed $y$.
+-   Marginal likelihood
+    -   $m(y) = \int_\Theta p(y \mid \theta) \Pi(\mathrm{d}\theta) = \mathbb{E}_{\theta \sim \Pi}\left[L(\theta\mid y)\right]$
+
 
 ## Posterior quantities
 
 -   Moments
 -   Median, mode
--   Credible intervals (quantiles)
+-   Posterior quantiles
+-   Credible intervals
 -   Posterior predictive distribution
 
 ## Demonstration: Posterior (Ex 1)
@@ -218,7 +220,7 @@ $$m_i(y) = \mathbb{E}_{\theta\sim\Pi_i}\left[ L_i(\theta\mid y)\right] = \int_{\
 Interpretation of Bayes factors
 
 $$
-\text{BF}_{1,0} = \frac{\Pr(M_1\mid y)}{\Pr(M_0\mid y)} = \frac{m_1(y)}{m_0(y)}
+\text{BF}_{1,0}  = \frac{m_1(y)}{m_0(y)} = \frac{\Pr(M_1\mid y)}{\Pr(M_0\mid y)}
 $$
 
 ## Model checking I: Bayes Factors
@@ -244,6 +246,44 @@ Interpretation of Bayes factors [@kass1995bayes]
 | $3.2$ to $10$     | Substantial                                    |
 | $10$ to $100$     | Strong                                         |
 | $> 100$           | Decisive                                       |
+
+
+## Example 2: Députés Questions
+
+```{r dep-questions}
+#| echo: true
+#| code-fold: true
+
+library(readr)
+library(ggplot2)
+
+deputes <- read_csv(file = josh_data_dir("deputes2019.csv"))
+# Download: https://github.com/bonStats/mash-abm/tree/main/data
+# change location to match folder of 'deputes2019.csv' on your computer
+# e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"
+
+ggplot(deputes) + 
+  geom_histogram(aes(x = questions_orales)) +
+  facet_grid(rows = "sexe") + 
+  theme_bw()
+
+```
+
+## Example 2: Députés Questions
+
+::: callout-note
+## Lay question
+
+Do the number of questions politicians ask differ by gender?
+:::
+
+::: callout-tip
+## Statistical questions
+
+1.  Does the *average* number of questions differ by gender?
+2.  Does the *variance* in the number of questions differ by gender?
+3.  What *statistical model* best explains the distribution of question numbers?
+:::
 
 # Posterior Approximation
 
@@ -317,42 +357,7 @@ Choose $q(\theta) \approx C \cdot L(\theta \mid y) p(\theta)$
 3.  Model evidence
 4.  Intractable posteriors $\rightarrow$ Monte Carlo approximation
 
-## Example 2: Députés Questions
 
-```{r dep-questions}
-#| echo: true
-#| code-fold: true
-
-library(readr)
-library(ggplot2)
-
-deputes <- read_csv(file = josh_data_dir("deputes2019.csv"))
-# Download: https://github.com/bonStats/mash-abm/tree/main/data
-# change location to match folder of 'deputes2019.csv' on your computer
-# e.g. "~/Downloads/deputes2019.csv" or "C:/Users/[User Name]/Downloads/deputes2019.csv"
-
-ggplot(deputes) + 
-  geom_histogram(aes(x = questions_orales)) +
-  facet_grid(rows = "sexe") + 
-  theme_bw()
-
-```
-
-## Example 2: Députés Questions
-
-::: callout-note
-## Lay question
-
-Do the number of questions politicians ask differ by gender?
-:::
-
-::: callout-tip
-## Statistical questions
-
-1.  Does the *average* number of questions differ by gender?
-2.  Does the *variance* in the number of questions differ by gender?
-3.  What *statistical model* best explains the distribution of question numbers?
-:::
 
 ## References
 
