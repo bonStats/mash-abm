@@ -18,7 +18,7 @@
     "href": "lectures/abm1.html#statistical-inference-1",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Statistical inference",
-    "text": "Statistical inference\n\n\n\n\n\n\nLay question\n\n\nWhat age do politicians make their debut in parliament?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nWhat is the average age at debut?\nWhat is the variance in age at debut?\nWhat statistical model best explains the distribution of question numbers?\n\n\n\n\n\nIn France, according to the 2019 data!"
+    "text": "Statistical inference\n\n\n\n\n\n\nLay question\n\n\nWhat age do politicians make their debut in parliament?\n\n\n\n\n\n\n\n\n\nStatistical questions\n\n\n\nWhat is the average age at debut?\nWhat is the variance in age at debut?\nWhat statistical model best explains the distribution of age?\n\n\n\n\n\nIn France, according to the 2019 data!"
   },
   {
     "objectID": "lectures/abm1.html#bayes-rule",
@@ -74,7 +74,7 @@
     "href": "lectures/abm1.html#conjugate-priors",
     "title": "Bayesian modelling & Monte Carlo",
     "section": "Conjugate priors",
-    "text": "Conjugate priors\n\n\n\n\n\n\nConjugate prior\n\n\nA prior is a conjugate prior if given a likelihood, the prior and posterior are in the same family of distributions.\n\n\n\nFor known distributions, conjugate priors are tractable."
+    "text": "Conjugate priors\n\n\n\n\n\n\nConjugate prior\n\n\nA prior is a conjugate prior if given a likelihood, the prior and posterior are in the same family of distributions.\n\n\n\nFor known distributions, conjugate priors lead to tractable posterior distributions."
   },
   {
     "objectID": "lectures/abm1.html#conjugate-prior-examples",

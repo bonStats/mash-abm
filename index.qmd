@@ -6,42 +6,45 @@ bibliography: assets/refs.bib
 
 {{< include snippets/_data-download.qmd >}}
 
-
 Course website for M2 [MASH](https://sites.google.com/view/m2mash/home) course on Applied Bayesian Modelling.
+
+::: {.callout-tip collapse="true"}
+## Website
+
+#### https://bonstats.github.io/mash-abm
+:::
 
 ::: callout-note
 ## Textbook
 
-- *Bayesian Essentials with R* [@marin2014bayesian] **[M&R]**
-
+-   *Bayesian Essentials with R* [@marin2014bayesian] **\[M&R\]**
 :::
 
 ## Slides
 
 Lecture slides with main content. Further demonstrations in class.
 
-- [Section 1: Bayes & Monte Carlo](lectures/abm1.html) [Reading: M&R Ch. 2]
-- [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html) [Reading: M&R Ch. 4]
-- [Section 3: Gibbs & Variable Selection](lectures/abm3.html) [Reading: M&R Ch. 3]
-- Section 4
-- Section 5
+-   [Section 1: Bayes & Monte Carlo](lectures/abm1.html) \[Reading: M&R Ch. 2\]
+-   [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html) \[Reading: M&R Ch. 4\]
+-   [Section 3: Gibbs & Variable Selection](lectures/abm3.html) \[Reading: M&R Ch. 3\]
+-   Section 4
+-   Section 5
 
 ## Worksheets
 
 Worksheets with practical and computer activities based in `R`.
 
-- [Worksheet 1](worksheets/abm-worksheet1.qmd)
-- [Worksheet 2](worksheets/abm-worksheet2.qmd)
-- [Worksheet 3](worksheets/abm-worksheet3.qmd)
-- Worksheet 4
-- Worksheet 5
-
+-   [Worksheet 1](worksheets/abm-worksheet1.qmd)
+-   [Worksheet 2](worksheets/abm-worksheet2.qmd)
+-   [Worksheet 3](worksheets/abm-worksheet3.qmd)
+-   Worksheet 4
+-   Worksheet 5
 
 ## Datasets
 
 Datasets for the worksheets. See worksheets for explanation.
 
-`r download_data_buttom("deputes2019.csv","deputes2019")` Députés 2019 
+`r download_data_buttom("deputes2019.csv","deputes2019")` Députés 2019
 
 `r download_data_buttom("golf2.txt","golf2")` Golf
 
@@ -51,24 +54,23 @@ Datasets for the worksheets. See worksheets for explanation.
 
 #### Textbooks
 
-- *Bayesian Data Analysis* [@gelman2013bayesian]
+-   *Bayesian Data Analysis* [@gelman2013bayesian]
 
 #### Papers
 
-- "Visualization in Bayesian Workflow" [@gabry2019visualization]
-- "Bayesian Workflow" [@gelman2020bayesian]
+-   "Visualization in Bayesian Workflow" [@gabry2019visualization]
+-   "Bayesian Workflow" [@gelman2020bayesian]
 
 #### Tutorials
 
-- "Linear regression" [Stan User's Guide](https://mc-stan.org/docs/stan-users-guide/regression.html#linear-regression)
-- "Logistic and probit regression" [Stan User's Guide](https://mc-stan.org/docs/stan-users-guide/regression.html#logistic-probit-regression.section)
+-   "Linear regression" [Stan User's Guide](https://mc-stan.org/docs/stan-users-guide/regression.html#linear-regression)
+-   "Logistic and probit regression" [Stan User's Guide](https://mc-stan.org/docs/stan-users-guide/regression.html#logistic-probit-regression.section)
 
 ## References
 
 ::: {#refs}
 :::
 
-##
+## 
 
 ![](assets/dauphine-logo-white.png)
-
