@@ -415,9 +415,9 @@ m_k(y)= \int _{\Theta_k} L_k(\theta_k\mid y) \pi_k(\theta_k) \mathrm{d} \theta_k
 <p>We propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.</p>
 <ol type="1">
 <li><p><strong>Vanilla Monte Carlo</strong>: Give an approximation of <span class="math inline">B_{21}</span> based on an <span class="math inline">N</span>-sample of parameters simulated from the prior distribution.</p></li>
-<li><p><strong>Importance sampling</strong>: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution <span class="math inline">g</span> to perform importance sampling. Give an approximation of <span class="math inline">B_{21}</span> in this case.</p>
+<li><p><strong>Importance sampling</strong>: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable importance distribution <span class="math inline">g</span> to perform importance sampling. Give an approximation of <span class="math inline">B_{21}</span> in this case.</p>
 <ul>
-<li>Try again, using a different instrumental distribution. What do you observe?</li>
+<li>Try again, using a different importance distribution. What do you observe?</li>
 </ul></li>
 <li><p><strong>Explicit computation:</strong> Give the explicit expression of <span class="math inline">B_{21}</span>, and write an R script to evaluate it.</p></li>
 </ol>

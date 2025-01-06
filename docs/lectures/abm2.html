@@ -534,7 +534,7 @@ Dr Joshua J Bon
 <p><span class="math display">\Pr(Y_i = 1) = \frac{\exp\{\beta_0 + \beta_1x_i\}}{1 + \exp\{\beta_0 + \beta_1x_i\}}</span></p>
 <ul>
 <li>Covariate <span class="math inline">x_i</span> (can be many)</li>
-<li>Unknown coefficients <span class="math inline">\beta_0,\beta_1</span></li>
+<li>Unknown coefficients <span class="math inline">\beta_0,\beta_1</span> (<em>posterior distribution</em>)</li>
 </ul>
 </section>
 <section id="logistic-regression-1" class="slide level2">
@@ -626,8 +626,11 @@ Dr Joshua J Bon
 </section>
 <section id="mh-acceptance-rate" class="slide level2">
 <h2>MH: Acceptance rate</h2>
-<p><span class="math display">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}</span> <span class="math display"> = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}</span> No normalising constant required!</p>
-<p>Special case: Symmetric proposal</p>
+<p><span class="math display">\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}</span> <span class="math display"> = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}</span></p>
+<ul>
+<li><p>No normalising constant required!</p></li>
+<li><p>Special case: Symmetric proposal</p></li>
+</ul>
 </section>
 <section id="running-a-mh-algorithm" class="slide level2">
 <h2>Running a MH Algorithm</h2>
@@ -704,8 +707,13 @@ Dr Joshua J Bon
 </section>
 <section id="diagnostics-1" class="slide level2">
 <h2>Diagnostics</h2>
-<p>Convergence is guaranteed in <strong>theory</strong> as <span class="math inline">n\rightarrow \infty</span>,</p>
-<p><strong>in practice</strong> we need to monitor and check MCMC samples to get <em>close enough</em>!</p>
+<p><strong>In theory</strong> convergence is guaranteed as <span class="math inline">n\rightarrow \infty</span>,</p>
+<p><span class="emoji" data-emoji="exclamation">❗</span> however <span class="emoji" data-emoji="exclamation">❗</span></p>
+<p><strong>in practice</strong> we need to monitor the samples.</p>
+<ul>
+<li>We need diagnostics for the samples</li>
+<li>Check MCMC samples get <em>close enough</em>!</li>
+</ul>
 </section>
 <section id="mcmc-chain-trace-plot" class="slide level2">
 <h2>MCMC: Chain trace plot</h2>
@@ -824,14 +832,14 @@ Dr Joshua J Bon
 <section id="mcmc-clt-intuitions" class="slide level2">
 <h2>MCMC CLT intuitions</h2>
 <p>Good MCMC schemes:</p>
-<ul>
+<ol type="1">
 <li>Get to stationary distribution quickly (converge fast)</li>
 <li>Have small autocorrelation <span class="math inline">\rho_t</span></li>
-</ul>
+</ol>
 <p>What quantitative measures exist to measure this?</p>
 </section>
-<section id="mcmc-convergence-hatr-and-friends" class="slide level2">
-<h2>MCMC: Convergence <span class="math inline">\hat{R}</span> and friends</h2>
+<section id="mcmc-convergence-hatr-and-friends-1" class="slide level2">
+<h2>MCMC: Convergence <span class="math inline">\hat{R}</span> and friends (1)</h2>
 <p><span class="math inline">\hat{R}</span>, potential scale reduction statistic <span class="citation" data-cites="gelman1992inference">(<a href="#/references" role="doc-biblioref" onclick="">Gelman and Rubin 1992</a>)</span></p>
 <ul>
 <li><p>Run multiple chains from different (random) starting points</p></li>
@@ -840,8 +848,8 @@ Dr Joshua J Bon
 <li><p><span class="math inline">\hat{R} &gt; 1</span> indicates chains have not converged to a common distribution</p></li>
 </ul>
 </section>
-<section id="mcmc-effective-sample-size" class="slide level2">
-<h2>MCMC: Effective sample size</h2>
+<section id="mcmc-effective-sample-size-2" class="slide level2">
+<h2>MCMC: Effective sample size (2)</h2>
 <p>Vanilla Monte Carlo sample size <span class="math inline">=N</span></p>
 <p>MCMC effective sample size <span class="math inline">N_\text{eff}=\frac{N}{\sum_{t=-\infty}^\infty\rho_t} = \frac{N}{1+2\sum_{t=1}^\infty\rho_t}</span></p>
 <ul>

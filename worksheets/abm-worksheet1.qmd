@@ -143,9 +143,9 @@ We propose several Monte Carlo methods to calculate the Bayes factor; we would l
 
 1.  **Vanilla Monte Carlo**: Give an approximation of $B_{21}$ based on an $N$-sample of parameters simulated from the prior distribution.
 
-2.  **Importance sampling**: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution $g$ to perform importance sampling. Give an approximation of $B_{21}$ in this case.
+2.  **Importance sampling**: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable importance distribution $g$ to perform importance sampling. Give an approximation of $B_{21}$ in this case.
 
-    -   Try again, using a different instrumental distribution. What do you observe?
+    -   Try again, using a different importance distribution. What do you observe?
 
 3.  **Explicit computation:** Give the explicit expression of $B_{21}$, and write an R script to evaluate it.
 

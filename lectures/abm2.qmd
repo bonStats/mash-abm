@@ -79,7 +79,7 @@ Model for $Y_i \in \{0,1\}$, for $i \in \{1,\ldots,n\}$:
 $$\Pr(Y_i = 1) = \frac{\exp\{\beta_0 + \beta_1x_i\}}{1 + \exp\{\beta_0 + \beta_1x_i\}}$$
 
 - Covariate $x_i$ (can be many) 
-- Unknown coefficients $\beta_0,\beta_1$
+- Unknown coefficients $\beta_0,\beta_1$ (*posterior distribution*)
 
 ## Logistic regression
 
@@ -175,9 +175,10 @@ Run until convergence (check diagnostics)
 
 $$\alpha = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)\pi(\theta^\prime\mid y)}{q(\theta^\prime \mid \theta_{t-1})\pi(\theta_{t-1}\mid y)},1 \right\}$$
 $$ = \min \left\{\frac{q(\theta_{t-1} \mid \theta^\prime)L(\theta^\prime\mid y)\pi(\theta^\prime)}{q(\theta^\prime \mid \theta_{t-1})L(\theta_{t-1}\mid y)\pi(\theta_{t-1})},1 \right\}$$
-No normalising constant required!
 
-Special case: Symmetric proposal
+- No normalising constant required!
+
+- Special case: Symmetric proposal
 
 ## Running a MH Algorithm
 
@@ -248,9 +249,14 @@ dygraph(ts(simdata$theta,start = 1)) %>% dyRangeSelector()
 
 ## Diagnostics
 
-Convergence is guaranteed in **theory** as $n\rightarrow \infty$,
+**In theory** convergence is guaranteed  as $n\rightarrow \infty$,
 
-**in practice** we need to monitor and check MCMC samples to get _close enough_!
+:exclamation: however :exclamation:
+
+**in practice** we need to monitor the samples.
+
+- We need diagnostics for the samples
+- Check MCMC samples get _close enough_!
 
 ## MCMC: Chain trace plot
 
@@ -372,12 +378,12 @@ $$\sqrt{N} \left[ \frac{1}{N}\sum_{t=1}^{N}f(\theta_t) - \mathbb{E}_{\theta\sim 
 
 Good MCMC schemes:
 
-- Get to stationary distribution quickly (converge fast)
-- Have small autocorrelation $\rho_t$
+1. Get to stationary distribution quickly (converge fast)
+2. Have small autocorrelation $\rho_t$
 
 What quantitative measures exist to measure this?
 
-## MCMC: Convergence $\hat{R}$ and friends
+## MCMC: Convergence $\hat{R}$ and friends (1)
 
 $\hat{R}$, potential scale reduction statistic [@gelman1992inference]
 
@@ -389,7 +395,7 @@ $\hat{R}$, potential scale reduction statistic [@gelman1992inference]
 
 - $\hat{R} > 1$ indicates chains have not converged to a common distribution
 
-## MCMC: Effective sample size
+## MCMC: Effective sample size (2)
 
 Vanilla Monte Carlo sample size  $=N$
 

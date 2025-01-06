@@ -333,7 +333,7 @@
     "href": "worksheets/abm-worksheet1.html#activity-3-bayes-factors",
     "title": "Worksheet 1",
     "section": "Activity 3: Bayes factors",
-    "text": "Activity 3: Bayes factors\nWe would now like to compute the Bayes factor\n\\text{BF}_{21}= \\frac{m_2(y)}{m_1(y)} \\quad \\text{ where }  \\quad\nm_k(y)= \\int _{\\Theta_k} L_k(\\theta_k\\mid y) \\pi_k(\\theta_k) \\mathrm{d} \\theta_k\nWe propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.\n\nVanilla Monte Carlo: Give an approximation of B_{21} based on an N-sample of parameters simulated from the prior distribution.\nImportance sampling: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable instrumental distribution g to perform importance sampling. Give an approximation of B_{21} in this case.\n\nTry again, using a different instrumental distribution. What do you observe?\n\nExplicit computation: Give the explicit expression of B_{21}, and write an R script to evaluate it."
+    "text": "Activity 3: Bayes factors\nWe would now like to compute the Bayes factor\n\\text{BF}_{21}= \\frac{m_2(y)}{m_1(y)} \\quad \\text{ where }  \\quad\nm_k(y)= \\int _{\\Theta_k} L_k(\\theta_k\\mid y) \\pi_k(\\theta_k) \\mathrm{d} \\theta_k\nWe propose several Monte Carlo methods to calculate the Bayes factor; we would like to compare the methods. For each method, write a script to visualize the convergence of the method.\n\nVanilla Monte Carlo: Give an approximation of B_{21} based on an N-sample of parameters simulated from the prior distribution.\nImportance sampling: Compute the posterior mean and variance of the parameters for each model. Deduce a reasonable importance distribution g to perform importance sampling. Give an approximation of B_{21} in this case.\n\nTry again, using a different importance distribution. What do you observe?\n\nExplicit computation: Give the explicit expression of B_{21}, and write an R script to evaluate it."
   },
   {
     "objectID": "worksheets/abm-worksheet1.html#activity-4-model-choice",
@@ -448,6 +448,13 @@
     "text": "Worksheets\nWorksheets with practical and computer activities based in R.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4\nWorksheet 5"
   },
   {
+    "objectID": "index.html#code",
+    "href": "index.html#code",
+    "title": "Applied Bayesian Modelling",
+    "section": "Code",
+    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1"
+  },
+  {
     "objectID": "index.html#datasets",
     "href": "index.html#datasets",
     "title": "Applied Bayesian Modelling",
@@ -494,7 +501,7 @@
     "href": "lectures/abm2.html#logistic-regression",
     "title": "MCMC & Metropolis-Hastings",
     "section": "Logistic regression",
-    "text": "Logistic regression\nModel for Y_i \\in \\{0,1\\}, for i \\in \\{1,\\ldots,n\\}:\n\\Pr(Y_i = 1) = \\frac{\\exp\\{\\beta_0 + \\beta_1x_i\\}}{1 + \\exp\\{\\beta_0 + \\beta_1x_i\\}}\n\nCovariate x_i (can be many)\nUnknown coefficients \\beta_0,\\beta_1"
+    "text": "Logistic regression\nModel for Y_i \\in \\{0,1\\}, for i \\in \\{1,\\ldots,n\\}:\n\\Pr(Y_i = 1) = \\frac{\\exp\\{\\beta_0 + \\beta_1x_i\\}}{1 + \\exp\\{\\beta_0 + \\beta_1x_i\\}}\n\nCovariate x_i (can be many)\nUnknown coefficients \\beta_0,\\beta_1 (posterior distribution)"
   },
   {
     "objectID": "lectures/abm2.html#logistic-regression-1",
@@ -550,7 +557,7 @@
     "href": "lectures/abm2.html#mh-acceptance-rate",
     "title": "MCMC & Metropolis-Hastings",
     "section": "MH: Acceptance rate",
-    "text": "MH: Acceptance rate\n\\alpha = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)\\pi(\\theta^\\prime\\mid y)}{q(\\theta^\\prime \\mid \\theta_{t-1})\\pi(\\theta_{t-1}\\mid y)},1 \\right\\}  = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)L(\\theta^\\prime\\mid y)\\pi(\\theta^\\prime)}{q(\\theta^\\prime \\mid \\theta_{t-1})L(\\theta_{t-1}\\mid y)\\pi(\\theta_{t-1})},1 \\right\\} No normalising constant required!\nSpecial case: Symmetric proposal"
+    "text": "MH: Acceptance rate\n\\alpha = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)\\pi(\\theta^\\prime\\mid y)}{q(\\theta^\\prime \\mid \\theta_{t-1})\\pi(\\theta_{t-1}\\mid y)},1 \\right\\}  = \\min \\left\\{\\frac{q(\\theta_{t-1} \\mid \\theta^\\prime)L(\\theta^\\prime\\mid y)\\pi(\\theta^\\prime)}{q(\\theta^\\prime \\mid \\theta_{t-1})L(\\theta_{t-1}\\mid y)\\pi(\\theta_{t-1})},1 \\right\\}\n\nNo normalising constant required!\nSpecial case: Symmetric proposal"
   },
   {
     "objectID": "lectures/abm2.html#running-a-mh-algorithm",
@@ -564,7 +571,7 @@
     "href": "lectures/abm2.html#diagnostics-1",
     "title": "MCMC & Metropolis-Hastings",
     "section": "Diagnostics",
-    "text": "Diagnostics\nConvergence is guaranteed in theory as n\\rightarrow \\infty,\nin practice we need to monitor and check MCMC samples to get close enough!"
+    "text": "Diagnostics\nIn theory convergence is guaranteed as n\\rightarrow \\infty,\n❗ however ❗\nin practice we need to monitor the samples.\n\nWe need diagnostics for the samples\nCheck MCMC samples get close enough!"
   },
   {
     "objectID": "lectures/abm2.html#mcmc-chain-trace-plot",
@@ -623,18 +630,18 @@
     "text": "MCMC CLT intuitions\nGood MCMC schemes:\n\nGet to stationary distribution quickly (converge fast)\nHave small autocorrelation \\rho_t\n\nWhat quantitative measures exist to measure this?"
   },
   {
-    "objectID": "lectures/abm2.html#mcmc-convergence-hatr-and-friends",
-    "href": "lectures/abm2.html#mcmc-convergence-hatr-and-friends",
+    "objectID": "lectures/abm2.html#mcmc-convergence-hatr-and-friends-1",
+    "href": "lectures/abm2.html#mcmc-convergence-hatr-and-friends-1",
     "title": "MCMC & Metropolis-Hastings",
-    "section": "MCMC: Convergence \\hat{R} and friends",
-    "text": "MCMC: Convergence \\hat{R} and friends\n\\hat{R}, potential scale reduction statistic (Gelman and Rubin 1992)\n\nRun multiple chains from different (random) starting points\n\\hat{R} measures the average variance of samples within each chain with respect to the variance of the pooled samples\n\\hat{R} \\approx 1 provides evidence of convergence\n\\hat{R} &gt; 1 indicates chains have not converged to a common distribution"
+    "section": "MCMC: Convergence \\hat{R} and friends (1)",
+    "text": "MCMC: Convergence \\hat{R} and friends (1)\n\\hat{R}, potential scale reduction statistic (Gelman and Rubin 1992)\n\nRun multiple chains from different (random) starting points\n\\hat{R} measures the average variance of samples within each chain with respect to the variance of the pooled samples\n\\hat{R} \\approx 1 provides evidence of convergence\n\\hat{R} &gt; 1 indicates chains have not converged to a common distribution"
   },
   {
-    "objectID": "lectures/abm2.html#mcmc-effective-sample-size",
-    "href": "lectures/abm2.html#mcmc-effective-sample-size",
+    "objectID": "lectures/abm2.html#mcmc-effective-sample-size-2",
+    "href": "lectures/abm2.html#mcmc-effective-sample-size-2",
     "title": "MCMC & Metropolis-Hastings",
-    "section": "MCMC: Effective sample size",
-    "text": "MCMC: Effective sample size\nVanilla Monte Carlo sample size =N\nMCMC effective sample size N_\\text{eff}=\\frac{N}{\\sum_{t=-\\infty}^\\infty\\rho_t} = \\frac{N}{1+2\\sum_{t=1}^\\infty\\rho_t}\n\nEstimate from MCMC samples (valid at stationarity)"
+    "section": "MCMC: Effective sample size (2)",
+    "text": "MCMC: Effective sample size (2)\nVanilla Monte Carlo sample size =N\nMCMC effective sample size N_\\text{eff}=\\frac{N}{\\sum_{t=-\\infty}^\\infty\\rho_t} = \\frac{N}{1+2\\sum_{t=1}^\\infty\\rho_t}\n\nEstimate from MCMC samples (valid at stationarity)"
   },
   {
     "objectID": "lectures/abm2.html#mh-extensions",
