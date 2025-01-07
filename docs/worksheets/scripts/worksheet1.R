@@ -141,7 +141,7 @@ exp(log_BF21)
 
 # MC estimation
 
-N <- 1000
+N <- 10000
 smp_prior1 <- rgamma(N, shape = alpha0, rate = beta0)
 smp_prior2_1 <- rgamma(N, shape = alpha0, rate = beta0)
 smp_prior2_2 <- rgamma(N, shape = alpha0, rate = beta0)
@@ -151,14 +151,14 @@ vec_loglikelihoodC1 <- Vectorize(loglikelihoodC1, vectorize.args = "lambda")
 vec_loglikelihoodC2 <- Vectorize(loglikelihoodC2, vectorize.args = c("lambda1","lambda2"))
 
 
-mc_log_me1_C <- vec_loglikelihoodC1(smp_prior1, y)
-mc_log_me2_C <- vec_loglikelihoodC2(smp_prior2_1, smp_prior2_2, y1, y2)
+mc_log_likelihood1_C <- vec_loglikelihoodC1(smp_prior1, y)
+mc_log_likelihood2_C <- vec_loglikelihoodC2(smp_prior2_1, smp_prior2_2, y1, y2)
 
 # might be numerically unstable
-mean(exp(mc_log_me2_C)) / mean(exp(mc_log_me1_C))
+mean(exp(mc_log_likelihood2_C)) / mean(exp(mc_log_likelihood1_C))
 
 # numerically stable
-exp(logSumExp(mc_log_me2_C) - logSumExp(mc_log_me1_C)) # logSumExp from matrixStats package
+exp(logSumExp(mc_log_likelihood2_C) - logSumExp(mc_log_likelihood1_C)) # logSumExp from matrixStats package
 
 # true value
 exp(log_BF21)

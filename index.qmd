@@ -45,6 +45,7 @@ Worksheets with practical and computer activities based in `R`.
 `R` files from live-coding in class. 
 
 - [Worksheet 1](worksheets/scripts/worksheet1.R)
+- [Worksheet 2](worksheets/scripts/worksheet2.R)
 
 ## Datasets
 
