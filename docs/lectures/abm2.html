@@ -853,24 +853,73 @@ Dr Joshua J Bon
 <p>Vanilla Monte Carlo sample size <span class="math inline">=N</span></p>
 <p>MCMC effective sample size <span class="math inline">N_\text{eff}=\frac{N}{\sum_{t=-\infty}^\infty\rho_t} = \frac{N}{1+2\sum_{t=1}^\infty\rho_t}</span></p>
 <ul>
+<li>Loss of efficiency from using MCMC instead of vanilla Monte Carlo</li>
 <li>Estimate from MCMC samples (valid at stationarity)</li>
 </ul>
+<p><span class="math display">N_\text{eff} \approx \frac{N}{1+2\sum_{t=1}^\infty\hat\rho_t}</span></p>
 </section>
-<section id="mh-extensions" class="slide level2">
-<h2>MH: Extensions</h2>
+<section id="effective-sample-size-2" class="slide level2">
+<h2>Effective sample size (2)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">library</span>(batchmeans)</span>
+<span id="cb8-2"><a></a></span>
+<span id="cb8-3"><a></a>mhtest2 <span class="ot">&lt;-</span> mhtest <span class="sc">%&gt;%</span> <span class="fu">filter</span>(burnin <span class="sc">==</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">sd =</span> tune_sd)</span>
+<span id="cb8-4"><a></a></span>
+<span id="cb8-5"><a></a>theta_ess <span class="ot">&lt;-</span> mhtest2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(sd,n) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a></a>  <span class="fu">summarise</span>(<span class="at">ess=</span><span class="fu">round</span>(<span class="fu">ess</span>(theta),<span class="at">digits =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a></a>  <span class="fu">mutate</span>(<span class="at">x=</span>(n<span class="sc">+</span><span class="dv">700</span>)<span class="sc">/</span><span class="dv">8</span>)</span>
+<span id="cb8-8"><a></a></span>
+<span id="cb8-9"><a></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb8-10"><a></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>iter, <span class="at">y =</span> theta), <span class="at">data =</span> mhtest2) <span class="sc">+</span> </span>
+<span id="cb8-11"><a></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span><span class="dv">4</span>, <span class="at">label=</span>ess), <span class="at">data =</span> theta_ess) <span class="sc">+</span> </span>
+<span id="cb8-12"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb8-13"><a></a>  <span class="fu">facet_grid</span>(sd <span class="sc">~</span> n, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb8-14"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Burnin = 100"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm2_files/figure-revealjs/mh-ex-trace-comp-ess-1.png" width="960" class="r-stretch"></section>
+<section id="beyond-basic-mcmc" class="slide level2">
+<h2>Beyond basic MCMC</h2>
+<h4 id="metropolis-hastings-1">Metropolis-Hastings</h4>
 <ul>
-<li>Metropolis Adjusted Langevin Algorithm</li>
-<li>Adaptive Metropolis-Hastings</li>
+<li>Metropolis Adjusted Langevin Algorithm (MALA) and stochastic gradient versions <span class="citation" data-cites="baker2019sgmcmc">(<a href="#/references" role="doc-biblioref" onclick="">Baker et al. 2019</a>)</span></li>
+<li>Optimal proposal and adaptive Metropolis-Hastings <span class="citation" data-cites="rosenthal2011optimal">(<a href="#/references" role="doc-biblioref" onclick="">Rosenthal et al. 2011</a>)</span></li>
 </ul>
+<h4 id="general-mcmc">General MCMC</h4>
+<ul>
+<li>Hamiltonian Monte Carlo (HMC) <span class="citation" data-cites="betancourt2017conceptual">(<a href="#/references" role="doc-biblioref" onclick="">Betancourt 2017</a>)</span></li>
+<li>Piecewise Deterministic Markov Process (PDMP) samplers (<a href="https://diamhomes.ewi.tudelft.nl/~jorisbierkens/pdmps.html">See links here</a>)</li>
+</ul>
+</section>
+<section id="recap-approximate-computation-of-bayesian-models" class="slide level2">
+<h2>Recap: Approximate computation of Bayesian models</h2>
+<ol type="1">
+<li>Self-normalised importance sampling</li>
+<li>Markov chain Monte Carlo</li>
+<li>The Metropolis-Hasting Algorithm</li>
+<li>Convergence diagnostics</li>
+</ol>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-baker2019sgmcmc" class="csl-entry" role="listitem">
+Baker, Jack, Paul Fearnhead, Emily B Fox, and Christopher Nemeth. 2019. <span>“Sgmcmc: An r Package for Stochastic Gradient Markov Chain Monte Carlo.”</span> <em>Journal of Statistical Software</em> 91: 1–27.
+</div>
+<div id="ref-betancourt2017conceptual" class="csl-entry" role="listitem">
+Betancourt, Michael. 2017. <span>“A Conceptual Introduction to Hamiltonian Monte Carlo.”</span> <em>arXiv Preprint arXiv:1701.02434</em>.
+</div>
 <div id="ref-gelman1992inference" class="csl-entry" role="listitem">
 Gelman, Andrew, and Donald B Rubin. 1992. <span>“Inference from Iterative Simulation Using Multiple Sequences.”</span> <em>Statistical Science</em> 7 (4): 457–72.
 </div>
 <div id="ref-roberts2001optimal" class="csl-entry" role="listitem">
 Roberts, Gareth O, and Jeffrey S Rosenthal. 2001. <span>“Optimal Scaling for Various Metropolis-Hastings Algorithms.”</span> <em>Statistical Science</em> 16 (4): 351–67.
+</div>
+<div id="ref-rosenthal2011optimal" class="csl-entry" role="listitem">
+Rosenthal, Jeffrey S et al. 2011. <span>“Optimal Proposal Distributions and Adaptive MCMC.”</span> <em>Handbook of Markov Chain Monte Carlo</em> 4 (10.1201).
 </div>
 </div>
 </section></section>

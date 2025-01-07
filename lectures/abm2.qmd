@@ -401,12 +401,55 @@ Vanilla Monte Carlo sample size  $=N$
 
 MCMC effective sample size $N_\text{eff}=\frac{N}{\sum_{t=-\infty}^\infty\rho_t} = \frac{N}{1+2\sum_{t=1}^\infty\rho_t}$
 
+- Loss of efficiency from using MCMC instead of vanilla Monte Carlo
 - Estimate from MCMC samples (valid at stationarity)
 
-## MH: Extensions
+$$N_\text{eff} \approx \frac{N}{1+2\sum_{t=1}^\infty\hat\rho_t}$$
 
-- Metropolis Adjusted Langevin Algorithm
-- Adaptive Metropolis-Hastings
+## Effective sample size (2)
+
+```{r mh-ex-trace-comp-ess}
+#| echo: true
+#| code-fold: true
+
+library(batchmeans)
+
+mhtest2 <- mhtest %>% filter(burnin == 100) %>% rename(sd = tune_sd)
+
+theta_ess <- mhtest2 %>% group_by(sd,n) %>% 
+  summarise(ess=round(ess(theta),digits = 1)) %>% 
+  mutate(x=(n+700)/8)
+
+ggplot() + 
+  geom_line(aes(x=iter, y = theta), data = mhtest2) + 
+  geom_label(aes(x=x, y=4, label=ess), data = theta_ess) + 
+  theme_bw() + 
+  facet_grid(sd ~ n, scales = "free_x", labeller = label_both) +
+  ggtitle("Burnin = 100")
+
+```
+
+
+## Beyond basic MCMC
+
+#### Metropolis-Hastings
+
+- Metropolis Adjusted Langevin Algorithm (MALA) and stochastic gradient versions [@baker2019sgmcmc]
+- Optimal proposal and adaptive Metropolis-Hastings [@rosenthal2011optimal]
+
+#### General MCMC
+
+- Hamiltonian Monte Carlo (HMC) [@betancourt2017conceptual]
+- Piecewise Deterministic Markov Process (PDMP) samplers ([See links here](https://diamhomes.ewi.tudelft.nl/~jorisbierkens/pdmps.html))
+
+## Recap: Approximate computation of Bayesian models
+
+1.  Self-normalised importance sampling
+2.  Markov chain Monte Carlo
+3.  The Metropolis-Hasting Algorithm
+4.  Convergence diagnostics
+
+
 
 ## References
 

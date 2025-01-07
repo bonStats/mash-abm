@@ -641,20 +641,34 @@
     "href": "lectures/abm2.html#mcmc-effective-sample-size-2",
     "title": "MCMC & Metropolis-Hastings",
     "section": "MCMC: Effective sample size (2)",
-    "text": "MCMC: Effective sample size (2)\nVanilla Monte Carlo sample size =N\nMCMC effective sample size N_\\text{eff}=\\frac{N}{\\sum_{t=-\\infty}^\\infty\\rho_t} = \\frac{N}{1+2\\sum_{t=1}^\\infty\\rho_t}\n\nEstimate from MCMC samples (valid at stationarity)"
+    "text": "MCMC: Effective sample size (2)\nVanilla Monte Carlo sample size =N\nMCMC effective sample size N_\\text{eff}=\\frac{N}{\\sum_{t=-\\infty}^\\infty\\rho_t} = \\frac{N}{1+2\\sum_{t=1}^\\infty\\rho_t}\n\nLoss of efficiency from using MCMC instead of vanilla Monte Carlo\nEstimate from MCMC samples (valid at stationarity)\n\nN_\\text{eff} \\approx \\frac{N}{1+2\\sum_{t=1}^\\infty\\hat\\rho_t}"
   },
   {
-    "objectID": "lectures/abm2.html#mh-extensions",
-    "href": "lectures/abm2.html#mh-extensions",
+    "objectID": "lectures/abm2.html#effective-sample-size-2",
+    "href": "lectures/abm2.html#effective-sample-size-2",
     "title": "MCMC & Metropolis-Hastings",
-    "section": "MH: Extensions",
-    "text": "MH: Extensions\n\nMetropolis Adjusted Langevin Algorithm\nAdaptive Metropolis-Hastings"
+    "section": "Effective sample size (2)",
+    "text": "Effective sample size (2)\n\n\nCode\nlibrary(batchmeans)\n\nmhtest2 &lt;- mhtest %&gt;% filter(burnin == 100) %&gt;% rename(sd = tune_sd)\n\ntheta_ess &lt;- mhtest2 %&gt;% group_by(sd,n) %&gt;% \n  summarise(ess=round(ess(theta),digits = 1)) %&gt;% \n  mutate(x=(n+700)/8)\n\nggplot() + \n  geom_line(aes(x=iter, y = theta), data = mhtest2) + \n  geom_label(aes(x=x, y=4, label=ess), data = theta_ess) + \n  theme_bw() + \n  facet_grid(sd ~ n, scales = \"free_x\", labeller = label_both) +\n  ggtitle(\"Burnin = 100\")"
+  },
+  {
+    "objectID": "lectures/abm2.html#beyond-basic-mcmc",
+    "href": "lectures/abm2.html#beyond-basic-mcmc",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Beyond basic MCMC",
+    "text": "Beyond basic MCMC\nMetropolis-Hastings\n\nMetropolis Adjusted Langevin Algorithm (MALA) and stochastic gradient versions (Baker et al. 2019)\nOptimal proposal and adaptive Metropolis-Hastings (Rosenthal et al. 2011)\n\nGeneral MCMC\n\nHamiltonian Monte Carlo (HMC) (Betancourt 2017)\nPiecewise Deterministic Markov Process (PDMP) samplers (See links here)"
+  },
+  {
+    "objectID": "lectures/abm2.html#recap-approximate-computation-of-bayesian-models",
+    "href": "lectures/abm2.html#recap-approximate-computation-of-bayesian-models",
+    "title": "MCMC & Metropolis-Hastings",
+    "section": "Recap: Approximate computation of Bayesian models",
+    "text": "Recap: Approximate computation of Bayesian models\n\nSelf-normalised importance sampling\nMarkov chain Monte Carlo\nThe Metropolis-Hasting Algorithm\nConvergence diagnostics"
   },
   {
     "objectID": "lectures/abm2.html#references",
     "href": "lectures/abm2.html#references",
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
-    "text": "References\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67."
+    "text": "References\n\n\nBaker, Jack, Paul Fearnhead, Emily B Fox, and Christopher Nemeth. 2019. “Sgmcmc: An r Package for Stochastic Gradient Markov Chain Monte Carlo.” Journal of Statistical Software 91: 1–27.\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67.\n\n\nRosenthal, Jeffrey S et al. 2011. “Optimal Proposal Distributions and Adaptive MCMC.” Handbook of Markov Chain Monte Carlo 4 (10.1201)."
   }
 ]
