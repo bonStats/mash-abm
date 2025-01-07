@@ -18,7 +18,7 @@ Bayesian logistic regression with Metropolis-Hastings algorithm.
 Building a model from first principles.
 :::
 
-::: {.callout-note collapse=true}
+::: {.callout-note collapse="true"}
 ## Resources
 
 Chapter 4, @marin2014bayesian
@@ -26,7 +26,7 @@ Chapter 4, @marin2014bayesian
 Chapter 3.7 & 11.2, @gelman2013bayesian
 :::
 
-::: {.callout-important collapse=true}
+::: {.callout-important collapse="true"}
 ## Data: `golf2.txt`
 
 We consider the data \texttt{golf2.txt}. We wish to explain the success at golf putting, explained by the distance to the hole.
@@ -35,10 +35,8 @@ We consider the data \texttt{golf2.txt}. We wish to explain the success at golf 
 
 **Variable description**
 
-1. `distance`
-2. `success`
-
-
+1.  `distance`
+2.  `success`
 :::
 
 ## Activity 1: Getting started
@@ -73,7 +71,7 @@ or alternatively represented by $P[Y_i=1] = \text{logit}^{-1}(\beta_0+\beta_1 x_
 
 2.  Write the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?
 
-3.  Simumlate a pseudo-sample from this posterior via MCMC thanks to the `MCMClogit` function in package [{MCMCpack}](https://cran.r-project.org/package=MCMCpack). Check convergence and adapt the algorithmic parameters as necessary.
+3.  Simulate a pseudo-sample from this posterior via MCMC thanks to the `MCMClogit` function in package [{MCMCpack}](https://cran.r-project.org/package=MCMCpack). Check convergence and adapt the algorithmic parameters as necessary.
 
 4.  Repeat with another prior and compare the results.
 
