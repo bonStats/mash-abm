@@ -128,17 +128,23 @@ Note: Marginal distribution of samples
 
 ## Gibb samplers
 
-A Markov chain Monte Carlo technique, uses conditional distributions to build an invariant transition kernel
+- An MCMC tool for converting a high-dim problem to several low-dim problems
+- Use conditional distributions to build an invariant transition kernel (exact conditional step or conditional MH step)
 
 Why?
 
-Conditional distributions may have known analytical forms... exact sampling (from conditionals)
+1. Conditional distributions may have known analytical forms
+    - Can perform exact sampling (from conditionals with **no tuning parameters!**)
+2. Conditional distributions lower dimensional
+    - Metropolis-Hastings works better
 
 ## Posterior conditionals
 
 Let $\dim (\theta) = d$ with posterior density $\pi(\theta \mid y)$
 
-Separate elements of $\theta$ using indices partition $S_1 \cup S_2 \cup \cdots \cup S_k = \{1,2,\ldots,d\}$, $2 \leq k \leq d$ 
+Separate elements of $\theta$ using indices partition
+
+$S_1 \cup S_2 \cup \cdots \cup S_k = \{1,2,\ldots,d\}$, $2 \leq k \leq d$ 
 
 Conditional distributions are
 
@@ -146,9 +152,11 @@ $$\begin{matrix}\pi(\theta^{S_1}\mid y, \theta^{\bar{S_1}}) \\ \pi(\theta^{S_2}\
 
 ## Posterior full conditionals
 
-If $S_i=\{i\}$ the conditional distributions are $\pi(\theta^{\{i\}}\mid y, \theta^{\overline{\{i\}}}) = \pi(\theta^{i}\mid y, \theta^{-i})$ (one possible ordering)
+If $S_i=\{i\}$ the conditional distributions are 
 
-For example with $k=3$,
+$\pi(\theta^{\{i\}}\mid y, \theta^{\overline{\{i\}}}) = \pi(\theta^{i}\mid y, \theta^{-i})$
+
+For example with $k=3$, one possible ordering is
 
 $$\begin{matrix}\pi(\theta^{\{1\}}\mid y, \theta^{\{2,3\}}) \\ \pi(\theta^{\{2\}}\mid y, \theta^{\{1,3\}}) \\ \vdots \\ \pi(\theta^{\{3\}}\mid y, \theta^{\{1,2\}})   \end{matrix}$$
 
@@ -165,10 +173,78 @@ Initialise $\theta_0$. At time $t$:
 Run until convergence (check diagnostics)
 
 
-## Gibb sampling algorithm
+## Gibb sampling algorithm (Ex)
 
-Code example
+Consider posterior distribution, conditional on summary statistics $s$ and $t$ (and number of data points $n$).
 
+$$\pi(\alpha,\beta\mid s,t) \propto {n\choose \alpha} \beta^{\alpha+s-1}(1-\beta)^{n-\alpha+t-1}$$
+for $\alpha \in \{0,1,\ldots,n\}$ and $\beta \in [0,1]$
+
+## Gibb sampling algorithm (Ex)
+
+The conditional distributions are
+
+$$\begin{aligned}
+\alpha\mid\beta,s,t &\sim \text{Bin}(n, \beta) \\
+\beta\mid\alpha,s,t &\sim \text{Beta}(\alpha+s, n-\alpha+t)
+\end{aligned}$$
+
+## Gibb sampling algorithm (Ex) {.scrollable}
+
+```{r gibbs-ex}
+#| echo: true
+#| code-fold: true
+
+library(dygraphs)
+
+sample_alpha_conditional <- function(beta, n) {
+  
+  rbinom(n = 1, size = n, prob = beta)
+  
+}
+
+sample_beta_conditional <- function(alpha, s, t, n) {
+  
+  rbeta(n = 1, shape1 = alpha+s, shape2 = n-alpha+t)
+
+  }
+
+gibbs <- function(N, beta0, data, burnin = 1){
+  
+  alphas <- rep(0, N+1)
+  betas <- rep(beta0, N+1)
+  
+  for (t in 2:(N+1)){
+    alphas[t] <- sample_alpha_conditional(betas[t-1], data$n)
+    betas[t] <- sample_beta_conditional(alphas[t], data$s, data$t, data$n)
+  }
+  
+  return(tibble(alpha = alphas[(burnin+1):N], 
+                beta = betas[(burnin+1):N], 
+                iter = (burnin+1):N)
+         )
+}
+
+N <- 5000
+data <- list(n = 5, s = 2, t = 1)
+
+samples <- gibbs(N, 0.5, data, burnin = 100)
+
+# ggplot(samples) +
+#   geom_line(aes(x=iter, y = beta)) +
+#   theme_bw()
+
+dygraph(ts(samples$alpha,start = 1), ylab = "Alpha") %>% dyRangeSelector()
+
+```
+
+```{r gibbs-ex-2}
+#| echo: false
+#| code-fold: false
+
+dygraph(ts(samples$beta,start = 1), ylab = "Beta") %>% dyRangeSelector()
+
+```
 
 ## References
 

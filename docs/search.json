@@ -270,21 +270,21 @@
     "href": "lectures/abm3.html#gibb-samplers",
     "title": "Gibbs samplers and variable selection",
     "section": "Gibb samplers",
-    "text": "Gibb samplers\nA Markov chain Monte Carlo technique, uses conditional distributions to build an invariant transition kernel\nWhy?\nConditional distributions may have known analytical forms… exact sampling (from conditionals)"
+    "text": "Gibb samplers\n\nAn MCMC tool for converting a high-dim problem to several low-dim problems\nUse conditional distributions to build an invariant transition kernel (exact conditional step or conditional MH step)\n\nWhy?\n\nConditional distributions may have known analytical forms\n\nCan perform exact sampling (from conditionals with no tuning parameters!)\n\nConditional distributions lower dimensional\n\nMetropolis-Hastings works better"
   },
   {
     "objectID": "lectures/abm3.html#posterior-conditionals",
     "href": "lectures/abm3.html#posterior-conditionals",
     "title": "Gibbs samplers and variable selection",
     "section": "Posterior conditionals",
-    "text": "Posterior conditionals\nLet \\dim (\\theta) = d with posterior density \\pi(\\theta \\mid y)\nSeparate elements of \\theta using indices partition S_1 \\cup S_2 \\cup \\cdots \\cup S_k = \\{1,2,\\ldots,d\\}, 2 \\leq k \\leq d\nConditional distributions are\n\\begin{matrix}\\pi(\\theta^{S_1}\\mid y, \\theta^{\\bar{S_1}}) \\\\ \\pi(\\theta^{S_2}\\mid y, \\theta^{\\bar{S_2}}) \\\\ \\vdots \\\\ \\pi(\\theta^{S_k}\\mid y, \\theta^{\\bar{S_k}})   \\end{matrix}"
+    "text": "Posterior conditionals\nLet \\dim (\\theta) = d with posterior density \\pi(\\theta \\mid y)\nSeparate elements of \\theta using indices partition\nS_1 \\cup S_2 \\cup \\cdots \\cup S_k = \\{1,2,\\ldots,d\\}, 2 \\leq k \\leq d\nConditional distributions are\n\\begin{matrix}\\pi(\\theta^{S_1}\\mid y, \\theta^{\\bar{S_1}}) \\\\ \\pi(\\theta^{S_2}\\mid y, \\theta^{\\bar{S_2}}) \\\\ \\vdots \\\\ \\pi(\\theta^{S_k}\\mid y, \\theta^{\\bar{S_k}})   \\end{matrix}"
   },
   {
     "objectID": "lectures/abm3.html#posterior-full-conditionals",
     "href": "lectures/abm3.html#posterior-full-conditionals",
     "title": "Gibbs samplers and variable selection",
     "section": "Posterior full conditionals",
-    "text": "Posterior full conditionals\nIf S_i=\\{i\\} the conditional distributions are \\pi(\\theta^{\\{i\\}}\\mid y, \\theta^{\\overline{\\{i\\}}}) = \\pi(\\theta^{i}\\mid y, \\theta^{-i}) (one possible ordering)\nFor example with k=3,\n\\begin{matrix}\\pi(\\theta^{\\{1\\}}\\mid y, \\theta^{\\{2,3\\}}) \\\\ \\pi(\\theta^{\\{2\\}}\\mid y, \\theta^{\\{1,3\\}}) \\\\ \\vdots \\\\ \\pi(\\theta^{\\{3\\}}\\mid y, \\theta^{\\{1,2\\}})   \\end{matrix}"
+    "text": "Posterior full conditionals\nIf S_i=\\{i\\} the conditional distributions are\n\\pi(\\theta^{\\{i\\}}\\mid y, \\theta^{\\overline{\\{i\\}}}) = \\pi(\\theta^{i}\\mid y, \\theta^{-i})\nFor example with k=3, one possible ordering is\n\\begin{matrix}\\pi(\\theta^{\\{1\\}}\\mid y, \\theta^{\\{2,3\\}}) \\\\ \\pi(\\theta^{\\{2\\}}\\mid y, \\theta^{\\{1,3\\}}) \\\\ \\vdots \\\\ \\pi(\\theta^{\\{3\\}}\\mid y, \\theta^{\\{1,2\\}})   \\end{matrix}"
   },
   {
     "objectID": "lectures/abm3.html#gibb-sampling-algorithm",
@@ -294,11 +294,25 @@
     "text": "Gibb sampling algorithm\nInitialise \\theta_0. At time t:\n\nSet \\vartheta = \\theta_{t-1}\nFor i \\in \\{1,2\\ldots,k\\}\n\n\nSample conditional posterior \\theta_t^{S_i} \\sim \\Pi(\\cdot\\mid y, \\vartheta^{\\bar{S}_i})\nUpdate \\vartheta^{S_i} = \\theta_t^{S_i}\n\nRun until convergence (check diagnostics)"
   },
   {
-    "objectID": "lectures/abm3.html#gibb-sampling-algorithm-1",
-    "href": "lectures/abm3.html#gibb-sampling-algorithm-1",
+    "objectID": "lectures/abm3.html#gibb-sampling-algorithm-ex",
+    "href": "lectures/abm3.html#gibb-sampling-algorithm-ex",
     "title": "Gibbs samplers and variable selection",
-    "section": "Gibb sampling algorithm",
-    "text": "Gibb sampling algorithm\nCode example"
+    "section": "Gibb sampling algorithm (Ex)",
+    "text": "Gibb sampling algorithm (Ex)\nConsider posterior distribution, conditional on summary statistics s and t (and number of data points n).\n\\pi(\\alpha,\\beta\\mid s,t) \\propto {n\\choose \\alpha} \\beta^{\\alpha+s-1}(1-\\beta)^{n-\\alpha+t-1} for \\alpha \\in \\{0,1,\\ldots,n\\} and \\beta \\in [0,1]"
+  },
+  {
+    "objectID": "lectures/abm3.html#gibb-sampling-algorithm-ex-1",
+    "href": "lectures/abm3.html#gibb-sampling-algorithm-ex-1",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Gibb sampling algorithm (Ex)",
+    "text": "Gibb sampling algorithm (Ex)\nThe conditional distributions are\n\\begin{aligned}\n\\alpha\\mid\\beta,s,t &\\sim \\text{Bin}(n, \\beta) \\\\\n\\beta\\mid\\alpha,s,t &\\sim \\text{Beta}(\\alpha+s, n-\\alpha+t)\n\\end{aligned}"
+  },
+  {
+    "objectID": "lectures/abm3.html#gibb-sampling-algorithm-ex-2",
+    "href": "lectures/abm3.html#gibb-sampling-algorithm-ex-2",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Gibb sampling algorithm (Ex)",
+    "text": "Gibb sampling algorithm (Ex)\n\n\nCode\nlibrary(dygraphs)\n\nsample_alpha_conditional &lt;- function(beta, n) {\n  \n  rbinom(n = 1, size = n, prob = beta)\n  \n}\n\nsample_beta_conditional &lt;- function(alpha, s, t, n) {\n  \n  rbeta(n = 1, shape1 = alpha+s, shape2 = n-alpha+t)\n\n  }\n\ngibbs &lt;- function(N, beta0, data, burnin = 1){\n  \n  alphas &lt;- rep(0, N+1)\n  betas &lt;- rep(beta0, N+1)\n  \n  for (t in 2:(N+1)){\n    alphas[t] &lt;- sample_alpha_conditional(betas[t-1], data$n)\n    betas[t] &lt;- sample_beta_conditional(alphas[t], data$s, data$t, data$n)\n  }\n  \n  return(tibble(alpha = alphas[(burnin+1):N], \n                beta = betas[(burnin+1):N], \n                iter = (burnin+1):N)\n         )\n}\n\nN &lt;- 5000\ndata &lt;- list(n = 5, s = 2, t = 1)\n\nsamples &lt;- gibbs(N, 0.5, data, burnin = 100)\n\n# ggplot(samples) +\n#   geom_line(aes(x=iter, y = beta)) +\n#   theme_bw()\n\ndygraph(ts(samples$alpha,start = 1), ylab = \"Alpha\") %&gt;% dyRangeSelector()"
   },
   {
     "objectID": "lectures/abm3.html#references",
