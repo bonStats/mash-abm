@@ -53,13 +53,16 @@ qgamma(1-0.025, shape = m1_alpha, rate = m1_beta))
 val_lambda <- 3.5
 post_logdens1 <- function(lambda) dgamma(lambda, shape = m1_alpha, rate = m1_beta, log = T)
 prior_logdens1 <- function(lambda) dgamma(lambda, shape = alpha0, rate = beta0, log = T)
-loglikelihood1 <- function(lambda, y) sum(dpois(y, lambda = lambda, log = T)) # Don't use, too small value
+loglikelihood1 <- function(lambda, y) sum(dpois(y, lambda = lambda, log = T)) # Don't use for MC, too small value
 loglikelihoodC1 <- function(lambda, y) sum(y*log(lambda) - lambda)
 
 
 log_model_evidence1 <-function(y, include_factorial = T){ # includes factorial term from likelihood by default
   
-  ll <- ifelse(include_factorial, loglikelihood1(val_lambda, y) , loglikelihoodC1(val_lambda, y))
+  ll <- ifelse(include_factorial, 
+               loglikelihood1(val_lambda, y) , 
+               loglikelihoodC1(val_lambda, y)
+               )
   prior_logdens1(val_lambda) + ll - post_logdens1(val_lambda)
   
 }
@@ -101,30 +104,34 @@ c(qgamma(0.025, shape = m2_alpha2, rate = m2_beta2),
 
 val_lambda1 <- 3.5
 val_lambda2 <- 3
-post_logdens2 <- function(lambda1,lambda2) dgamma(lambda1, shape = m2_alpha1, rate = m2_beta1, log = T) + dgamma(lambda2, shape = m2_alpha2, rate = m2_beta2, log = T)
+post_logdens2 <- function(lambda1,lambda2)dgamma(lambda1, shape = m2_alpha1, rate = m2_beta1, log = T) + dgamma(lambda2, shape = m2_alpha2, rate = m2_beta2, log = T)
 prior_logdens2 <- function(lambda1,lambda2) dgamma(lambda1, shape = alpha0, rate = beta0, log = T) + dgamma(lambda2, shape = alpha0, rate = beta0, log = T)
-loglikelihood2 <- function(lambda1,lambda2, y1,y2) sum(dpois(y1,lambda1)) + sum(dpois(y2,lambda2))
+loglikelihood2 <- function(lambda1,lambda2, y1,y2) sum(dpois(y1,lambda1,log=T)) + sum(dpois(y2,lambda2,log=T))
 loglikelihoodC2 <- function(lambda1,lambda2, y1,y2) sum(y1*log(lambda1) - lambda1) + sum(y2*log(lambda2) - lambda2)
 
 log_model_evidence2 <- function(y1,y2, include_factorial = T){
   
-  ll <- ifelse(include_factorial, loglikelihood2(val_lambda1, val_lambda2, y1, y2), loglikelihoodC2(val_lambda1, val_lambda2, y1, y2))
+  ll <- ifelse(include_factorial, 
+               loglikelihood2(val_lambda1, val_lambda2, y1, y2), 
+               loglikelihoodC2(val_lambda1, val_lambda2, y1, y2)
+               )
   prior_logdens2(val_lambda1, val_lambda2) + ll - post_logdens2(val_lambda1, val_lambda2)
   
 }
 
-log_model_evidence2(y1, y2)
-log_model_evidence2(y1, y2, include_factorial = F)
-
-# log evidence excluding product of factorials from likelihood
+# BF: M2 vs M1
 
 log_model_evidence2(y1, y2, include_factorial = T) -
   log_model_evidence1(y, include_factorial = T)
 
+# log evidence excluding product of factorials from likelihood
+log_model_evidence2(y1, y2, include_factorial = F) -
+  log_model_evidence1(y, include_factorial = F)
 
-# BF:
 
-log_model_evidence2(filter(deputes,sexe=="H")$questions_orales, filter(deputes,sexe=="F")$questions_orales) - 
+
+
+
 
 # Model 1: Jeffery's prior
 
