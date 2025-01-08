@@ -146,3 +146,68 @@ gelman.plot(logit_samples2)
 summary(logit_samples2)
 
 # inference hasn't changed that much...
+
+
+## Modelling from first principles
+
+
+#  z = (alpha - alpha_star) ~ N(0,sigma2)
+prob_success <- function(sigma,x,R){
+  eps_tol <- atan(R/x)
+  2*pnorm(eps_tol/sigma)  - 1
+}
+
+prob_success_logit <- function(x, b0 = 2.23, b1 = -0.25){
+  exp(b0 + b1 * x) / ( 1 + exp(b0 + b1 * x) )
+}
+
+ggplot(tibble(x=c(0.02,20)), aes(x=x)) + 
+  stat_function(aes(colour = "Pr(Y=1)"), fun = prob_success, args = list(sigma = 0.05, R = 0.177)) + 
+  stat_function(aes(colour = "Pr(Y=1) logistic"), fun = prob_success_logit) +
+  scale_color_discrete("") + 
+  theme_bw()
+
+
+# bern log likelihood: y * log(prob) + (1-y) * log(1-prob)
+
+log_likelihood1 <- function(sigma2,data,R) {
+  
+  p <- prob_success(sigma2, data$distance, R)
+  sum(log(p) * data$success + log(1 - p) * (1 - data$success))
+  
+}
+
+# more numerically stable
+log_likelihood2 <- function(sigma2,data,R) {
+  
+  p <- prob_success(sigma2, data$distance, R)
+  prob_i <-ifelse(data$success==1, p,  1 - p)
+  sum(log(prob_i))
+  
+}
+
+log_likelihood1(0.1,golf,0.177)
+log_likelihood2(0.1,golf,0.177)
+
+log_likelihood1(0.01,golf,0.177)
+log_likelihood2(0.01,golf,0.177)
+
+log_prior <- function(sigma2) dgamma(sigma2, shape = 0.1, rate = 1, log = T)
+
+log_post <- function(sigma2,data,R){
+  
+  log_likelihood2(sigma2,data,R) + log_prior(sigma2)
+  
+}
+
+
+samples <- MCMCmetrop1R(fun = log_post, 
+                        data = golf, 
+                        R = 0.177, 
+                        theta.init = 0.1, 
+                        burnin = 5000, mcmc = 10000)
+
+
+# To do: 
+# Run multiple chains to calculate R hat to check convergence
+# Check ESS, 

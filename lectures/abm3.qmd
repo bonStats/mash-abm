@@ -258,6 +258,133 @@ dygraph(ts(samples$beta,start = 1), ylab = "Beta") %>% dyRangeSelector()
 
 ```
 
+# Model averaging
+
+## Zellner’s G-prior: Probability model
+
+#### Prior
+
+$$\begin{aligned}
+\beta \mid \sigma^2, X &\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
+\pi(\sigma^2)&\propto \sigma^{-2} \end{aligned}$$
+
+#### Data model
+
+$$y \mid \beta, \sigma^2,X \sim \mathcal{N}(X \beta, \sigma^2)$$
+with fixed hyper-parameter $g$ [@zellner1986gprior]
+
+## Zellner’s G-prior: Posterior
+
+Zellner’s G-prior leads to a posterior
+
+$$\begin{aligned}
+\beta \mid \sigma^2,y,X&\sim \mathcal{N}\left(\frac{g}{g+1}\hat\beta,
+\frac{\sigma^2g}{g+1}(X^\top X)^{-1}\right) \\
+\sigma^2\mid y,X &\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2}{2}+\frac{1}{2(g+1)}
+\hat\beta^\top X^\top X\hat\beta\right)   \end{aligned}$$
+
+## Zellner’s G-prior: Model evidence
+
+$$\begin{aligned} m(y\mid X) = & (g+1)^{-(p+1)/2}\pi^{-n/2}\Gamma(n/2) \\ & \times\left[y^\top y-\frac{g}{g+1}y^\top X(X^\top X)^{-1}X^\top y\right]^{-n/2}\end{aligned}$$
+
+## Zellner’s G-prior: Exact samples
+
+For^[Sample in parallel if desired] $i\in\{1,2,\ldots,N\}$
+
+1. Sample $\sigma^2_i \mid y,X$ from IG
+2. Sample $\beta_i \mid \sigma^2_i,y,X$ from MVN
+
+Results in exact posterior draws $\theta_i = (\beta_i,\sigma^2_i)$
+
+## Model averaging with Zellner’s G-prior
+
+Model choice involves selecting best set of covariates
+
+Bayesian model averaging finds best subset of models with uncertainty
+
+- $\gamma_i \in \{0,1\}$ for $i \in \{1,\ldots,p\}$
+- $\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)$
+- $X_\gamma$ be the submatrix of $X$ which only includes covariate $x_i$ as a column when $\gamma_i=1$
+- Always keep the intercept
+
+## Probability model with averaging (V1)
+
+#### Prior
+
+$$\begin{aligned}
+\beta_\gamma \mid \sigma^2, \gamma, X &\sim \mathcal N\left(0, g\sigma^2(X_\gamma^\top X_\gamma)^{-1}\right),\\
+\pi(\sigma^2\mid \gamma)&\propto \sigma^{-2} \\
+\gamma_i & \overset{\text{iid}}{\sim} \text{Bern}(\rho), \quad i\in\{1,2,\ldots,p\}
+\end{aligned}$$
+
+#### Data model
+
+$$y \mid \beta,\sigma^2,\gamma,X \sim \mathcal{N}(X_\gamma \beta_\gamma, \sigma^2)$$
+
+## Probability model with averaging (V2)
+
+#### Prior
+
+$$\begin{aligned}
+\beta_\gamma \mid \sigma^2, \gamma, X &\sim \mathcal N\left(0, g\sigma^2(X_\gamma^\top X_\gamma)^{-1}\right),\quad \beta_{1-\gamma} \vert \gamma = 0 \\
+\pi(\sigma^2\mid \gamma)&\propto \sigma^{-2} \\
+\gamma_i & \overset{\text{iid}}{\sim} \text{Bern}(\rho), \quad i\in\{1,2,\ldots,p\}
+\end{aligned}$$
+
+#### Data model
+
+$$y \mid \beta,\sigma^2,X \sim \mathcal{N}(X \beta, \sigma^2)$$
+
+
+## Conditional posterior density
+
+We index each model using $\gamma$ vector. The model $\mathcal{M}_\gamma$ has posterior density
+
+$$\pi(\beta,\sigma^2 \mid \gamma,y,X)$$
+
+when $\gamma_i =0$ then $\beta_i=0$, only coordinates $\beta_\gamma$ are "active"
+
+## Conditional posterior distribution
+
+The model $\mathcal{M}_\gamma$ has conditional distribution
+
+$$\begin{aligned}
+\beta_{\gamma} \mid \sigma^2,\gamma,y,X&\sim \mathcal{N}\left(\frac{g}{g+1}\hat\beta_\gamma,
+\frac{\sigma^2g}{g+1}(X_\gamma^\top X_\gamma)^{-1}\right) \\
+\sigma^2\mid \gamma, y,X &\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2_\gamma}{2}+\frac{1}{2(g+1)}
+\hat\beta_\gamma^\top X_\gamma^\top X_\gamma\hat\beta_\gamma\right)   \end{aligned}$$
+
+with $\beta_{1-\gamma} =0$
+
+## Model evidence
+
+The model evidence for $\mathcal{M}_\gamma$ is 
+
+$$\begin{aligned} m(y\mid \gamma,X) = & (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \\ & \times\left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}\end{aligned}$$
+
+where $p_\gamma = \sum_{i=1}^p\gamma_i$.
+
+## Full posterior over models
+
+The posterior density factorises as
+
+$$\pi(\beta, \sigma^2, \gamma \mid X,y) = \pi(\beta, \sigma^2 \mid \gamma, X,y) \pi(\gamma \mid X,y) $$
+
+#### Full posterior sampling strategy
+
+- Sample over models $\mathcal{M}_\gamma$ using $\gamma \mid X,y$
+
+- Use exact sampling for $\beta, \sigma^2 \mid \gamma, X,y$
+
+## Marginal posterior for models
+
+$$\begin{aligned}\pi(\gamma \mid X,y) &= \frac{\pi(\beta, \sigma^2, \gamma \mid X,y)}{\pi(\beta, \sigma^2 \mid \gamma, X,y)}\\
+&~~\vdots \\
+& \propto m(y\mid \gamma,X) \pi(\gamma) \end{aligned}$$
+
+
+where $\pi(\gamma)$ is prior PMF for $\gamma$.
+
 ## References
 
 ::: {#refs}

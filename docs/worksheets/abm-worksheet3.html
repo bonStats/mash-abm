@@ -371,22 +371,22 @@ y_i&amp;=\beta_0 + \beta_1x_i^1 + \beta_2 x_i^2 + \ldots + \beta_{p}x_i^{p} + \e
 </section>
 <section id="activity-3-bayesian-inference-using-zellners-g-prior" class="level2">
 <h2 class="anchored" data-anchor-id="activity-3-bayesian-inference-using-zellners-g-prior">Activity 3: Bayesian inference using Zellner’s G-prior</h2>
-<p>Consider the following prior simplified from <span class="citation" data-cites="zellner1986gprior">Zellner (<a href="#ref-zellner1986gprior" role="doc-biblioref">1986</a>)</span> <span class="math display">\begin{aligned}
+<p>Consider the following prior simplified from <span class="citation" data-cites="zellner1986gprior">Zellner (<a href="#ref-zellner1986gprior" role="doc-biblioref">1986</a>)</span> for <span class="math inline">\beta \in \mathbb{R}^{p+1}</span>, <span class="math display">\begin{aligned}
 \beta \mid \sigma^2, X &amp;\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
 \pi(\sigma^2)&amp;\propto \sigma^{-2} \end{aligned}</span></p>
 <p>This prior is conjugate and the associated posterior is</p>
 <p><span class="math display">\begin{aligned}
-\beta \mid \sigma^2,y,X&amp;\sim \mathcal{N}_{p+1}\left(\frac{g}{g+1}\hat\beta,
+\beta \mid \sigma^2,y,X&amp;\sim \mathcal{N}\left(\frac{g}{g+1}\hat\beta,
 \frac{\sigma^2g}{g+1}(X^\top X)^{-1}\right)\\
 \sigma^2\mid y,X &amp;\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2}{2}+\frac{1}{2(g+1)}
 \hat\beta^\top X^\top X\hat\beta\right)  \end{aligned}</span></p>
 <p>where <span class="math inline">\mathcal{IG}(a,b)</span> is the inverse Gamma distribution with shape <span class="math inline">a</span> and scale <span class="math inline">b</span>. The marginal posterior distribution of <span class="math inline">\beta</span> is</p>
 <p><span class="math display">\begin{aligned}
-\beta|y,X &amp;\sim&amp; \mathcal{T}_{p+1}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top
+\beta|y,X &amp;\sim&amp; \mathcal{T}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top
 X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right)  \end{aligned}</span></p>
-<p>where <span class="math inline">\mathcal{T}_{p+1}</span> denotes the multivariate t-distribution.</p>
-<p>Let <span class="math inline">\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)</span> for <span class="math inline">\gamma_i \in \{0,1\}</span> and <span class="math inline">X_\gamma</span> be the submatrix of <span class="math inline">X</span> where we only keep the columns <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span> (always keeping the intercept). For a model considering covariate <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span>, the marginal likelihood is</p>
-<p><span class="math display">m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}</span> where <span class="math inline">p_\gamma = \sum_{i=1}^p\gamma_i</span>, the number of non-zero coefficients (excluding the intercept).</p>
+<p>where <span class="math inline">\mathcal{T}</span> denotes the multivariate t-distribution.</p>
+<p>Let <span class="math inline">\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)</span> for <span class="math inline">\gamma_i \in \{0,1\}</span> and <span class="math inline">X_\gamma</span> be the submatrix of <span class="math inline">X</span> which only includes covariate <span class="math inline">x_i</span> as a column when <span class="math inline">\gamma_i=1</span> (always keeping the intercept). For a model considering covariate <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span>, the marginal likelihood is</p>
+<p><span class="math display">m(y|X, \gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2)  \left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}</span> where <span class="math inline">p_\gamma = \sum_{i=1}^p\gamma_i</span>, the number of non-zero coefficients (excluding the intercept).</p>
 <ol type="1">
 <li><p>For <span class="math inline">g=0.1, 1, 10, 100, 1000</span>, give <span class="math inline">\mathbb{E}[\sigma^2|y, X]</span> and <span class="math inline">\mathbb{E}[\beta_0|y, X]</span>. What can you conclude about the impact of the prior on the posterior?</p></li>
 <li><p>We would like to test the hypothesis <span class="math inline">H_0: \beta_7=\beta_8=0</span>. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence.</p></li>

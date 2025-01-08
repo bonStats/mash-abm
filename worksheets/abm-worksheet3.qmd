@@ -98,14 +98,15 @@ X <- model.matrix(deathrate ~ ., data = deathrate)
 
 ## Activity 3: Bayesian inference using Zellner's G-prior
 
-Consider the following prior simplified from @zellner1986gprior $$\begin{aligned}
+Consider the following prior simplified from @zellner1986gprior for $\beta \in \mathbb{R}^{p+1}$,
+$$\begin{aligned}
 \beta \mid \sigma^2, X &\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
 \pi(\sigma^2)&\propto \sigma^{-2} \end{aligned}$$
 
 This prior is conjugate and the associated posterior is
 
 $$\begin{aligned}
-\beta \mid \sigma^2,y,X&\sim \mathcal{N}_{p+1}\left(\frac{g}{g+1}\hat\beta,
+\beta \mid \sigma^2,y,X&\sim \mathcal{N}\left(\frac{g}{g+1}\hat\beta,
 \frac{\sigma^2g}{g+1}(X^\top X)^{-1}\right)\\
 \sigma^2\mid y,X &\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2}{2}+\frac{1}{2(g+1)}
 \hat\beta^\top X^\top X\hat\beta\right)  \end{aligned}$$
@@ -113,14 +114,14 @@ $$\begin{aligned}
 where $\mathcal{IG}(a,b)$ is the inverse Gamma distribution with shape $a$ and scale $b$. The marginal posterior distribution of $\beta$ is
 
 $$\begin{aligned}
-\beta|y,X &\sim& \mathcal{T}_{p+1}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top 
+\beta|y,X &\sim& \mathcal{T}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top 
 X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right)  \end{aligned}$$
 
-where $\mathcal{T}_{p+1}$ denotes the multivariate t-distribution.
+where $\mathcal{T}$ denotes the multivariate t-distribution.
 
-Let $\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)$ for $\gamma_i \in \{0,1\}$ and $X_\gamma$ be the submatrix of $X$ where we only keep the columns $i$ such that $\gamma_i=1$ (always keeping the intercept). For a model considering covariate $i$ such that $\gamma_i=1$, the marginal likelihood is
+Let $\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)$ for $\gamma_i \in \{0,1\}$ and $X_\gamma$ be the submatrix of $X$ which only includes covariate $x_i$ as a column when $\gamma_i=1$ (always keeping the intercept). For a model considering covariate $i$ such that $\gamma_i=1$, the marginal likelihood is
 
-$$m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}$$ where $p_\gamma = \sum_{i=1}^p\gamma_i$, the number of non-zero coefficients (excluding the intercept).
+$$m(y|X, \gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2)  \left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}$$ where $p_\gamma = \sum_{i=1}^p\gamma_i$, the number of non-zero coefficients (excluding the intercept).
 
 1.  For $g=0.1, 1, 10, 100, 1000$, give $\mathbb{E}[\sigma^2|y, X]$ and $\mathbb{E}[\beta_0|y, X]$. What can you conclude about the impact of the prior on the posterior?
 
