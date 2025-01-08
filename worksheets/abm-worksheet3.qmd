@@ -10,39 +10,41 @@ format:
 
 {{< include ../snippets/_data-download.qmd >}}
 
-:::{.callout-tip}
+::: callout-tip
 ## Aims
+
 Selection of explanatory variables in a linear regression setting, through exact computation and Gibbs' sampling.
 :::
 
-:::{.callout-note collapse=true}
+::: {.callout-note collapse="true"}
 ## Resources
+
 Chapter 3, @marin2014bayesian
 
 Chapter 11.1, @gelman2013bayesian
 :::
 
-:::{.callout-important collapse=true}
+::: {.callout-important collapse="true"}
 ## Data: `deathrate2.csv`
 
-Covariates explaining the death rate in various American urban areas in the 1960s^[Data from @mcdonald1973instabilities, @gunst1980regression, @spath1992mathematical].
+Covariates explaining the death rate in various American urban areas in the 1960s[^1].
 
 `r download_data_buttom("deathrate2.csv","deathrate")`
 
 **Variable description**
 
-1. `deathrate`: the death rate (variable to explain)
-2. `rain`: the average annual precipitation
-3. `tempjan`: the average January temperature
-4. `tempjuly`: the average July temperature
-5. `over65`:  the size of the population older than 65
-6. `homesize`: the number of members per household
-7. `studies`: the number of years of schooling for persons over 22
-8. `kitchen`: the number of households with fully equipped kitchens
-9. `density`: the population per square mile
+1.  `deathrate`: the death rate (variable to explain)
+2.  `rain`: the average annual precipitation
+3.  `tempjan`: the average January temperature
+4.  `tempjuly`: the average July temperature
+5.  `over65`: the size of the population older than 65
+6.  `homesize`: the number of members per household
+7.  `studies`: the number of years of schooling for persons over 22
+8.  `kitchen`: the number of households with fully equipped kitchens
+9.  `density`: the population per square mile
 10. `nonwhite`: the size of the nonwhite population
 11. `employed`: the number of office workers
-12. `poor`: the number of families with an income less than $3000
+12. `poor`: the number of families with an income less than \$3000
 13. `hydrocarbon`: the hydrocarbon pollution index
 14. `nitrogen`: the nitric oxide pollution index
 15. `sulphur`: the sulfur dioxide pollution index
@@ -50,13 +52,13 @@ Covariates explaining the death rate in various American urban areas in the 1960
 17. `noise1`-`noise5`: 5 columns of Gaussian noise
 
 Note that the first column in `deathrate2.csv` numbers the rows.
-
 :::
+
+[^1]: Data from @mcdonald1973instabilities, @gunst1980regression, @spath1992mathematical
 
 ## Activity 1: Getting started
 
 Download and import the death rate data into `R`. Explore the data visually and determine the correlations between covariates and with the dependent variable `deathrate`.
-
 
 ```{r data}
 #| code-summary: "Starting code"
@@ -72,15 +74,13 @@ deathrate <- read_csv(file = "/path/to/deathrate2.csv", col_types = cols(col_ski
 
 ```
 
-
 ## Activity 2: Frequentist inference
 
-Our linear model is (with $p=20$, $n=60$)
-$$\begin{aligned}
+Our linear model is (with $p=20$, $n=60$) $$\begin{aligned}
 y_i&=\beta_0 + \beta_1x_i^1 + \beta_2 x_i^2 + \ldots + \beta_{p}x_i^{p} + \epsilon_i\\
 \epsilon_i & \sim  \mathcal N(0,\sigma^2)\end{aligned}$$
 
-Calculate the Frequentist estimates of $\beta$ and $\sigma^2$, which we denote $\hat\beta$ and $s^2$. Comment on the statistically significant variables. 
+Calculate the Frequentist estimates of $\beta$ and $\sigma^2$, which we denote $\hat\beta$ and $s^2$. Comment on the statistically significant variables.
 
 ```{r freq-regression}
 #| code-summary: "Starting code"
@@ -98,12 +98,11 @@ X <- model.matrix(deathrate ~ ., data = deathrate)
 
 ## Activity 3: Bayesian inference using Zellner's G-prior
 
-Consider the following prior:
-$$\begin{aligned}
+Consider the following prior simplified from @zellner1986gprior $$\begin{aligned}
 \beta \mid \sigma^2, X &\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
 \pi(\sigma^2)&\propto \sigma^{-2} \end{aligned}$$
 
-This prior is conjugate; the associated posterior is
+This prior is conjugate and the associated posterior is
 
 $$\begin{aligned}
 \beta \mid \sigma^2,y,X&\sim \mathcal{N}_{p+1}\left(\frac{g}{g+1}\hat\beta,
@@ -111,21 +110,21 @@ $$\begin{aligned}
 \sigma^2\mid y,X &\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2}{2}+\frac{1}{2(g+1)}
 \hat\beta^\top X^\top X\hat\beta\right)  \end{aligned}$$
 
-hence 
+where $\mathcal{IG}(a,b)$ is the inverse Gamma distribution with shape $a$ and scale $b$. The marginal posterior distribution of $\beta$ is
 
 $$\begin{aligned}
 \beta|y,X &\sim& \mathcal{T}_{p+1}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top 
-X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right).  \end{aligned}$$
+X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right)  \end{aligned}$$
+
+where $\mathcal{T}_{p+1}$ denotes the multivariate t-distribution.
 
 Let $\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)$ for $\gamma_i \in \{0,1\}$ and $X_\gamma$ be the submatrix of $X$ where we only keep the columns $i$ such that $\gamma_i=1$ (always keeping the intercept). For a model considering covariate $i$ such that $\gamma_i=1$, the marginal likelihood is
 
-$$m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}$$
-where $p_\gamma = \sum_{i=1}^p\gamma_i$, the number of non-zero coefficients (excluding the intercept). 
+$$m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}$$ where $p_\gamma = \sum_{i=1}^p\gamma_i$, the number of non-zero coefficients (excluding the intercept).
 
-1. For $g=0.1, 1, 10, 100, 1000$, give $\mathbb{E}[\sigma^2|y, X]$ and $\mathbb{E}[\beta_0|y, X]$. What can you conclude about the impact of the prior on the posterior?
+1.  For $g=0.1, 1, 10, 100, 1000$, give $\mathbb{E}[\sigma^2|y, X]$ and $\mathbb{E}[\beta_0|y, X]$. What can you conclude about the impact of the prior on the posterior?
 
-2. We would like to test the hypothesis $H_0: \beta_7=\beta_8=0$. Compute Bayes' factor given our data and conclude, using Jeffreys' scale of evidence.
-
+2.  We would like to test the hypothesis $H_0: \beta_7=\beta_8=0$. Compute Bayes' factor given our data and conclude, using Jeffreys' scale of evidence.
 
 ## Activity 4: Model choice with exact computation
 
@@ -145,14 +144,14 @@ We would like to know which variables to include in our model, and assume that t
 
 Using the marginal probability formula of Activity 3, compute the marginal likelihood $m(y|X_\gamma)$. Deduce the most likely model a posteriori.
 
-## Activity 5:  Model choice using Gibbs' sampling
+## Activity 5: Model choice using Gibbs' sampling
 
 We now consider all $p$ explanatory variables. We thus need to choose between $2^p$ models.
 
-1. Use the `bms` function from package [{BMS}](https://cran.r-project.org/package=BMS) to sample from the posterior distribution of $\gamma$, and conclude on the most likely model.
+1.  Use the `bms` function from package [{BMS}](https://cran.r-project.org/package=BMS) to sample from the posterior distribution of $\gamma$, and conclude on the most likely model.
 
-2. For a new value of your choice of the covariates, e.g. $x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \ldots,x_{n+1}^p]$, perform prediction using
-    a. the most probable model a posteriori
-    b. the best model as selected by AIC
-    c. a mixture of models weighted by their posterior probabilities.
+2.  For a new value of your choice of the covariates, e.g. $x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \ldots,x_{n+1}^p]$, perform prediction using
 
+    a.  the most probable model a posteriori
+    b.  the best model as selected by AIC
+    c.  a mixture of models weighted by their posterior probabilities.

@@ -256,21 +256,28 @@
     "href": "lectures/abm3.html#posterior-predictive-1",
     "title": "Gibbs samplers and variable selection",
     "section": "Posterior predictive",
-    "text": "Posterior predictive\nIf we have prior data model P(\\cdot\\mid\\theta) and posterior \\Pi(\\cdot\\mid y)\nThe posterior predictive distribution is y^\\ast \\sim P^\\ast(\\cdot\\mid y) where\nP^\\ast (\\mathrm{d}y^\\ast \\mid y) = \\int_{\\Theta}P(\\mathrm{d}y^\\ast\\mid\\theta) \\Pi( \\mathrm{d}\\theta \\mid y)"
+    "text": "Posterior predictive\nIf we have data model P(\\cdot\\mid\\theta) and posterior \\Pi(\\cdot\\mid y),\nthen the posterior predictive distribution is\nP^\\ast (\\cdot \\mid y) = \\int_{\\Theta}P(\\cdot\\mid\\theta) \\Pi( \\mathrm{d}\\theta \\mid y)"
   },
   {
     "objectID": "lectures/abm3.html#posterior-predictive-samples",
     "href": "lectures/abm3.html#posterior-predictive-samples",
     "title": "Gibbs samplers and variable selection",
     "section": "Posterior predictive samples",
-    "text": "Posterior predictive samples\nIf we have samples \\theta_i \\sim \\Pi( \\cdot \\mid y) then\ny^\\ast_i \\sim P^\\ast(\\cdot\\mid \\theta_i) will have posterior predictive (marginal) distribution\nNote: Marginal distribution of samples"
+    "text": "Posterior predictive samples\n\nSample \\theta_i \\sim \\Pi( \\cdot \\mid y)\nSample y^\\ast_i \\sim P(\\cdot\\mid \\theta_i)\n\nMarginal distribution y^\\ast_i \\mid y is posterior predictive,\ny^\\ast_i \\sim P^\\ast (\\cdot\\mid y)"
   },
   {
     "objectID": "lectures/abm3.html#gibb-samplers",
     "href": "lectures/abm3.html#gibb-samplers",
     "title": "Gibbs samplers and variable selection",
     "section": "Gibb samplers",
-    "text": "Gibb samplers\n\nAn MCMC tool for converting a high-dim problem to several low-dim problems\nUse conditional distributions to build an invariant transition kernel (exact conditional step or conditional MH step)\n\nWhy?\n\nConditional distributions may have known analytical forms\n\nCan perform exact sampling (from conditionals with no tuning parameters!)\n\nConditional distributions lower dimensional\n\nMetropolis-Hastings works better"
+    "text": "Gibb samplers\n\nDivide-and-conquer\n\nHigh-dim sampling problem \\Rightarrow several low-dim problems\n\nRely on sampling conditional posterior distributions\n\nBuild invariant transition kernels for easier problems\nUse exact conditional or conditional MH step"
+  },
+  {
+    "objectID": "lectures/abm3.html#gibb-samplers-1",
+    "href": "lectures/abm3.html#gibb-samplers-1",
+    "title": "Gibbs samplers and variable selection",
+    "section": "Gibb samplers",
+    "text": "Gibb samplers\nWhy?\n\nConditional distributions may have known analytical forms\n\nCan perform exact sampling from conditionals\nno tuning parameters!\n\nConditional distributions lower dimensional\n\nMetropolis-Hastings can be very efficient\nMH easier to tune in low dimension"
   },
   {
     "objectID": "lectures/abm3.html#posterior-conditionals",
@@ -298,7 +305,7 @@
     "href": "lectures/abm3.html#gibb-sampling-algorithm-ex",
     "title": "Gibbs samplers and variable selection",
     "section": "Gibb sampling algorithm (Ex)",
-    "text": "Gibb sampling algorithm (Ex)\nConsider posterior distribution, conditional on summary statistics s and t (and number of data points n).\n\\pi(\\alpha,\\beta\\mid s,t) \\propto {n\\choose \\alpha} \\beta^{\\alpha+s-1}(1-\\beta)^{n-\\alpha+t-1} for \\alpha \\in \\{0,1,\\ldots,n\\} and \\beta \\in [0,1]"
+    "text": "Gibb sampling algorithm (Ex)\nConsider posterior distribution, conditional on summary statistics s and t (and number of data points n).\n\\pi(\\alpha,\\beta\\mid s,t) \\propto {n\\choose \\alpha} \\beta^{\\alpha+s-1}(1-\\beta)^{n-\\alpha+t-1}\nfor \\alpha \\in \\{0,1,\\ldots,n\\} and \\beta \\in [0,1]\nCasella and George (1992)"
   },
   {
     "objectID": "lectures/abm3.html#gibb-sampling-algorithm-ex-1",
@@ -319,7 +326,7 @@
     "href": "lectures/abm3.html#references",
     "title": "Gibbs samplers and variable selection",
     "section": "References",
-    "text": "References"
+    "text": "References\n\n\nCasella, George, and Edward I George. 1992. “Explaining the Gibbs Sampler.” The American Statistician 46 (3): 167–74."
   },
   {
     "objectID": "worksheets/abm-worksheet1.html",
@@ -417,7 +424,7 @@
     "href": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
     "title": "Worksheet 3",
     "section": "Activity 3: Bayesian inference using Zellner’s G-prior",
-    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior: \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate; the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}_{p+1}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nhence\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}_{p+1}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right).  \\end{aligned}\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X where we only keep the columns i such that \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X_\\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2) \\times\\left[y^\\top y-\\frac{g_0}{g_0+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give \\mathbb{E}[\\sigma^2|y, X] and \\mathbb{E}[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
+    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior simplified from Zellner (1986) \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate and the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}_{p+1}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nwhere \\mathcal{IG}(a,b) is the inverse Gamma distribution with shape a and scale b. The marginal posterior distribution of \\beta is\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}_{p+1}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right)  \\end{aligned}\nwhere \\mathcal{T}_{p+1} denotes the multivariate t-distribution.\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X where we only keep the columns i such that \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X_\\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2) \\times\\left[y^\\top y-\\frac{g_0}{g_0+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give \\mathbb{E}[\\sigma^2|y, X] and \\mathbb{E}[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",

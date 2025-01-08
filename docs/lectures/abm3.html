@@ -98,6 +98,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -547,15 +548,18 @@ Dr Joshua J Bon
 </section>
 <section id="posterior-predictive-1" class="slide level2">
 <h2>Posterior predictive</h2>
-<p>If we have prior data model <span class="math inline">P(\cdot\mid\theta)</span> and posterior <span class="math inline">\Pi(\cdot\mid y)</span></p>
-<p>The posterior predictive distribution is <span class="math inline">y^\ast \sim P^\ast(\cdot\mid y)</span> where</p>
-<p><span class="math display">P^\ast (\mathrm{d}y^\ast \mid y) = \int_{\Theta}P(\mathrm{d}y^\ast\mid\theta) \Pi( \mathrm{d}\theta \mid y)</span></p>
+<p>If we have data model <span class="math inline">P(\cdot\mid\theta)</span> and posterior <span class="math inline">\Pi(\cdot\mid y)</span>,</p>
+<p>then the posterior predictive distribution is</p>
+<p><span class="math display">P^\ast (\cdot \mid y) = \int_{\Theta}P(\cdot\mid\theta) \Pi( \mathrm{d}\theta \mid y)</span></p>
 </section>
 <section id="posterior-predictive-samples" class="slide level2">
 <h2>Posterior predictive samples</h2>
-<p>If we have samples <span class="math inline">\theta_i \sim \Pi( \cdot \mid y)</span> then</p>
-<p><span class="math inline">y^\ast_i \sim P^\ast(\cdot\mid \theta_i)</span> will have posterior predictive (marginal) distribution</p>
-<p>Note: Marginal distribution of samples</p>
+<ol type="1">
+<li><p>Sample <span class="math inline">\theta_i \sim \Pi( \cdot \mid y)</span></p></li>
+<li><p>Sample <span class="math inline">y^\ast_i \sim P(\cdot\mid \theta_i)</span></p></li>
+</ol>
+<p>Marginal distribution <span class="math inline">y^\ast_i \mid y</span> is posterior predictive,</p>
+<p><span class="math display">y^\ast_i \sim P^\ast (\cdot\mid y)</span></p>
 </section></section>
 <section>
 <section id="gibbs-samplers" class="title-slide slide level1 center">
@@ -565,18 +569,30 @@ Dr Joshua J Bon
 <section id="gibb-samplers" class="slide level2">
 <h2>Gibb samplers</h2>
 <ul>
-<li>An MCMC tool for converting a high-dim problem to several low-dim problems</li>
-<li>Use conditional distributions to build an invariant transition kernel (exact conditional step or conditional MH step)</li>
+<li>Divide-and-conquer
+<ul>
+<li>High-dim sampling problem <span class="math inline">\Rightarrow</span> several low-dim problems</li>
+</ul></li>
+<li>Rely on sampling conditional posterior distributions
+<ul>
+<li>Build invariant transition kernels for easier problems</li>
+<li>Use exact conditional or conditional MH step</li>
+</ul></li>
 </ul>
+</section>
+<section id="gibb-samplers-1" class="slide level2">
+<h2>Gibb samplers</h2>
 <p>Why?</p>
 <ol type="1">
 <li>Conditional distributions may have known analytical forms
 <ul>
-<li>Can perform exact sampling (from conditionals with <strong>no tuning parameters!</strong>)</li>
+<li>Can perform exact sampling from conditionals</li>
+<li><strong>no tuning parameters!</strong></li>
 </ul></li>
 <li>Conditional distributions lower dimensional
 <ul>
-<li>Metropolis-Hastings works better</li>
+<li>Metropolis-Hastings can be very efficient</li>
+<li>MH easier to tune in low dimension</li>
 </ul></li>
 </ol>
 </section>
@@ -611,7 +627,9 @@ Dr Joshua J Bon
 <section id="gibb-sampling-algorithm-ex" class="slide level2">
 <h2>Gibb sampling algorithm (Ex)</h2>
 <p>Consider posterior distribution, conditional on summary statistics <span class="math inline">s</span> and <span class="math inline">t</span> (and number of data points <span class="math inline">n</span>).</p>
-<p><span class="math display">\pi(\alpha,\beta\mid s,t) \propto {n\choose \alpha} \beta^{\alpha+s-1}(1-\beta)^{n-\alpha+t-1}</span> for <span class="math inline">\alpha \in \{0,1,\ldots,n\}</span> and <span class="math inline">\beta \in [0,1]</span></p>
+<p><span class="math display">\pi(\alpha,\beta\mid s,t) \propto {n\choose \alpha} \beta^{\alpha+s-1}(1-\beta)^{n-\alpha+t-1}</span></p>
+<p>for <span class="math inline">\alpha \in \{0,1,\ldots,n\}</span> and <span class="math inline">\beta \in [0,1]</span></p>
+<p><span class="citation" data-cites="casella1992explaining">Casella and George (<a href="#/references" role="doc-biblioref" onclick="">1992</a>)</span></p>
 </section>
 <section id="gibb-sampling-algorithm-ex-1" class="slide level2">
 <h2>Gibb sampling algorithm (Ex)</h2>
@@ -681,8 +699,10 @@ Dr Joshua J Bon
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-casella1992explaining" class="csl-entry" role="listitem">
+Casella, George, and Edward I George. 1992. <span>“Explaining the Gibbs Sampler.”</span> <em>The American Statistician</em> 46 (3): 167–74.
+</div>
 </div>
 </section></section>
 <section id="appendices" class="title-slide slide level1 center">

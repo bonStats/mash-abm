@@ -371,19 +371,20 @@ y_i&amp;=\beta_0 + \beta_1x_i^1 + \beta_2 x_i^2 + \ldots + \beta_{p}x_i^{p} + \e
 </section>
 <section id="activity-3-bayesian-inference-using-zellners-g-prior" class="level2">
 <h2 class="anchored" data-anchor-id="activity-3-bayesian-inference-using-zellners-g-prior">Activity 3: Bayesian inference using Zellner’s G-prior</h2>
-<p>Consider the following prior: <span class="math display">\begin{aligned}
+<p>Consider the following prior simplified from <span class="citation" data-cites="zellner1986gprior">Zellner (<a href="#ref-zellner1986gprior" role="doc-biblioref">1986</a>)</span> <span class="math display">\begin{aligned}
 \beta \mid \sigma^2, X &amp;\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
 \pi(\sigma^2)&amp;\propto \sigma^{-2} \end{aligned}</span></p>
-<p>This prior is conjugate; the associated posterior is</p>
+<p>This prior is conjugate and the associated posterior is</p>
 <p><span class="math display">\begin{aligned}
 \beta \mid \sigma^2,y,X&amp;\sim \mathcal{N}_{p+1}\left(\frac{g}{g+1}\hat\beta,
 \frac{\sigma^2g}{g+1}(X^\top X)^{-1}\right)\\
 \sigma^2\mid y,X &amp;\sim \mathcal{IG}\left(\frac{n}{2},\frac{s^2}{2}+\frac{1}{2(g+1)}
 \hat\beta^\top X^\top X\hat\beta\right)  \end{aligned}</span></p>
-<p>hence</p>
+<p>where <span class="math inline">\mathcal{IG}(a,b)</span> is the inverse Gamma distribution with shape <span class="math inline">a</span> and scale <span class="math inline">b</span>. The marginal posterior distribution of <span class="math inline">\beta</span> is</p>
 <p><span class="math display">\begin{aligned}
 \beta|y,X &amp;\sim&amp; \mathcal{T}_{p+1}\left(n,\frac{g}{g+1}\hat\beta,\frac{g(s^2+\hat\beta^\top X^\top
-X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right).  \end{aligned}</span></p>
+X\hat\beta/(g+1))}{n(g+1)}(X^\top X)^{-1}\right)  \end{aligned}</span></p>
+<p>where <span class="math inline">\mathcal{T}_{p+1}</span> denotes the multivariate t-distribution.</p>
 <p>Let <span class="math inline">\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)</span> for <span class="math inline">\gamma_i \in \{0,1\}</span> and <span class="math inline">X_\gamma</span> be the submatrix of <span class="math inline">X</span> where we only keep the columns <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span> (always keeping the intercept). For a model considering covariate <span class="math inline">i</span> such that <span class="math inline">\gamma_i=1</span>, the marginal likelihood is</p>
 <p><span class="math display">m(y|X_\gamma) = (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \times\left[y^\top y-\frac{g_0}{g_0+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}</span> where <span class="math inline">p_\gamma = \sum_{i=1}^p\gamma_i</span>, the number of non-zero coefficients (excluding the intercept).</p>
 <ol type="1">
@@ -436,6 +437,9 @@ McDonald, Gary C, and Richard C Schwing. 1973. <span>“Instabilities of Regress
 </div>
 <div id="ref-spath1992mathematical" class="csl-entry" role="listitem">
 Späth, Helmuth. 1992. <em>Mathematical Algorithms for Linear Regression</em>. Academic Press.
+</div>
+<div id="ref-zellner1986gprior" class="csl-entry" role="listitem">
+Zellner, Arnold. 1986. <span>“On Assessing Prior Distributions and Bayesian Regression Analysis with g Prior Distributions.”</span> In <em>Bayesian Inference and Decision Techniques: Essays in Honor of Bruno de Finetti</em>, edited by Prem K. Goel and Arnold Zellner, 6:233–43. Studies in Bayesian Econometrics and Statistics. New York: Elsevier.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 

@@ -109,34 +109,43 @@ what to do if this is not the case?
 
 ## Posterior predictive
 
-If we have prior data model $P(\cdot\mid\theta)$ and posterior $\Pi(\cdot\mid y)$
+If we have data model $P(\cdot\mid\theta)$ and posterior $\Pi(\cdot\mid y)$,
 
-The posterior predictive distribution is $y^\ast \sim P^\ast(\cdot\mid y)$ where
+then the posterior predictive distribution is
 
-$$P^\ast (\mathrm{d}y^\ast \mid y) = \int_{\Theta}P(\mathrm{d}y^\ast\mid\theta) \Pi( \mathrm{d}\theta \mid y)$$
+$$P^\ast (\cdot \mid y) = \int_{\Theta}P(\cdot\mid\theta) \Pi( \mathrm{d}\theta \mid y)$$
 
 ## Posterior predictive samples
 
-If we have samples $\theta_i \sim \Pi( \cdot \mid y)$ then
+1. Sample $\theta_i \sim \Pi( \cdot \mid y)$
 
-$y^\ast_i \sim P^\ast(\cdot\mid \theta_i)$ will have posterior predictive (marginal) distribution
+2. Sample $y^\ast_i \sim P(\cdot\mid \theta_i)$ 
 
-Note: Marginal distribution of samples
+Marginal distribution $y^\ast_i \mid y$ is posterior predictive, 
+
+$$y^\ast_i \sim P^\ast (\cdot\mid y)$$
 
 
 # Gibbs samplers
 
 ## Gibb samplers
 
-- An MCMC tool for converting a high-dim problem to several low-dim problems
-- Use conditional distributions to build an invariant transition kernel (exact conditional step or conditional MH step)
+- Divide-and-conquer
+    - High-dim sampling problem $\Rightarrow$ several low-dim problems
+- Rely on sampling conditional posterior distributions
+    - Build invariant transition kernels for easier problems
+    - Use exact conditional or conditional MH step
+
+## Gibb samplers
 
 Why?
 
 1. Conditional distributions may have known analytical forms
-    - Can perform exact sampling (from conditionals with **no tuning parameters!**)
+    - Can perform exact sampling from conditionals
+    - **no tuning parameters!**
 2. Conditional distributions lower dimensional
-    - Metropolis-Hastings works better
+    - Metropolis-Hastings can be very efficient
+    - MH easier to tune in low dimension
 
 ## Posterior conditionals
 
@@ -178,7 +187,10 @@ Run until convergence (check diagnostics)
 Consider posterior distribution, conditional on summary statistics $s$ and $t$ (and number of data points $n$).
 
 $$\pi(\alpha,\beta\mid s,t) \propto {n\choose \alpha} \beta^{\alpha+s-1}(1-\beta)^{n-\alpha+t-1}$$
+
 for $\alpha \in \{0,1,\ldots,n\}$ and $\beta \in [0,1]$
+
+@casella1992explaining
 
 ## Gibb sampling algorithm (Ex)
 
