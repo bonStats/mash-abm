@@ -46,6 +46,7 @@ Worksheets with practical and computer activities based in `R`.
 
 - [Worksheet 1](worksheets/scripts/worksheet1.R)
 - [Worksheet 2](worksheets/scripts/worksheet2.R)
+- [Worksheet 3](worksheets/scripts/worksheet3.R)
 
 ## Datasets
 
