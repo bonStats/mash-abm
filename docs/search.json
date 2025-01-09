@@ -775,5 +775,54 @@
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
     "text": "References\n\n\nBaker, Jack, Paul Fearnhead, Emily B Fox, and Christopher Nemeth. 2019. “Sgmcmc: An r Package for Stochastic Gradient Markov Chain Monte Carlo.” Journal of Statistical Software 91: 1–27.\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67.\n\n\nRosenthal, Jeffrey S et al. 2011. “Optimal Proposal Distributions and Adaptive MCMC.” Handbook of Markov Chain Monte Carlo 4 (10.1201)."
+  },
+  {
+    "objectID": "lectures/abm4.html#applied-bayesian-modelling",
+    "href": "lectures/abm4.html#applied-bayesian-modelling",
+    "title": "Bayesian workflow and Stan",
+    "section": "Applied Bayesian modelling",
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows 🔍"
+  },
+  {
+    "objectID": "lectures/abm4.html#example-4",
+    "href": "lectures/abm4.html#example-4",
+    "title": "Bayesian workflow and Stan",
+    "section": "Example 4: ???",
+    "text": "Example 4: ???"
+  },
+  {
+    "objectID": "lectures/abm4.html#what-have-we-seen-so-far",
+    "href": "lectures/abm4.html#what-have-we-seen-so-far",
+    "title": "Bayesian workflow and Stan",
+    "section": "What have we seen so far?",
+    "text": "What have we seen so far?\n\nBayesian modelling\n\nBuilding a model of the data\nChoosing a prior distribution\nModel selection\n\nBayesian computation\n\nConjugate priors\nMCMC: MH and Gibbs\nMCMC diagnostics"
+  },
+  {
+    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow",
+    "href": "lectures/abm4.html#a-simplified-bayesian-workflow",
+    "title": "Bayesian workflow and Stan",
+    "section": "A simplified Bayesian workflow",
+    "text": "A simplified Bayesian workflow\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n  I --&gt; Inf(Inference)\n  I --&gt; Pred(Prediction)\n  I --&gt; Dec(Decisions)"
+  },
+  {
+    "objectID": "lectures/abm4.html#references",
+    "href": "lectures/abm4.html#references",
+    "title": "Bayesian workflow and Stan",
+    "section": "References",
+    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808."
+  },
+  {
+    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
+    "href": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "A simplified Bayesian workflow",
+    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool, tuning) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+  },
+  {
+    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-2",
+    "href": "lectures/abm4.html#a-simplified-bayesian-workflow-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "A simplified Bayesian workflow",
+    "text": "A simplified Bayesian workflow\n\n\n\nBuild Bayesian model\n\nPropose likelihood\nPropose prior\nValidate and choose\n\nCompute posterior\n\nFit the model\nValidate approximation\n\n\n\n\nEvaluate posterior\nConclusions\n\nInference / prediction\nDecisions"
   }
 ]

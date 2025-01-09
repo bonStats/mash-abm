@@ -1,0 +1,141 @@
+---
+title: "Bayesian workflow and Stan"
+subtitle: "Applied Bayesian Modelling: Section 4"
+author: "Dr Joshua J Bon"
+bibliography: ../assets/refs.bib
+format:
+  revealjs:
+    html-math-method: katex
+    theme: default
+    df-print: paged
+    incremental: false 
+    css: style.css
+    chalkboard: true
+    logo: ../assets/dauphine-logo-white.png
+    footer: "[:arrow_up: ABM](../index.qmd)"
+    cache: true
+editor: source
+from: markdown+emoji
+---
+
+{{< include ../snippets/_data-directory.qmd >}}
+
+## Applied Bayesian modelling
+
+-   Statistical inference :mag:
+-   Statistical prediction 
+-   Bayesian models
+-   Computation :mag:
+-   Workflows :mag:
+
+# Statistical inference
+
+## Example 4: ???
+
+
+```{r X-plot}
+#| echo: true
+#| code-fold: true
+
+
+
+```
+
+## What have we seen so far?
+
+- Bayesian modelling
+    - Building a model of the data
+    - Choosing a prior distribution
+    - Model selection
+
+- Bayesian computation
+    - Conjugate priors
+    - MCMC: MH and Gibbs
+    - MCMC diagnostics
+    
+## A simplified Bayesian workflow
+
+<br>
+
+```{mermaid}
+%%| fig-align: center
+flowchart TD
+  B(Build Bayesian model) --> C(Compute posterior)
+  C --> E(Evaluate posterior)
+  E --> I[Conclusions]
+  C -.-> B
+  E -.-> B
+  I --> Inf(Inference)
+  I --> Pred(Prediction)
+  I --> Dec(Decisions)
+```
+
+## A simplified Bayesian workflow
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="38%"}
+
+
+#### Overall workflow
+
+```{mermaid}
+flowchart TD
+  B(Build Bayesian model) --> C(Compute posterior)
+  C --> E(Evaluate posterior)
+  E --> I[Conclusions]
+  C -.-> B
+  E -.-> B
+```
+
+@gelman2020bayesian
+
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="57%"}
+
+#### Build Bayesian model
+```{mermaid}
+flowchart LR
+  A(Propose likelihood) --> B( Propose prior)
+  B --> C(Validate prior)
+  C -.-> B
+  C -.-> A
+```
+
+#### Compute posterior
+```{mermaid}
+flowchart LR
+  A(Choose tool, tuning) --> B(Fit model)
+  B --> C(Validate approximation)
+  C -.-> A
+```
+
+#### Evaluate posterior
+```{mermaid}
+flowchart LR
+  A(Posterior predictive) --> B(Influence of prior)
+  B --> C(Cross validation)
+```
+:::
+
+::::
+
+
+
+## References
+
+::: {#refs}
+:::
+
+# Appendices
+
+
+
+
