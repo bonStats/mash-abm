@@ -809,14 +809,14 @@
     "href": "lectures/abm4.html#references",
     "title": "Bayesian workflow and Stan",
     "section": "References",
-    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808."
+    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45."
   },
   {
     "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
     "href": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
     "title": "Bayesian workflow and Stan",
     "section": "A simplified Bayesian workflow",
-    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool, tuning) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
   },
   {
     "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-2",
@@ -824,5 +824,82 @@
     "title": "Bayesian workflow and Stan",
     "section": "A simplified Bayesian workflow",
     "text": "A simplified Bayesian workflow\n\n\n\nBuild Bayesian model\n\nPropose likelihood\nPropose prior\nValidate and choose\n\nCompute posterior\n\nFit the model\nValidate approximation\n\n\n\n\nEvaluate posterior\nConclusions\n\nInference / prediction\nDecisions"
+  },
+  {
+    "objectID": "lectures/abm4.html#build-bayesian-model-1",
+    "href": "lectures/abm4.html#build-bayesian-model-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Build Bayesian model",
+    "text": "Build Bayesian model\n\n\n\nPropose likelihood\nHow are the data generated?\n\nSupport of distribution\nDependency between data\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#compute-posterior-1",
+    "href": "lectures/abm4.html#compute-posterior-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Compute posterior",
+    "text": "Compute posterior\n\n\n\nChoose tool and settings\n\nConjugate prior\nMC algorithm: MH, Gibbs, HMC1\nMCMC settings: proposal distribution\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\n\nContinuous parameters"
+  },
+  {
+    "objectID": "lectures/abm4.html#evaluate-posterior-1",
+    "href": "lectures/abm4.html#evaluate-posterior-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Evaluate posterior",
+    "text": "Evaluate posterior\n\n\n\nPosterior predictive\n\n\n\n\n\n\nflowchart TD\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+  },
+  {
+    "objectID": "lectures/abm4.html#build-bayesian-model-2",
+    "href": "lectures/abm4.html#build-bayesian-model-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "Build Bayesian model",
+    "text": "Build Bayesian model\n\n\n\nPropose prior\nWhat prior information do we have on the model parameters (given the likelihood)?\n\nGlobal vs local parameters\nConstraints\nExpert elicitation\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#build-bayesian-model-3",
+    "href": "lectures/abm4.html#build-bayesian-model-3",
+    "title": "Bayesian workflow and Stan",
+    "section": "Build Bayesian model",
+    "text": "Build Bayesian model\n\n\n\nValidate prior\nDoes the prior predictive distribution produce data that is reasonable?\n\nPrior predictive checking\nDomain knowledge\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#compute-posterior-2",
+    "href": "lectures/abm4.html#compute-posterior-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "Compute posterior",
+    "text": "Compute posterior\n\n\n\nFit model\n\nMCMC software: R, Stan\nInitial number of iterations\nSave samples\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#compute-posterior-3",
+    "href": "lectures/abm4.html#compute-posterior-3",
+    "title": "Bayesian workflow and Stan",
+    "section": "Compute posterior",
+    "text": "Compute posterior\n\n\n\nValidate approximation\n\nConvergence diagnostics: \\hat{R}, ESS\nVisualisations: Trace, autocorrelation plots\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#evaluate-posterior-2",
+    "href": "lectures/abm4.html#evaluate-posterior-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "Evaluate posterior",
+    "text": "Evaluate posterior\n\n\n\nInfluence of prior\n\n\n\n\n\n\nflowchart TD\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+  },
+  {
+    "objectID": "lectures/abm4.html#evaluate-posterior-3",
+    "href": "lectures/abm4.html#evaluate-posterior-3",
+    "title": "Bayesian workflow and Stan",
+    "section": "Evaluate posterior",
+    "text": "Evaluate posterior\n\n\n\nCross validation\n\n\n\n\n\n\nflowchart TD\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+  },
+  {
+    "objectID": "lectures/abm4.html#the-folk-theorem-of-statistical-computing",
+    "href": "lectures/abm4.html#the-folk-theorem-of-statistical-computing",
+    "title": "Bayesian workflow and Stan",
+    "section": "The folk theorem of statistical computing",
+    "text": "The folk theorem of statistical computing\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B"
+  },
+  {
+    "objectID": "lectures/abm4.html#section",
+    "href": "lectures/abm4.html#section",
+    "title": "Bayesian workflow and Stan",
+    "section": "",
+    "text": "The folk theorem of statistical computing\n\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B"
   }
 ]

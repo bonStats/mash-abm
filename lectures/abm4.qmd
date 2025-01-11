@@ -112,7 +112,7 @@ flowchart LR
 #### Compute posterior
 ```{mermaid}
 flowchart LR
-  A(Choose tool, tuning) --> B(Fit model)
+  A(Choose tool and settings) --> B(Fit model)
   B --> C(Validate approximation)
   C -.-> A
 ```
@@ -127,6 +127,292 @@ flowchart LR
 
 ::::
 
+## Build Bayesian model
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Propose likelihood
+
+How are the data generated?
+
+- Support of distribution
+- Dependency between data
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Propose likelihood) --> B( Propose prior)
+  B --> C(Validate prior)
+  C -.-> B
+  C -.-> A
+```
+
+:::
+
+::::
+
+## Build Bayesian model
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Propose prior
+
+What prior information do we have on the model parameters (given the likelihood)?
+
+- Global vs local parameters
+- Constraints
+- Expert elicitation
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Propose likelihood) --> B( Propose prior)
+  B --> C(Validate prior)
+  C -.-> B
+  C -.-> A
+```
+
+:::
+
+::::
+
+## Build Bayesian model
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Validate prior
+
+Does the prior predictive distribution produce data that is reasonable?
+
+- Prior predictive checking
+- Domain knowledge
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Propose likelihood) --> B( Propose prior)
+  B --> C(Validate prior)
+  C -.-> B
+  C -.-> A
+```
+
+:::
+
+::::
+
+## Compute posterior
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Choose tool and settings
+
+- Conjugate prior
+- MC algorithm: MH, Gibbs, HMC^[Continuous parameters]
+- MCMC settings: proposal distribution
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Choose tool and settings) --> B(Fit model)
+  B --> C(Validate approximation)
+  C -.-> A
+```
+
+:::
+
+::::
+
+
+## Compute posterior
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Fit model
+
+- MCMC software: R, Stan
+- Initial number of iterations
+- Save samples
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Choose tool and settings) --> B(Fit model)
+  B --> C(Validate approximation)
+  C -.-> A
+```
+
+:::
+
+::::
+
+
+## Compute posterior
+
+<br> 
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Validate approximation
+
+- Convergence diagnostics: $\hat{R}$, ESS
+- Visualisations: Trace, autocorrelation plots
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Choose tool and settings) --> B(Fit model)
+  B --> C(Validate approximation)
+  C -.-> A
+```
+
+:::
+
+::::
+
+
+##
+
+### The folk theorem of statistical computing
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+When you have computational problems, often there’s a problem with your model 
+
+-@yao2022stacking
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+%%| fig-align: right
+flowchart TD
+  B(Build Bayesian model) --> C(Compute posterior)
+  C --> E(Evaluate posterior)
+  E --> I[Conclusions]
+  C -.-> B
+  E -.-> B
+```
+
+:::
+
+::::
+
+## Evaluate posterior
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Posterior predictive
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Posterior predictive) --> B(Influence of prior)
+  B --> C(Cross validation)
+```
+
+:::
+
+::::
+
+## Evaluate posterior
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Influence of prior
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Posterior predictive) --> B(Influence of prior)
+  B --> C(Cross validation)
+```
+
+:::
+
+::::
+
+## Evaluate posterior
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+#### Cross validation
+
+:::
+
+::: {.column width="30%"}
+
+```{mermaid}
+flowchart TD
+  A(Posterior predictive) --> B(Influence of prior)
+  B --> C(Cross validation)
+```
+
+:::
+
+::::
 
 
 ## References
