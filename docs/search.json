@@ -809,14 +809,14 @@
     "href": "lectures/abm4.html#references",
     "title": "Bayesian workflow and Stan",
     "section": "References",
-    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45."
+    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
   },
   {
     "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
     "href": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
     "title": "Bayesian workflow and Stan",
     "section": "A simplified Bayesian workflow",
-    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
     "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-2",
@@ -844,7 +844,7 @@
     "href": "lectures/abm4.html#evaluate-posterior-1",
     "title": "Bayesian workflow and Stan",
     "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nPosterior predictive\n\n\n\n\n\n\nflowchart TD\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+    "text": "Evaluate posterior\n\n\n\nModel checking\n\nPosterior predictive\nInflence of prior\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
     "objectID": "lectures/abm4.html#build-bayesian-model-2",
@@ -879,14 +879,14 @@
     "href": "lectures/abm4.html#evaluate-posterior-2",
     "title": "Bayesian workflow and Stan",
     "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nInfluence of prior\n\n\n\n\n\n\nflowchart TD\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+    "text": "Evaluate posterior\n\n\n\nModel comparison\n\nModel evidence\nCross validation\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
     "objectID": "lectures/abm4.html#evaluate-posterior-3",
     "href": "lectures/abm4.html#evaluate-posterior-3",
     "title": "Bayesian workflow and Stan",
     "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nCross validation\n\n\n\n\n\n\nflowchart TD\n  A(Posterior predictive) --&gt; B(Influence of prior)\n  B --&gt; C(Cross validation)"
+    "text": "Evaluate posterior\n\n\n\nModel choice\n\nModel selection\nModel averaging\nPosterior stacking (Yao et al. 2018)\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
     "objectID": "lectures/abm4.html#the-folk-theorem-of-statistical-computing",
@@ -900,6 +900,41 @@
     "href": "lectures/abm4.html#section",
     "title": "Bayesian workflow and Stan",
     "section": "",
-    "text": "The folk theorem of statistical computing\n\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B"
+    "text": "The folk theorem of statistical computing\n\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n  \n  linkStyle 3 stroke-width:4px, stroke:red"
+  },
+  {
+    "objectID": "lectures/abm4.html#probabilistic-programming-languages",
+    "href": "lectures/abm4.html#probabilistic-programming-languages",
+    "title": "Bayesian workflow and Stan",
+    "section": "Probabilistic programming languages",
+    "text": "Probabilistic programming languages\n\nSyntax to code joint probability model\n\n\n\n\n\n\nflowchart LR\n  A(PPL model specification) --&gt; B(log probability)\n  B --&gt; C(Inference algorithms)\n\n\n\n\n\n\nPPLs are usually bundled with inference algorithm(s)\n\nMCMC (HMC!)\nVI\nSMC"
+  },
+  {
+    "objectID": "lectures/abm4.html#probabilistic-programming-languages-1",
+    "href": "lectures/abm4.html#probabilistic-programming-languages-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Probabilistic programming languages",
+    "text": "Probabilistic programming languages\n\n\n\nName\nPPL lang.\nInference lang.\nBackend\n\n\n\n\nBUGS family1\n“BUGS”\nvarious\nvarious\n\n\nStan\nStan\nR, python, julia,…\nC++\n\n\nTuring.jl\njulia\njulia\njulia\n\n\nPyro2\npython\npython\nPyTorch\n\n\npyMC\npython\npython\nPyTensor\n\n\ngreta\nR\nR\nTensorFlow\n\n\n\nBUGS, WinBugs, OpenBUGS, JAGSSee also numPyro using JAX backend"
+  },
+  {
+    "objectID": "lectures/abm4.html#posterior-and-log-probability",
+    "href": "lectures/abm4.html#posterior-and-log-probability",
+    "title": "Bayesian workflow and Stan",
+    "section": "Posterior and log probability",
+    "text": "Posterior and log probability\n\n\n\n\n\nflowchart LR\n  A(PPL model specification) --&gt; B(log probability)\n  B --&gt; C(Inference algorithms)\n\n\n\n\n\n\n\\log p(\\theta, y) = \\log \\pi(\\theta) + \\log p(y \\mid \\theta)\n\\pi(\\theta \\mid y) \\propto p(\\theta, y)"
+  },
+  {
+    "objectID": "lectures/abm4.html#ppl-examples",
+    "href": "lectures/abm4.html#ppl-examples",
+    "title": "Bayesian workflow and Stan",
+    "section": "PPL examples",
+    "text": "PPL examples\n\n\n\nName\nPPL lang.\nInference lang.\nBackend\n\n\n\n\nBUGS family1\n“BUGS”\nvarious\nvarious\n\n\nStan\nStan\nR, python, julia,…\nC++\n\n\nTuring.jl\njulia\njulia\njulia\n\n\nPyro2\npython\npython\nPyTorch\n\n\npyMC\npython\npython\nPyTensor\n\n\ngreta\nR\nR\nTensorFlow\n\n\n\nBUGS, WinBugs, OpenBUGS, JAGSSee also numPyro using JAX backend"
+  },
+  {
+    "objectID": "lectures/abm4.html#bayesian-models-in-stan",
+    "href": "lectures/abm4.html#bayesian-models-in-stan",
+    "title": "Bayesian workflow and Stan",
+    "section": "Bayesian models in Stan",
+    "text": "Bayesian models in Stan\n\n\nProbability model\nPrior\n\\alpha \\sim \\mathcal{N}(0,1)\n\\beta \\sim \\mathcal{N}(0,1)\n\\sigma \\sim\\mathcal{IG}(1,1)\nLikelihood\ny_i \\mid \\alpha,\\beta,\\sigma, x \\overset{\\text{iid}}{\\sim} \\mathcal{N}(\\alpha+\\beta x_i,\\sigma^2)\n\nStan code\ndata {\n  int&lt;lower=0&gt; N;\n  vector[N] x;\n  vector[N] y;\n}\nparameters {\n  real alpha;\n  real beta;\n  real&lt;lower=0&gt; sigma;\n}\nmodel {\n  // prior\n  alpha ~ normal(0, 1);\n  beta ~ normal(0, 1);\n  sigma ~ inv_gamma(1, 1);\n  // likelihood\n  y ~ normal(alpha + beta * x, sigma);\n}"
   }
 ]

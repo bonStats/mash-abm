@@ -120,8 +120,8 @@ flowchart LR
 #### Evaluate posterior
 ```{mermaid}
 flowchart LR
-  A(Posterior predictive) --> B(Influence of prior)
-  B --> C(Cross validation)
+  A(Model checking) --> B(Model comparison)
+  B --> C(Model choice)
 ```
 :::
 
@@ -336,6 +336,8 @@ flowchart TD
   E --> I[Conclusions]
   C -.-> B
   E -.-> B
+  
+  linkStyle 3 stroke-width:4px, stroke:red
 ```
 
 :::
@@ -350,7 +352,10 @@ flowchart TD
 
 ::: {.column width="70%"}
 
-#### Posterior predictive
+#### Model checking
+
+- Posterior predictive
+- Inflence of prior
 
 :::
 
@@ -358,8 +363,8 @@ flowchart TD
 
 ```{mermaid}
 flowchart TD
-  A(Posterior predictive) --> B(Influence of prior)
-  B --> C(Cross validation)
+  A(Model checking) --> B(Model comparison)
+  B --> C(Model choice)
 ```
 
 :::
@@ -374,7 +379,10 @@ flowchart TD
 
 ::: {.column width="70%"}
 
-#### Influence of prior
+#### Model comparison
+
+- Model evidence
+- Cross validation
 
 :::
 
@@ -382,8 +390,8 @@ flowchart TD
 
 ```{mermaid}
 flowchart TD
-  A(Posterior predictive) --> B(Influence of prior)
-  B --> C(Cross validation)
+  A(Model checking) --> B(Model comparison)
+  B --> C(Model choice)
 ```
 
 :::
@@ -398,7 +406,12 @@ flowchart TD
 
 ::: {.column width="70%"}
 
-#### Cross validation
+#### Model choice
+
+- Model selection
+- Model averaging
+- Posterior stacking [@yao2018using]
+
 
 :::
 
@@ -406,13 +419,109 @@ flowchart TD
 
 ```{mermaid}
 flowchart TD
-  A(Posterior predictive) --> B(Influence of prior)
-  B --> C(Cross validation)
+  A(Model checking) --> B(Model comparison)
+  B --> C(Model choice)
 ```
 
 :::
 
 ::::
+
+# PPLs and Stan
+
+## Probabilistic programming languages
+
+- Syntax to code joint probability model
+
+```{mermaid}
+%%| fig-align: center
+flowchart LR
+  A(PPL model specification) --> B(log probability)
+  B --> C(Inference algorithms)
+```
+
+PPLs are usually bundled with inference algorithm(s)
+
+- MCMC (HMC!)
+- VI
+- SMC
+
+## PPL examples
+
+| Name                                 | PPL lang.            | Inference lang.      | Backend              |
+|--------------------------------------|----------------------|----------------------|----------------------|
+| BUGS family^[BUGS, WinBugs, OpenBUGS, JAGS]                         | "BUGS"               | various              |  various          |
+| [Stan](https://mc-stan.org)          | Stan                 | R, python, julia,... | C++                  |
+| [Turing.jl](https://turinglang.org)  | julia                | julia                | julia
+| [Pyro](http://pyro.ai)^[See also [numPyro](https://num.pyro.ai/) using JAX backend] | python | python | PyTorch |
+| [pyMC](https://www.pymc.io/)         | python               | python               | PyTensor |
+| [greta](https://greta-stats.org)     | R                    | R                    | TensorFlow |
+
+
+## Bayesian models in Stan
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+#### Probability model
+
+Prior
+
+$\alpha \sim \mathcal{N}(0,1)$
+
+$\beta \sim \mathcal{N}(0,1)$
+ 
+$\sigma \sim\mathcal{IG}(1,1)$
+
+Likelihood 
+
+$y_i \mid \alpha,\beta,\sigma, x \overset{\text{iid}}{\sim} \mathcal{N}(\alpha+\beta x_i,\sigma^2)$
+
+:::
+
+::: {.column width="60%"}
+
+#### Stan code
+
+```stan
+data {
+  int<lower=0> N;
+  vector[N] x;
+  vector[N] y;
+}
+parameters {
+  real alpha;
+  real beta;
+  real<lower=0> sigma;
+}
+model {
+  // prior
+  alpha ~ normal(0, 1);
+  beta ~ normal(0, 1);
+  sigma ~ inv_gamma(1, 1);
+  // likelihood
+  y ~ normal(alpha + beta * x, sigma);
+}
+```
+
+:::
+
+::::
+
+## Posterior and log probability
+
+```{mermaid}
+%%| fig-align: center
+flowchart LR
+  A(PPL model specification) --> B(log probability)
+  B --> C(Inference algorithms)
+```
+
+
+$$\log p(\theta, y) = \log \pi(\theta) + \log p(y \mid \theta)$$
+
+$$\pi(\theta \mid y) \propto p(\theta, y)$$
 
 
 ## References
