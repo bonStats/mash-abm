@@ -70,7 +70,7 @@ library(readr)
 library(ggplot2)
 
 deathrate <- read_csv(file = "/path/to/deathrate2.csv", col_types = cols(col_skip(), col_guess()))
-# Discards the first row.
+# Discards the first column.
 
 ```
 
@@ -98,8 +98,7 @@ X <- model.matrix(deathrate ~ ., data = deathrate)
 
 ## Activity 3: Bayesian inference using Zellner's G-prior
 
-Consider the following prior simplified from @zellner1986gprior for $\beta \in \mathbb{R}^{p+1}$,
-$$\begin{aligned}
+Consider the following prior simplified from @zellner1986gprior for $\beta \in \mathbb{R}^{p+1}$, $$\begin{aligned}
 \beta \mid \sigma^2, X &\sim \mathcal N\left(0, g\sigma^2(X^\top X)^{-1}\right)\\
 \pi(\sigma^2)&\propto \sigma^{-2} \end{aligned}$$
 

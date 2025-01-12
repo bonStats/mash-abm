@@ -1,0 +1,113 @@
+---
+title: "Worksheet 4"
+subtitle: "Bayesian workflow and Stan"
+author: "Robin Ryder & Joshua J Bon"
+bibliography: ../assets/refs.bib
+format: 
+  html:
+    html-math-method: katex
+---
+
+{{< include ../snippets/_data-download.qmd >}}
+
+::: callout-tip
+## Aims
+
+Sampling from the posterior of a hierarchical model in `Stan`. Computing posterior predictive probabilities.
+:::
+
+::: {.callout-note collapse="true"}
+## Resources
+
+Chapter 6, @gelman2013bayesian
+:::
+
+::: {.callout-important collapse="true"}
+## Data: `kidneycancerclean.csv`
+
+Kidney cancer death rates[^1] by county in periods 1980--84 and 1985--89. We are interested in the columns `dc` and `dc.2`, which give the number of deaths from kidney cancer in each county, respectively in the years 1980--84 and 1985--89. The columns `pop` and `pop.2` are some measure of the population in the counties. We shall ignore the other columns.
+
+`r download_data_buttom("kidneycancerclean.csv","kidneycancerclean")`
+
+**Variable description**
+
+1. `state`
+2. `Location`
+3. `fips`
+4. `dc`: Deaths from kidney cancer 1980--84
+5. `dcV`
+6. `pop`: County population 1980--84
+7. `popV`
+8. `aadc`
+9. `aadcV`
+10. `dcC`
+11. `dcCV`
+12. `good`
+13. `dc.2`: Deaths from kidney cancer 1985--89
+14. `dcV.2`
+15. `pop.2`: County population 1985--89
+16. `popV.2`
+17. `aadc.2`
+18. `aadcV.2`
+19. `dcC.2`
+20. `dcCV.2`
+21. `good.2`
+
+:::
+
+[^1]: Data from Chapter 6, @gelman2013bayesian
+
+## Activity 1: Getting started
+
+Download and import the kidney cancer data into `R`. 
+
+Think about these data: which aspects are striking and will need to be particularly kept in mind when checking the model fit?
+
+```{r data}
+#| code-summary: "Starting code"
+#| echo: true
+#| code-fold: true
+#| eval: false
+
+library(readr)
+library(ggplot2)
+
+kidney <- read_csv("/path/to/kidneycancerclean.csv", skip = 4, col_types = cols(col_skip(), col_guess()))
+  # Discards the first 4 rows and first column.
+
+```
+
+
+## Activity 2: IID model
+
+Suppose all observations are identically distributed. 
+
+1. Is this model reasonable?
+2. Propose a Frequentist estimate
+3. Code the IID model in `Stan` and use the `rstan` package for inference
+4. Check convergence and sample size
+5. Compare the Frequentist and Bayesian estimates
+
+## Activity 3: Independence model
+
+Suppose all observations are independent.
+
+1. Is this model reasonable?
+2. Propose a Frequentist estimate and visualize it.
+3. Code the independence model in `Stan` and use the `rstan` package for inference
+4. Check convergence and sample size
+5. Compare the Frequentist and Bayesian estimates
+
+## Activity 4: Hierarchical model
+
+1. Implement a Bayesian hierarchical model in `Stan` and use the `rstan` package for inference.
+2. Follow a Bayesian workflow (iterating as need):
+    - Build Bayesian model
+    - Compute posterior
+    - Evaluate posterior
+
+3. Simulate synthetic data and perform the relevant posterior predictive checks.
+4. Compare uncertainty of estimates to independence model
+
+
+

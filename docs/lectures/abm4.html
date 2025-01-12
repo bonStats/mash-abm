@@ -880,7 +880,8 @@ Dr Joshua J Bon
 <section id="probabilistic-programming-languages" class="slide level2">
 <h2>Probabilistic programming languages</h2>
 <ul>
-<li>Syntax to code joint probability model</li>
+<li>Syntax to encode joint probability model</li>
+<li>Creates joint probability object to be queried</li>
 </ul>
 <div class="cell" data-reveal="true" data-layout-align="center">
 <div class="cell-output-display">
@@ -888,7 +889,7 @@ Dr Joshua J Bon
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-  A(PPL model specification) --&gt; B(log probability)
+  A(PPL model specification) --&gt; B(Joint probability object)
   B --&gt; C(Inference algorithms)
 </pre>
 </div>
@@ -924,25 +925,25 @@ Dr Joshua J Bon
 <tr class="even">
 <td><a href="https://mc-stan.org">Stan</a></td>
 <td>Stan</td>
-<td>R, python, julia,…</td>
+<td>R, Python, Julia,…</td>
 <td>C++</td>
 </tr>
 <tr class="odd">
 <td><a href="https://turinglang.org">Turing.jl</a></td>
-<td>julia</td>
-<td>julia</td>
-<td>julia</td>
+<td>Julia</td>
+<td>Julia</td>
+<td>Julia</td>
 </tr>
 <tr class="even">
 <td><a href="http://pyro.ai">Pyro</a><sup>2</sup></td>
-<td>python</td>
-<td>python</td>
+<td>Python</td>
+<td>Python</td>
 <td>PyTorch</td>
 </tr>
 <tr class="odd">
-<td><a href="https://www.pymc.io/">pyMC</a></td>
-<td>python</td>
-<td>python</td>
+<td><a href="https://www.pymc.io/">PyMC</a></td>
+<td>Python</td>
+<td>Python</td>
 <td>PyTensor</td>
 </tr>
 <tr class="even">
@@ -987,24 +988,40 @@ Dr Joshua J Bon
 <span id="cb1-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </section>
-<section id="posterior-and-log-probability" class="slide level2">
-<h2>Posterior and log probability</h2>
+<section id="joint-probaility-object" class="slide level2">
+<h2>Joint probaility object</h2>
 <div class="cell" data-reveal="true" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-  A(PPL model specification) --&gt; B(log probability)
-  B --&gt; C(Inference algorithms)
+  A(Joint probability object)
+  A --&gt; C(Prior)
+  C -.-&gt; CA(log-prior density)
+  A --&gt; E(Data process)
+  C --&gt; F(Prior predictive)
+  E --&gt; F
+  
+  
+  CA -.-&gt; DA(unnormalised log-posterior density)
+  E -.-&gt; EA(log-likelihood)
+  EA -.-&gt; DA
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<p><span class="math display">\log p(\theta, y) = \log \pi(\theta) + \log p(y \mid \theta)</span></p>
-<p><span class="math display">\pi(\theta \mid y) \propto p(\theta, y)</span></p>
+<p><span class="math display">\pi(\theta\mid y) \propto p(y, \theta) = p(y\mid\theta)\pi(\theta)</span></p>
+</section>
+<section id="stan-in-r" class="slide level2">
+<h2>Stan in R</h2>
+<p>Build, run model</p>
+</section>
+<section id="crash-course-in-hmc" class="slide level2">
+<h2>Crash-course in HMC</h2>
+<p>Hamiltonian Monte Carlo</p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

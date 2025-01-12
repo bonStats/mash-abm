@@ -413,6 +413,174 @@
     "text": "References\n\n\nCasella, George, and Edward I George. 1992. “Explaining the Gibbs Sampler.” The American Statistician 46 (3): 167–74.\n\n\nZellner, Arnold. 1986. “On Assessing Prior Distributions and Bayesian Regression Analysis with g Prior Distributions.” In Bayesian Inference and Decision Techniques: Essays in Honor of Bruno de Finetti, edited by Prem K. Goel and Arnold Zellner, 6:233–43. Studies in Bayesian Econometrics and Statistics. New York: Elsevier."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Applied Bayesian Modelling",
+    "section": "",
+    "text": "Course website for M2 MASH course on Applied Bayesian Modelling."
+  },
+  {
+    "objectID": "index.html#slides",
+    "href": "index.html#slides",
+    "title": "Applied Bayesian Modelling",
+    "section": "Slides",
+    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4: Bayesian workflow and Stan [Reading: Gelman et al. (2020)]"
+  },
+  {
+    "objectID": "index.html#worksheets",
+    "href": "index.html#worksheets",
+    "title": "Applied Bayesian Modelling",
+    "section": "Worksheets",
+    "text": "Worksheets\nWorksheets with practical and computer activities based in R.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4"
+  },
+  {
+    "objectID": "index.html#code",
+    "href": "index.html#code",
+    "title": "Applied Bayesian Modelling",
+    "section": "Code",
+    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3"
+  },
+  {
+    "objectID": "index.html#datasets",
+    "href": "index.html#datasets",
+    "title": "Applied Bayesian Modelling",
+    "section": "Datasets",
+    "text": "Datasets\nDatasets for the worksheets. See worksheets for explanation.\n Download data Députés 2019\n Download data Golf\n Download data Death rates"
+  },
+  {
+    "objectID": "index.html#additional-resources",
+    "href": "index.html#additional-resources",
+    "title": "Applied Bayesian Modelling",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nTextbooks\n\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Applied Bayesian Modelling",
+    "section": "References",
+    "text": "References\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html",
+    "href": "worksheets/abm-worksheet3.html",
+    "title": "Worksheet 3",
+    "section": "",
+    "text": "Aims\n\n\n\nSelection of explanatory variables in a linear regression setting, through exact computation and Gibbs’ sampling."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-1-getting-started",
+    "href": "worksheets/abm-worksheet3.html#activity-1-getting-started",
+    "title": "Worksheet 3",
+    "section": "Activity 1: Getting started",
+    "text": "Activity 1: Getting started\nDownload and import the death rate data into R. Explore the data visually and determine the correlations between covariates and with the dependent variable deathrate.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeathrate &lt;- read_csv(file = \"/path/to/deathrate2.csv\", col_types = cols(col_skip(), col_guess()))\n# Discards the first column."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-2-frequentist-inference",
+    "href": "worksheets/abm-worksheet3.html#activity-2-frequentist-inference",
+    "title": "Worksheet 3",
+    "section": "Activity 2: Frequentist inference",
+    "text": "Activity 2: Frequentist inference\nOur linear model is (with p=20, n=60) \\begin{aligned}\ny_i&=\\beta_0 + \\beta_1x_i^1 + \\beta_2 x_i^2 + \\ldots + \\beta_{p}x_i^{p} + \\epsilon_i\\\\\n\\epsilon_i & \\sim  \\mathcal N(0,\\sigma^2)\\end{aligned}\nCalculate the Frequentist estimates of \\beta and \\sigma^2, which we denote \\hat\\beta and s^2. Comment on the statistically significant variables.\n\n\nStarting code\ndr_lm &lt;- lm(deathrate ~ ., data = deathrate)\nsummary(dr_lm)\n\n# calculate model matrix for Activity 3\nX &lt;- model.matrix(deathrate ~ ., data = deathrate)"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
+    "href": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
+    "title": "Worksheet 3",
+    "section": "Activity 3: Bayesian inference using Zellner’s G-prior",
+    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior simplified from Zellner (1986) for \\beta \\in \\mathbb{R}^{p+1}, \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate and the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nwhere \\mathcal{IG}(a,b) is the inverse Gamma distribution with shape a and scale b. The marginal posterior distribution of \\beta is\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right)  \\end{aligned}\nwhere \\mathcal{T} denotes the multivariate t-distribution.\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X which only includes covariate x_i as a column when \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X, \\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2)  \\left[y^\\top y-\\frac{g}{g+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give \\mathbb{E}[\\sigma^2|y, X] and \\mathbb{E}[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
+    "href": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
+    "title": "Worksheet 3",
+    "section": "Activity 4: Model choice with exact computation",
+    "text": "Activity 4: Model choice with exact computation\nIn this activity, we restrict ourselves to the first 3 explanatory variables.\n\n\nStarting code\nX1 &lt;- X[ , 1:4]\n\n\nWe would like to know which variables to include in our model, and assume that the intercept is necessarily included. We have 2^3=8 possible models. To each model we associate the variable \\gamma=[\\gamma_1, \\gamma_2, \\gamma_3] where \\gamma_i=1 if x^i is included in the model, and \\gamma_i=0 otherwise.\nUsing the marginal probability formula of Activity 3, compute the marginal likelihood m(y|X_\\gamma). Deduce the most likely model a posteriori."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
+    "href": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
+    "title": "Worksheet 3",
+    "section": "Activity 5: Model choice using Gibbs’ sampling",
+    "text": "Activity 5: Model choice using Gibbs’ sampling\nWe now consider all p explanatory variables. We thus need to choose between 2^p models.\n\nUse the bms function from package {BMS} to sample from the posterior distribution of \\gamma, and conclude on the most likely model.\nFor a new value of your choice of the covariates, e.g. x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \\ldots,x_{n+1}^p], perform prediction using\n\nthe most probable model a posteriori\nthe best model as selected by AIC\na mixture of models weighted by their posterior probabilities."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet3.html#footnotes",
+    "href": "worksheets/abm-worksheet3.html#footnotes",
+    "title": "Worksheet 3",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nData from McDonald and Schwing (1973), Gunst and Mason (1980), Späth (1992)↩︎"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet4.html",
+    "href": "worksheets/abm-worksheet4.html",
+    "title": "Worksheet 4",
+    "section": "",
+    "text": "Aims\n\n\n\nSampling from the posterior of a hierarchical model in Stan. Computing posterior predictive probabilities."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet4.html#activity-1-getting-started",
+    "href": "worksheets/abm-worksheet4.html#activity-1-getting-started",
+    "title": "Worksheet 4",
+    "section": "Activity 1: Getting started",
+    "text": "Activity 1: Getting started\nDownload and import the kidney cancer data into R.\nThink about these data: which aspects are striking and will need to be particularly kept in mind when checking the model fit?\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\nkidney &lt;- read_csv(\"/path/to/kidneycancerclean.csv\", skip = 4, col_types = cols(col_skip(), col_guess()))\n  # Discards the first 4 rows and first column."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet4.html#activity-2-iid-model",
+    "href": "worksheets/abm-worksheet4.html#activity-2-iid-model",
+    "title": "Worksheet 4",
+    "section": "Activity 2: IID model",
+    "text": "Activity 2: IID model\nSuppose all observations are identically distributed.\n\nIs this model reasonable?\nPropose a Frequentist estimate\nCode the IID model in Stan and use the rstan package for inference\nCheck convergence and sample size\nCompare the Frequentist and Bayesian estimates"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet4.html#activity-3-independence-model",
+    "href": "worksheets/abm-worksheet4.html#activity-3-independence-model",
+    "title": "Worksheet 4",
+    "section": "Activity 3: Independence model",
+    "text": "Activity 3: Independence model\nSuppose all observations are independent.\n\nIs this model reasonable?\nPropose a Frequentist estimate and visualize it.\nCode the independence model in Stan and use the rstan package for inference\nCheck convergence and sample size\nCompare the Frequentist and Bayesian estimates"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet4.html#activity-4-hierarchical-model",
+    "href": "worksheets/abm-worksheet4.html#activity-4-hierarchical-model",
+    "title": "Worksheet 4",
+    "section": "Activity 4: Hierarchical model",
+    "text": "Activity 4: Hierarchical model\n\nImplement a Bayesian hierarchical model in Stan and use the rstan package for inference.\nFollow a Bayesian workflow (iterating as need):\n\nBuild Bayesian model\nCompute posterior\nEvaluate posterior\n\nSimulate synthetic data and perform the relevant posterior predictive checks.\nCompare uncertainty of estimates to independence model"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet4.html#footnotes",
+    "href": "worksheets/abm-worksheet4.html#footnotes",
+    "title": "Worksheet 4",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nData from Chapter 6, Gelman et al. (2013)↩︎"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet2.html",
+    "href": "worksheets/abm-worksheet2.html",
+    "title": "Worksheet 2",
+    "section": "",
+    "text": "Aims\n\n\n\nBayesian logistic regression with Metropolis-Hastings algorithm.\nBuilding a model from first principles."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet2.html#activity-1-getting-started",
+    "href": "worksheets/abm-worksheet2.html#activity-1-getting-started",
+    "title": "Worksheet 2",
+    "section": "Activity 1: Getting started",
+    "text": "Activity 1: Getting started\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ngolf2 &lt;- read_csv(file = \"/path/to/golf2.txt\")"
+  },
+  {
+    "objectID": "worksheets/abm-worksheet2.html#activity-2-bayesian-logistic-regression",
+    "href": "worksheets/abm-worksheet2.html#activity-2-bayesian-logistic-regression",
+    "title": "Worksheet 2",
+    "section": "Activity 2: Bayesian logistic regression",
+    "text": "Activity 2: Bayesian logistic regression\nWe consider a logistic regression model with probability \\theta_i\\in (0,1):\n\\begin{aligned}\nY_i\\mid\\theta_i &\\sim \\text{Bern}(\\theta_i)\\\\\n\\text{logit}(\\theta_i) &= \\beta_0+\\beta_1 x_i\n\\end{aligned}\nor alternatively represented by P[Y_i=1] = \\text{logit}^{-1}(\\beta_0+\\beta_1 x_i) = \\frac{e^{\\beta_0+\\beta_1 x_i}}{1+e^{\\beta_0+\\beta_1 x_i}}.\n\nWhat are reasonable priors for \\beta_0 and \\beta_1?\nWrite the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?\nSimulate a pseudo-sample from this posterior via MCMC thanks to the MCMClogit function in package {MCMCpack}. Check convergence and adapt the algorithmic parameters as necessary.\nRepeat with another prior and compare the results."
+  },
+  {
+    "objectID": "worksheets/abm-worksheet2.html#activity-3-modelling-building",
+    "href": "worksheets/abm-worksheet2.html#activity-3-modelling-building",
+    "title": "Worksheet 2",
+    "section": "Activity 3: Modelling building",
+    "text": "Activity 3: Modelling building\nNow we will build a model for the data from first principles.\n\nThe ball radius is r=0.07 and the hole radius is R=0.177 (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle \\alpha.\nWrite the likelihood of your model, and choose a prior for any parameters.\nGet a pseudo-sample of the posterior thanks to the function MCMCpack::MCMCmetrop1R. Assess convergence.\nModify the algorithmic parameters (tune, burnin, …) until the output is acceptable. What is the impact of the starting point theta.init?\nCompare the data fit of both models.\nPropose an extension of the second model, and check whether the fit is improved."
+  },
+  {
     "objectID": "worksheets/abm-worksheet1.html",
     "href": "worksheets/abm-worksheet1.html",
     "title": "Worksheet 1",
@@ -455,130 +623,158 @@
     "text": "Activity 5: More models\nPerform model choice for other columns: for Y_i, you might look at any of the quantitative variables. For Z_i, you could also use groupe_sigle, which gives political affiliation, or nb_mandats, which gives the number of other elective offices held. In those cases, Z_i can take more than 2 values."
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html",
-    "href": "worksheets/abm-worksheet2.html",
-    "title": "Worksheet 2",
+    "objectID": "lectures/abm4.html#applied-bayesian-modelling",
+    "href": "lectures/abm4.html#applied-bayesian-modelling",
+    "title": "Bayesian workflow and Stan",
+    "section": "Applied Bayesian modelling",
+    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows 🔍"
+  },
+  {
+    "objectID": "lectures/abm4.html#example-4",
+    "href": "lectures/abm4.html#example-4",
+    "title": "Bayesian workflow and Stan",
+    "section": "Example 4: ???",
+    "text": "Example 4: ???"
+  },
+  {
+    "objectID": "lectures/abm4.html#what-have-we-seen-so-far",
+    "href": "lectures/abm4.html#what-have-we-seen-so-far",
+    "title": "Bayesian workflow and Stan",
+    "section": "What have we seen so far?",
+    "text": "What have we seen so far?\n\nBayesian modelling\n\nBuilding a model of the data\nChoosing a prior distribution\nModel selection\n\nBayesian computation\n\nConjugate priors\nMCMC: MH and Gibbs\nMCMC diagnostics"
+  },
+  {
+    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow",
+    "href": "lectures/abm4.html#a-simplified-bayesian-workflow",
+    "title": "Bayesian workflow and Stan",
+    "section": "A simplified Bayesian workflow",
+    "text": "A simplified Bayesian workflow\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n  I --&gt; Inf(Inference)\n  I --&gt; Pred(Prediction)\n  I --&gt; Dec(Decisions)"
+  },
+  {
+    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
+    "href": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "A simplified Bayesian workflow",
+    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
+  },
+  {
+    "objectID": "lectures/abm4.html#build-bayesian-model-1",
+    "href": "lectures/abm4.html#build-bayesian-model-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Build Bayesian model",
+    "text": "Build Bayesian model\n\n\n\nPropose likelihood\nHow are the data generated?\n\nSupport of distribution\nDependency between data\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#build-bayesian-model-2",
+    "href": "lectures/abm4.html#build-bayesian-model-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "Build Bayesian model",
+    "text": "Build Bayesian model\n\n\n\nPropose prior\nWhat prior information do we have on the model parameters (given the likelihood)?\n\nGlobal vs local parameters\nConstraints\nExpert elicitation\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#build-bayesian-model-3",
+    "href": "lectures/abm4.html#build-bayesian-model-3",
+    "title": "Bayesian workflow and Stan",
+    "section": "Build Bayesian model",
+    "text": "Build Bayesian model\n\n\n\nValidate prior\nDoes the prior predictive distribution produce data that is reasonable?\n\nPrior predictive checking\nDomain knowledge\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#compute-posterior-1",
+    "href": "lectures/abm4.html#compute-posterior-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Compute posterior",
+    "text": "Compute posterior\n\n\n\nChoose tool and settings\n\nConjugate prior\nMC algorithm: MH, Gibbs, HMC1\nMCMC settings: proposal distribution\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\n\nContinuous parameters"
+  },
+  {
+    "objectID": "lectures/abm4.html#compute-posterior-2",
+    "href": "lectures/abm4.html#compute-posterior-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "Compute posterior",
+    "text": "Compute posterior\n\n\n\nFit model\n\nMCMC software: R, Stan\nInitial number of iterations\nSave samples\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#compute-posterior-3",
+    "href": "lectures/abm4.html#compute-posterior-3",
+    "title": "Bayesian workflow and Stan",
+    "section": "Compute posterior",
+    "text": "Compute posterior\n\n\n\nValidate approximation\n\nConvergence diagnostics: \\hat{R}, ESS\nVisualisations: Trace, autocorrelation plots\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A"
+  },
+  {
+    "objectID": "lectures/abm4.html#section",
+    "href": "lectures/abm4.html#section",
+    "title": "Bayesian workflow and Stan",
     "section": "",
-    "text": "Aims\n\n\n\nBayesian logistic regression with Metropolis-Hastings algorithm.\nBuilding a model from first principles."
+    "text": "The folk theorem of statistical computing\n\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n  \n  linkStyle 3 stroke-width:4px, stroke:red"
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#activity-1-getting-started",
-    "href": "worksheets/abm-worksheet2.html#activity-1-getting-started",
-    "title": "Worksheet 2",
-    "section": "Activity 1: Getting started",
-    "text": "Activity 1: Getting started\nExplore the data and represent graphically the success frequency as a function of distance.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ngolf2 &lt;- read_csv(file = \"/path/to/golf2.txt\")"
+    "objectID": "lectures/abm4.html#evaluate-posterior-1",
+    "href": "lectures/abm4.html#evaluate-posterior-1",
+    "title": "Bayesian workflow and Stan",
+    "section": "Evaluate posterior",
+    "text": "Evaluate posterior\n\n\n\nModel checking\n\nPosterior predictive\nInflence of prior\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#activity-2-bayesian-logistic-regression",
-    "href": "worksheets/abm-worksheet2.html#activity-2-bayesian-logistic-regression",
-    "title": "Worksheet 2",
-    "section": "Activity 2: Bayesian logistic regression",
-    "text": "Activity 2: Bayesian logistic regression\nWe consider a logistic regression model with probability \\theta_i\\in (0,1):\n\\begin{aligned}\nY_i\\mid\\theta_i &\\sim \\text{Bern}(\\theta_i)\\\\\n\\text{logit}(\\theta_i) &= \\beta_0+\\beta_1 x_i\n\\end{aligned}\nor alternatively represented by P[Y_i=1] = \\text{logit}^{-1}(\\beta_0+\\beta_1 x_i) = \\frac{e^{\\beta_0+\\beta_1 x_i}}{1+e^{\\beta_0+\\beta_1 x_i}}.\n\nWhat are reasonable priors for \\beta_0 and \\beta_1?\nWrite the likelihood and posterior associated with this model. Is the posterior distribution easy to sample from?\nSimulate a pseudo-sample from this posterior via MCMC thanks to the MCMClogit function in package {MCMCpack}. Check convergence and adapt the algorithmic parameters as necessary.\nRepeat with another prior and compare the results."
+    "objectID": "lectures/abm4.html#evaluate-posterior-2",
+    "href": "lectures/abm4.html#evaluate-posterior-2",
+    "title": "Bayesian workflow and Stan",
+    "section": "Evaluate posterior",
+    "text": "Evaluate posterior\n\n\n\nModel comparison\n\nModel evidence\nCross validation\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
-    "objectID": "worksheets/abm-worksheet2.html#activity-3-modelling-building",
-    "href": "worksheets/abm-worksheet2.html#activity-3-modelling-building",
-    "title": "Worksheet 2",
-    "section": "Activity 3: Modelling building",
-    "text": "Activity 3: Modelling building\nNow we will build a model for the data from first principles.\n\nThe ball radius is r=0.07 and the hole radius is R=0.177 (all distance are in feet). Propose a model based on the geometric properties of the problem, assuming the player hits the ball with some random angle \\alpha.\nWrite the likelihood of your model, and choose a prior for any parameters.\nGet a pseudo-sample of the posterior thanks to the function MCMCpack::MCMCmetrop1R. Assess convergence.\nModify the algorithmic parameters (tune, burnin, …) until the output is acceptable. What is the impact of the starting point theta.init?\nCompare the data fit of both models.\nPropose an extension of the second model, and check whether the fit is improved."
+    "objectID": "lectures/abm4.html#evaluate-posterior-3",
+    "href": "lectures/abm4.html#evaluate-posterior-3",
+    "title": "Bayesian workflow and Stan",
+    "section": "Evaluate posterior",
+    "text": "Evaluate posterior\n\n\n\nModel choice\n\nModel selection\nModel averaging\nPosterior stacking (Yao et al. 2018)\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html",
-    "href": "worksheets/abm-worksheet3.html",
-    "title": "Worksheet 3",
-    "section": "",
-    "text": "Aims\n\n\n\nSelection of explanatory variables in a linear regression setting, through exact computation and Gibbs’ sampling."
+    "objectID": "lectures/abm4.html#probabilistic-programming-languages",
+    "href": "lectures/abm4.html#probabilistic-programming-languages",
+    "title": "Bayesian workflow and Stan",
+    "section": "Probabilistic programming languages",
+    "text": "Probabilistic programming languages\n\nSyntax to encode joint probability model\nCreates joint probability object to be queried\n\n\n\n\n\n\nflowchart LR\n  A(PPL model specification) --&gt; B(Joint probability object)\n  B --&gt; C(Inference algorithms)\n\n\n\n\n\n\nPPLs are usually bundled with inference algorithm(s)\n\nMCMC (HMC!)\nVI\nSMC"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#activity-1-getting-started",
-    "href": "worksheets/abm-worksheet3.html#activity-1-getting-started",
-    "title": "Worksheet 3",
-    "section": "Activity 1: Getting started",
-    "text": "Activity 1: Getting started\nDownload and import the death rate data into R. Explore the data visually and determine the correlations between covariates and with the dependent variable deathrate.\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\ndeathrate &lt;- read_csv(file = \"/path/to/deathrate2.csv\", col_types = cols(col_skip(), col_guess()))\n# Discards the first row."
+    "objectID": "lectures/abm4.html#ppl-examples",
+    "href": "lectures/abm4.html#ppl-examples",
+    "title": "Bayesian workflow and Stan",
+    "section": "PPL examples",
+    "text": "PPL examples\n\n\n\nName\nPPL lang.\nInference lang.\nBackend\n\n\n\n\nBUGS family1\n“BUGS”\nvarious\nvarious\n\n\nStan\nStan\nR, Python, Julia,…\nC++\n\n\nTuring.jl\nJulia\nJulia\nJulia\n\n\nPyro2\nPython\nPython\nPyTorch\n\n\nPyMC\nPython\nPython\nPyTensor\n\n\ngreta\nR\nR\nTensorFlow\n\n\n\nBUGS, WinBugs, OpenBUGS, JAGSSee also numPyro using JAX backend"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#activity-2-frequentist-inference",
-    "href": "worksheets/abm-worksheet3.html#activity-2-frequentist-inference",
-    "title": "Worksheet 3",
-    "section": "Activity 2: Frequentist inference",
-    "text": "Activity 2: Frequentist inference\nOur linear model is (with p=20, n=60) \\begin{aligned}\ny_i&=\\beta_0 + \\beta_1x_i^1 + \\beta_2 x_i^2 + \\ldots + \\beta_{p}x_i^{p} + \\epsilon_i\\\\\n\\epsilon_i & \\sim  \\mathcal N(0,\\sigma^2)\\end{aligned}\nCalculate the Frequentist estimates of \\beta and \\sigma^2, which we denote \\hat\\beta and s^2. Comment on the statistically significant variables.\n\n\nStarting code\ndr_lm &lt;- lm(deathrate ~ ., data = deathrate)\nsummary(dr_lm)\n\n# calculate model matrix for Activity 3\nX &lt;- model.matrix(deathrate ~ ., data = deathrate)"
+    "objectID": "lectures/abm4.html#bayesian-models-in-stan",
+    "href": "lectures/abm4.html#bayesian-models-in-stan",
+    "title": "Bayesian workflow and Stan",
+    "section": "Bayesian models in Stan",
+    "text": "Bayesian models in Stan\n\n\nProbability model\nPrior\n\\alpha \\sim \\mathcal{N}(0,1)\n\\beta \\sim \\mathcal{N}(0,1)\n\\sigma \\sim\\mathcal{IG}(1,1)\nLikelihood\ny_i \\mid \\alpha,\\beta,\\sigma, x \\overset{\\text{iid}}{\\sim} \\mathcal{N}(\\alpha+\\beta x_i,\\sigma^2)\n\nStan code\ndata {\n  int&lt;lower=0&gt; N;\n  vector[N] x;\n  vector[N] y;\n}\nparameters {\n  real alpha;\n  real beta;\n  real&lt;lower=0&gt; sigma;\n}\nmodel {\n  // prior\n  alpha ~ normal(0, 1);\n  beta ~ normal(0, 1);\n  sigma ~ inv_gamma(1, 1);\n  // likelihood\n  y ~ normal(alpha + beta * x, sigma);\n}"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
-    "href": "worksheets/abm-worksheet3.html#activity-3-bayesian-inference-using-zellners-g-prior",
-    "title": "Worksheet 3",
-    "section": "Activity 3: Bayesian inference using Zellner’s G-prior",
-    "text": "Activity 3: Bayesian inference using Zellner’s G-prior\nConsider the following prior simplified from Zellner (1986) for \\beta \\in \\mathbb{R}^{p+1}, \\begin{aligned}\n\\beta \\mid \\sigma^2, X &\\sim \\mathcal N\\left(0, g\\sigma^2(X^\\top X)^{-1}\\right)\\\\\n\\pi(\\sigma^2)&\\propto \\sigma^{-2} \\end{aligned}\nThis prior is conjugate and the associated posterior is\n\\begin{aligned}\n\\beta \\mid \\sigma^2,y,X&\\sim \\mathcal{N}\\left(\\frac{g}{g+1}\\hat\\beta,\n\\frac{\\sigma^2g}{g+1}(X^\\top X)^{-1}\\right)\\\\\n\\sigma^2\\mid y,X &\\sim \\mathcal{IG}\\left(\\frac{n}{2},\\frac{s^2}{2}+\\frac{1}{2(g+1)}\n\\hat\\beta^\\top X^\\top X\\hat\\beta\\right)  \\end{aligned}\nwhere \\mathcal{IG}(a,b) is the inverse Gamma distribution with shape a and scale b. The marginal posterior distribution of \\beta is\n\\begin{aligned}\n\\beta|y,X &\\sim& \\mathcal{T}\\left(n,\\frac{g}{g+1}\\hat\\beta,\\frac{g(s^2+\\hat\\beta^\\top X^\\top\nX\\hat\\beta/(g+1))}{n(g+1)}(X^\\top X)^{-1}\\right)  \\end{aligned}\nwhere \\mathcal{T} denotes the multivariate t-distribution.\nLet \\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p) for \\gamma_i \\in \\{0,1\\} and X_\\gamma be the submatrix of X which only includes covariate x_i as a column when \\gamma_i=1 (always keeping the intercept). For a model considering covariate i such that \\gamma_i=1, the marginal likelihood is\nm(y|X, \\gamma) = (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2)  \\left[y^\\top y-\\frac{g}{g+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2} where p_\\gamma = \\sum_{i=1}^p\\gamma_i, the number of non-zero coefficients (excluding the intercept).\n\nFor g=0.1, 1, 10, 100, 1000, give \\mathbb{E}[\\sigma^2|y, X] and \\mathbb{E}[\\beta_0|y, X]. What can you conclude about the impact of the prior on the posterior?\nWe would like to test the hypothesis H_0: \\beta_7=\\beta_8=0. Compute Bayes’ factor given our data and conclude, using Jeffreys’ scale of evidence."
+    "objectID": "lectures/abm4.html#joint-probaility-object",
+    "href": "lectures/abm4.html#joint-probaility-object",
+    "title": "Bayesian workflow and Stan",
+    "section": "Joint probaility object",
+    "text": "Joint probaility object\n\n\n\n\n\nflowchart LR\n  A(Joint probability object)\n  A --&gt; C(Prior)\n  C -.-&gt; CA(log-prior density)\n  A --&gt; E(Data process)\n  C --&gt; F(Prior predictive)\n  E --&gt; F\n  \n  \n  CA -.-&gt; DA(unnormalised log-posterior density)\n  E -.-&gt; EA(log-likelihood)\n  EA -.-&gt; DA\n\n\n\n\n\n\n\\pi(\\theta\\mid y) \\propto p(y, \\theta) = p(y\\mid\\theta)\\pi(\\theta)"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
-    "href": "worksheets/abm-worksheet3.html#activity-4-model-choice-with-exact-computation",
-    "title": "Worksheet 3",
-    "section": "Activity 4: Model choice with exact computation",
-    "text": "Activity 4: Model choice with exact computation\nIn this activity, we restrict ourselves to the first 3 explanatory variables.\n\n\nStarting code\nX1 &lt;- X[ , 1:4]\n\n\nWe would like to know which variables to include in our model, and assume that the intercept is necessarily included. We have 2^3=8 possible models. To each model we associate the variable \\gamma=[\\gamma_1, \\gamma_2, \\gamma_3] where \\gamma_i=1 if x^i is included in the model, and \\gamma_i=0 otherwise.\nUsing the marginal probability formula of Activity 3, compute the marginal likelihood m(y|X_\\gamma). Deduce the most likely model a posteriori."
+    "objectID": "lectures/abm4.html#stan-in-r",
+    "href": "lectures/abm4.html#stan-in-r",
+    "title": "Bayesian workflow and Stan",
+    "section": "Stan in R",
+    "text": "Stan in R\nBuild, run model"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
-    "href": "worksheets/abm-worksheet3.html#activity-5-model-choice-using-gibbs-sampling",
-    "title": "Worksheet 3",
-    "section": "Activity 5: Model choice using Gibbs’ sampling",
-    "text": "Activity 5: Model choice using Gibbs’ sampling\nWe now consider all p explanatory variables. We thus need to choose between 2^p models.\n\nUse the bms function from package {BMS} to sample from the posterior distribution of \\gamma, and conclude on the most likely model.\nFor a new value of your choice of the covariates, e.g. x_{n+1} = [x_{n+1}^1,x_{n+1}^2, \\ldots,x_{n+1}^p], perform prediction using\n\nthe most probable model a posteriori\nthe best model as selected by AIC\na mixture of models weighted by their posterior probabilities."
+    "objectID": "lectures/abm4.html#crash-course-in-hmc",
+    "href": "lectures/abm4.html#crash-course-in-hmc",
+    "title": "Bayesian workflow and Stan",
+    "section": "Crash-course in HMC",
+    "text": "Crash-course in HMC\nHamiltonian Monte Carlo"
   },
   {
-    "objectID": "worksheets/abm-worksheet3.html#footnotes",
-    "href": "worksheets/abm-worksheet3.html#footnotes",
-    "title": "Worksheet 3",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nData from McDonald and Schwing (1973), Gunst and Mason (1980), Späth (1992)↩︎"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Applied Bayesian Modelling",
-    "section": "",
-    "text": "Course website for M2 MASH course on Applied Bayesian Modelling."
-  },
-  {
-    "objectID": "index.html#slides",
-    "href": "index.html#slides",
-    "title": "Applied Bayesian Modelling",
-    "section": "Slides",
-    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4\nSection 5"
-  },
-  {
-    "objectID": "index.html#worksheets",
-    "href": "index.html#worksheets",
-    "title": "Applied Bayesian Modelling",
-    "section": "Worksheets",
-    "text": "Worksheets\nWorksheets with practical and computer activities based in R.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4\nWorksheet 5"
-  },
-  {
-    "objectID": "index.html#code",
-    "href": "index.html#code",
-    "title": "Applied Bayesian Modelling",
-    "section": "Code",
-    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3"
-  },
-  {
-    "objectID": "index.html#datasets",
-    "href": "index.html#datasets",
-    "title": "Applied Bayesian Modelling",
-    "section": "Datasets",
-    "text": "Datasets\nDatasets for the worksheets. See worksheets for explanation.\n Download data Députés 2019\n Download data Golf\n Download data Death rates"
-  },
-  {
-    "objectID": "index.html#additional-resources",
-    "href": "index.html#additional-resources",
-    "title": "Applied Bayesian Modelling",
-    "section": "Additional Resources",
-    "text": "Additional Resources\n\nTextbooks\n\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
-  },
-  {
-    "objectID": "index.html#references",
-    "href": "index.html#references",
-    "title": "Applied Bayesian Modelling",
+    "objectID": "lectures/abm4.html#references",
+    "href": "lectures/abm4.html#references",
+    "title": "Bayesian workflow and Stan",
     "section": "References",
-    "text": "References\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
+    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
   },
   {
     "objectID": "lectures/abm2.html#applied-bayesian-modelling",
@@ -775,166 +971,5 @@
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
     "text": "References\n\n\nBaker, Jack, Paul Fearnhead, Emily B Fox, and Christopher Nemeth. 2019. “Sgmcmc: An r Package for Stochastic Gradient Markov Chain Monte Carlo.” Journal of Statistical Software 91: 1–27.\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67.\n\n\nRosenthal, Jeffrey S et al. 2011. “Optimal Proposal Distributions and Adaptive MCMC.” Handbook of Markov Chain Monte Carlo 4 (10.1201)."
-  },
-  {
-    "objectID": "lectures/abm4.html#applied-bayesian-modelling",
-    "href": "lectures/abm4.html#applied-bayesian-modelling",
-    "title": "Bayesian workflow and Stan",
-    "section": "Applied Bayesian modelling",
-    "text": "Applied Bayesian modelling\n\nStatistical inference 🔍\nStatistical prediction\nBayesian models\nComputation 🔍\nWorkflows 🔍"
-  },
-  {
-    "objectID": "lectures/abm4.html#example-4",
-    "href": "lectures/abm4.html#example-4",
-    "title": "Bayesian workflow and Stan",
-    "section": "Example 4: ???",
-    "text": "Example 4: ???"
-  },
-  {
-    "objectID": "lectures/abm4.html#what-have-we-seen-so-far",
-    "href": "lectures/abm4.html#what-have-we-seen-so-far",
-    "title": "Bayesian workflow and Stan",
-    "section": "What have we seen so far?",
-    "text": "What have we seen so far?\n\nBayesian modelling\n\nBuilding a model of the data\nChoosing a prior distribution\nModel selection\n\nBayesian computation\n\nConjugate priors\nMCMC: MH and Gibbs\nMCMC diagnostics"
-  },
-  {
-    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow",
-    "href": "lectures/abm4.html#a-simplified-bayesian-workflow",
-    "title": "Bayesian workflow and Stan",
-    "section": "A simplified Bayesian workflow",
-    "text": "A simplified Bayesian workflow\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n  I --&gt; Inf(Inference)\n  I --&gt; Pred(Prediction)\n  I --&gt; Dec(Decisions)"
-  },
-  {
-    "objectID": "lectures/abm4.html#references",
-    "href": "lectures/abm4.html#references",
-    "title": "Bayesian workflow and Stan",
-    "section": "References",
-    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
-  },
-  {
-    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
-    "href": "lectures/abm4.html#a-simplified-bayesian-workflow-1",
-    "title": "Bayesian workflow and Stan",
-    "section": "A simplified Bayesian workflow",
-    "text": "A simplified Bayesian workflow\n\n\n\nOverall workflow\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n\n\n\n\n\n\nGelman et al. (2020)\n\n\n\nBuild Bayesian model\n\n\n\n\n\nflowchart LR\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A\n\n\n\n\n\n\nCompute posterior\n\n\n\n\n\nflowchart LR\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\nEvaluate posterior\n\n\n\n\n\nflowchart LR\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
-  },
-  {
-    "objectID": "lectures/abm4.html#a-simplified-bayesian-workflow-2",
-    "href": "lectures/abm4.html#a-simplified-bayesian-workflow-2",
-    "title": "Bayesian workflow and Stan",
-    "section": "A simplified Bayesian workflow",
-    "text": "A simplified Bayesian workflow\n\n\n\nBuild Bayesian model\n\nPropose likelihood\nPropose prior\nValidate and choose\n\nCompute posterior\n\nFit the model\nValidate approximation\n\n\n\n\nEvaluate posterior\nConclusions\n\nInference / prediction\nDecisions"
-  },
-  {
-    "objectID": "lectures/abm4.html#build-bayesian-model-1",
-    "href": "lectures/abm4.html#build-bayesian-model-1",
-    "title": "Bayesian workflow and Stan",
-    "section": "Build Bayesian model",
-    "text": "Build Bayesian model\n\n\n\nPropose likelihood\nHow are the data generated?\n\nSupport of distribution\nDependency between data\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
-  },
-  {
-    "objectID": "lectures/abm4.html#compute-posterior-1",
-    "href": "lectures/abm4.html#compute-posterior-1",
-    "title": "Bayesian workflow and Stan",
-    "section": "Compute posterior",
-    "text": "Compute posterior\n\n\n\nChoose tool and settings\n\nConjugate prior\nMC algorithm: MH, Gibbs, HMC1\nMCMC settings: proposal distribution\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A\n\n\n\n\n\n\n\nContinuous parameters"
-  },
-  {
-    "objectID": "lectures/abm4.html#evaluate-posterior-1",
-    "href": "lectures/abm4.html#evaluate-posterior-1",
-    "title": "Bayesian workflow and Stan",
-    "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nModel checking\n\nPosterior predictive\nInflence of prior\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
-  },
-  {
-    "objectID": "lectures/abm4.html#build-bayesian-model-2",
-    "href": "lectures/abm4.html#build-bayesian-model-2",
-    "title": "Bayesian workflow and Stan",
-    "section": "Build Bayesian model",
-    "text": "Build Bayesian model\n\n\n\nPropose prior\nWhat prior information do we have on the model parameters (given the likelihood)?\n\nGlobal vs local parameters\nConstraints\nExpert elicitation\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
-  },
-  {
-    "objectID": "lectures/abm4.html#build-bayesian-model-3",
-    "href": "lectures/abm4.html#build-bayesian-model-3",
-    "title": "Bayesian workflow and Stan",
-    "section": "Build Bayesian model",
-    "text": "Build Bayesian model\n\n\n\nValidate prior\nDoes the prior predictive distribution produce data that is reasonable?\n\nPrior predictive checking\nDomain knowledge\n\n\n\n\n\n\n\nflowchart TD\n  A(Propose likelihood) --&gt; B( Propose prior)\n  B --&gt; C(Validate prior)\n  C -.-&gt; B\n  C -.-&gt; A"
-  },
-  {
-    "objectID": "lectures/abm4.html#compute-posterior-2",
-    "href": "lectures/abm4.html#compute-posterior-2",
-    "title": "Bayesian workflow and Stan",
-    "section": "Compute posterior",
-    "text": "Compute posterior\n\n\n\nFit model\n\nMCMC software: R, Stan\nInitial number of iterations\nSave samples\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A"
-  },
-  {
-    "objectID": "lectures/abm4.html#compute-posterior-3",
-    "href": "lectures/abm4.html#compute-posterior-3",
-    "title": "Bayesian workflow and Stan",
-    "section": "Compute posterior",
-    "text": "Compute posterior\n\n\n\nValidate approximation\n\nConvergence diagnostics: \\hat{R}, ESS\nVisualisations: Trace, autocorrelation plots\n\n\n\n\n\n\n\nflowchart TD\n  A(Choose tool and settings) --&gt; B(Fit model)\n  B --&gt; C(Validate approximation)\n  C -.-&gt; A"
-  },
-  {
-    "objectID": "lectures/abm4.html#evaluate-posterior-2",
-    "href": "lectures/abm4.html#evaluate-posterior-2",
-    "title": "Bayesian workflow and Stan",
-    "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nModel comparison\n\nModel evidence\nCross validation\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
-  },
-  {
-    "objectID": "lectures/abm4.html#evaluate-posterior-3",
-    "href": "lectures/abm4.html#evaluate-posterior-3",
-    "title": "Bayesian workflow and Stan",
-    "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nModel choice\n\nModel selection\nModel averaging\nPosterior stacking (Yao et al. 2018)\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
-  },
-  {
-    "objectID": "lectures/abm4.html#the-folk-theorem-of-statistical-computing",
-    "href": "lectures/abm4.html#the-folk-theorem-of-statistical-computing",
-    "title": "Bayesian workflow and Stan",
-    "section": "The folk theorem of statistical computing",
-    "text": "The folk theorem of statistical computing\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B"
-  },
-  {
-    "objectID": "lectures/abm4.html#section",
-    "href": "lectures/abm4.html#section",
-    "title": "Bayesian workflow and Stan",
-    "section": "",
-    "text": "The folk theorem of statistical computing\n\n\n\nWhen you have computational problems, often there’s a problem with your model\n-Yao, Vehtari, and Gelman (2022)\n\n\n\n\n\n\nflowchart TD\n  B(Build Bayesian model) --&gt; C(Compute posterior)\n  C --&gt; E(Evaluate posterior)\n  E --&gt; I[Conclusions]\n  C -.-&gt; B\n  E -.-&gt; B\n  \n  linkStyle 3 stroke-width:4px, stroke:red"
-  },
-  {
-    "objectID": "lectures/abm4.html#probabilistic-programming-languages",
-    "href": "lectures/abm4.html#probabilistic-programming-languages",
-    "title": "Bayesian workflow and Stan",
-    "section": "Probabilistic programming languages",
-    "text": "Probabilistic programming languages\n\nSyntax to code joint probability model\n\n\n\n\n\n\nflowchart LR\n  A(PPL model specification) --&gt; B(log probability)\n  B --&gt; C(Inference algorithms)\n\n\n\n\n\n\nPPLs are usually bundled with inference algorithm(s)\n\nMCMC (HMC!)\nVI\nSMC"
-  },
-  {
-    "objectID": "lectures/abm4.html#probabilistic-programming-languages-1",
-    "href": "lectures/abm4.html#probabilistic-programming-languages-1",
-    "title": "Bayesian workflow and Stan",
-    "section": "Probabilistic programming languages",
-    "text": "Probabilistic programming languages\n\n\n\nName\nPPL lang.\nInference lang.\nBackend\n\n\n\n\nBUGS family1\n“BUGS”\nvarious\nvarious\n\n\nStan\nStan\nR, python, julia,…\nC++\n\n\nTuring.jl\njulia\njulia\njulia\n\n\nPyro2\npython\npython\nPyTorch\n\n\npyMC\npython\npython\nPyTensor\n\n\ngreta\nR\nR\nTensorFlow\n\n\n\nBUGS, WinBugs, OpenBUGS, JAGSSee also numPyro using JAX backend"
-  },
-  {
-    "objectID": "lectures/abm4.html#posterior-and-log-probability",
-    "href": "lectures/abm4.html#posterior-and-log-probability",
-    "title": "Bayesian workflow and Stan",
-    "section": "Posterior and log probability",
-    "text": "Posterior and log probability\n\n\n\n\n\nflowchart LR\n  A(PPL model specification) --&gt; B(log probability)\n  B --&gt; C(Inference algorithms)\n\n\n\n\n\n\n\\log p(\\theta, y) = \\log \\pi(\\theta) + \\log p(y \\mid \\theta)\n\\pi(\\theta \\mid y) \\propto p(\\theta, y)"
-  },
-  {
-    "objectID": "lectures/abm4.html#ppl-examples",
-    "href": "lectures/abm4.html#ppl-examples",
-    "title": "Bayesian workflow and Stan",
-    "section": "PPL examples",
-    "text": "PPL examples\n\n\n\nName\nPPL lang.\nInference lang.\nBackend\n\n\n\n\nBUGS family1\n“BUGS”\nvarious\nvarious\n\n\nStan\nStan\nR, python, julia,…\nC++\n\n\nTuring.jl\njulia\njulia\njulia\n\n\nPyro2\npython\npython\nPyTorch\n\n\npyMC\npython\npython\nPyTensor\n\n\ngreta\nR\nR\nTensorFlow\n\n\n\nBUGS, WinBugs, OpenBUGS, JAGSSee also numPyro using JAX backend"
-  },
-  {
-    "objectID": "lectures/abm4.html#bayesian-models-in-stan",
-    "href": "lectures/abm4.html#bayesian-models-in-stan",
-    "title": "Bayesian workflow and Stan",
-    "section": "Bayesian models in Stan",
-    "text": "Bayesian models in Stan\n\n\nProbability model\nPrior\n\\alpha \\sim \\mathcal{N}(0,1)\n\\beta \\sim \\mathcal{N}(0,1)\n\\sigma \\sim\\mathcal{IG}(1,1)\nLikelihood\ny_i \\mid \\alpha,\\beta,\\sigma, x \\overset{\\text{iid}}{\\sim} \\mathcal{N}(\\alpha+\\beta x_i,\\sigma^2)\n\nStan code\ndata {\n  int&lt;lower=0&gt; N;\n  vector[N] x;\n  vector[N] y;\n}\nparameters {\n  real alpha;\n  real beta;\n  real&lt;lower=0&gt; sigma;\n}\nmodel {\n  // prior\n  alpha ~ normal(0, 1);\n  beta ~ normal(0, 1);\n  sigma ~ inv_gamma(1, 1);\n  // likelihood\n  y ~ normal(alpha + beta * x, sigma);\n}"
   }
 ]

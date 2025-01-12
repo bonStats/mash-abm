@@ -431,12 +431,13 @@ flowchart TD
 
 ## Probabilistic programming languages
 
-- Syntax to code joint probability model
+- Syntax to encode joint probability model
+- Creates joint probability object to be queried
 
 ```{mermaid}
 %%| fig-align: center
 flowchart LR
-  A(PPL model specification) --> B(log probability)
+  A(PPL model specification) --> B(Joint probability object)
   B --> C(Inference algorithms)
 ```
 
@@ -451,10 +452,10 @@ PPLs are usually bundled with inference algorithm(s)
 | Name                                 | PPL lang.            | Inference lang.      | Backend              |
 |--------------------------------------|----------------------|----------------------|----------------------|
 | BUGS family^[BUGS, WinBugs, OpenBUGS, JAGS]                         | "BUGS"               | various              |  various          |
-| [Stan](https://mc-stan.org)          | Stan                 | R, python, julia,... | C++                  |
-| [Turing.jl](https://turinglang.org)  | julia                | julia                | julia
-| [Pyro](http://pyro.ai)^[See also [numPyro](https://num.pyro.ai/) using JAX backend] | python | python | PyTorch |
-| [pyMC](https://www.pymc.io/)         | python               | python               | PyTensor |
+| [Stan](https://mc-stan.org)          | Stan                 | R, Python, Julia,... | C++                  |
+| [Turing.jl](https://turinglang.org)  | Julia                | Julia                | Julia
+| [Pyro](http://pyro.ai)^[See also [numPyro](https://num.pyro.ai/) using JAX backend] | Python | Python | PyTorch |
+| [PyMC](https://www.pymc.io/)         | Python               | Python               | PyTensor |
 | [greta](https://greta-stats.org)     | R                    | R                    | TensorFlow |
 
 
@@ -509,19 +510,35 @@ model {
 
 ::::
 
-## Posterior and log probability
+## Joint probaility object
 
 ```{mermaid}
 %%| fig-align: center
 flowchart LR
-  A(PPL model specification) --> B(log probability)
-  B --> C(Inference algorithms)
+  A(Joint probability object)
+  A --> C(Prior)
+  C -.-> CA(log-prior density)
+  A --> E(Data process)
+  C --> F(Prior predictive)
+  E --> F
+  
+  
+  CA -.-> DA(unnormalised log-posterior density)
+  E -.-> EA(log-likelihood)
+  EA -.-> DA
 ```
 
+$$\pi(\theta\mid y) \propto p(y, \theta) = p(y\mid\theta)\pi(\theta)$$
 
-$$\log p(\theta, y) = \log \pi(\theta) + \log p(y \mid \theta)$$
+## Stan in R
 
-$$\pi(\theta \mid y) \propto p(\theta, y)$$
+Build, run model
+
+
+## Crash-course in HMC
+
+Hamiltonian Monte Carlo
+
 
 
 ## References
