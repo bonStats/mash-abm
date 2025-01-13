@@ -86,9 +86,12 @@ kidney <- kidney %>%
 ```
 
 
-## Activity 2: IID model
+## Activity 2: Model with global average rate
 
-Suppose all observations are identically distributed. 
+Suppose all county death counts $y_i$ are identically distributed with joint rate parameter $\theta$. That is
+
+$$y_i \mid n_i, \theta \sim \text{Poisson}(10 n_i \theta)$$
+where $n_i$ is the population of the county.
 
 1. Is this model reasonable?
 2. Propose a Frequentist estimate
@@ -96,9 +99,9 @@ Suppose all observations are identically distributed.
 4. Check convergence and sample size
 5. Compare the Frequentist and Bayesian estimates
 
-## Activity 3: Independence model
+## Activity 3: Model with local average rates
 
-Suppose all observations are independent.
+Suppose all observations are independent now with individual rates $\theta_i$.
 
 1. Is this model reasonable?
 2. Propose a Frequentist estimate and visualize it.

@@ -124,6 +124,49 @@ div.csl-indent {
 <link href="../site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -166,8 +209,8 @@ div.csl-indent {
    
   <ul>
   <li><a href="#activity-1-getting-started" id="toc-activity-1-getting-started" class="nav-link active" data-scroll-target="#activity-1-getting-started">Activity 1: Getting started</a></li>
-  <li><a href="#activity-2-iid-model" id="toc-activity-2-iid-model" class="nav-link" data-scroll-target="#activity-2-iid-model">Activity 2: IID model</a></li>
-  <li><a href="#activity-3-independence-model" id="toc-activity-3-independence-model" class="nav-link" data-scroll-target="#activity-3-independence-model">Activity 3: Independence model</a></li>
+  <li><a href="#activity-2-model-with-global-average-rate" id="toc-activity-2-model-with-global-average-rate" class="nav-link" data-scroll-target="#activity-2-model-with-global-average-rate">Activity 2: Model with global average rate</a></li>
+  <li><a href="#activity-3-model-with-local-average-rates" id="toc-activity-3-model-with-local-average-rates" class="nav-link" data-scroll-target="#activity-3-model-with-local-average-rates">Activity 3: Model with local average rates</a></li>
   <li><a href="#activity-4-hierarchical-model" id="toc-activity-4-hierarchical-model" class="nav-link" data-scroll-target="#activity-4-hierarchical-model">Activity 4: Hierarchical model</a></li>
   </ul>
 </nav>
@@ -317,9 +360,10 @@ Data: <code>kidneycancerclean.csv</code>
 </details>
 </div>
 </section>
-<section id="activity-2-iid-model" class="level2">
-<h2 class="anchored" data-anchor-id="activity-2-iid-model">Activity 2: IID model</h2>
-<p>Suppose all observations are identically distributed.</p>
+<section id="activity-2-model-with-global-average-rate" class="level2">
+<h2 class="anchored" data-anchor-id="activity-2-model-with-global-average-rate">Activity 2: Model with global average rate</h2>
+<p>Suppose all county death counts <span class="math inline">y_i</span> are identically distributed with joint rate parameter <span class="math inline">\theta</span>. That is</p>
+<p><span class="math display">y_i \mid n_i, \theta \sim \text{Poisson}(10 n_i \theta)</span> where <span class="math inline">n_i</span> is the population of the county.</p>
 <ol type="1">
 <li>Is this model reasonable?</li>
 <li>Propose a Frequentist estimate</li>
@@ -328,9 +372,9 @@ Data: <code>kidneycancerclean.csv</code>
 <li>Compare the Frequentist and Bayesian estimates</li>
 </ol>
 </section>
-<section id="activity-3-independence-model" class="level2">
-<h2 class="anchored" data-anchor-id="activity-3-independence-model">Activity 3: Independence model</h2>
-<p>Suppose all observations are independent.</p>
+<section id="activity-3-model-with-local-average-rates" class="level2">
+<h2 class="anchored" data-anchor-id="activity-3-model-with-local-average-rates">Activity 3: Model with local average rates</h2>
+<p>Suppose all observations are independent now with individual rates <span class="math inline">\theta_i</span>.</p>
 <ol type="1">
 <li>Is this model reasonable?</li>
 <li>Propose a Frequentist estimate and visualize it.</li>

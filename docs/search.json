@@ -525,18 +525,18 @@
     "text": "Activity 1: Getting started\nDownload and import the kidney cancer data into R.\nThink about these data: which aspects are striking and will need to be particularly kept in mind when checking the model fit?\n\n\nStarting code\nlibrary(readr)\nlibrary(ggplot2)\n\nkidney &lt;- read_csv(\"/path/to/kidneycancerclean.csv\", skip = 4, col_types = cols(col_skip(), col_guess()))\n  # Discards the first 4 rows and first column.\n\nkidney &lt;- kidney %&gt;% \n  mutate(total_deaths = dc + dc.2) %&gt;% # 1980-1989\n  mutate(population = (pop+pop.2)/2) %&gt;% # average in 1980-1989\n  mutate(theta_hat = total_deaths/(10*population)) # estimate of annual death rate (/10 to average over 10 years)"
   },
   {
-    "objectID": "worksheets/abm-worksheet4.html#activity-2-iid-model",
-    "href": "worksheets/abm-worksheet4.html#activity-2-iid-model",
+    "objectID": "worksheets/abm-worksheet4.html#activity-2-model-with-global-average-rate",
+    "href": "worksheets/abm-worksheet4.html#activity-2-model-with-global-average-rate",
     "title": "Worksheet 4",
-    "section": "Activity 2: IID model",
-    "text": "Activity 2: IID model\nSuppose all observations are identically distributed.\n\nIs this model reasonable?\nPropose a Frequentist estimate\nCode the IID model in Stan and use the rstan package for inference\nCheck convergence and sample size\nCompare the Frequentist and Bayesian estimates"
+    "section": "Activity 2: Model with global average rate",
+    "text": "Activity 2: Model with global average rate\nSuppose all county death counts y_i are identically distributed with joint rate parameter \\theta. That is\ny_i \\mid n_i, \\theta \\sim \\text{Poisson}(10 n_i \\theta) where n_i is the population of the county.\n\nIs this model reasonable?\nPropose a Frequentist estimate\nCode the IID model in Stan and use the rstan package for inference\nCheck convergence and sample size\nCompare the Frequentist and Bayesian estimates"
   },
   {
-    "objectID": "worksheets/abm-worksheet4.html#activity-3-independence-model",
-    "href": "worksheets/abm-worksheet4.html#activity-3-independence-model",
+    "objectID": "worksheets/abm-worksheet4.html#activity-3-model-with-local-average-rates",
+    "href": "worksheets/abm-worksheet4.html#activity-3-model-with-local-average-rates",
     "title": "Worksheet 4",
-    "section": "Activity 3: Independence model",
-    "text": "Activity 3: Independence model\nSuppose all observations are independent.\n\nIs this model reasonable?\nPropose a Frequentist estimate and visualize it.\nCode the independence model in Stan and use the rstan package for inference\nCheck convergence and sample size\nCompare the Frequentist and Bayesian estimates"
+    "section": "Activity 3: Model with local average rates",
+    "text": "Activity 3: Model with local average rates\nSuppose all observations are independent now with individual rates \\theta_i.\n\nIs this model reasonable?\nPropose a Frequentist estimate and visualize it.\nCode the independence model in Stan and use the rstan package for inference\nCheck convergence and sample size\nCompare the Frequentist and Bayesian estimates"
   },
   {
     "objectID": "worksheets/abm-worksheet4.html#activity-4-hierarchical-model",
