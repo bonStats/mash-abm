@@ -24,3 +24,19 @@ model {
   y ~ poisson(10*counts*theta);
 }
 
+// Quantities generated conditional on the posterior
+generated quantities {
+  // posterior predictive values
+  array[N] real y_rep = poisson_rng(10*counts*theta);
+  
+  // prior predictive values check
+  real theta_prior = beta_rng(1.0, 1.1);
+  array[N] real y_rep_prior = poisson_rng(10*counts*theta_prior);
+  
+  // log likelihood for LOO package
+  vector[N] log_lik;
+  for (i in 1:N) {
+    log_lik[i] = poisson_lpmf(y[i] | 10*counts[i]*theta);
+  }
+}
+
