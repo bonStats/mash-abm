@@ -302,10 +302,10 @@ Model choice involves selecting best set of covariates
 
 Bayesian model averaging finds best subset of models with uncertainty
 
-- $\gamma_i \in \{0,1\}$ for $i \in \{1,\ldots,p\}$
-- $\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)$
+- $\gamma_i \in \{0,1\}$ for $i \in \{0,1,\ldots,p\}$
+- $\gamma=(\gamma_0,\gamma_1, \gamma_2, \ldots, \gamma_p)$
 - $X_\gamma$ be the submatrix of $X$ which only includes covariate $x_i$ as a column when $\gamma_i=1$
-- Always keep the intercept
+- Always keep the intercept, $\gamma_0=1$ fixed
 
 ## Probability model with averaging (V1)
 
@@ -342,7 +342,8 @@ We index each model using $\gamma$ vector. The model $\mathcal{M}_\gamma$ has po
 
 $$\pi(\beta,\sigma^2 \mid \gamma,y,X)$$
 
-when $\gamma_i =0$ then $\beta_i=0$, only coordinates $\beta_\gamma$ are "active"
+- If $\gamma_i = 0$ then $\beta_i=0$, only coordinates $\beta_\gamma$ are "active"
+- $\gamma_0 = 1$ fixed to always include intercept
 
 ## Conditional posterior distribution
 
@@ -360,9 +361,11 @@ with $\beta_{1-\gamma} =0$
 
 The model evidence for $\mathcal{M}_\gamma$ is 
 
-$$\begin{aligned} m(y\mid \gamma,X) = & (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \\ & \times\left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}\end{aligned}$$
+$$\begin{aligned} m(y\mid \gamma,X) = & (g+1)^{-p_\gamma/2}\pi^{-n/2}\Gamma(n/2) \\ & \times\left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}\end{aligned}$$
 
-where $p_\gamma = \sum_{i=1}^p\gamma_i$.
+where^[Recall $\gamma_0=1$ is fixed.] $p_\gamma = \sum_{i=0}^p\gamma_i$.
+
+
 
 ## Full posterior over models
 
@@ -372,7 +375,8 @@ $$\pi(\beta, \sigma^2, \gamma \mid X,y) = \pi(\beta, \sigma^2 \mid \gamma, X,y) 
 
 #### Full posterior sampling strategy
 
-- Sample over models $\mathcal{M}_\gamma$ using $\gamma \mid X,y$
+- Sample over models $\mathcal{M}_\gamma$ by targetting $\gamma \mid X,y$
+    - Gibbs sampler on conditionals: $\gamma^i \mid X,y,\gamma^{-i}$
 
 - Use exact sampling for $\beta, \sigma^2 \mid \gamma, X,y$
 

@@ -738,10 +738,10 @@ Dr Joshua J Bon
 <p>Model choice involves selecting best set of covariates</p>
 <p>Bayesian model averaging finds best subset of models with uncertainty</p>
 <ul>
-<li><span class="math inline">\gamma_i \in \{0,1\}</span> for <span class="math inline">i \in \{1,\ldots,p\}</span></li>
-<li><span class="math inline">\gamma=(\gamma_1, \gamma_2, \ldots, \gamma_p)</span></li>
+<li><span class="math inline">\gamma_i \in \{0,1\}</span> for <span class="math inline">i \in \{0,1,\ldots,p\}</span></li>
+<li><span class="math inline">\gamma=(\gamma_0,\gamma_1, \gamma_2, \ldots, \gamma_p)</span></li>
 <li><span class="math inline">X_\gamma</span> be the submatrix of <span class="math inline">X</span> which only includes covariate <span class="math inline">x_i</span> as a column when <span class="math inline">\gamma_i=1</span></li>
-<li>Always keep the intercept</li>
+<li>Always keep the intercept, <span class="math inline">\gamma_0=1</span> fixed</li>
 </ul>
 </section>
 <section id="probability-model-with-averaging-v1" class="slide level2">
@@ -770,7 +770,10 @@ Dr Joshua J Bon
 <h2>Conditional posterior density</h2>
 <p>We index each model using <span class="math inline">\gamma</span> vector. The model <span class="math inline">\mathcal{M}_\gamma</span> has posterior density</p>
 <p><span class="math display">\pi(\beta,\sigma^2 \mid \gamma,y,X)</span></p>
-<p>when <span class="math inline">\gamma_i =0</span> then <span class="math inline">\beta_i=0</span>, only coordinates <span class="math inline">\beta_\gamma</span> are “active”</p>
+<ul>
+<li>If <span class="math inline">\gamma_i = 0</span> then <span class="math inline">\beta_i=0</span>, only coordinates <span class="math inline">\beta_\gamma</span> are “active”</li>
+<li><span class="math inline">\gamma_0 = 1</span> fixed to always include intercept</li>
+</ul>
 </section>
 <section id="conditional-posterior-distribution" class="slide level2">
 <h2>Conditional posterior distribution</h2>
@@ -785,17 +788,20 @@ Dr Joshua J Bon
 <section id="model-evidence" class="slide level2">
 <h2>Model evidence</h2>
 <p>The model evidence for <span class="math inline">\mathcal{M}_\gamma</span> is</p>
-<p><span class="math display">\begin{aligned} m(y\mid \gamma,X) = &amp; (g+1)^{-(p_\gamma+1)/2}\pi^{-n/2}\Gamma(n/2) \\ &amp; \times\left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}\end{aligned}</span></p>
-<p>where <span class="math inline">p_\gamma = \sum_{i=1}^p\gamma_i</span>.</p>
-</section>
+<p><span class="math display">\begin{aligned} m(y\mid \gamma,X) = &amp; (g+1)^{-p_\gamma/2}\pi^{-n/2}\Gamma(n/2) \\ &amp; \times\left[y^\top y-\frac{g}{g+1}y^\top X_\gamma(X_\gamma^\top X_\gamma)^{-1}X_\gamma^\top y\right]^{-n/2}\end{aligned}</span></p>
+<p>where<sup>1</sup> <span class="math inline">p_\gamma = \sum_{i=0}^p\gamma_i</span>.</p>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Recall <span class="math inline">\gamma_0=1</span> is fixed.</p></li></ol></aside></section>
 <section id="full-posterior-over-models" class="slide level2">
 <h2>Full posterior over models</h2>
 <p>The posterior density factorises as</p>
 <p><span class="math display">\pi(\beta, \sigma^2, \gamma \mid X,y) = \pi(\beta, \sigma^2 \mid \gamma, X,y) \pi(\gamma \mid X,y) </span></p>
 <h4 id="full-posterior-sampling-strategy">Full posterior sampling strategy</h4>
 <ul>
-<li><p>Sample over models <span class="math inline">\mathcal{M}_\gamma</span> using <span class="math inline">\gamma \mid X,y</span></p></li>
-<li><p>Use exact sampling for <span class="math inline">\beta, \sigma^2 \mid \gamma, X,y</span></p></li>
+<li>Sample over models <span class="math inline">\mathcal{M}_\gamma</span> by targetting <span class="math inline">\gamma \mid X,y</span>
+<ul>
+<li>Gibbs sampler on conditionals: <span class="math inline">\gamma^i \mid X,y,\gamma^{-i}</span></li>
+</ul></li>
+<li>Use exact sampling for <span class="math inline">\beta, \sigma^2 \mid \gamma, X,y</span></li>
 </ul>
 </section>
 <section id="marginal-posterior-for-models" class="slide level2">

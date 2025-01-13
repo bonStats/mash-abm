@@ -96,14 +96,14 @@ rate_code <- function(low_rate, high_rate){
 rate_codeV <- Vectorize(rate_code)
 
 kidney <- kidney %>%
-  mutate(rate = ordered(rate_codeV(low_rate, high_rate),c("low","mid","high")))
+  mutate(rate = ordered(rate_codeV(low_rate, high_rate),c("low rate","mid rate","high rate")))
 
 ggplot(data=kidney, aes(x=population)) + 
   geom_histogram(bins=30, fill="lightblue") + 
   facet_wrap(~ rate) +
   geom_vline(xintercept = 10^5, linetype = 3) + 
   scale_x_log10(label=trans_format("log10",math_format(10^.x))) +
-  labs(x="Estimated kidney cancer death rate (maximum likelihood)", 
+  labs(x="Population size", 
        y="Number of counties")  
 
 ```
@@ -618,19 +618,28 @@ fit_kidney = stan(file = "kidneycancer.stan", data = kidney_stan_data)
 
 - `"kidneycancer.stan"` is a file with your stan model
 
-## Installing rstan
+## Installing rstan (as at 2024-01-12)
 
-<br>
 
-[Guide to installing rstan](https://github.com/stan-dev/rstan/wiki/Rstan-Getting-Started)
-
-1. Update R
+1. Update R to 4.4.x (and restart R)
 2. Configure C++ Toolchain
-3. Install pacakge `rstan`
+   - Mac: Install [{macrtools}](https://github.com/coatless-mac/macrtools?tab=readme-ov-file#macrtools) and see [optimisation](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac)
+   - Windows: Download [{rtools44}](https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html) and see [guide](https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows)
+4. Install `rstan`, see [general guide](https://github.com/stan-dev/rstan/wiki/Rstan-Getting-Started) for more help
+    - Mac: `install.packages("rstan")`
+    - Windows: Install from source for R 4.4.x, `install.packages(c("StanHeaders", "rstan"), type = "source")`
+    
+
+
 
 ## Crash-course in HMC
 
-Hamiltonian Monte Carlo... 
+Hamiltonian Monte Carlo... see @betancourt2017conceptual
+
+- Trajectories
+- Leapfrog integrator
+- Divergent transitions
+- No-U-Turn criterion
 
 
 

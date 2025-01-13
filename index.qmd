@@ -27,7 +27,7 @@ Lecture slides with main content. Further demonstrations in class.
 -   [Section 1: Bayes & Monte Carlo](lectures/abm1.html) \[Reading: M&R Ch. 2\]
 -   [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html) \[Reading: M&R Ch. 4\]
 -   [Section 3: Gibbs & Variable Selection](lectures/abm3.html) \[Reading: M&R Ch. 3\]
--   [Section 4: Bayesian workflow and Stan](lectures/abm4.html) \[Reading: @gelman2020bayesian, Ch 2.7 @gelman2013bayesian\]
+-   [Section 4: Bayesian workflow and Stan](lectures/abm4.html) [Reading: @gelman2020bayesian, Ch 2.7 @gelman2013bayesian]
 
 ## Worksheets
 
@@ -40,11 +40,12 @@ Worksheets with practical and computer activities based in `R`.
 
 ## Code
 
-`R` files from live-coding in class. 
+`R` files from live-coding in class.
 
-- [Worksheet 1](worksheets/scripts/worksheet1.R)
-- [Worksheet 2](worksheets/scripts/worksheet2.R)
-- [Worksheet 3](worksheets/scripts/worksheet3.R)
+-   [Worksheet 1](worksheets/scripts/worksheet1.R)
+-   [Worksheet 2](worksheets/scripts/worksheet2.R)
+-   [Worksheet 3](worksheets/scripts/worksheet3.R)
+-   [Worksheet 4](worksheets/scripts/worksheet4.R) and [initial Stan file](worksheets/scripts/kidney_global.stan)
 
 ## Datasets
 
@@ -56,6 +57,8 @@ Datasets for the worksheets. See worksheets for explanation.
 
 `r download_data_buttom("deathrate2.csv","deathrate")` Death rates
 
+`r download_data_buttom("kidneycancerclean.csv","kidneycancerclean")` Death rates
+
 ## Additional Resources
 
 #### Textbooks
@@ -66,6 +69,7 @@ Datasets for the worksheets. See worksheets for explanation.
 
 -   "Visualization in Bayesian Workflow" [@gabry2019visualization]
 -   "Bayesian Workflow" [@gelman2020bayesian]
+-   "A conceptual introduction to Hamiltonian Monte Carlo" [@betancourt2017conceptual]
 
 #### Tutorials
 

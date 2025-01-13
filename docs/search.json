@@ -354,7 +354,7 @@
     "href": "lectures/abm3.html#model-averaging-with-zellners-g-prior",
     "title": "Gibbs samplers and variable selection",
     "section": "Model averaging with Zellner’s G-prior",
-    "text": "Model averaging with Zellner’s G-prior\nModel choice involves selecting best set of covariates\nBayesian model averaging finds best subset of models with uncertainty\n\n\\gamma_i \\in \\{0,1\\} for i \\in \\{1,\\ldots,p\\}\n\\gamma=(\\gamma_1, \\gamma_2, \\ldots, \\gamma_p)\nX_\\gamma be the submatrix of X which only includes covariate x_i as a column when \\gamma_i=1\nAlways keep the intercept"
+    "text": "Model averaging with Zellner’s G-prior\nModel choice involves selecting best set of covariates\nBayesian model averaging finds best subset of models with uncertainty\n\n\\gamma_i \\in \\{0,1\\} for i \\in \\{0,1,\\ldots,p\\}\n\\gamma=(\\gamma_0,\\gamma_1, \\gamma_2, \\ldots, \\gamma_p)\nX_\\gamma be the submatrix of X which only includes covariate x_i as a column when \\gamma_i=1\nAlways keep the intercept, \\gamma_0=1 fixed"
   },
   {
     "objectID": "lectures/abm3.html#probability-model-with-averaging-v1",
@@ -375,7 +375,7 @@
     "href": "lectures/abm3.html#conditional-posterior-density",
     "title": "Gibbs samplers and variable selection",
     "section": "Conditional posterior density",
-    "text": "Conditional posterior density\nWe index each model using \\gamma vector. The model \\mathcal{M}_\\gamma has posterior density\n\\pi(\\beta,\\sigma^2 \\mid \\gamma,y,X)\nwhen \\gamma_i =0 then \\beta_i=0, only coordinates \\beta_\\gamma are “active”"
+    "text": "Conditional posterior density\nWe index each model using \\gamma vector. The model \\mathcal{M}_\\gamma has posterior density\n\\pi(\\beta,\\sigma^2 \\mid \\gamma,y,X)\n\nIf \\gamma_i = 0 then \\beta_i=0, only coordinates \\beta_\\gamma are “active”\n\\gamma_0 = 1 fixed to always include intercept"
   },
   {
     "objectID": "lectures/abm3.html#conditional-posterior-distribution",
@@ -389,14 +389,14 @@
     "href": "lectures/abm3.html#model-evidence",
     "title": "Gibbs samplers and variable selection",
     "section": "Model evidence",
-    "text": "Model evidence\nThe model evidence for \\mathcal{M}_\\gamma is\n\\begin{aligned} m(y\\mid \\gamma,X) = & (g+1)^{-(p_\\gamma+1)/2}\\pi^{-n/2}\\Gamma(n/2) \\\\ & \\times\\left[y^\\top y-\\frac{g}{g+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2}\\end{aligned}\nwhere p_\\gamma = \\sum_{i=1}^p\\gamma_i."
+    "text": "Model evidence\nThe model evidence for \\mathcal{M}_\\gamma is\n\\begin{aligned} m(y\\mid \\gamma,X) = & (g+1)^{-p_\\gamma/2}\\pi^{-n/2}\\Gamma(n/2) \\\\ & \\times\\left[y^\\top y-\\frac{g}{g+1}y^\\top X_\\gamma(X_\\gamma^\\top X_\\gamma)^{-1}X_\\gamma^\\top y\\right]^{-n/2}\\end{aligned}\nwhere1 p_\\gamma = \\sum_{i=0}^p\\gamma_i.\nRecall \\gamma_0=1 is fixed."
   },
   {
     "objectID": "lectures/abm3.html#full-posterior-over-models",
     "href": "lectures/abm3.html#full-posterior-over-models",
     "title": "Gibbs samplers and variable selection",
     "section": "Full posterior over models",
-    "text": "Full posterior over models\nThe posterior density factorises as\n\\pi(\\beta, \\sigma^2, \\gamma \\mid X,y) = \\pi(\\beta, \\sigma^2 \\mid \\gamma, X,y) \\pi(\\gamma \\mid X,y) \nFull posterior sampling strategy\n\nSample over models \\mathcal{M}_\\gamma using \\gamma \\mid X,y\nUse exact sampling for \\beta, \\sigma^2 \\mid \\gamma, X,y"
+    "text": "Full posterior over models\nThe posterior density factorises as\n\\pi(\\beta, \\sigma^2, \\gamma \\mid X,y) = \\pi(\\beta, \\sigma^2 \\mid \\gamma, X,y) \\pi(\\gamma \\mid X,y) \nFull posterior sampling strategy\n\nSample over models \\mathcal{M}_\\gamma by targetting \\gamma \\mid X,y\n\nGibbs sampler on conditionals: \\gamma^i \\mid X,y,\\gamma^{-i}\n\nUse exact sampling for \\beta, \\sigma^2 \\mid \\gamma, X,y"
   },
   {
     "objectID": "lectures/abm3.html#marginal-posterior-for-models",
@@ -424,7 +424,7 @@
     "href": "index.html#slides",
     "title": "Applied Bayesian Modelling",
     "section": "Slides",
-    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4: Bayesian workflow and Stan [Reading: Gelman et al. (2020), Ch 2.7 Gelman et al. (2013)]"
+    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4: Bayesian workflow and Stan Gelman et al. (2013)"
   },
   {
     "objectID": "index.html#worksheets",
@@ -438,28 +438,28 @@
     "href": "index.html#code",
     "title": "Applied Bayesian Modelling",
     "section": "Code",
-    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3"
+    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4 and initial Stan file"
   },
   {
     "objectID": "index.html#datasets",
     "href": "index.html#datasets",
     "title": "Applied Bayesian Modelling",
     "section": "Datasets",
-    "text": "Datasets\nDatasets for the worksheets. See worksheets for explanation.\n Download data Députés 2019\n Download data Golf\n Download data Death rates"
+    "text": "Datasets\nDatasets for the worksheets. See worksheets for explanation.\n Download data Députés 2019\n Download data Golf\n Download data Death rates\n Download data Death rates"
   },
   {
     "objectID": "index.html#additional-resources",
     "href": "index.html#additional-resources",
     "title": "Applied Bayesian Modelling",
     "section": "Additional Resources",
-    "text": "Additional Resources\n\nTextbooks\n\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
+    "text": "Additional Resources\n\nTextbooks\n\nBayesian Data Analysis (Gelman et al. 2013)\n\n\n\nPapers\n\n“Visualization in Bayesian Workflow” (Gabry et al. 2019)\n“Bayesian Workflow” (Gelman et al. 2020)\n“A conceptual introduction to Hamiltonian Monte Carlo” (Betancourt 2017)\n\n\n\nTutorials\n\n“Linear regression” Stan User’s Guide\n“Logistic and probit regression” Stan User’s Guide"
   },
   {
     "objectID": "index.html#references",
     "href": "index.html#references",
     "title": "Applied Bayesian Modelling",
     "section": "References",
-    "text": "References\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
+    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
   },
   {
     "objectID": "worksheets/abm-worksheet3.html",
@@ -648,7 +648,7 @@
     "href": "lectures/abm4.html#example-4-kidney-cancer-data-2",
     "title": "Bayesian workflow and Stan",
     "section": "Example 4: Kidney Cancer Data",
-    "text": "Example 4: Kidney Cancer Data\n\n\nCode\nlibrary(scales)\n\nrate_code &lt;- function(low_rate, high_rate){\n\n  if(low_rate){\n    return(\"low\")\n  } else if(high_rate) {\n    return(\"high\")\n  } else {\n    return(\"mid\")  \n  }\n  \n}\n\nrate_codeV &lt;- Vectorize(rate_code)\n\nkidney &lt;- kidney %&gt;%\n  mutate(rate = ordered(rate_codeV(low_rate, high_rate),c(\"low\",\"mid\",\"high\")))\n\nggplot(data=kidney, aes(x=population)) + \n  geom_histogram(bins=30, fill=\"lightblue\") + \n  facet_wrap(~ rate) +\n  geom_vline(xintercept = 10^5, linetype = 3) + \n  scale_x_log10(label=trans_format(\"log10\",math_format(10^.x))) +\n  labs(x=\"Estimated kidney cancer death rate (maximum likelihood)\", \n       y=\"Number of counties\")"
+    "text": "Example 4: Kidney Cancer Data\n\n\nCode\nlibrary(scales)\n\nrate_code &lt;- function(low_rate, high_rate){\n\n  if(low_rate){\n    return(\"low\")\n  } else if(high_rate) {\n    return(\"high\")\n  } else {\n    return(\"mid\")  \n  }\n  \n}\n\nrate_codeV &lt;- Vectorize(rate_code)\n\nkidney &lt;- kidney %&gt;%\n  mutate(rate = ordered(rate_codeV(low_rate, high_rate),c(\"low rate\",\"mid rate\",\"high rate\")))\n\nggplot(data=kidney, aes(x=population)) + \n  geom_histogram(bins=30, fill=\"lightblue\") + \n  facet_wrap(~ rate) +\n  geom_vline(xintercept = 10^5, linetype = 3) + \n  scale_x_log10(label=trans_format(\"log10\",math_format(10^.x))) +\n  labs(x=\"Population size\", \n       y=\"Number of counties\")"
   },
   {
     "objectID": "lectures/abm4.html#what-have-we-seen-so-far",
@@ -777,25 +777,25 @@
     "text": "Stan in R\n\nlibrary(rstan)\n\nkidney_stan_data = list(N = nrow(kidney),\n                  n = kidney$population,\n                  y = kidney$total_deaths\n                  )\n\nfit_kidney = stan(file = \"kidneycancer.stan\", data = kidney_stan_data)\n\n\n\n\"kidneycancer.stan\" is a file with your stan model"
   },
   {
-    "objectID": "lectures/abm4.html#installing-rstan",
-    "href": "lectures/abm4.html#installing-rstan",
+    "objectID": "lectures/abm4.html#installing-rstan-as-at-2024-01-12",
+    "href": "lectures/abm4.html#installing-rstan-as-at-2024-01-12",
     "title": "Bayesian workflow and Stan",
-    "section": "Installing rstan",
-    "text": "Installing rstan\n\nGuide to installing rstan\n\nUpdate R\nConfigure C++ Toolchain\nInstall pacakge rstan"
+    "section": "Installing rstan (as at 2024-01-12)",
+    "text": "Installing rstan (as at 2024-01-12)\n\nUpdate R to 4.4.x (and restart R)\nConfigure C++ Toolchain\n\nMac: Install {macrtools} and see optimisation\nWindows: Download {rtools44} and see guide\n\nInstall rstan, see general guide for more help\n\nMac: install.packages(\"rstan\")\nWindows: Install from source for R 4.4.x, install.packages(c(\"StanHeaders\", \"rstan\"), type = \"source\")"
   },
   {
     "objectID": "lectures/abm4.html#crash-course-in-hmc",
     "href": "lectures/abm4.html#crash-course-in-hmc",
     "title": "Bayesian workflow and Stan",
     "section": "Crash-course in HMC",
-    "text": "Crash-course in HMC\nHamiltonian Monte Carlo…"
+    "text": "Crash-course in HMC\nHamiltonian Monte Carlo… see Betancourt (2017)\n\nTrajectories\nLeapfrog integrator\nDivergent transitions\nNo-U-Turn criterion"
   },
   {
     "objectID": "lectures/abm4.html#references",
     "href": "lectures/abm4.html#references",
     "title": "Bayesian workflow and Stan",
     "section": "References",
-    "text": "References\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
+    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
   },
   {
     "objectID": "lectures/abm2.html#applied-bayesian-modelling",

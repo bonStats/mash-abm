@@ -526,14 +526,14 @@ Dr Joshua J Bon
 <span id="cb3-15"><a></a>rate_codeV <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(rate_code)</span>
 <span id="cb3-16"><a></a></span>
 <span id="cb3-17"><a></a>kidney <span class="ot">&lt;-</span> kidney <span class="sc">%&gt;%</span></span>
-<span id="cb3-18"><a></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> <span class="fu">ordered</span>(<span class="fu">rate_codeV</span>(low_rate, high_rate),<span class="fu">c</span>(<span class="st">"low"</span>,<span class="st">"mid"</span>,<span class="st">"high"</span>)))</span>
+<span id="cb3-18"><a></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> <span class="fu">ordered</span>(<span class="fu">rate_codeV</span>(low_rate, high_rate),<span class="fu">c</span>(<span class="st">"low rate"</span>,<span class="st">"mid rate"</span>,<span class="st">"high rate"</span>)))</span>
 <span id="cb3-19"><a></a></span>
 <span id="cb3-20"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>kidney, <span class="fu">aes</span>(<span class="at">x=</span>population)) <span class="sc">+</span> </span>
 <span id="cb3-21"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span> </span>
 <span id="cb3-22"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> rate) <span class="sc">+</span></span>
 <span id="cb3-23"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
 <span id="cb3-24"><a></a>  <span class="fu">scale_x_log10</span>(<span class="at">label=</span><span class="fu">trans_format</span>(<span class="st">"log10"</span>,<span class="fu">math_format</span>(<span class="dv">10</span><span class="sc">^</span>.x))) <span class="sc">+</span></span>
-<span id="cb3-25"><a></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Estimated kidney cancer death rate (maximum likelihood)"</span>, </span>
+<span id="cb3-25"><a></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Population size"</span>, </span>
 <span id="cb3-26"><a></a>       <span class="at">y=</span><span class="st">"Number of counties"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
@@ -1106,23 +1106,38 @@ Dr Joshua J Bon
 <li><code>"kidneycancer.stan"</code> is a file with your stan model</li>
 </ul>
 </section>
-<section id="installing-rstan" class="slide level2">
-<h2>Installing rstan</h2>
-<p><br></p>
-<p><a href="https://github.com/stan-dev/rstan/wiki/Rstan-Getting-Started">Guide to installing rstan</a></p>
+<section id="installing-rstan-as-at-2024-01-12" class="slide level2">
+<h2>Installing rstan (as at 2024-01-12)</h2>
 <ol type="1">
-<li>Update R</li>
-<li>Configure C++ Toolchain</li>
-<li>Install pacakge <code>rstan</code></li>
+<li>Update R to 4.4.x (and restart R)</li>
+<li>Configure C++ Toolchain
+<ul>
+<li>Mac: Install <a href="https://github.com/coatless-mac/macrtools?tab=readme-ov-file#macrtools">{macrtools}</a> and see <a href="https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Mac">optimisation</a></li>
+<li>Windows: Download <a href="https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html">{rtools44}</a> and see <a href="https://github.com/stan-dev/rstan/wiki/Configuring-C---Toolchain-for-Windows">guide</a></li>
+</ul></li>
+<li>Install <code>rstan</code>, see <a href="https://github.com/stan-dev/rstan/wiki/Rstan-Getting-Started">general guide</a> for more help
+<ul>
+<li>Mac: <code>install.packages("rstan")</code></li>
+<li>Windows: Install from source for R 4.4.x, <code>install.packages(c("StanHeaders", "rstan"), type = "source")</code></li>
+</ul></li>
 </ol>
 </section>
 <section id="crash-course-in-hmc" class="slide level2">
 <h2>Crash-course in HMC</h2>
-<p>Hamiltonian Monte Carlo…</p>
+<p>Hamiltonian Monte Carlo… see <span class="citation" data-cites="betancourt2017conceptual">Betancourt (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p>
+<ul>
+<li>Trajectories</li>
+<li>Leapfrog integrator</li>
+<li>Divergent transitions</li>
+<li>No-U-Turn criterion</li>
+</ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-betancourt2017conceptual" class="csl-entry" role="listitem">
+Betancourt, Michael. 2017. <span>“A Conceptual Introduction to Hamiltonian Monte Carlo.”</span> <em>arXiv Preprint arXiv:1701.02434</em>.
+</div>
 <div id="ref-gelman2020bayesian" class="csl-entry" role="listitem">
 Gelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. <span>“Bayesian Workflow.”</span> <em>arXiv Preprint arXiv:2011.01808</em>. <a href="https://doi.org/10.48550/arXiv.2011.01808">https://doi.org/10.48550/arXiv.2011.01808</a>.
 </div>
