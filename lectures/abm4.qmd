@@ -421,8 +421,12 @@ flowchart TD
 
 #### Model checking
 
-- Posterior predictive
-- Inflence of prior
+- Posterior predictive checks
+- Prior predictive checks
+
+[Stan guide](https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html)
+
+[bayesplot guide](https://mc-stan.org/bayesplot/articles/graphical-ppcs.html)
 
 :::
 
@@ -449,7 +453,9 @@ flowchart TD
 #### Model comparison
 
 - Model evidence
-- Cross validation
+- Cross validation [@vehtari2017practical]
+
+[Stan guide to {loo}](https://mc-stan.org/loo/articles/loo2-with-rstan.html)
 
 :::
 

@@ -3,7 +3,8 @@ library(dplyr)
 library(ggplot2)
 library(usmap)
 library(rstan)
-
+library(bayesplot)
+library(loo)
 
 josh_data_dir <- function(fl){
   paste0("/Users/jbon/github/mash-abm/data/", fl)
@@ -26,20 +27,45 @@ plot_usmap("counties", data=kidney, values="high_rate") +
 
 
 
-## Stan
+## Stan fitting
 
 kidney_stan_data = list(N = nrow(kidney),
                         counts = kidney$population,
                         y = kidney$total_deaths
 )
 
-fit_kidney = stan(file = "worksheets/scripts/kidney_global.stan", data = kidney_stan_data)
+fit_kidney = stan(file = "worksheets/scripts/kidney_global.stan", 
+                  data = kidney_stan_data, iter = 4000, warmup = 3000,
+                  )
 
-fit_kidney
+print(fit_kidney, pars = c("theta","logtheta"))
 
 plot(fit_kidney, pars = c("logtheta"))
 plot(fit_kidney, pars = c("theta"))
 pairs(fit_kidney, pars = c("logtheta", "lp__"))
 
-traceplot(fit_kidney)
+traceplot(fit_kidney, pars = c("logtheta"))
+
+
+# posterior predictive checks
+
+y_rep <- as.matrix(fit_kidney, pars = "y_rep")
+
+sample_id <- sample(1:kidney_stan_data$N, size = 8, replace = F)
+
+ppc_hist(kidney_stan_data$y, y_rep[sample_id, ])
+ppc_hist(log(1+kidney_stan_data$y), log(1+y_rep[sample_id, ]) )
+
+# prior predictive checks
+
+y_rep_prior <- as.matrix(fit_kidney, pars = "y_rep_prior")
+
+sample_id <- sample(1:kidney_stan_data$N, size = 8, replace = F)
+
+ppc_hist(log(1+kidney_stan_data$y), log(1+y_rep_prior[sample_id, ]) )
+
+
+# Bayes LOO 
+
+loo(fit_kidney)
 

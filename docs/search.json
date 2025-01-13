@@ -725,14 +725,14 @@
     "href": "lectures/abm4.html#evaluate-posterior-1",
     "title": "Bayesian workflow and Stan",
     "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nModel checking\n\nPosterior predictive\nInflence of prior\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
+    "text": "Evaluate posterior\n\n\n\nModel checking\n\nPosterior predictive checks\nPrior predictive checks\n\nStan guide\nbayesplot guide\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
     "objectID": "lectures/abm4.html#evaluate-posterior-2",
     "href": "lectures/abm4.html#evaluate-posterior-2",
     "title": "Bayesian workflow and Stan",
     "section": "Evaluate posterior",
-    "text": "Evaluate posterior\n\n\n\nModel comparison\n\nModel evidence\nCross validation\n\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
+    "text": "Evaluate posterior\n\n\n\nModel comparison\n\nModel evidence\nCross validation (Vehtari, Gelman, and Gabry 2017)\n\nStan guide to {loo}\n\n\n\n\n\n\nflowchart TD\n  A(Model checking) --&gt; B(Model comparison)\n  B --&gt; C(Model choice)"
   },
   {
     "objectID": "lectures/abm4.html#evaluate-posterior-3",
@@ -795,7 +795,7 @@
     "href": "lectures/abm4.html#references",
     "title": "Bayesian workflow and Stan",
     "section": "References",
-    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
+    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nVehtari, Aki, Andrew Gelman, and Jonah Gabry. 2017. “Practical Bayesian Model Evaluation Using Leave-One-Out Cross-Validation and WAIC.” Statistics and Computing 27: 1413–32.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
   },
   {
     "objectID": "lectures/abm2.html#applied-bayesian-modelling",
