@@ -41,7 +41,6 @@ library(dplyr)
 library(ggplot2)
 
 golf <- read_csv(file = josh_data_dir("golf2.txt"))
-# Download: https://github.com/bonStats/mash-abm/tree/main/data
 # change location to match folder of 'golf2.txt' on your computer
 # e.g. "~/Downloads/golf2.txt" or "C:/Users/[User Name]/Downloads/golf2.txt"
 

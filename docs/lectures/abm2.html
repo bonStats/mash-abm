@@ -479,16 +479,15 @@ Dr Joshua J Bon
 <span id="cb1-3"><a></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a></a></span>
 <span id="cb1-5"><a></a>golf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">josh_data_dir</span>(<span class="st">"golf2.txt"</span>))</span>
-<span id="cb1-6"><a></a><span class="co"># Download: https://github.com/bonStats/mash-abm/tree/main/data</span></span>
-<span id="cb1-7"><a></a><span class="co"># change location to match folder of 'golf2.txt' on your computer</span></span>
-<span id="cb1-8"><a></a><span class="co"># e.g. "~/Downloads/golf2.txt" or "C:/Users/[User Name]/Downloads/golf2.txt"</span></span>
-<span id="cb1-9"><a></a></span>
-<span id="cb1-10"><a></a>golf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(distance) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">prop_success =</span> <span class="fu">mean</span>(success)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-11"><a></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb1-12"><a></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> prop_success)) <span class="sc">+</span></span>
-<span id="cb1-13"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Distance to hole"</span>) <span class="sc">+</span></span>
-<span id="cb1-14"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Proportion successful"</span>) <span class="sc">+</span></span>
-<span id="cb1-15"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a></a><span class="co"># change location to match folder of 'golf2.txt' on your computer</span></span>
+<span id="cb1-7"><a></a><span class="co"># e.g. "~/Downloads/golf2.txt" or "C:/Users/[User Name]/Downloads/golf2.txt"</span></span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a>golf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(distance) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">prop_success =</span> <span class="fu">mean</span>(success)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb1-11"><a></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> prop_success)) <span class="sc">+</span></span>
+<span id="cb1-12"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Distance to hole"</span>) <span class="sc">+</span></span>
+<span id="cb1-13"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Proportion successful"</span>) <span class="sc">+</span></span>
+<span id="cb1-14"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>

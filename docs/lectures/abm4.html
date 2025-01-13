@@ -462,9 +462,83 @@ Dr Joshua J Bon
 <h1>Statistical inference</h1>
 
 </section>
-<section id="example-4" class="slide level2">
-<h2>Example 4: ???</h2>
-</section>
+<section id="example-4-kidney-cancer-data" class="slide level2">
+<h2>Example 4: Kidney Cancer Data</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a></a><span class="fu">library</span>(usmap)</span>
+<span id="cb1-4"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a></a></span>
+<span id="cb1-6"><a></a>kidney <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="fu">josh_data_dir</span>(<span class="st">"kidneycancerclean.csv"</span>), <span class="at">skip =</span> <span class="dv">4</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="fu">col_skip</span>(), <span class="fu">col_guess</span>()))</span>
+<span id="cb1-7"><a></a><span class="co"># change location to match folder of 'kidneycancerclean.csv' on your computer</span></span>
+<span id="cb1-8"><a></a><span class="co"># e.g. "~/Downloads/kidneycancerclean.csv" or </span></span>
+<span id="cb1-9"><a></a><span class="co"># "C:/Users/[User Name]/Downloads/kidneycancerclean.csv"</span></span>
+<span id="cb1-10"><a></a></span>
+<span id="cb1-11"><a></a>kidney <span class="ot">&lt;-</span> kidney <span class="sc">%&gt;%</span> </span>
+<span id="cb1-12"><a></a>  <span class="fu">mutate</span>(<span class="at">total_deaths =</span> dc <span class="sc">+</span> dc<span class="fl">.2</span>) <span class="sc">%&gt;%</span> <span class="co"># 1980-1989</span></span>
+<span id="cb1-13"><a></a>  <span class="fu">mutate</span>(<span class="at">population =</span> (pop<span class="sc">+</span>pop<span class="fl">.2</span>)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># average in 1980-1989</span></span>
+<span id="cb1-14"><a></a>  <span class="fu">mutate</span>(<span class="at">theta_hat =</span> total_deaths<span class="sc">/</span>(<span class="dv">10</span><span class="sc">*</span>population)) <span class="sc">%&gt;%</span> <span class="co"># estimate of annual death rate</span></span>
+<span id="cb1-15"><a></a>  <span class="fu">mutate</span>(<span class="at">low_rate =</span> theta_hat <span class="sc">&lt;=</span> <span class="fu">quantile</span>(theta_hat, <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a></a>  <span class="fu">mutate</span>(<span class="at">high_rate =</span> theta_hat <span class="sc">&gt;=</span> <span class="fu">quantile</span>(theta_hat, <span class="fl">0.9</span>))</span>
+<span id="cb1-17"><a></a></span>
+<span id="cb1-18"><a></a></span>
+<span id="cb1-19"><a></a><span class="fu">plot_usmap</span>(<span class="st">"counties"</span>, <span class="at">data=</span>kidney, <span class="at">values=</span><span class="st">"high_rate"</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">h.start =</span> <span class="dv">200</span>, </span>
+<span id="cb1-21"><a></a>                      <span class="at">name =</span> <span class="st">"High rate of kidney cancer deaths"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm4_files/figure-revealjs/kidney-plot-1.png" width="960" class="r-stretch"></section>
+<section id="example-4-kidney-cancer-data-1" class="slide level2">
+<h2>Example 4: Kidney Cancer Data</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">plot_usmap</span>(<span class="st">"counties"</span>, <span class="at">data=</span>kidney, <span class="at">values=</span><span class="st">"low_rate"</span>) <span class="sc">+</span></span>
+<span id="cb2-2"><a></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">h.start =</span> <span class="dv">200</span>, </span>
+<span id="cb2-3"><a></a>                      <span class="at">name =</span> <span class="st">"Low rate of kidney cancer deaths"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm4_files/figure-revealjs/kidney-plot2-1.png" width="960" class="r-stretch"></section>
+<section id="example-4-kidney-cancer-data-2" class="slide level2">
+<h2>Example 4: Kidney Cancer Data</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(scales)</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a>rate_code <span class="ot">&lt;-</span> <span class="cf">function</span>(low_rate, high_rate){</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a>  <span class="cf">if</span>(low_rate){</span>
+<span id="cb3-6"><a></a>    <span class="fu">return</span>(<span class="st">"low"</span>)</span>
+<span id="cb3-7"><a></a>  } <span class="cf">else</span> <span class="cf">if</span>(high_rate) {</span>
+<span id="cb3-8"><a></a>    <span class="fu">return</span>(<span class="st">"high"</span>)</span>
+<span id="cb3-9"><a></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-10"><a></a>    <span class="fu">return</span>(<span class="st">"mid"</span>)  </span>
+<span id="cb3-11"><a></a>  }</span>
+<span id="cb3-12"><a></a>  </span>
+<span id="cb3-13"><a></a>}</span>
+<span id="cb3-14"><a></a></span>
+<span id="cb3-15"><a></a>rate_codeV <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(rate_code)</span>
+<span id="cb3-16"><a></a></span>
+<span id="cb3-17"><a></a>kidney <span class="ot">&lt;-</span> kidney <span class="sc">%&gt;%</span></span>
+<span id="cb3-18"><a></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> <span class="fu">ordered</span>(<span class="fu">rate_codeV</span>(low_rate, high_rate),<span class="fu">c</span>(<span class="st">"low"</span>,<span class="st">"mid"</span>,<span class="st">"high"</span>)))</span>
+<span id="cb3-19"><a></a></span>
+<span id="cb3-20"><a></a><span class="fu">ggplot</span>(<span class="at">data=</span>kidney, <span class="fu">aes</span>(<span class="at">x=</span>population)) <span class="sc">+</span> </span>
+<span id="cb3-21"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span> </span>
+<span id="cb3-22"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> rate) <span class="sc">+</span></span>
+<span id="cb3-23"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>, <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb3-24"><a></a>  <span class="fu">scale_x_log10</span>(<span class="at">label=</span><span class="fu">trans_format</span>(<span class="st">"log10"</span>,<span class="fu">math_format</span>(<span class="dv">10</span><span class="sc">^</span>.x))) <span class="sc">+</span></span>
+<span id="cb3-25"><a></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Estimated kidney cancer death rate (maximum likelihood)"</span>, </span>
+<span id="cb3-26"><a></a>       <span class="at">y=</span><span class="st">"Number of counties"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="abm4_files/figure-revealjs/kidney-plot3-1.png" width="960" class="r-stretch"></section>
 <section id="what-have-we-seen-so-far" class="slide level2">
 <h2>What have we seen so far?</h2>
 <ul>
@@ -968,24 +1042,24 @@ Dr Joshua J Bon
 <p><span class="math inline">y_i \mid \alpha,\beta,\sigma, x \overset{\text{iid}}{\sim} \mathcal{N}(\alpha+\beta x_i,\sigma^2)</span></p>
 </div><div class="column" style="width:60%;">
 <h4 id="stan-code">Stan code</h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource stan number-lines code-with-copy"><code class="sourceCode stan"><span id="cb1-1"><a></a><span class="kw">data</span> {</span>
-<span id="cb1-2"><a></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;</span>
-<span id="cb1-3"><a></a>  <span class="dt">vector</span>[N] x;</span>
-<span id="cb1-4"><a></a>  <span class="dt">vector</span>[N] y;</span>
-<span id="cb1-5"><a></a>}</span>
-<span id="cb1-6"><a></a><span class="kw">parameters</span> {</span>
-<span id="cb1-7"><a></a>  <span class="dt">real</span> alpha;</span>
-<span id="cb1-8"><a></a>  <span class="dt">real</span> beta;</span>
-<span id="cb1-9"><a></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; sigma;</span>
-<span id="cb1-10"><a></a>}</span>
-<span id="cb1-11"><a></a><span class="kw">model</span> {</span>
-<span id="cb1-12"><a></a>  <span class="co">// prior</span></span>
-<span id="cb1-13"><a></a>  alpha ~ normal(<span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb1-14"><a></a>  beta ~ normal(<span class="dv">0</span>, <span class="dv">1</span>);</span>
-<span id="cb1-15"><a></a>  sigma ~ inv_gamma(<span class="dv">1</span>, <span class="dv">1</span>);</span>
-<span id="cb1-16"><a></a>  <span class="co">// likelihood</span></span>
-<span id="cb1-17"><a></a>  y ~ normal(alpha + beta * x, sigma);</span>
-<span id="cb1-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource stan number-lines code-with-copy"><code class="sourceCode stan"><span id="cb4-1"><a></a><span class="kw">data</span> {</span>
+<span id="cb4-2"><a></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;</span>
+<span id="cb4-3"><a></a>  <span class="dt">vector</span>[N] x;</span>
+<span id="cb4-4"><a></a>  <span class="dt">vector</span>[N] y;</span>
+<span id="cb4-5"><a></a>}</span>
+<span id="cb4-6"><a></a><span class="kw">parameters</span> {</span>
+<span id="cb4-7"><a></a>  <span class="dt">real</span> alpha;</span>
+<span id="cb4-8"><a></a>  <span class="dt">real</span> beta;</span>
+<span id="cb4-9"><a></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; sigma;</span>
+<span id="cb4-10"><a></a>}</span>
+<span id="cb4-11"><a></a><span class="kw">model</span> {</span>
+<span id="cb4-12"><a></a>  <span class="co">// prior</span></span>
+<span id="cb4-13"><a></a>  alpha ~ normal(<span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb4-14"><a></a>  beta ~ normal(<span class="dv">0</span>, <span class="dv">1</span>);</span>
+<span id="cb4-15"><a></a>  sigma ~ inv_gamma(<span class="dv">1</span>, <span class="dv">1</span>);</span>
+<span id="cb4-16"><a></a>  <span class="co">// likelihood</span></span>
+<span id="cb4-17"><a></a>  y ~ normal(alpha + beta * x, sigma);</span>
+<span id="cb4-18"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </section>
 <section id="joint-probaility-object" class="slide level2">
@@ -1017,11 +1091,34 @@ Dr Joshua J Bon
 </section>
 <section id="stan-in-r" class="slide level2">
 <h2>Stan in R</h2>
-<p>Build, run model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(rstan)</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a>kidney_stan_data <span class="ot">=</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">nrow</span>(kidney),</span>
+<span id="cb5-4"><a></a>                  <span class="at">n =</span> kidney<span class="sc">$</span>population,</span>
+<span id="cb5-5"><a></a>                  <span class="at">y =</span> kidney<span class="sc">$</span>total_deaths</span>
+<span id="cb5-6"><a></a>                  )</span>
+<span id="cb5-7"><a></a></span>
+<span id="cb5-8"><a></a>fit_kidney <span class="ot">=</span> <span class="fu">stan</span>(<span class="at">file =</span> <span class="st">"kidneycancer.stan"</span>, <span class="at">data =</span> kidney_stan_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<ul>
+<li><code>"kidneycancer.stan"</code> is a file with your stan model</li>
+</ul>
+</section>
+<section id="installing-rstan" class="slide level2">
+<h2>Installing rstan</h2>
+<p><br></p>
+<p><a href="https://github.com/stan-dev/rstan/wiki/Rstan-Getting-Started">Guide to installing rstan</a></p>
+<ol type="1">
+<li>Update R</li>
+<li>Configure C++ Toolchain</li>
+<li>Install pacakge <code>rstan</code></li>
+</ol>
 </section>
 <section id="crash-course-in-hmc" class="slide level2">
 <h2>Crash-course in HMC</h2>
-<p>Hamiltonian Monte Carlo</p>
+<p>Hamiltonian Monte Carlo…</p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

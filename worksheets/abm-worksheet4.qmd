@@ -25,7 +25,10 @@ Chapter 6, @gelman2013bayesian
 ::: {.callout-important collapse="true"}
 ## Data: `kidneycancerclean.csv`
 
-Kidney cancer death rates[^1] by county in periods 1980--84 and 1985--89. We are interested in the columns `dc` and `dc.2`, which give the number of deaths from kidney cancer in each county, respectively in the years 1980--84 and 1985--89. The columns `pop` and `pop.2` are some measure of the population in the counties. We shall ignore the other columns.
+
+Death rates for cancer of kidney/ureter for U.S. white males, 1980–1989[^1].
+
+Data is separated in periods 1980--84 and 1985--89. We are interested in the columns `dc` and `dc.2`, which give the number of deaths from kidney cancer in each county, respectively in the years 1980--84 and 1985--89. The columns `pop` and `pop.2` are some measure of the population in the counties. We shall ignore the other columns.
 
 `r download_data_buttom("kidneycancerclean.csv","kidneycancerclean")`
 
@@ -55,7 +58,7 @@ Kidney cancer death rates[^1] by county in periods 1980--84 and 1985--89. We are
 
 :::
 
-[^1]: Data from Chapter 6, @gelman2013bayesian
+[^1]: Data from Chapter 2.7 @gelman2013bayesian
 
 ## Activity 1: Getting started
 
@@ -74,6 +77,11 @@ library(ggplot2)
 
 kidney <- read_csv("/path/to/kidneycancerclean.csv", skip = 4, col_types = cols(col_skip(), col_guess()))
   # Discards the first 4 rows and first column.
+
+kidney <- kidney %>% 
+  mutate(total_deaths = dc + dc.2) %>% # 1980-1989
+  mutate(population = (pop+pop.2)/2) %>% # average in 1980-1989
+  mutate(theta_hat = total_deaths/(10*population)) # estimate of annual death rate (/10 to average over 10 years)
 
 ```
 
