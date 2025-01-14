@@ -5,6 +5,7 @@ library(usmap)
 library(rstan)
 library(bayesplot)
 library(loo)
+library(brms)
 
 josh_data_dir <- function(fl){
   paste0("/Users/jbon/github/mash-abm/data/", fl)
@@ -123,3 +124,105 @@ fit_kidney = stan(file = "worksheets/scripts/kidney_hierarchical.stan",
 print(fit_kidney, pars = c("tau","gamma"))
 
 pairs(fit_kidney, pars = c("tau", "gamma[31]"))
+
+
+### Fit model with brms
+
+## Global model
+
+# Prior check
+
+prior_kidney_brms <- brm(total_deaths ~ 1 + offset(log(10*population)), 
+                             family = poisson(link = "log"), 
+                             sample_prior = "only", # NOT THE POSTERIOR
+                             data = kidney)
+
+prior_summary(prior_kidney_brms)
+
+prior_pred <- posterior_predict(prior_kidney_brms, ndraws = 10) # prior! but use the "posterior_predict()" function
+ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred))
+ppc_dens_overlay(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred))
+
+log1_mean <- function(x) mean(log(1+x))
+log1_sd <- function(x) sd(log(1+x))
+
+pp_check(prior_kidney_brms, type = "stat", stat = "log1_mean")
+pp_check(prior_kidney_brms, type = "stat", stat = "log1_sd")
+pp_check(prior_kidney_brms, type = "stat_2d", stat = c("log1_mean","log1_sd"))
+
+
+# Posterior fit
+
+fit_kidney_brms <- brm(total_deaths ~ 1 + offset(log(10*population)), 
+                       family = poisson(link = "log"), 
+                       data = kidney)
+
+summary(fit_kidney_brms)
+
+# Posterior check
+
+post_pred <- posterior_predict(fit_kidney_brms, ndraws = 8)
+ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+post_pred))
+
+ppc_dens_overlay(y = log(kidney$total_deaths), yrep = log(pred))
+pp_check(fit_kidney_brms, type = "stat_2d")
+
+pp_check(fit_kidney_brms, type = "stat", stat = "log1_mean")
+pp_check(fit_kidney_brms, type = "stat", stat = "log1_sd")
+
+
+## Hierarchical model
+
+# Prior check
+
+prior_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)), 
+                        family = poisson(link = "log"),
+                        iter = 4000, warmup = 1000,
+                        sample_prior = 'only',
+                        data = kidney)
+
+prior_pred2 <- posterior_predict(prior_kidney_brms2, ndraws = 10) # prior! but use the "posterior_predict()" function
+ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred2))
+ppc_dens_overlay(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred2))
+
+pp_check(prior_kidney_brms2, type = "stat", stat = "log1_mean")
+pp_check(prior_kidney_brms2, type = "stat", stat = "log1_sd")
+pp_check(prior_kidney_brms2, type = "stat_2d", stat = c("log1_mean","log1_sd"))
+
+# Posterior fit
+
+fit_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)), 
+                        family = poisson(link = "log"),
+                        iter = 4000, warmup = 1000,
+                        data = kidney)
+
+summary(fit_kidney_brms2) # model and main effect summary
+
+ranef(fit_kidney_brms2) # random effect summary
+
+
+# Posterior check
+
+pp_check(fit_kidney_brms2, type = "hist", ndraws = 8)
+
+post_pred2 <- posterior_predict(fit_kidney_brms2, ndraws = 8)
+ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+post_pred2))
+
+ppc_dens_overlay(y = log(1+kidney$total_deaths), yrep = log(1+post_pred2))
+
+pp_check(fit_kidney_brms2, type = "stat_2d", stat = c("log1_mean","log1_sd"))
+
+
+loo(fit_kidney_brms2, fit_kidney_brms)
+
+
+# look at model fit by county
+
+posterior_pred_mean <- colMeans(posterior_predict(fit_kidney_brms2))
+
+kidney <- kidney %>% 
+  mutate(pp_mean = posterior_pred_mean) %>%
+  mutate(posterior_log_rate = log(pp_mean/(10*population)))
+
+plot_usmap("counties", data=kidney, values="posterior_log_rate") +
+  scale_fill_gradientn(colours = terrain.colors(3))
