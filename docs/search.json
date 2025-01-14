@@ -784,11 +784,32 @@
     "text": "Installing rstan (as at 2024-01-12)\n\nUpdate R to 4.4.x (and restart R)\nConfigure C++ Toolchain\n\nMac: Install {macrtools} and see optimisation\nWindows: Download {rtools44} and see guide\n\nInstall rstan, see general guide for more help\n\nMac: install.packages(\"rstan\")\nWindows: Install from source for R 4.4.x, install.packages(c(\"StanHeaders\", \"rstan\"), type = \"source\")"
   },
   {
+    "objectID": "lectures/abm4.html#r-packages-built-on-stan",
+    "href": "lectures/abm4.html#r-packages-built-on-stan",
+    "title": "Bayesian workflow and Stan",
+    "section": "R packages built on Stan",
+    "text": "R packages built on Stan\n\nbrms\nbayesforecast\nbayesdfa\nmvgam\nstan4bart"
+  },
+  {
     "objectID": "lectures/abm4.html#crash-course-in-hmc",
     "href": "lectures/abm4.html#crash-course-in-hmc",
     "title": "Bayesian workflow and Stan",
     "section": "Crash-course in HMC",
     "text": "Crash-course in HMC\nHamiltonian Monte Carlo… see Betancourt (2017)\n\nTrajectories\nLeapfrog integrator\nDivergent transitions\nNo-U-Turn criterion"
+  },
+  {
+    "objectID": "lectures/abm4.html#bayes-model-evaluation-with-elpd",
+    "href": "lectures/abm4.html#bayes-model-evaluation-with-elpd",
+    "title": "Bayesian workflow and Stan",
+    "section": "Bayes model evaluation with elpd",
+    "text": "Bayes model evaluation with elpd\nelpd = expected log pointwise predictive density for a new dataset\n\\text{elpd} = \\sum_{i=1}^{n} \\int \\log p^*(\\tilde{y}_i\\mid y) P_\\text{T}(\\mathrm{d}\\tilde{y}_i)\n\nP_\\text{T} represents the true data-generating process for \\tilde{y}_i\np^*(\\cdot\\mid y) is the denisty of the posterior predictive"
+  },
+  {
+    "objectID": "lectures/abm4.html#bayes-model-evaluation-loo-cross-validation",
+    "href": "lectures/abm4.html#bayes-model-evaluation-loo-cross-validation",
+    "title": "Bayesian workflow and Stan",
+    "section": "Bayes model evaluation LOO cross-validation",
+    "text": "Bayes model evaluation LOO cross-validation\nApproximate the elpd, using leave-one-out cross-validation:\n\\text{elpd}_\\text{loo} = \\sum_{i=1}^{n} \\log p^*(y_i\\mid y_{-i}) where1 p^*(y_i\\mid y_{-i}) = \\int p(y_i \\mid \\theta) \\Pi(\\mathrm{d}\\theta \\mid y_{-i})\nInstead of fitting n new posteriors, use importance sampling for \\Pi(\\cdot \\mid y_{-i}). See Vehtari, Gelman, and Gabry (2017) for details."
   },
   {
     "objectID": "lectures/abm4.html#references",

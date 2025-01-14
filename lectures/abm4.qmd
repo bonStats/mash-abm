@@ -636,7 +636,13 @@ fit_kidney = stan(file = "kidneycancer.stan", data = kidney_stan_data)
     - Windows: Install from source for R 4.4.x, `install.packages(c("StanHeaders", "rstan"), type = "source")`
     
 
+## R packages built on Stan
 
+- [`brms`](https://cran.r-project.org/package=brms)
+- [`bayesforecast`](https://cran.r-project.org/package=bayesforecast)
+- [`bayesdfa`](https://cran.r-project.org/package=bayesdfa)
+- [`mvgam`](https://cran.r-project.org/package=mvgam)
+- [`stan4bart`](https://cran.r-project.org/package=stan4bart)
 
 ## Crash-course in HMC
 
@@ -647,7 +653,23 @@ Hamiltonian Monte Carlo... see @betancourt2017conceptual
 - Divergent transitions
 - No-U-Turn criterion
 
+# Bayes model evaluation with cross-validation
 
+## Bayes model evaluation with elpd
+
+elpd = expected log pointwise predictive density for a new dataset
+
+$$\text{elpd} = \sum_{i=1}^{n} \int \log p^*(\tilde{y}_i\mid y) P_\text{T}(\mathrm{d}\tilde{y}_i)$$
+
+- $P_\text{T}$ represents the true data-generating process for $\tilde{y}_i$
+- $p^*(\cdot\mid y)$ is the denisty of the posterior predictive
+
+## Bayes model evaluation LOO cross-validation
+
+Approximate the elpd, using leave-one-out cross-validation:
+
+$$\text{elpd}_\text{loo} = \sum_{i=1}^{n} \log p^*(y_i\mid y_{-i})$$
+where^[Instead of fitting $n$ new posteriors, use importance sampling for $\Pi(\cdot \mid y_{-i})$. See @vehtari2017practical for details.] $p^*(y_i\mid y_{-i}) = \int p(y_i \mid \theta) \Pi(\mathrm{d}\theta \mid y_{-i})$
 
 ## References
 

@@ -1125,6 +1125,16 @@ Dr Joshua J Bon
 </ul></li>
 </ol>
 </section>
+<section id="r-packages-built-on-stan" class="slide level2">
+<h2>R packages built on Stan</h2>
+<ul>
+<li><a href="https://cran.r-project.org/package=brms"><code>brms</code></a></li>
+<li><a href="https://cran.r-project.org/package=bayesforecast"><code>bayesforecast</code></a></li>
+<li><a href="https://cran.r-project.org/package=bayesdfa"><code>bayesdfa</code></a></li>
+<li><a href="https://cran.r-project.org/package=mvgam"><code>mvgam</code></a></li>
+<li><a href="https://cran.r-project.org/package=stan4bart"><code>stan4bart</code></a></li>
+</ul>
+</section>
 <section id="crash-course-in-hmc" class="slide level2">
 <h2>Crash-course in HMC</h2>
 <p>Hamiltonian Monte Carlo… see <span class="citation" data-cites="betancourt2017conceptual">Betancourt (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></p>
@@ -1134,7 +1144,26 @@ Dr Joshua J Bon
 <li>Divergent transitions</li>
 <li>No-U-Turn criterion</li>
 </ul>
+</section></section>
+<section>
+<section id="bayes-model-evaluation-with-cross-validation" class="title-slide slide level1 center">
+<h1>Bayes model evaluation with cross-validation</h1>
+
 </section>
+<section id="bayes-model-evaluation-with-elpd" class="slide level2">
+<h2>Bayes model evaluation with elpd</h2>
+<p>elpd = expected log pointwise predictive density for a new dataset</p>
+<p><span class="math display">\text{elpd} = \sum_{i=1}^{n} \int \log p^*(\tilde{y}_i\mid y) P_\text{T}(\mathrm{d}\tilde{y}_i)</span></p>
+<ul>
+<li><span class="math inline">P_\text{T}</span> represents the true data-generating process for <span class="math inline">\tilde{y}_i</span></li>
+<li><span class="math inline">p^*(\cdot\mid y)</span> is the denisty of the posterior predictive</li>
+</ul>
+</section>
+<section id="bayes-model-evaluation-loo-cross-validation" class="slide level2">
+<h2>Bayes model evaluation LOO cross-validation</h2>
+<p>Approximate the elpd, using leave-one-out cross-validation:</p>
+<p><span class="math display">\text{elpd}_\text{loo} = \sum_{i=1}^{n} \log p^*(y_i\mid y_{-i})</span> where<sup>1</sup> <span class="math inline">p^*(y_i\mid y_{-i}) = \int p(y_i \mid \theta) \Pi(\mathrm{d}\theta \mid y_{-i})</span></p>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>Instead of fitting <span class="math inline">n</span> new posteriors, use importance sampling for <span class="math inline">\Pi(\cdot \mid y_{-i})</span>. See <span class="citation" data-cites="vehtari2017practical">Vehtari, Gelman, and Gabry (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span> for details.</p></li></ol></aside></section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
