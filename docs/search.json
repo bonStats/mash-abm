@@ -438,7 +438,7 @@
     "href": "index.html#code",
     "title": "Applied Bayesian Modelling",
     "section": "Code",
-    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4 and initial Stan file"
+    "text": "Code\nR files from live-coding in class.\n\nWorksheet 1\nWorksheet 2\nWorksheet 3\nWorksheet 4\n\nGlobal Stan model\nHierarchical Stan model"
   },
   {
     "objectID": "index.html#datasets",

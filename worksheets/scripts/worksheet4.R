@@ -94,13 +94,31 @@ sample_id <- sample(1:nrow(y_rep_prior), size = 8, replace = F)
 ppc_hist(log(1+kidney_stan_data$y), log(1+y_rep_prior[sample_id, ]) )
 
 
-for (i in N){
-  y_reps_prior[i,] <- rpois(data_length, 10 * kidney_stan_data$counts * prior_theta[i])
-}
-
-
-
 # Bayes LOO 
 
 loo(fit_kidney)
+
+
+## Hierarchical model
+
+
+kidney <- kidney %>%
+  mutate(state_id = as.integer(factor(kidney$state)))
+  
+
+kidney_stan_data2 = list(N = nrow(kidney),
+                        counts = kidney$population,
+                        y = kidney$total_deaths,
+                        s = kidney$state_id,
+                        Ns = max(kidney$state_id)
+)
+
+fit_kidney = stan(file = "worksheets/scripts/kidney_hierarchical.stan", 
+                  data = kidney_stan_data2, iter = 5000, warmup = 1000
+)
+
+ # needs more iterations! some gamma[i] are difficult to estimate
+
+
+print(fit_kidney, pars = c("tau","gamma"))
 

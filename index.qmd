@@ -45,7 +45,9 @@ Worksheets with practical and computer activities based in `R`.
 -   [Worksheet 1](worksheets/scripts/worksheet1.R)
 -   [Worksheet 2](worksheets/scripts/worksheet2.R)
 -   [Worksheet 3](worksheets/scripts/worksheet3.R)
--   [Worksheet 4](worksheets/scripts/worksheet4.R) and [initial Stan file](worksheets/scripts/kidney_global.stan)
+-   [Worksheet 4](worksheets/scripts/worksheet4.R)
+    - [Global Stan model](worksheets/scripts/kidney_global.stan)
+    - [Hierarchical Stan model](worksheets/scripts/kidney_hierarchical.stan)
 
 ## Datasets
 
