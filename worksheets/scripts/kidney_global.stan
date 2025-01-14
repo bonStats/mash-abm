@@ -37,7 +37,7 @@ generated quantities {
   real<upper=1> theta_prior = exp(-normal_rng(10,1));
   array[N] real y_rep_prior = poisson_rng(10*counts*theta_prior);
   
-  // log likelihood for LOO package
+  // log likelihood for each y_i for LOO package
   vector[N] log_lik;
   for (i in 1:N) {
     log_lik[i] = poisson_lpmf(y[i] | 10*counts[i]*theta);
