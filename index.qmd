@@ -59,7 +59,7 @@ Datasets for the worksheets. See worksheets for explanation.
 
 `r download_data_buttom("deathrate2.csv","deathrate")` Death rates
 
-`r download_data_buttom("kidneycancerclean.csv","kidneycancerclean")` Death rates
+`r download_data_buttom("kidneycancerclean.csv","kidneycancerclean")` Kidney cancer
 
 ## Additional Resources
 

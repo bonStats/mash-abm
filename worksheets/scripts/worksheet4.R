@@ -122,3 +122,4 @@ fit_kidney = stan(file = "worksheets/scripts/kidney_hierarchical.stan",
 
 print(fit_kidney, pars = c("tau","gamma"))
 
+pairs(fit_kidney, pars = c("tau", "gamma[31]"))
