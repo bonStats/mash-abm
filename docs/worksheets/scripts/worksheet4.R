@@ -26,6 +26,20 @@ plot_usmap("counties", data=kidney, values="high_rate") +
                       name = "High rate of kidney cancer deaths") 
 
 
+# data summaries (using Frequentist estimate of annual rate of death)
+
+kidney %>% summarise(mean = mean(theta_hat), 
+                     med = median(theta_hat), 
+                     q10 = quantile(theta_hat, 0.1), 
+                     q90 = quantile(theta_hat, 0.9))
+
+scaling <- 10^5
+kidney %>% group_by(state) %>% 
+  summarise(mean = mean(theta_hat) * scaling, 
+            med = median(theta_hat) * scaling, 
+            q10 = quantile(theta_hat, 0.1) * scaling, 
+            q90 = quantile(theta_hat, 0.9) * scaling,
+            n = n()) 
 
 ## Stan fitting
 

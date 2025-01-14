@@ -6,21 +6,25 @@ data {
   int<lower=0> N;
   vector[N] counts; // population size (COLUMN)
   int<lower = 0> y[N]; // 10 year instances of cancer (ROW)
+  
+  // prior parameters for beta
+  //real<lower=0> a;
+  //real<lower=0> b;
 }
 
 // The parameters accepted by the model. 
 parameters {
-  real<lower=0> theta;
+  real<lower=0> neg_log_theta;
 }
 
 // The transformed parameters accepted by the model.
 transformed parameters {
-  real logtheta = log10(theta);
+  real<lower=0> theta = exp(-neg_log_theta);
 }
 
 // The model to be estimated. We model the output
 model {
-  theta ~ beta(1.0, 1.1); // choose prior
+  neg_log_theta ~ normal(10,1); // choose prior
   y ~ poisson(10*counts*theta);
 }
 
@@ -30,7 +34,7 @@ generated quantities {
   array[N] real y_rep = poisson_rng(10*counts*theta);
   
   // prior predictive values check
-  real theta_prior = beta_rng(1.0, 1.1);
+  real<upper=1> theta_prior = exp(-normal_rng(10,1));
   array[N] real y_rep_prior = poisson_rng(10*counts*theta_prior);
   
   // log likelihood for LOO package

@@ -26,6 +26,35 @@ plot_usmap("counties", data=kidney, values="high_rate") +
                       name = "High rate of kidney cancer deaths") 
 
 
+# data summaries (using Frequentist estimate of annual rate of death)
+
+kidney %>% 
+  filter(theta_hat > 0 ) %>%
+  mutate(logthetahat = log(theta_hat)) %>%
+  summarise(logmean = mean(logthetahat), 
+                     logmed = median(logthetahat), 
+                     logsd = sd(logthetahat),
+                     logq10 = quantile(logthetahat, 0.1), 
+                     logq90 = quantile(logthetahat, 0.9))
+
+scaling <- 10^5
+kidney %>% group_by(state) %>% 
+  summarise(mean = mean(theta_hat) * scaling, 
+            med = median(theta_hat) * scaling, 
+            q10 = quantile(theta_hat, 0.1) * scaling, 
+            q90 = quantile(theta_hat, 0.9) * scaling,
+            n = n()) 
+
+## choose prior
+
+# beta family
+
+alpha <- 10^(-5)
+beta <- 1
+
+beta_mean <- alpha / (alpha + beta)
+beta_sd <- sqrt((alpha * beta) / ( (alpha * beta + 1) * (alpha + beta)^2 ) )
+
 
 ## Stan fitting
 
@@ -38,13 +67,13 @@ fit_kidney = stan(file = "worksheets/scripts/kidney_global.stan",
                   data = kidney_stan_data, iter = 4000, warmup = 3000,
                   )
 
-print(fit_kidney, pars = c("theta","logtheta"))
+print(fit_kidney, pars = c("theta","neg_log_theta"))
 
-plot(fit_kidney, pars = c("logtheta"))
+plot(fit_kidney, pars = c("neg_log_theta"))
 plot(fit_kidney, pars = c("theta"))
-pairs(fit_kidney, pars = c("logtheta", "lp__"))
+pairs(fit_kidney, pars = c("neg_log_theta", "lp__"))
 
-traceplot(fit_kidney, pars = c("logtheta"))
+traceplot(fit_kidney, pars = c("neg_log_theta"))
 
 
 # posterior predictive checks
@@ -60,9 +89,15 @@ ppc_hist(log(1+kidney_stan_data$y), log(1+y_rep[sample_id, ]) )
 
 y_rep_prior <- as.matrix(fit_kidney, pars = "y_rep_prior")
 
-sample_id <- sample(1:kidney_stan_data$N, size = 8, replace = F)
+sample_id <- sample(1:nrow(y_rep_prior), size = 8, replace = F)
 
 ppc_hist(log(1+kidney_stan_data$y), log(1+y_rep_prior[sample_id, ]) )
+
+
+for (i in N){
+  y_reps_prior[i,] <- rpois(data_length, 10 * kidney_stan_data$counts * prior_theta[i])
+}
+
 
 
 # Bayes LOO 
