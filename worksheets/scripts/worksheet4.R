@@ -126,9 +126,14 @@ print(fit_kidney, pars = c("tau","gamma"))
 pairs(fit_kidney, pars = c("tau", "gamma[31]"))
 
 
-### Fit model with brms
+### Fit model with brms instead
 
 ## Global model
+
+# Likelihood:
+# y_i | theta ~ Pois(exp(Intercept + offset_i))
+# offset_i = exp(offset) = 10 n_i (fixed)
+# theta = Intercept (estimated)
 
 # Prior check
 
@@ -138,6 +143,9 @@ prior_kidney_brms <- brm(total_deaths ~ 1 + offset(log(10*population)),
                              data = kidney)
 
 prior_summary(prior_kidney_brms)
+
+# Default prior:
+# Intercept ~ student_t(df = 3, mean = -11.6026119141481, sd = 2.5)
 
 prior_pred <- posterior_predict(prior_kidney_brms, ndraws = 10) # prior! but use the "posterior_predict()" function
 ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred))
@@ -173,6 +181,11 @@ pp_check(fit_kidney_brms, type = "stat", stat = "log1_sd")
 
 ## Hierarchical model
 
+# Likelihood:
+# y_i | theta ~ Pois(exp(Intercept + state_intercept[s[i]] + offset))
+# offset = exp(offset) = 10 n_i (fixed)
+# theta = Intercept (estimated)
+
 # Prior check
 
 prior_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)), 
@@ -180,6 +193,14 @@ prior_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)),
                         iter = 4000, warmup = 1000,
                         sample_prior = 'only',
                         data = kidney)
+
+prior_summary(prior_kidney_brms2)
+
+# Default prior
+# Intercept ~ student_t(df = 3, mean = -11.6026119141481, sd = 2.5)
+# state_intercept[s] = z[s] * sd[s]
+# z[s] ~ N(0,1)
+# sd[s] ~ student_t(3, 0, 2.5), Truncated > 0
 
 prior_pred2 <- posterior_predict(prior_kidney_brms2, ndraws = 10) # prior! but use the "posterior_predict()" function
 ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred2))
@@ -189,11 +210,33 @@ pp_check(prior_kidney_brms2, type = "stat", stat = "log1_mean")
 pp_check(prior_kidney_brms2, type = "stat", stat = "log1_sd")
 pp_check(prior_kidney_brms2, type = "stat_2d", stat = c("log1_mean","log1_sd"))
 
+new_priors <- c(
+  set_prior("normal(-11.6, 2)", class = "Intercept"),
+  set_prior("normal(0, 2)", class = "sd", coef = "Intercept", group = "state")
+)
+
+prior_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)), 
+                          family = poisson(link = "log"),
+                          iter = 4000, warmup = 1000,
+                          sample_prior = 'only',
+                          prior = new_priors,
+                          data = kidney)
+
+prior_pred2 <- posterior_predict(prior_kidney_brms2, ndraws = 19) # prior! but use the "posterior_predict()" function
+ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred2))
+ppc_dens_overlay(y = log(1+kidney$total_deaths), yrep = log(1+prior_pred2))
+
+pp_check(prior_kidney_brms2, type = "stat", stat = "log1_mean")
+pp_check(prior_kidney_brms2, type = "stat", stat = "log1_sd")
+pp_check(prior_kidney_brms2, type = "stat_2d", stat = c("log1_mean","log1_sd"))
+
+
 # Posterior fit
 
 fit_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)), 
                         family = poisson(link = "log"),
                         iter = 4000, warmup = 1000,
+                        prior = new_priors,
                         data = kidney)
 
 summary(fit_kidney_brms2) # model and main effect summary
@@ -205,13 +248,12 @@ ranef(fit_kidney_brms2) # random effect summary
 
 pp_check(fit_kidney_brms2, type = "hist", ndraws = 8)
 
-post_pred2 <- posterior_predict(fit_kidney_brms2, ndraws = 8)
+post_pred2 <- posterior_predict(fit_kidney_brms2, ndraws = 19)
 ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+post_pred2))
 
 ppc_dens_overlay(y = log(1+kidney$total_deaths), yrep = log(1+post_pred2))
 
 pp_check(fit_kidney_brms2, type = "stat_2d", stat = c("log1_mean","log1_sd"))
-
 
 loo(fit_kidney_brms2, fit_kidney_brms)
 

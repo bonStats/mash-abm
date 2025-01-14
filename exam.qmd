@@ -1,0 +1,115 @@
+---
+title: "Final Exam Guide"
+subtitle: "Applied Bayesian Modelling"
+author: "Joshua J Bon"
+bibliography: assets/refs.bib
+nocite: |
+  @bon2019polling
+---
+
+{{< include snippets/_data-download.qmd >}}
+
+::: {.callout-note}
+## Instructions
+
+**Resources**: you may use notes, books and other documents, as well as access to the Internet. Any attempt to use any form of e-mail or messaging or to post on a forum will result in immediate disqualification.
+
+**Duration**: 3 hours.
+
+**Language**: Students should answer in English whenever possible. All code must be written in the `R` or `Stan`.
+
+**Submission**: At the end of the examination, you must hand in your answers written on paper AND send your `R`/`Stan` code to [`joshua.bon@dauphine.psl.eu`](mailto:joshua.bon@dauphine.psl.eu). Please contact the examiner if you wish to hand in your answers early. Please make sure that your `R` code has been correctly received before leaving the room.
+
+:::
+
+::: {.callout-warning}
+## Save your code!
+
+Make sure to save your code on a regular basis. Loss of data following a computer failure will not entitle you to extra time.
+:::
+
+## Datasets: US Presidential Election Polling and Voting Outcome
+
+The exam is based on two datasets regarding the US Presidential Elections in 2004--2016.
+
+1. Election voting outcome: `us-pres-state-voting-2004-2016.csv` contains the **voting outcome** of the election per state.
+
+`r download_data_buttom("us-pres-state-polling-2004-2016.csv","us-pres-state-polling-2004-2016")`
+
+2. Election polls: `us-pres-state-polling-2004-2016.csv` contains the **polling results** prior to election day.
+
+`r download_data_buttom("us-pres-state-voting-2004-2016.csv","us-pres-state-voting-2004-2016")`
+
+The final section of the exam (guide) contains a data appendix describing the variables.
+
+## Section 1: Tractable posteriors + exact sampling
+
+- Jeffery's priors
+- Conjugate priors
+- Tractable posterior distributions
+- Credible intervals
+- Prior sensitivity and informativeness
+- Posterior predictive distribution
+
+## Section 2: Bayesian Model Averaging + Gibbs sampling
+
+- Gibbs sampler for $g$-prior over models (Section 3)
+- Convergence diagnostics, plots, Monte Carlo error
+- Credible intervals
+- Posterior inclusion probabilities of covariates
+- Model interpretation
+
+## Section 3: Bayesian Workflow + PPLs
+
+- Data visualisation
+- `brms` or `stan` or other (student choice)
+- HMC convergence
+- Model building and checking (Sec 4)
+- Model interpretation
+- Model selection
+
+## References
+
+::: {#refs}
+:::
+
+
+## Data appendix
+
+### Election voting outcome
+
+`us-pres-state-voting-2004-2016.csv`: **voting outcome** of the election per state.
+
+- `state`: State names and Washington D.C. (e.g. `"washington-d-c"`)
+- `year`: Presidential election year: `2004`, `2008`, `2012`, `2016`
+- `state_year`: Concatenation of `state` and `year`: (e.g. `washington-d-c_2016`)
+- `state_year_id`: Unique integer ids for `state_year`
+- `Dem_vote`: Vote percentage won by Democratic candidate (`0`-`100`)
+- `Rep_vote`: Vote percentage won by Republican candidate (`0`-`100`)
+- `short_state`: Two character state id (e.g. `DC`)
+- `result_margin6`: Category for margin of voting *result*. Strong Dem. win (margin > 6%), Strong Rep. win (margin > 6%), or close margin (margin < 6%)
+- `year_id`: Unique integer ids for `year`
+
+### Election polls
+
+`us-pres-state-polling-2004-2016.csv`: **polling results** prior to election day.
+
+- `Dem_poll`: Polled percentage support for Democratic candidate (`0`-`100`)
+- `Rep_poll`: Polled percentage support for Republican candidate (`0`-`100`)
+- `Undecided`: Polled percentage of undecided voters (`0`-`100` and `NA`)
+- `sample_size`: Reported sample size of poll
+- `mean_days_to_election`: Days until election, measured as mean of start and end date of poll
+- `start_days_to_election`: Days until election, measured from start date of poll 
+- `end_days_to_election`: Days until election, measured from end date of poll 
+- `state`: State names and Washington D.C. (e.g. `"washington-d-c"`)
+- `year`: Presidential election year: `2004`, `2008`, `2012`, `2016`
+- `state_year`: Concatenation of `state` and `year`: (e.g. `washington-d-c_2016`)
+- `pollster`: Original name of polling agency or agencies
+- `state_year_id`: Unique integer ids for `state_year`
+- `pollster2`: Cleaned name of polling agency or agencies
+- `year_id`: Unique integer ids for `year`
+- `result_margin6`: Category for margin of voting *result*. Strong Dem win (margin > 6%), Strong Rep win (margin > 6%), or close margin (margin < 6%)
+- `rmargin_year`: `result_margin6` concatenated with `year`
+- `rmargin_year_id`: Unique integer ids for `rmargin_year`
+- `pollster_grp`: Further cleaned and grouped polling agencies or institutes
+- `pollster_id`:  Unique integer ids for `pollster_grp`
