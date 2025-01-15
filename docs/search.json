@@ -634,7 +634,7 @@
     "href": "index.html#slides",
     "title": "Applied Bayesian Modelling",
     "section": "Slides",
-    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4: Bayesian workflow and Stan Gelman et al. (2013)"
+    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4: Bayesian workflow and Stan [Reading: Gelman et al. (2020), Gelman et al. (2013), Ch. 2.7]"
   },
   {
     "objectID": "index.html#worksheets",
