@@ -2,10 +2,10 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(usmap)
-library(rstan)
-library(bayesplot)
-library(loo)
-library(brms)
+library(rstan) # run stan models 
+library(bayesplot) # posterior check code
+library(loo) # model selection
+library(brms) # fitting models with brm() function
 
 josh_data_dir <- function(fl){
   paste0("/Users/jbon/github/mash-abm/data/", fl)
@@ -169,12 +169,14 @@ summary(fit_kidney_brms)
 
 # Posterior check
 
+# manual check (2 steps)
 post_pred <- posterior_predict(fit_kidney_brms, ndraws = 8)
 ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+post_pred))
 
 ppc_dens_overlay(y = log(kidney$total_deaths), yrep = log(pred))
-pp_check(fit_kidney_brms, type = "stat_2d")
 
+# automatic check (1 step)
+pp_check(fit_kidney_brms, type = "stat_2d")
 pp_check(fit_kidney_brms, type = "stat", stat = "log1_mean")
 pp_check(fit_kidney_brms, type = "stat", stat = "log1_sd")
 
@@ -197,6 +199,7 @@ prior_kidney_brms2 <- brm(total_deaths ~ (1|state) + offset(log(10*population)),
 prior_summary(prior_kidney_brms2)
 
 # Default prior
+# mu = exp(Intercept + state_intercept[s] + offset)
 # Intercept ~ student_t(df = 3, mean = -11.6026119141481, sd = 2.5)
 # state_intercept[s] = z[s] * sd[s]
 # z[s] ~ N(0,1)
@@ -246,8 +249,10 @@ ranef(fit_kidney_brms2) # random effect summary
 
 # Posterior check
 
+# automatic check
 pp_check(fit_kidney_brms2, type = "hist", ndraws = 8)
 
+# manual check (2 steps)
 post_pred2 <- posterior_predict(fit_kidney_brms2, ndraws = 19)
 ppc_hist(y = log(1+kidney$total_deaths), yrep = log(1+post_pred2))
 
