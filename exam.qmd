@@ -5,16 +5,12 @@ author: "Joshua J Bon"
 bibliography: assets/refs.bib
 nocite: |
   @bon2019polling
+editor: 
+  mode: source
 ---
 
 {{< include snippets/_data-download.qmd >}}
 
-::: {.callout-important}
-## Exam helper code
-
-You may use the [Exam helper R code](https://www.dropbox.com/scl/fi/n632fod449k0qhgvhkmp2/exam-helper-code.R?rlkey=it4udlo3uljna2yms6gf0cai9&st=ct2hvane&dl=1) if you wish to.
-
-:::
 
 ::: {.callout-note}
 ## Instructions

@@ -417,7 +417,7 @@
     "href": "exam.html",
     "title": "Final Exam Guide",
     "section": "",
-    "text": "Exam helper code\n\n\n\nYou may use the Exam helper R code if you wish to."
+    "text": "Instructions\n\n\n\nResources: you may use notes, books and other documents, as well as access to the Internet. Any attempt to use any form of e-mail or messaging or to post on a forum will result in immediate disqualification.\nDuration: 3 hours.\nLanguage: Students should answer in English whenever possible. All code must be written in the R or Stan.\nSubmission: At the end of the examination, you must hand in your answers written on paper AND send your R/Stan code to joshua.bon@dauphine.psl.eu. Please contact the examiner if you wish to hand in your answers early. Please make sure that your R code has been correctly received before leaving the room."
   },
   {
     "objectID": "exam.html#datasets-us-presidential-election-polling-and-voting-outcome",
@@ -634,7 +634,7 @@
     "href": "index.html#slides",
     "title": "Applied Bayesian Modelling",
     "section": "Slides",
-    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo [Reading: M&R Ch. 2]\nSection 2: MCMC & Metropolis-Hastings [Reading: M&R Ch. 4]\nSection 3: Gibbs & Variable Selection [Reading: M&R Ch. 3]\nSection 4: Bayesian workflow and Stan Gelman et al. (2013)"
+    "text": "Slides\nLecture slides with main content. Further demonstrations in class.\n\nSection 1: Bayes & Monte Carlo\nReading: M&R Ch. 2\nSection 2: MCMC & Metropolis-Hastings\nReading: M&R Ch. 4\nSection 3: Gibbs & Variable Selection\nReading: M&R Ch. 3\nSection 4: Bayesian workflow and Stan\nReading: Gelman et al. (2020), Gelman et al. (2013), Ch. 2.7"
   },
   {
     "objectID": "index.html#worksheets",
@@ -669,7 +669,7 @@
     "href": "index.html#references",
     "title": "Applied Bayesian Modelling",
     "section": "References",
-    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
+    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434. https://doi.org/10.48550/arXiv.1701.02434.\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182 (2): 389–402. https://doi.org/10.1111/rssa.12378.\n\n\nGelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. Chapman & Hall/CRC Press. http://www.stat.columbia.edu/~gelman/book/BDA3.pdf.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nMarin, Jean-Michel, and Christian P Robert. 2014. Bayesian Essentials with R. Vol. 48. Springer. https://bu.dauphine.psl.eu/bibliodata.html?record_id=TN_cdi_hal_primary_oai_HAL_hal_01337395v1&rtype=book&online=true&action=view_record."
   },
   {
     "objectID": "lectures/abm4.html#applied-bayesian-modelling",
@@ -865,7 +865,7 @@
     "href": "lectures/abm4.html#references",
     "title": "Bayesian workflow and Stan",
     "section": "References",
-    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nVehtari, Aki, Andrew Gelman, and Jonah Gabry. 2017. “Practical Bayesian Model Evaluation Using Leave-One-Out Cross-Validation and WAIC.” Statistics and Computing 27: 1413–32.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
+    "text": "References\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434. https://doi.org/10.48550/arXiv.1701.02434.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.” arXiv Preprint arXiv:2011.01808. https://doi.org/10.48550/arXiv.2011.01808.\n\n\nVehtari, Aki, Andrew Gelman, and Jonah Gabry. 2017. “Practical Bayesian Model Evaluation Using Leave-One-Out Cross-Validation and WAIC.” Statistics and Computing 27: 1413–32.\n\n\nYao, Yuling, Aki Vehtari, and Andrew Gelman. 2022. “Stacking for Non-Mixing Bayesian Computations: The Curse and Blessing of Multimodal Posteriors.” Journal of Machine Learning Research 23 (79): 1–45.\n\n\nYao, Yuling, Aki Vehtari, Daniel Simpson, and Andrew Gelman. 2018. “Using Stacking to Average Bayesian Predictive Distributions (with Discussion).” Bayesian Analysis 13 (3): 917–1003."
   },
   {
     "objectID": "lectures/abm2.html#applied-bayesian-modelling",
@@ -1061,6 +1061,6 @@
     "href": "lectures/abm2.html#references",
     "title": "MCMC & Metropolis-Hastings",
     "section": "References",
-    "text": "References\n\n\nBaker, Jack, Paul Fearnhead, Emily B Fox, and Christopher Nemeth. 2019. “Sgmcmc: An r Package for Stochastic Gradient Markov Chain Monte Carlo.” Journal of Statistical Software 91: 1–27.\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434.\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67.\n\n\nRosenthal, Jeffrey S et al. 2011. “Optimal Proposal Distributions and Adaptive MCMC.” Handbook of Markov Chain Monte Carlo 4 (10.1201)."
+    "text": "References\n\n\nBaker, Jack, Paul Fearnhead, Emily B Fox, and Christopher Nemeth. 2019. “Sgmcmc: An r Package for Stochastic Gradient Markov Chain Monte Carlo.” Journal of Statistical Software 91: 1–27.\n\n\nBetancourt, Michael. 2017. “A Conceptual Introduction to Hamiltonian Monte Carlo.” arXiv Preprint arXiv:1701.02434. https://doi.org/10.48550/arXiv.1701.02434.\n\n\nGelman, Andrew, and Donald B Rubin. 1992. “Inference from Iterative Simulation Using Multiple Sequences.” Statistical Science 7 (4): 457–72.\n\n\nRoberts, Gareth O, and Jeffrey S Rosenthal. 2001. “Optimal Scaling for Various Metropolis-Hastings Algorithms.” Statistical Science 16 (4): 351–67.\n\n\nRosenthal, Jeffrey S et al. 2011. “Optimal Proposal Distributions and Adaptive MCMC.” Handbook of Markov Chain Monte Carlo 4 (10.1201)."
   }
 ]

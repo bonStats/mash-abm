@@ -2,6 +2,8 @@
 title: "Applied Bayesian Modelling"
 author: "Joshua J Bon"
 bibliography: assets/refs.bib
+editor: 
+  mode: source
 ---
 
 {{< include snippets/_data-download.qmd >}}
@@ -24,10 +26,14 @@ Course website for M2 [MASH](https://sites.google.com/view/m2mash/home) course o
 
 Lecture slides with main content. Further demonstrations in class.
 
--   [Section 1: Bayes & Monte Carlo](lectures/abm1.html) \[Reading: M&R Ch. 2\]
--   [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html) \[Reading: M&R Ch. 4\]
--   [Section 3: Gibbs & Variable Selection](lectures/abm3.html) \[Reading: M&R Ch. 3\]
--   [Section 4: Bayesian workflow and Stan](lectures/abm4.html) [Reading: @gelman2020bayesian, @gelman2013bayesian, Ch. 2.7]
+- [x]   [Section 1: Bayes & Monte Carlo](lectures/abm1.html)  
+Reading: M&R Ch. 2
+- [x]   [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html)  
+Reading: M&R Ch. 4
+- [x]   [Section 3: Gibbs & Variable Selection](lectures/abm3.html)  
+Reading: M&R Ch. 3
+- [x]   [Section 4: Bayesian workflow and Stan](lectures/abm4.html)  
+Reading: @gelman2020bayesian, @gelman2013bayesian, Ch. 2.7
 
 ## Worksheets
 
