@@ -167,5 +167,6 @@ exp(log_BF21)
 
 # Model 1/2: Jeffery's prior
 
-# repeat previous code with alpha = 1/2 and beta0 = 0
-# this is equivalnt to Jeffery's prior
+# repeat previous code with alpha = 1/2 and beta0 = 0.
+# this is equivalent to Jeffery's prior.
+# You will need to redefine the function for the prior.

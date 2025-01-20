@@ -27,7 +27,7 @@ Lecture slides with main content. Further demonstrations in class.
 -   [Section 1: Bayes & Monte Carlo](lectures/abm1.html) \[Reading: M&R Ch. 2\]
 -   [Section 2: MCMC & Metropolis-Hastings](lectures/abm2.html) \[Reading: M&R Ch. 4\]
 -   [Section 3: Gibbs & Variable Selection](lectures/abm3.html) \[Reading: M&R Ch. 3\]
--   [Section 4: Bayesian workflow and Stan](lectures/abm4.html) \[Reading: @gelman2020bayesian, @gelman2013bayesian, Ch. 2.7\]
+-   [Section 4: Bayesian workflow and Stan](lectures/abm4.html) [Reading: @gelman2020bayesian, @gelman2013bayesian, Ch. 2.7]
 
 ## Worksheets
 
